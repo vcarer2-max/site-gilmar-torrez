@@ -1,0 +1,6 @@
+{
+  "name": "Gilmar Torrez - Músico e Professor de Música",
+  "description": "Landing Page oficial de Gilmar Torrez: Shows ao vivo de Pop Rock para Bares, Eventos e Festas, e Aulas Particulares de Canto, Guitarra, Violão e Baixo.",
+  "requestFramePermissions": [],
+  "majorCapabilities": ["MAJOR_CAPABILITY_SERVER_SIDE_GEMINI_API"]
+}
