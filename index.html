@@ -1259,81 +1259,239 @@
     /* ==========================================
        4. MÍDIA E PROVA SOCIAL
        ========================================== */
+    /* ==========================================
+       4. GALERIA DE CARROSSÉIS (SHOW AO VIVO, ACÚSTICO, GUITARRA SOLO, CELEBRAÇÃO)
+       ========================================== */
+    .gallery-filter-tabs {
+      display: flex;
+      flex-wrap: wrap;
+      justify-content: center;
+      gap: 10px;
+      margin-bottom: 32px;
+    }
+
+    .gallery-tab-btn {
+      background: rgba(255, 255, 255, 0.04);
+      color: var(--text-light);
+      border: 1px solid var(--border-subtle);
+      border-radius: var(--radius-pill);
+      padding: 8px 20px;
+      font-family: var(--font-title);
+      font-size: 0.85rem;
+      font-weight: 700;
+      letter-spacing: 0.5px;
+      cursor: pointer;
+      transition: var(--transition);
+      user-select: none;
+    }
+
+    .gallery-tab-btn:hover {
+      background: rgba(245, 158, 11, 0.12);
+      border-color: var(--gold-primary);
+      color: #ffffff;
+    }
+
+    .gallery-tab-btn.active {
+      background: var(--gold-primary);
+      color: #0f1016;
+      border-color: var(--gold-primary);
+      box-shadow: 0 4px 15px rgba(245, 158, 11, 0.35);
+    }
+
     .gallery-grid {
       display: grid;
       grid-template-columns: 1fr;
-      gap: 20px;
+      gap: 26px;
       margin-bottom: 60px;
     }
 
-    @media (min-width: 640px) {
+    @media (min-width: 768px) {
       .gallery-grid {
         grid-template-columns: repeat(2, 1fr);
       }
     }
 
-    @media (min-width: 1024px) {
-      .gallery-grid {
-        grid-template-columns: repeat(4, 1fr);
+    .gallery-carousel-card {
+      background: #14151e;
+      border: 1px solid var(--border-subtle);
+      border-radius: var(--radius-md);
+      overflow: hidden;
+      box-shadow: 0 10px 30px rgba(0, 0, 0, 0.4);
+      transition: border-color 0.3s ease, transform 0.3s ease, box-shadow 0.3s ease;
+      position: relative;
+    }
+
+    .gallery-carousel-card:hover {
+      border-color: rgba(245, 158, 11, 0.45);
+      box-shadow: 0 16px 36px rgba(0, 0, 0, 0.6);
+    }
+
+    .carousel-container {
+      position: relative;
+      width: 100%;
+      aspect-ratio: 16 / 10;
+      min-height: 250px;
+      overflow: hidden;
+      touch-action: pan-y;
+      user-select: none;
+    }
+
+    @media (max-width: 640px) {
+      .carousel-container {
+        aspect-ratio: 4 / 3;
+        min-height: 230px;
       }
     }
 
-    .gallery-item {
+    .carousel-track {
+      display: flex;
+      width: 100%;
+      height: 100%;
+      transition: transform 0.45s cubic-bezier(0.25, 1, 0.5, 1);
+      will-change: transform;
+    }
+
+    .carousel-slide {
+      flex: 0 0 100%;
+      width: 100%;
+      height: 100%;
       position: relative;
-      border-radius: var(--radius-md);
-      overflow: hidden;
-      aspect-ratio: 4 / 3;
-      background: #171821;
-      border: 1px solid var(--border-subtle);
       cursor: pointer;
-      transition: var(--transition);
+      overflow: hidden;
     }
 
-    .gallery-item:hover {
-      border-color: var(--border-gold);
-      transform: translateY(-5px);
-      box-shadow: 0 15px 30px rgba(0, 0, 0, 0.6);
-    }
-
-    .gallery-item img {
+    .carousel-slide img {
       width: 100%;
       height: 100%;
       object-fit: cover;
+      display: block;
       transition: transform 0.6s cubic-bezier(0.4, 0, 0.2, 1);
     }
 
-    .gallery-item:hover img {
-      transform: scale(1.08);
+    .carousel-slide:hover img {
+      transform: scale(1.05);
     }
 
-    .gallery-overlay {
+    .carousel-overlay {
       position: absolute;
       inset: 0;
-      background: linear-gradient(180deg, rgba(0, 0, 0, 0.1) 0%, rgba(9, 10, 14, 0.9) 100%);
+      background: linear-gradient(180deg, rgba(0, 0, 0, 0.12) 0%, rgba(9, 10, 14, 0.9) 100%);
       display: flex;
       flex-direction: column;
       justify-content: flex-end;
       padding: 18px;
+      pointer-events: none;
     }
 
     .gallery-tag {
       align-self: flex-start;
-      background: rgba(245, 158, 11, 0.85);
+      background: rgba(245, 158, 11, 0.9);
       color: #120902;
       font-size: 0.72rem;
       font-weight: 800;
       text-transform: uppercase;
       letter-spacing: 0.8px;
-      padding: 4px 10px;
+      padding: 4px 12px;
       border-radius: var(--radius-pill);
       margin-bottom: 6px;
+      display: inline-block;
     }
 
     .gallery-caption {
       font-family: var(--font-title);
-      font-size: 0.95rem;
+      font-size: 0.96rem;
       font-weight: 700;
       color: var(--text-white);
+      text-shadow: 0 2px 4px rgba(0, 0, 0, 0.8);
+    }
+
+    /* Botões Avançar e Voltar Elegantes */
+    .carousel-btn {
+      position: absolute;
+      top: 50%;
+      transform: translateY(-50%);
+      width: 42px;
+      height: 42px;
+      border-radius: 50%;
+      background: rgba(15, 16, 22, 0.75);
+      backdrop-filter: blur(8px);
+      -webkit-backdrop-filter: blur(8px);
+      border: 1px solid rgba(255, 255, 255, 0.22);
+      color: #ffffff;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      cursor: pointer;
+      z-index: 10;
+      transition: all 0.22s ease;
+      box-shadow: 0 4px 12px rgba(0, 0, 0, 0.5);
+    }
+
+    .carousel-btn:hover {
+      background: var(--gold-primary);
+      color: #0f1016;
+      border-color: var(--gold-primary);
+      transform: translateY(-50%) scale(1.08);
+    }
+
+    .carousel-btn.prev-btn {
+      left: 12px;
+    }
+
+    .carousel-btn.next-btn {
+      right: 12px;
+    }
+
+    /* Contador Numérico de Fotos */
+    .carousel-counter {
+      position: absolute;
+      top: 14px;
+      right: 14px;
+      background: rgba(9, 10, 14, 0.82);
+      backdrop-filter: blur(6px);
+      -webkit-backdrop-filter: blur(6px);
+      border: 1px solid rgba(255, 255, 255, 0.16);
+      color: #f1f5f9;
+      font-size: 0.75rem;
+      font-weight: 700;
+      padding: 3px 10px;
+      border-radius: var(--radius-pill);
+      z-index: 9;
+      letter-spacing: 0.5px;
+    }
+
+    /* Indicador de Pontos (Dots) */
+    .carousel-dots {
+      position: absolute;
+      bottom: 14px;
+      right: 16px;
+      display: flex;
+      align-items: center;
+      gap: 6px;
+      z-index: 10;
+    }
+
+    .carousel-dots .dot {
+      width: 8px;
+      height: 8px;
+      border-radius: 50%;
+      background: rgba(255, 255, 255, 0.4);
+      border: none;
+      cursor: pointer;
+      padding: 0;
+      transition: all 0.25s ease;
+    }
+
+    .carousel-dots .dot:hover {
+      background: rgba(255, 255, 255, 0.8);
+      transform: scale(1.2);
+    }
+
+    .carousel-dots .dot.active {
+      width: 22px;
+      border-radius: 4px;
+      background: var(--gold-primary);
+      box-shadow: 0 0 8px rgba(245, 158, 11, 0.6);
     }
 
     /* Vídeos Grid */
@@ -2567,39 +2725,296 @@
         </p>
       </div>
 
-      <!-- Galeria de 4 Fotos com Modal -->
+      <!-- Filtros Rápidos de Categoria da Galeria -->
+      <div class="gallery-filter-tabs" role="tablist" aria-label="Filtro de Categorias da Galeria">
+        <button type="button" class="gallery-tab-btn active" onclick="filterGalleryCategory('all', this)">
+          <i class="fa-solid fa-layer-group"></i> Ver Todas (4)
+        </button>
+        <button type="button" class="gallery-tab-btn" onclick="filterGalleryCategory('show-ao-vivo', this)">
+          <i class="fa-solid fa-microphone-lines"></i> Show ao Vivo
+        </button>
+        <button type="button" class="gallery-tab-btn" onclick="filterGalleryCategory('acustico', this)">
+          <i class="fa-solid fa-guitar"></i> Acústico
+        </button>
+        <button type="button" class="gallery-tab-btn" onclick="filterGalleryCategory('guitarra-solo', this)">
+          <i class="fa-solid fa-bolt"></i> Guitarra Solo
+        </button>
+        <button type="button" class="gallery-tab-btn" onclick="filterGalleryCategory('celebracao', this)">
+          <i class="fa-solid fa-champagne-glasses"></i> Celebração
+        </button>
+      </div>
+
+      <!-- Grid dos 4 Carrosséis (4 Fotos Cada Item) -->
       <div class="gallery-grid">
-        <div class="gallery-item" onclick="openModal('/stage-bg.jpg', 'Gilmar Torres em Grande Show com Banda e Plateia')">
-          <img src="/stage-bg.jpg" alt="Show de Gilmar Torres" loading="lazy" onerror="this.onerror=null; this.src='0b6471dd-b068-4fc2-b24f-15adceaa265a.jpg';" />
-          <div class="gallery-overlay">
-            <span class="gallery-tag">Show ao Vivo</span>
-            <span class="gallery-caption">Palco Principal & Plateia</span>
+
+        <!-- ==========================================
+             ITEM 1: SHOW AO VIVO (4 FOTOS)
+             ========================================== -->
+        <div class="gallery-carousel-card" data-category="show-ao-vivo">
+          <div class="carousel-container" id="carousel-show-ao-vivo" aria-label="Carrossel Show ao Vivo">
+            <!-- Trilho dos Slides -->
+            <div class="carousel-track">
+              <!-- Foto 1 (Show ao Vivo) - Substitua a URL src abaixo -->
+              <div class="carousel-slide active" onclick="openModal('/stage-bg.jpg', 'Show ao Vivo: Palco Principal & Iluminação Cênica')">
+                <img src="/stage-bg.jpg" alt="Show ao Vivo - Palco Principal" loading="lazy" onerror="this.onerror=null; this.src='https://images.unsplash.com/photo-1501386761578-eac5c94b800a?auto=format&fit=crop&w=1000&q=80';" />
+                <div class="carousel-overlay">
+                  <span class="gallery-tag">Show ao Vivo</span>
+                  <span class="gallery-caption">Palco Principal & Iluminação Cênica</span>
+                </div>
+              </div>
+
+              <!-- Foto 2 (Show ao Vivo) - Substitua a URL src abaixo -->
+              <div class="carousel-slide" onclick="openModal('https://images.unsplash.com/photo-1470225620780-dba8ba36b745?auto=format&fit=crop&w=1000&q=80', 'Show ao Vivo: Energia Contagiante e Plateia Vibrando')">
+                <img src="https://images.unsplash.com/photo-1470225620780-dba8ba36b745?auto=format&fit=crop&w=1000&q=80" alt="Show ao Vivo - Plateia Vibrando" loading="lazy" />
+                <div class="carousel-overlay">
+                  <span class="gallery-tag">Show ao Vivo</span>
+                  <span class="gallery-caption">Energia Contagiante & Plateia</span>
+                </div>
+              </div>
+
+              <!-- Foto 3 (Show ao Vivo) - Substitua a URL src abaixo -->
+              <div class="carousel-slide" onclick="openModal('https://images.unsplash.com/photo-1465847899084-d164df4dedc6?auto=format&fit=crop&w=1000&q=80', 'Show ao Vivo: Performance Pop Rock com Banda Completa')">
+                <img src="https://images.unsplash.com/photo-1465847899084-d164df4dedc6?auto=format&fit=crop&w=1000&q=80" alt="Show ao Vivo - Performance com Banda" loading="lazy" />
+                <div class="carousel-overlay">
+                  <span class="gallery-tag">Show ao Vivo</span>
+                  <span class="gallery-caption">Performance Pop Rock no Palco</span>
+                </div>
+              </div>
+
+              <!-- Foto 4 (Show ao Vivo) - Substitua a URL src abaixo -->
+              <div class="carousel-slide" onclick="openModal('https://images.unsplash.com/photo-1516450360452-9312f5e86fc7?auto=format&fit=crop&w=1000&q=80', 'Show ao Vivo: Clímax Musical Inesquecível')">
+                <img src="https://images.unsplash.com/photo-1516450360452-9312f5e86fc7?auto=format&fit=crop&w=1000&q=80" alt="Show ao Vivo - Clímax Musical" loading="lazy" />
+                <div class="carousel-overlay">
+                  <span class="gallery-tag">Show ao Vivo</span>
+                  <span class="gallery-caption">Clímax Musical & Luzes de Palco</span>
+                </div>
+              </div>
+            </div>
+
+            <!-- Botões Voltar e Avançar -->
+            <button type="button" class="carousel-btn prev-btn" aria-label="Foto anterior Show ao Vivo" onclick="event.stopPropagation(); moveGallerySlide('carousel-show-ao-vivo', -1)">
+              <i class="fa-solid fa-chevron-left"></i>
+            </button>
+            <button type="button" class="carousel-btn next-btn" aria-label="Próxima foto Show ao Vivo" onclick="event.stopPropagation(); moveGallerySlide('carousel-show-ao-vivo', 1)">
+              <i class="fa-solid fa-chevron-right"></i>
+            </button>
+
+            <!-- Contador de Fotos -->
+            <div class="carousel-counter">
+              <span class="current-index">1</span> / 4
+            </div>
+
+            <!-- Indicadores de Pontos (Dots) -->
+            <div class="carousel-dots">
+              <button type="button" class="dot active" aria-label="Foto 1" onclick="event.stopPropagation(); goToGallerySlide('carousel-show-ao-vivo', 0)"></button>
+              <button type="button" class="dot" aria-label="Foto 2" onclick="event.stopPropagation(); goToGallerySlide('carousel-show-ao-vivo', 1)"></button>
+              <button type="button" class="dot" aria-label="Foto 3" onclick="event.stopPropagation(); goToGallerySlide('carousel-show-ao-vivo', 2)"></button>
+              <button type="button" class="dot" aria-label="Foto 4" onclick="event.stopPropagation(); goToGallerySlide('carousel-show-ao-vivo', 3)"></button>
+            </div>
           </div>
         </div>
 
-        <div class="gallery-item" onclick="openModal('https://images.unsplash.com/photo-1511671782779-c97d3d27a1d4?auto=format&fit=crop&w=1200&q=80', 'Show Acústico Voz & Violão - Pubs e Lounges')">
-          <img src="https://images.unsplash.com/photo-1511671782779-c97d3d27a1d4?auto=format&fit=crop&w=600&q=80" alt="Show Acústico" loading="lazy" />
-          <div class="gallery-overlay">
-            <span class="gallery-tag">Acústico</span>
-            <span class="gallery-caption">Voz & Violão no Pub</span>
+        <!-- ==========================================
+             ITEM 2: ACÚSTICO (4 FOTOS)
+             ========================================== -->
+        <div class="gallery-carousel-card" data-category="acustico">
+          <div class="carousel-container" id="carousel-acustico" aria-label="Carrossel Show Acústico">
+            <!-- Trilho dos Slides -->
+            <div class="carousel-track">
+              <!-- Foto 1 (Acústico) - Substitua a URL src abaixo -->
+              <div class="carousel-slide active" onclick="openModal('https://images.unsplash.com/photo-1511671782779-c97d3d27a1d4?auto=format&fit=crop&w=1000&q=80', 'Show Acústico: Voz & Violão no Pub e Lounge')">
+                <img src="https://images.unsplash.com/photo-1511671782779-c97d3d27a1d4?auto=format&fit=crop&w=1000&q=80" alt="Show Acústico - Voz & Violão" loading="lazy" />
+                <div class="carousel-overlay">
+                  <span class="gallery-tag">Acústico</span>
+                  <span class="gallery-caption">Voz & Violão no Pub e Lounge</span>
+                </div>
+              </div>
+
+              <!-- Foto 2 (Acústico) - Substitua a URL src abaixo -->
+              <div class="carousel-slide" onclick="openModal('https://images.unsplash.com/photo-1525201548942-d8732f6617a0?auto=format&fit=crop&w=1000&q=80', 'Show Acústico: Violão de Aço e Arranjos Envolventes')">
+                <img src="https://images.unsplash.com/photo-1525201548942-d8732f6617a0?auto=format&fit=crop&w=1000&q=80" alt="Show Acústico - Violão de Aço" loading="lazy" />
+                <div class="carousel-overlay">
+                  <span class="gallery-tag">Acústico</span>
+                  <span class="gallery-caption">Violão de Aço & Arranjos Precisos</span>
+                </div>
+              </div>
+
+              <!-- Foto 3 (Acústico) - Substitua a URL src abaixo -->
+              <div class="carousel-slide" onclick="openModal('https://images.unsplash.com/photo-1445985543470-41fdd5c31447?auto=format&fit=crop&w=1000&q=80', 'Show Acústico: Pocket Show Intimista para Eventos')">
+                <img src="https://images.unsplash.com/photo-1445985543470-41fdd5c31447?auto=format&fit=crop&w=1000&q=80" alt="Show Acústico - Pocket Show Intimista" loading="lazy" />
+                <div class="carousel-overlay">
+                  <span class="gallery-tag">Acústico</span>
+                  <span class="gallery-caption">Pocket Show Intimista para Recepções</span>
+                </div>
+              </div>
+
+              <!-- Foto 4 (Acústico) - Substitua a URL src abaixo -->
+              <div class="carousel-slide" onclick="openModal('https://images.unsplash.com/photo-1485579149621-3123dd979885?auto=format&fit=crop&w=1000&q=80', 'Show Acústico: Repertório Clássico Descontraído')">
+                <img src="https://images.unsplash.com/photo-1485579149621-3123dd979885?auto=format&fit=crop&w=1000&q=80" alt="Show Acústico - Clássicos Pop Rock" loading="lazy" />
+                <div class="carousel-overlay">
+                  <span class="gallery-tag">Acústico</span>
+                  <span class="gallery-caption">Repertório Descontraído & Aconchegante</span>
+                </div>
+              </div>
+            </div>
+
+            <!-- Botões Voltar e Avançar -->
+            <button type="button" class="carousel-btn prev-btn" aria-label="Foto anterior Acústico" onclick="event.stopPropagation(); moveGallerySlide('carousel-acustico', -1)">
+              <i class="fa-solid fa-chevron-left"></i>
+            </button>
+            <button type="button" class="carousel-btn next-btn" aria-label="Próxima foto Acústico" onclick="event.stopPropagation(); moveGallerySlide('carousel-acustico', 1)">
+              <i class="fa-solid fa-chevron-right"></i>
+            </button>
+
+            <!-- Contador de Fotos -->
+            <div class="carousel-counter">
+              <span class="current-index">1</span> / 4
+            </div>
+
+            <!-- Indicadores de Pontos (Dots) -->
+            <div class="carousel-dots">
+              <button type="button" class="dot active" aria-label="Foto 1" onclick="event.stopPropagation(); goToGallerySlide('carousel-acustico', 0)"></button>
+              <button type="button" class="dot" aria-label="Foto 2" onclick="event.stopPropagation(); goToGallerySlide('carousel-acustico', 1)"></button>
+              <button type="button" class="dot" aria-label="Foto 3" onclick="event.stopPropagation(); goToGallerySlide('carousel-acustico', 2)"></button>
+              <button type="button" class="dot" aria-label="Foto 4" onclick="event.stopPropagation(); goToGallerySlide('carousel-acustico', 3)"></button>
+            </div>
           </div>
         </div>
 
-        <div class="gallery-item" onclick="openModal('https://images.unsplash.com/photo-1514525253161-7a46d19cd819?auto=format&fit=crop&w=1200&q=80', 'Solo de Guitarra Marcante ao Vivo')">
-          <img src="https://images.unsplash.com/photo-1514525253161-7a46d19cd819?auto=format&fit=crop&w=600&q=80" alt="Solo de Guitarra ao Vivo" loading="lazy" />
-          <div class="gallery-overlay">
-            <span class="gallery-tag">Guitarra Solo</span>
-            <span class="gallery-caption">Técnica e Pegada Rock</span>
+        <!-- ==========================================
+             ITEM 3: GUITARRA SOLO (4 FOTOS)
+             ========================================== -->
+        <div class="gallery-carousel-card" data-category="guitarra-solo">
+          <div class="carousel-container" id="carousel-guitarra-solo" aria-label="Carrossel Guitarra Solo">
+            <!-- Trilho dos Slides -->
+            <div class="carousel-track">
+              <!-- Foto 1 (Guitarra Solo) - Substitua a URL src abaixo -->
+              <div class="carousel-slide active" onclick="openModal('https://images.unsplash.com/photo-1514525253161-7a46d19cd819?auto=format&fit=crop&w=1000&q=80', 'Guitarra Solo: Solo Expressivo de Stratocaster ao Vivo')">
+                <img src="https://images.unsplash.com/photo-1514525253161-7a46d19cd819?auto=format&fit=crop&w=1000&q=80" alt="Guitarra Solo - Solo Stratocaster" loading="lazy" />
+                <div class="carousel-overlay">
+                  <span class="gallery-tag">Guitarra Solo</span>
+                  <span class="gallery-caption">Solo Expressivo de Guitarra ao Vivo</span>
+                </div>
+              </div>
+
+              <!-- Foto 2 (Guitarra Solo) - Substitua a URL src abaixo -->
+              <div class="carousel-slide" onclick="openModal('https://images.unsplash.com/photo-1550291652-6ea9114a47b1?auto=format&fit=crop&w=1000&q=80', 'Guitarra Solo: Pegada Rock e Precisão Técnica')">
+                <img src="https://images.unsplash.com/photo-1550291652-6ea9114a47b1?auto=format&fit=crop&w=1000&q=80" alt="Guitarra Solo - Detalhe das Cordas" loading="lazy" />
+                <div class="carousel-overlay">
+                  <span class="gallery-tag">Guitarra Solo</span>
+                  <span class="gallery-caption">Pegada Rock & Precisão Técnica</span>
+                </div>
+              </div>
+
+              <!-- Foto 3 (Guitarra Solo) - Substitua a URL src abaixo -->
+              <div class="carousel-slide" onclick="openModal('https://images.unsplash.com/photo-1564186763535-ebb21ef5277f?auto=format&fit=crop&w=1000&q=80', 'Guitarra Solo: Riffs Eletrizantes com Amplificador Valvulado')">
+                <img src="https://images.unsplash.com/photo-1564186763535-ebb21ef5277f?auto=format&fit=crop&w=1000&q=80" alt="Guitarra Solo - Amplificador Valvulado" loading="lazy" />
+                <div class="carousel-overlay">
+                  <span class="gallery-tag">Guitarra Solo</span>
+                  <span class="gallery-caption">Riffs Eletrizantes com Timbre Marcante</span>
+                </div>
+              </div>
+
+              <!-- Foto 4 (Guitarra Solo) - Substitua a URL src abaixo -->
+              <div class="carousel-slide" onclick="openModal('https://images.unsplash.com/photo-1510915361894-db8b60106cb1?auto=format&fit=crop&w=1000&q=80', 'Guitarra Solo: Hinos do Pop Rock em Solos Memoráveis')">
+                <img src="https://images.unsplash.com/photo-1510915361894-db8b60106cb1?auto=format&fit=crop&w=1000&q=80" alt="Guitarra Solo - Solos Clássicos" loading="lazy" />
+                <div class="carousel-overlay">
+                  <span class="gallery-tag">Guitarra Solo</span>
+                  <span class="gallery-caption">Hinos do Pop Rock em Solos Memoráveis</span>
+                </div>
+              </div>
+            </div>
+
+            <!-- Botões Voltar e Avançar -->
+            <button type="button" class="carousel-btn prev-btn" aria-label="Foto anterior Guitarra Solo" onclick="event.stopPropagation(); moveGallerySlide('carousel-guitarra-solo', -1)">
+              <i class="fa-solid fa-chevron-left"></i>
+            </button>
+            <button type="button" class="carousel-btn next-btn" aria-label="Próxima foto Guitarra Solo" onclick="event.stopPropagation(); moveGallerySlide('carousel-guitarra-solo', 1)">
+              <i class="fa-solid fa-chevron-right"></i>
+            </button>
+
+            <!-- Contador de Fotos -->
+            <div class="carousel-counter">
+              <span class="current-index">1</span> / 4
+            </div>
+
+            <!-- Indicadores de Pontos (Dots) -->
+            <div class="carousel-dots">
+              <button type="button" class="dot active" aria-label="Foto 1" onclick="event.stopPropagation(); goToGallerySlide('carousel-guitarra-solo', 0)"></button>
+              <button type="button" class="dot" aria-label="Foto 2" onclick="event.stopPropagation(); goToGallerySlide('carousel-guitarra-solo', 1)"></button>
+              <button type="button" class="dot" aria-label="Foto 3" onclick="event.stopPropagation(); goToGallerySlide('carousel-guitarra-solo', 2)"></button>
+              <button type="button" class="dot" aria-label="Foto 4" onclick="event.stopPropagation(); goToGallerySlide('carousel-guitarra-solo', 3)"></button>
+            </div>
           </div>
         </div>
 
-        <div class="gallery-item" onclick="openModal('https://images.unsplash.com/photo-1492684223066-81342ee5ff30?auto=format&fit=crop&w=1200&q=80', 'Confraternização e Animação de Festa')">
-          <img src="https://images.unsplash.com/photo-1492684223066-81342ee5ff30?auto=format&fit=crop&w=600&q=80" alt="Confraternização de Evento" loading="lazy" />
-          <div class="gallery-overlay">
-            <span class="gallery-tag">Celebração</span>
-            <span class="gallery-caption">Público Cantando Junto</span>
+        <!-- ==========================================
+             ITEM 4: CELEBRAÇÃO (4 FOTOS)
+             ========================================== -->
+        <div class="gallery-carousel-card" data-category="celebracao">
+          <div class="carousel-container" id="carousel-celebracao" aria-label="Carrossel Celebração">
+            <!-- Trilho dos Slides -->
+            <div class="carousel-track">
+              <!-- Foto 1 (Celebração) - Substitua a URL src abaixo -->
+              <div class="carousel-slide active" onclick="openModal('https://images.unsplash.com/photo-1492684223066-81342ee5ff30?auto=format&fit=crop&w=1000&q=80', 'Celebração: Pista Animada e Público Cantando Junto')">
+                <img src="https://images.unsplash.com/photo-1492684223066-81342ee5ff30?auto=format&fit=crop&w=1000&q=80" alt="Celebração - Pista Animada" loading="lazy" />
+                <div class="carousel-overlay">
+                  <span class="gallery-tag">Celebração</span>
+                  <span class="gallery-caption">Pista Animada & Convidados Cantando</span>
+                </div>
+              </div>
+
+              <!-- Foto 2 (Celebração) - Substitua a URL src abaixo -->
+              <div class="carousel-slide" onclick="openModal('https://images.unsplash.com/photo-1519671482749-fd09be7ccebf?auto=format&fit=crop&w=1000&q=80', 'Celebração: Confraternização com Brinde e Alegria')">
+                <img src="https://images.unsplash.com/photo-1519671482749-fd09be7ccebf?auto=format&fit=crop&w=1000&q=80" alt="Celebração - Confraternização e Brinde" loading="lazy" />
+                <div class="carousel-overlay">
+                  <span class="gallery-tag">Celebração</span>
+                  <span class="gallery-caption">Confraternização Especial & Brinde</span>
+                </div>
+              </div>
+
+              <!-- Foto 3 (Celebração) - Substitua a URL src abaixo -->
+              <div class="carousel-slide" onclick="openModal('https://images.unsplash.com/photo-1533174072545-7a4b6ad7a6c3?auto=format&fit=crop&w=1000&q=80', 'Celebração: Festa de Casamento com Pista Fervendo')">
+                <img src="https://images.unsplash.com/photo-1533174072545-7a4b6ad7a6c3?auto=format&fit=crop&w=1000&q=80" alt="Celebração - Casamento Animado" loading="lazy" />
+                <div class="carousel-overlay">
+                  <span class="gallery-tag">Celebração</span>
+                  <span class="gallery-caption">Festa de Casamento com Pista Vibrando</span>
+                </div>
+              </div>
+
+              <!-- Foto 4 (Celebração) - Substitua a URL src abaixo -->
+              <div class="carousel-slide" onclick="openModal('https://images.unsplash.com/photo-1527529482837-4698179dc6ce?auto=format&fit=crop&w=1000&q=80', 'Celebração: Amigos Cantando Clássicos em Coro')">
+                <img src="https://images.unsplash.com/photo-1527529482837-4698179dc6ce?auto=format&fit=crop&w=1000&q=80" alt="Celebração - Amigos em Coro" loading="lazy" />
+                <div class="carousel-overlay">
+                  <span class="gallery-tag">Celebração</span>
+                  <span class="gallery-caption">Amigos Cantando Clássicos em Coro</span>
+                </div>
+              </div>
+            </div>
+
+            <!-- Botões Voltar e Avançar -->
+            <button type="button" class="carousel-btn prev-btn" aria-label="Foto anterior Celebração" onclick="event.stopPropagation(); moveGallerySlide('carousel-celebracao', -1)">
+              <i class="fa-solid fa-chevron-left"></i>
+            </button>
+            <button type="button" class="carousel-btn next-btn" aria-label="Próxima foto Celebração" onclick="event.stopPropagation(); moveGallerySlide('carousel-celebracao', 1)">
+              <i class="fa-solid fa-chevron-right"></i>
+            </button>
+
+            <!-- Contador de Fotos -->
+            <div class="carousel-counter">
+              <span class="current-index">1</span> / 4
+            </div>
+
+            <!-- Indicadores de Pontos (Dots) -->
+            <div class="carousel-dots">
+              <button type="button" class="dot active" aria-label="Foto 1" onclick="event.stopPropagation(); goToGallerySlide('carousel-celebracao', 0)"></button>
+              <button type="button" class="dot" aria-label="Foto 2" onclick="event.stopPropagation(); goToGallerySlide('carousel-celebracao', 1)"></button>
+              <button type="button" class="dot" aria-label="Foto 3" onclick="event.stopPropagation(); goToGallerySlide('carousel-celebracao', 2)"></button>
+              <button type="button" class="dot" aria-label="Foto 4" onclick="event.stopPropagation(); goToGallerySlide('carousel-celebracao', 3)"></button>
+            </div>
           </div>
         </div>
+
       </div>
 
       <!-- Vídeos -->
@@ -3167,6 +3582,153 @@
         forceCloseModal();
       }
     });
+
+    /* =======================================================
+       Carrossel da Galeria (Show ao Vivo, Acústico, Guitarra Solo, Celebração)
+       Vanilla JavaScript - Navegação Avançar/Voltar, Dots e Swipe Touch
+       ======================================================= */
+    var galleryCarouselsState = {
+      'carousel-show-ao-vivo': 0,
+      'carousel-acustico': 0,
+      'carousel-guitarra-solo': 0,
+      'carousel-celebracao': 0
+    };
+
+    function updateGalleryCarousel(carouselId) {
+      var container = document.getElementById(carouselId);
+      if (!container) return;
+      var track = container.querySelector('.carousel-track');
+      var slides = container.querySelectorAll('.carousel-slide');
+      var dots = container.querySelectorAll('.carousel-dots .dot');
+      var counter = container.querySelector('.carousel-counter .current-index');
+      var total = slides.length;
+      if (total === 0) return;
+
+      var currentIndex = galleryCarouselsState[carouselId];
+      if (typeof currentIndex !== 'number') currentIndex = 0;
+
+      // Loop circular suave
+      if (currentIndex < 0) currentIndex = total - 1;
+      if (currentIndex >= total) currentIndex = 0;
+      galleryCarouselsState[carouselId] = currentIndex;
+
+      // Desloca o trilho com transição suave
+      if (track) {
+        track.style.transform = 'translateX(-' + (currentIndex * 100) + '%)';
+      }
+
+      // Atualiza classe ativa dos slides
+      slides.forEach(function(slide, idx) {
+        if (idx === currentIndex) {
+          slide.classList.add('active');
+        } else {
+          slide.classList.remove('active');
+        }
+      });
+
+      // Atualiza os pontos (dots)
+      dots.forEach(function(dot, idx) {
+        if (idx === currentIndex) {
+          dot.classList.add('active');
+          dot.setAttribute('aria-current', 'true');
+        } else {
+          dot.classList.remove('active');
+          dot.removeAttribute('aria-current');
+        }
+      });
+
+      // Atualiza o contador numérico
+      if (counter) {
+        counter.textContent = currentIndex + 1;
+      }
+    }
+
+    function moveGallerySlide(carouselId, step) {
+      var current = galleryCarouselsState[carouselId] || 0;
+      galleryCarouselsState[carouselId] = current + step;
+      updateGalleryCarousel(carouselId);
+    }
+
+    function goToGallerySlide(carouselId, index) {
+      galleryCarouselsState[carouselId] = index;
+      updateGalleryCarousel(carouselId);
+    }
+
+    // Suporte completo a Gestos Touch (Swipe no Mobile)
+    function initGalleryTouchSupport() {
+      var containers = document.querySelectorAll('.carousel-container');
+      containers.forEach(function(container) {
+        var startX = 0;
+        var endX = 0;
+        var startY = 0;
+        var endY = 0;
+        var carouselId = container.id;
+
+        container.addEventListener('touchstart', function(e) {
+          if (!e.touches || e.touches.length === 0) return;
+          startX = e.touches[0].clientX;
+          startY = e.touches[0].clientY;
+          endX = startX;
+          endY = startY;
+        }, { passive: true });
+
+        container.addEventListener('touchmove', function(e) {
+          if (!e.touches || e.touches.length === 0) return;
+          endX = e.touches[0].clientX;
+          endY = e.touches[0].clientY;
+        }, { passive: true });
+
+        container.addEventListener('touchend', function() {
+          var deltaX = endX - startX;
+          var deltaY = Math.abs(endY - startY);
+
+          // Se deslizamento horizontal for expressivo e maior que o scroll vertical
+          if (Math.abs(deltaX) > 35 && Math.abs(deltaX) > deltaY) {
+            if (deltaX < 0) {
+              moveGallerySlide(carouselId, 1); // Deslizar para esquerda = Próximo
+            } else {
+              moveGallerySlide(carouselId, -1); // Deslizar para direita = Anterior
+            }
+          }
+        }, { passive: true });
+      });
+    }
+
+    // Filtros Rápidos de Categoria
+    function filterGalleryCategory(category, btnElement) {
+      var buttons = document.querySelectorAll('.gallery-tab-btn');
+      buttons.forEach(function(btn) { btn.classList.remove('active'); });
+      if (btnElement) btnElement.classList.add('active');
+
+      var cards = document.querySelectorAll('.gallery-carousel-card');
+      cards.forEach(function(card) {
+        if (category === 'all' || card.getAttribute('data-category') === category) {
+          card.style.display = 'block';
+        } else {
+          card.style.display = 'none';
+        }
+      });
+    }
+
+    // Exporta funções globalmente
+    window.moveGallerySlide = moveGallerySlide;
+    window.goToGallerySlide = goToGallerySlide;
+    window.filterGalleryCategory = filterGalleryCategory;
+
+    // Inicialização no carregamento
+    if (document.readyState === 'loading') {
+      document.addEventListener('DOMContentLoaded', function() {
+        initGalleryTouchSupport();
+        ['carousel-show-ao-vivo', 'carousel-acustico', 'carousel-guitarra-solo', 'carousel-celebracao'].forEach(function(id) {
+          updateGalleryCarousel(id);
+        });
+      });
+    } else {
+      initGalleryTouchSupport();
+      ['carousel-show-ao-vivo', 'carousel-acustico', 'carousel-guitarra-solo', 'carousel-celebracao'].forEach(function(id) {
+        updateGalleryCarousel(id);
+      });
+    }
 
     /* =======================================================
        YouTube IFrame Player API - Reprodução de Áudio em Loop
