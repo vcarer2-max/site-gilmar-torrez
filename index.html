@@ -60,6 +60,7 @@
       --font-signature: 'Caveat', cursive;
       --font-body: 'Open Sans', sans-serif;
       
+      --topbar-height: 40px;
       --header-height: 112px;
       --radius-sm: 8px;
       --radius-md: 14px;
@@ -77,7 +78,7 @@
 
     html {
       scroll-behavior: smooth;
-      scroll-padding-top: var(--header-height);
+      scroll-padding-top: calc(var(--topbar-height) + var(--header-height));
       font-size: 16px;
       background-color: var(--bg-dark);
       color: var(--text-light);
@@ -272,11 +273,94 @@
     }
 
     /* ==========================================
+       BARRA SUPERIOR FIXA (TOP BAR) - ÁUDIO DO ARTISTA
+       ========================================== */
+    .top-audio-bar {
+      position: fixed;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: var(--topbar-height);
+      background: rgba(9, 10, 15, 0.96);
+      backdrop-filter: blur(12px);
+      -webkit-backdrop-filter: blur(12px);
+      border-bottom: 1px solid rgba(245, 158, 11, 0.22);
+      z-index: 9999;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      padding: 0 16px;
+      box-shadow: 0 2px 12px rgba(0, 0, 0, 0.5);
+    }
+
+    .top-audio-btn {
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      gap: 8px;
+      background: rgba(245, 158, 11, 0.08);
+      color: #f1f5f9;
+      border: 1px solid rgba(245, 158, 11, 0.35);
+      border-radius: var(--radius-pill);
+      padding: 5px 18px;
+      font-family: var(--font-title);
+      font-size: 0.8rem;
+      font-weight: 700;
+      letter-spacing: 0.5px;
+      cursor: pointer;
+      transition: all 0.25s ease;
+      text-decoration: none;
+      user-select: none;
+    }
+
+    .top-audio-btn:hover {
+      background: rgba(245, 158, 11, 0.2);
+      border-color: var(--gold-primary);
+      color: #ffffff;
+      transform: translateY(-1px);
+    }
+
+    .top-audio-btn.playing {
+      background: rgba(37, 211, 102, 0.15);
+      border-color: rgba(37, 211, 102, 0.55);
+      color: #a7f3d0;
+      animation: audio-pulse 2.2s infinite ease-in-out;
+    }
+
+    .top-audio-btn.playing:hover {
+      background: rgba(37, 211, 102, 0.28);
+      border-color: #25d366;
+      color: #ffffff;
+    }
+
+    @keyframes audio-pulse {
+      0%, 100% {
+        box-shadow: 0 0 0 0 rgba(37, 211, 102, 0.35);
+      }
+      50% {
+        box-shadow: 0 0 0 5px rgba(37, 211, 102, 0);
+      }
+    }
+
+    /* Player YouTube invisível */
+    .yt-hidden-audio {
+      position: fixed;
+      bottom: -100px;
+      right: -100px;
+      width: 1px;
+      height: 1px;
+      opacity: 0.001;
+      pointer-events: none;
+      z-index: -9999;
+      overflow: hidden;
+    }
+
+    /* ==========================================
        1. HEADER (FIXO NO TOPO COM NOVO LOGOTIPO)
        ========================================== */
     .header {
       position: fixed;
-      top: 0;
+      top: var(--topbar-height);
       left: 0;
       width: 100%;
       height: var(--header-height);
@@ -365,7 +449,12 @@
 
     @media (max-width: 640px) {
       :root {
+        --topbar-height: 38px;
         --header-height: 94px;
+      }
+      .top-audio-btn {
+        font-size: 0.76rem;
+        padding: 4px 14px;
       }
       .logo-container {
         height: 72px;
@@ -509,10 +598,10 @@
     /* Mobile Menu Drawer */
     .mobile-drawer {
       position: fixed;
-      top: var(--header-height);
+      top: calc(var(--topbar-height) + var(--header-height));
       left: 0;
       width: 100%;
-      height: calc(100vh - var(--header-height));
+      height: calc(100vh - var(--topbar-height) - var(--header-height));
       background: rgba(9, 10, 14, 0.98);
       backdrop-filter: blur(20px);
       -webkit-backdrop-filter: blur(20px);
@@ -553,7 +642,7 @@
     .hero-section {
       position: relative;
       min-height: 100vh;
-      padding-top: calc(var(--header-height) + 50px);
+      padding-top: calc(var(--topbar-height) + var(--header-height) + 40px);
       padding-bottom: 80px;
       display: flex;
       align-items: center;
@@ -2026,6 +2115,24 @@
 <body>
 
   <!-- ==========================================
+       BARRA SUPERIOR FIXA (TOP BAR) - ÁUDIO DO ARTISTA
+       ========================================== -->
+  <div class="top-audio-bar" id="topAudioBar" role="region" aria-label="Controle de Áudio da Página">
+    <button type="button" 
+            class="top-audio-btn" 
+            id="topAudioToggleBtn" 
+            onclick="toggleAudio()" 
+            aria-label="Ouvir o Artista ou Desligar Som">
+      Ouvir o Artista 🎵
+    </button>
+  </div>
+
+  <!-- Player invisível da YouTube IFrame Player API (Vídeo: BYvXgXSXtfU) -->
+  <div class="yt-hidden-audio" aria-hidden="true">
+    <div id="yt-audio-player"></div>
+  </div>
+
+  <!-- ==========================================
        1. HEADER (FIXO NO TOPO COM NOVO LOGOTIPO E MENUS BANDA & AGENDA)
        ========================================== -->
   <header class="header" id="mainHeader">
@@ -2977,7 +3084,7 @@
         const targetElement = document.querySelector(targetId);
         if (targetElement) {
           e.preventDefault();
-          const headerOffset = document.getElementById('mainHeader')?.offsetHeight || 112;
+          const headerOffset = (document.getElementById('topAudioBar')?.offsetHeight || 0) + (document.getElementById('mainHeader')?.offsetHeight || 112);
           const elementPosition = targetElement.getBoundingClientRect().top;
           const offsetPosition = elementPosition + window.pageYOffset - headerOffset;
 
@@ -3060,6 +3167,136 @@
         forceCloseModal();
       }
     });
+
+    /* =======================================================
+       YouTube IFrame Player API - Reprodução de Áudio em Loop
+       Vídeo ID: BYvXgXSXtfU
+       ======================================================= */
+    var ytAudioPlayer = null;
+    var isAudioPlaying = false;
+    var isPlayerReady = false;
+    var pendingPlay = false;
+
+    // Carrega a API oficial do YouTube IFrame assincronamente
+    (function initYouTubeApi() {
+      if (window.YT && window.YT.Player) {
+        window.onYouTubeIframeAPIReady();
+      } else {
+        var tag = document.createElement('script');
+        tag.src = "https://www.youtube.com/iframe_api";
+        var firstScriptTag = document.getElementsByTagName('script')[0];
+        firstScriptTag.parentNode.insertBefore(tag, firstScriptTag);
+      }
+    })();
+
+    // Callback global exigido pela API do YouTube
+    window.onYouTubeIframeAPIReady = function() {
+      try {
+        ytAudioPlayer = new YT.Player('yt-audio-player', {
+          height: '1',
+          width: '1',
+          videoId: 'BYvXgXSXtfU',
+          playerVars: {
+            autoplay: 0,
+            controls: 0,
+            disablekb: 1,
+            fs: 0,
+            loop: 1,
+            playlist: 'BYvXgXSXtfU', // Necessário para loop contínuo de vídeo único no YouTube
+            modestbranding: 1,
+            rel: 0,
+            playsinline: 1
+          },
+          events: {
+            'onReady': onYtAudioReady,
+            'onStateChange': onYtAudioStateChange,
+            'onError': onYtAudioError
+          }
+        });
+      } catch (err) {
+        console.error('Erro ao inicializar YouTube Audio Player:', err);
+      }
+    };
+
+    function onYtAudioReady(event) {
+      isPlayerReady = true;
+      if (pendingPlay) {
+        pendingPlay = false;
+        playAudio();
+      }
+    }
+
+    function onYtAudioStateChange(event) {
+      var audioBtn = document.getElementById('topAudioToggleBtn');
+      if (!audioBtn) return;
+
+      if (event.data === YT.PlayerState.PLAYING) {
+        isAudioPlaying = true;
+        audioBtn.textContent = 'Desligar Som 🔇';
+        audioBtn.classList.add('playing');
+      } else if (event.data === YT.PlayerState.PAUSED || event.data === YT.PlayerState.CUED) {
+        isAudioPlaying = false;
+        audioBtn.textContent = 'Ouvir o Artista 🎵';
+        audioBtn.classList.remove('playing');
+      } else if (event.data === YT.PlayerState.ENDED) {
+        // Garantia de loop perfeito
+        if (ytAudioPlayer && typeof ytAudioPlayer.playVideo === 'function') {
+          ytAudioPlayer.playVideo();
+        }
+      }
+    }
+
+    function onYtAudioError(event) {
+      console.warn('Aviso no player do YouTube:', event.data);
+      var audioBtn = document.getElementById('topAudioToggleBtn');
+      if (audioBtn) {
+        audioBtn.textContent = 'Ouvir o Artista 🎵';
+        audioBtn.classList.remove('playing');
+      }
+      isAudioPlaying = false;
+    }
+
+    function playAudio() {
+      if (ytAudioPlayer && typeof ytAudioPlayer.playVideo === 'function') {
+        try {
+          ytAudioPlayer.unMute();
+          ytAudioPlayer.setVolume(100);
+          ytAudioPlayer.playVideo();
+        } catch (e) {
+          console.error(e);
+        }
+      }
+    }
+
+    function pauseAudio() {
+      if (ytAudioPlayer && typeof ytAudioPlayer.pauseVideo === 'function') {
+        try {
+          ytAudioPlayer.pauseVideo();
+        } catch (e) {
+          console.error(e);
+        }
+      }
+    }
+
+    function toggleAudio() {
+      var audioBtn = document.getElementById('topAudioToggleBtn');
+      if (!isPlayerReady || !ytAudioPlayer) {
+        pendingPlay = !pendingPlay;
+        if (audioBtn) {
+          audioBtn.textContent = pendingPlay ? 'Iniciando áudio... ⏳' : 'Ouvir o Artista 🎵';
+        }
+        return;
+      }
+
+      if (isAudioPlaying) {
+        pauseAudio();
+      } else {
+        playAudio();
+      }
+    }
+
+    // Expõe globalmente para o evento onclick do botão
+    window.toggleAudio = toggleAudio;
   </script>
 </body>
 </html>
