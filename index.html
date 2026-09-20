@@ -412,8 +412,16 @@
       display: flex;
       align-items: center;
       justify-content: center;
-      padding: 0 16px;
+      padding: 0 10px;
       box-shadow: 0 2px 12px rgba(0, 0, 0, 0.5);
+    }
+
+    .top-audio-container {
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      gap: 8px;
+      max-width: 100%;
     }
 
     .top-audio-btn {
@@ -421,11 +429,11 @@
       align-items: center;
       justify-content: center;
       gap: 8px;
-      background: rgba(245, 158, 11, 0.08);
+      background: rgba(18, 20, 28, 0.92);
       color: #f1f5f9;
-      border: 1px solid rgba(245, 158, 11, 0.35);
+      border: 1px solid var(--border-gold);
       border-radius: var(--radius-pill);
-      padding: 5px 18px;
+      padding: 3px 6px 3px 12px;
       font-family: var(--font-title);
       font-size: 0.8rem;
       font-weight: 700;
@@ -434,26 +442,203 @@
       transition: all 0.25s ease;
       text-decoration: none;
       user-select: none;
+      box-shadow: 0 2px 8px rgba(0, 0, 0, 0.4), inset 0 1px 1px rgba(255, 255, 255, 0.08);
+      max-width: 100%;
     }
 
     .top-audio-btn:hover {
-      background: rgba(245, 158, 11, 0.2);
+      background: rgba(28, 32, 45, 0.98);
       border-color: var(--gold-primary);
       color: #ffffff;
+      box-shadow: 0 4px 14px var(--gold-glow), inset 0 1px 1px rgba(255, 255, 255, 0.15);
       transform: translateY(-1px);
     }
 
     .top-audio-btn.playing {
-      background: rgba(37, 211, 102, 0.15);
-      border-color: rgba(37, 211, 102, 0.55);
+      background: rgba(13, 30, 20, 0.95);
+      border-color: rgba(37, 211, 102, 0.65);
       color: #a7f3d0;
+      box-shadow: 0 0 14px rgba(37, 211, 102, 0.35);
       animation: audio-pulse 2.2s infinite ease-in-out;
     }
 
     .top-audio-btn.playing:hover {
-      background: rgba(37, 211, 102, 0.28);
+      background: rgba(18, 42, 28, 0.98);
       border-color: #25d366;
       color: #ffffff;
+    }
+
+    /* Ação (Ícone + Label) */
+    .top-audio-action {
+      display: inline-flex;
+      align-items: center;
+      gap: 6px;
+      white-space: nowrap;
+      flex-shrink: 0;
+    }
+
+    .top-audio-icon {
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 0.75rem;
+      color: var(--gold-primary);
+    }
+
+    .top-audio-btn.playing .top-audio-icon {
+      color: #25d366;
+    }
+
+    /* Barrinhas dinâmicas do Equalizador */
+    .top-audio-equalizer {
+      display: none;
+      align-items: flex-end;
+      gap: 2px;
+      height: 12px;
+      width: 11px;
+    }
+
+    .eq-bar {
+      width: 2px;
+      background: #25d366;
+      border-radius: 1px;
+      animation: eq-wave 0.8s infinite ease-in-out alternate;
+    }
+    .eq-bar-1 { height: 35%; animation-delay: 0.1s; }
+    .eq-bar-2 { height: 100%; animation-delay: 0.3s; }
+    .eq-bar-3 { height: 60%; animation-delay: 0.2s; }
+
+    @keyframes eq-wave {
+      0% { height: 25%; }
+      100% { height: 100%; }
+    }
+
+    .top-audio-label {
+      font-weight: 700;
+      letter-spacing: 0.4px;
+      font-size: 0.78rem;
+    }
+
+    /* ==========================================
+       CÁPSULA DO LETREIRO DIGITAL LED (DISPLAY LUMINOSO)
+       ========================================== */
+    .top-audio-marquee-capsule {
+      display: inline-flex;
+      align-items: center;
+      gap: 6px;
+      background: rgba(4, 5, 8, 0.95);
+      border: 1px solid rgba(245, 158, 11, 0.35);
+      border-radius: var(--radius-pill);
+      padding: 2px 8px;
+      height: 23px;
+      box-shadow: inset 0 1px 3px rgba(0, 0, 0, 0.9), 0 1px 2px rgba(255, 255, 255, 0.05);
+      overflow: hidden;
+      position: relative;
+      flex-shrink: 1;
+      min-width: 0;
+    }
+
+    .top-audio-btn.playing .top-audio-marquee-capsule {
+      border-color: rgba(37, 211, 102, 0.5);
+      box-shadow: inset 0 1px 3px rgba(0, 0, 0, 0.9), 0 0 8px rgba(37, 211, 102, 0.2);
+    }
+
+    /* Ponto LED Digital */
+    .top-audio-led {
+      width: 6px;
+      height: 6px;
+      border-radius: 50%;
+      background: var(--gold-primary);
+      box-shadow: 0 0 6px var(--gold-primary);
+      flex-shrink: 0;
+      transition: all 0.3s ease;
+    }
+
+    .top-audio-led.active,
+    .top-audio-btn.playing .top-audio-led {
+      background: #22c55e;
+      box-shadow: 0 0 8px #22c55e;
+      animation: led-blink 1.2s infinite ease-in-out;
+    }
+
+    @keyframes led-blink {
+      0%, 100% { opacity: 1; transform: scale(1); }
+      50% { opacity: 0.35; transform: scale(0.85); }
+    }
+
+    /* Janela com máscara gradual nas bordas */
+    .top-audio-ticker-window {
+      display: flex;
+      align-items: center;
+      overflow: hidden;
+      max-width: 250px;
+      position: relative;
+      mask-image: linear-gradient(to right, transparent, black 6px, black calc(100% - 6px), transparent);
+      -webkit-mask-image: linear-gradient(to right, transparent, black 6px, black calc(100% - 6px), transparent);
+    }
+
+    /* Trilho contínuo do letreiro digital */
+    .top-audio-ticker-track {
+      display: inline-flex;
+      align-items: center;
+      white-space: nowrap;
+      will-change: transform;
+      animation: marquee-slide 16s linear infinite;
+    }
+
+    .top-audio-btn:hover .top-audio-ticker-track {
+      animation-play-state: paused;
+    }
+
+    .top-audio-ticker-item {
+      display: inline-block;
+      font-family: 'Space Grotesk', 'Courier New', monospace;
+      font-size: 0.71rem;
+      font-weight: 700;
+      color: var(--gold-light);
+      letter-spacing: 0.6px;
+      text-transform: uppercase;
+      padding-right: 24px;
+      text-shadow: 0 0 4px rgba(245, 158, 11, 0.35);
+      transition: color 0.3s ease;
+    }
+
+    .top-audio-btn.playing .top-audio-ticker-item {
+      color: #86efac;
+      text-shadow: 0 0 6px rgba(34, 197, 94, 0.5);
+    }
+
+    @keyframes marquee-slide {
+      0% {
+        transform: translateX(0%);
+      }
+      100% {
+        transform: translateX(-50%);
+      }
+    }
+
+    /* Botão de Link Externo de Apoio */
+    .top-audio-ext-link {
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      width: 28px;
+      height: 28px;
+      border-radius: 50%;
+      background: rgba(245, 158, 11, 0.1);
+      border: 1px solid var(--border-gold);
+      color: var(--gold-light);
+      font-size: 0.72rem;
+      transition: all 0.25s ease;
+      text-decoration: none;
+      flex-shrink: 0;
+    }
+
+    .top-audio-ext-link:hover {
+      background: var(--gold-primary);
+      color: #090a0e;
+      transform: scale(1.08);
+      box-shadow: 0 0 10px var(--gold-glow);
     }
 
     @keyframes audio-pulse {
@@ -596,8 +781,29 @@
         --header-height: 94px;
       }
       .top-audio-btn {
-        font-size: 0.76rem;
-        padding: 4px 14px;
+        font-size: 0.74rem;
+        padding: 2px 5px 2px 10px;
+        gap: 6px;
+      }
+      .top-audio-label {
+        font-size: 0.74rem;
+      }
+      .top-audio-ticker-window {
+        max-width: 140px;
+      }
+      .top-audio-ticker-item {
+        font-size: 0.67rem;
+        letter-spacing: 0.4px;
+        padding-right: 18px;
+      }
+      .top-audio-marquee-capsule {
+        height: 22px;
+        padding: 1px 6px;
+      }
+      .top-audio-ext-link {
+        width: 25px;
+        height: 25px;
+        font-size: 0.68rem;
       }
       .logo-container {
         height: 72px;
@@ -610,6 +816,21 @@
       }
       .logo-name-signature {
         font-size: 1.85rem;
+      }
+    }
+
+    @media (max-width: 440px) {
+      .top-audio-label {
+        font-size: 0.71rem;
+      }
+      .top-audio-ticker-window {
+        max-width: 110px;
+      }
+    }
+
+    @media (max-width: 360px) {
+      .top-audio-label {
+        display: none;
       }
     }
 
@@ -3012,6 +3233,70 @@
     }
 
     /* ==========================================
+       PAINEL ADMIN - MÚSICA DO TOPO & LETREIRO DIGITAL
+       ========================================== */
+    .admin-audio-preview-container {
+      background: rgba(8, 10, 16, 0.95);
+      border: 1.5px solid var(--border-gold);
+      border-radius: 12px;
+      padding: 16px;
+      margin: 16px 0 22px 0;
+      box-shadow: 0 4px 20px rgba(0, 0, 0, 0.5), inset 0 1px 1px rgba(255, 255, 255, 0.05);
+    }
+
+    .admin-audio-preview-title {
+      font-size: 0.8rem;
+      font-weight: 700;
+      text-transform: uppercase;
+      letter-spacing: 1px;
+      color: var(--gold-primary);
+      margin-bottom: 12px;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+    }
+
+    .admin-audio-preview-stage {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      background: rgba(0, 0, 0, 0.65);
+      border-radius: 8px;
+      padding: 22px 14px;
+      border: 1px dashed rgba(255, 255, 255, 0.12);
+      min-height: 80px;
+    }
+
+    .admin-audio-presets-wrap {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 8px;
+      margin: 10px 0 20px 0;
+    }
+
+    .admin-audio-chip {
+      background: rgba(255, 255, 255, 0.05);
+      border: 1px solid rgba(255, 255, 255, 0.1);
+      border-radius: 999px;
+      padding: 5px 12px;
+      font-size: 0.74rem;
+      color: #cbd5e1;
+      cursor: pointer;
+      display: inline-flex;
+      align-items: center;
+      gap: 6px;
+      transition: var(--transition);
+      user-select: none;
+    }
+
+    .admin-audio-chip:hover {
+      background: rgba(245, 158, 11, 0.15);
+      border-color: var(--gold-primary);
+      color: #ffffff;
+      transform: translateY(-1px);
+    }
+
+    /* ==========================================
        5. SEÇÃO DE AULAS DE MÚSICA
        ========================================== */
     .classes-section {
@@ -3434,16 +3719,49 @@
 <body>
 
   <!-- ==========================================
-       BARRA SUPERIOR FIXA (TOP BAR) - ÁUDIO DO ARTISTA
+       BARRA SUPERIOR FIXA (TOP BAR) - ÁUDIO DO ARTISTA & LETREIRO DIGITAL
        ========================================== -->
   <div class="top-audio-bar" id="topAudioBar" role="region" aria-label="Controle de Áudio da Página">
-    <button type="button" 
-            class="top-audio-btn" 
-            id="topAudioToggleBtn" 
-            onclick="toggleAudio()" 
-            aria-label="Ouvir o Artista ou Desligar Som">
-      Ouvir o Artista 🎵
-    </button>
+    <div class="top-audio-container">
+      <button type="button" 
+              class="top-audio-btn" 
+              id="topAudioToggleBtn" 
+              onclick="handleTopAudioButtonClick()" 
+              aria-label="Ouvir o Artista ou Desligar Som"
+              title="Clique para tocar ou pausar a música do site">
+        <span class="top-audio-action">
+          <span class="top-audio-icon" id="topAudioPlayIcon"><i class="fa-solid fa-play"></i></span>
+          <span class="top-audio-equalizer" id="topAudioEqualizer" aria-hidden="true">
+            <span class="eq-bar eq-bar-1"></span>
+            <span class="eq-bar eq-bar-2"></span>
+            <span class="eq-bar eq-bar-3"></span>
+          </span>
+          <span class="top-audio-label" id="topAudioLabel">Ouvir o Artista</span>
+        </span>
+
+        <!-- Cápsula do Letreiro Digital LED (Display Luminoso) -->
+        <span class="top-audio-marquee-capsule" id="topAudioMarqueeCapsule" aria-label="Nome da música em exibição">
+          <span class="top-audio-led" id="topAudioLedDot"></span>
+          <span class="top-audio-ticker-window">
+            <span class="top-audio-ticker-track" id="topAudioTickerTrack">
+              <span class="top-audio-ticker-item" id="topAudioTickerText1">Gilmar Torrez • Sweet Child O' Mine (Solo de Guitarra) •</span>
+              <span class="top-audio-ticker-item" id="topAudioTickerText2">Gilmar Torrez • Sweet Child O' Mine (Solo de Guitarra) •</span>
+            </span>
+          </span>
+        </span>
+      </button>
+
+      <!-- Botão de Acesso Direto ao Link Personalizado -->
+      <a href="https://www.youtube.com/watch?v=BYvXgXSXtfU" 
+         target="_blank" 
+         rel="noopener noreferrer" 
+         class="top-audio-ext-link" 
+         id="topAudioDirectLink" 
+         title="Abrir link original da música em nova aba" 
+         aria-label="Abrir link da música em nova aba">
+        <i class="fa-solid fa-arrow-up-right-from-square"></i>
+      </a>
+    </div>
   </div>
 
   <!-- Player invisível da YouTube IFrame Player API (Vídeo: BYvXgXSXtfU) -->
@@ -4603,6 +4921,10 @@
             <i class="fa-solid fa-palette"></i>
             <span>Cores & Fontes</span>
           </button>
+          <button type="button" class="admin-tab-btn" id="tabBtnAudioTopo" onclick="switchAdminTab('audiotopo')">
+            <i class="fa-solid fa-compact-disc"></i>
+            <span>Música do Topo</span>
+          </button>
         </div>
 
         <!-- Aba 1: Agenda de Shows -->
@@ -5102,6 +5424,153 @@
             </div>
           </div>
         </div>
+
+        <!-- Aba 4: Personalização do Áudio do Topo & Letreiro Digital -->
+        <div id="adminTabAudioTopo" class="admin-tab-content" style="display: none;">
+          <div style="background: rgba(245, 158, 11, 0.08); border: 1px solid rgba(245, 158, 11, 0.25); border-radius: 10px; padding: 14px 16px; margin-bottom: 18px;">
+            <div style="display: flex; align-items: center; gap: 10px; color: var(--gold-light); font-weight: 700; font-size: 0.96rem; margin-bottom: 6px;">
+              <i class="fa-solid fa-headphones-simple" style="color: var(--gold-primary);"></i>
+              <span>Personalização do Botão "Ouvir o Artista" & Letreiro Digital</span>
+            </div>
+            <p style="font-size: 0.84rem; color: #94a3b8; line-height: 1.5; margin: 0;">
+              Defina o <strong>link personalizável</strong> para onde o botão ou ícone direciona e o <strong>nome da música</strong> que deslizará como um <strong>letreiro digital luminoso</strong> contínuo dentro da cápsula do botão no topo do site.
+            </p>
+          </div>
+
+          <!-- Pré-Visualização em Tempo Real (Live Preview) -->
+          <div class="admin-audio-preview-container">
+            <div class="admin-audio-preview-title">
+              <span><i class="fa-solid fa-eye" style="margin-right: 6px;"></i> Pré-Visualização da Cápsula no Topo</span>
+              <span style="font-size: 0.72rem; color: #94a3b8; font-weight: normal; text-transform: none;">Atualização imediata ao digitar</span>
+            </div>
+            <div class="admin-audio-preview-stage">
+              <div class="top-audio-container" style="transform: scale(1.05);">
+                <div class="top-audio-btn" id="adminPreviewAudioBtn" style="pointer-events: auto;">
+                  <span class="top-audio-action">
+                    <span class="top-audio-icon"><i class="fa-solid fa-play"></i></span>
+                    <span class="top-audio-label">Ouvir o Artista</span>
+                  </span>
+                  <span class="top-audio-marquee-capsule">
+                    <span class="top-audio-led"></span>
+                    <span class="top-audio-ticker-window" style="max-width: 220px;">
+                      <span class="top-audio-ticker-track" id="adminPreviewTickerTrack">
+                        <span class="top-audio-ticker-item" id="adminPreviewTickerText1">Gilmar Torrez • Sweet Child O' Mine (Solo de Guitarra) •</span>
+                        <span class="top-audio-ticker-item" id="adminPreviewTickerText2">Gilmar Torrez • Sweet Child O' Mine (Solo de Guitarra) •</span>
+                      </span>
+                    </span>
+                  </span>
+                </div>
+                <a href="#" class="top-audio-ext-link" id="adminPreviewExtLink" target="_blank" title="Link direto">
+                  <i class="fa-solid fa-arrow-up-right-from-square"></i>
+                </a>
+              </div>
+            </div>
+          </div>
+
+          <!-- Campos de Configuração -->
+          <div style="background: rgba(255, 255, 255, 0.02); border: 1px solid rgba(255, 255, 255, 0.08); border-radius: 12px; padding: 18px; margin-bottom: 20px;">
+            <!-- Campo 1: Nome da Música (Letreiro Digital) -->
+            <div style="margin-bottom: 18px;">
+              <label for="adminAudioSongTitle" style="display: block; font-size: 0.85rem; font-weight: 700; color: #f1f5f9; margin-bottom: 6px;">
+                <i class="fa-solid fa-bullhorn" style="color: var(--gold-primary); margin-right: 6px;"></i> Nome da Música & Artista (Letreiro Digital na Cápsula):
+              </label>
+              <input type="text" 
+                     id="adminAudioSongTitle" 
+                     class="admin-input" 
+                     placeholder="Ex: Gilmar Torrez • Sweet Child O' Mine (Solo de Guitarra)" 
+                     oninput="updateAudioLivePreview()" 
+                     style="font-family: 'Space Grotesk', monospace; letter-spacing: 0.5px;">
+              <span style="display: block; font-size: 0.76rem; color: #94a3b8; margin-top: 4px;">
+                Este texto deslizará continuamente no visor LED dentro da cápsula do botão do topo.
+              </span>
+            </div>
+
+            <!-- Campo 2: Link Personalizável do Áudio/Vídeo -->
+            <div style="margin-bottom: 18px;">
+              <label for="adminAudioUrl" style="display: block; font-size: 0.85rem; font-weight: 700; color: #f1f5f9; margin-bottom: 6px;">
+                <i class="fa-brands fa-youtube" style="color: #ef4444; margin-right: 6px;"></i> Link do Áudio / Música (YouTube ou Link Externo):
+              </label>
+              <input type="url" 
+                     id="adminAudioUrl" 
+                     class="admin-input" 
+                     placeholder="Ex: https://www.youtube.com/watch?v=BYvXgXSXtfU" 
+                     oninput="updateAudioLivePreview()">
+              <span style="display: block; font-size: 0.76rem; color: #94a3b8; margin-top: 4px;">
+                Cole o link do YouTube (vídeo, shorts ou youtu.be) para tocar com o player transparente integrado ao site, ou link do Spotify / Soundcloud / plataforma do artista.
+              </span>
+            </div>
+
+            <!-- Campo 3: Modo de Ação ao Clicar no Botão Principal -->
+            <div style="margin-bottom: 18px;">
+              <label style="display: block; font-size: 0.85rem; font-weight: 700; color: #f1f5f9; margin-bottom: 8px;">
+                <i class="fa-solid fa-sliders" style="color: var(--gold-primary); margin-right: 6px;"></i> Ação ao clicar no botão "Ouvir o Artista":
+              </label>
+              <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(220px, 1fr)); gap: 10px;">
+                <label style="display: flex; align-items: flex-start; gap: 10px; background: rgba(0,0,0,0.3); border: 1px solid rgba(255,255,255,0.08); border-radius: 8px; padding: 10px; cursor: pointer;">
+                  <input type="radio" name="adminAudioClickAction" value="play" id="audioActionPlay" checked onchange="updateAudioLivePreview()" style="margin-top: 3px;">
+                  <div>
+                    <span style="font-size: 0.84rem; font-weight: 700; color: #ffffff; display: block;">Tocar no Player do Site (Recomendado)</span>
+                    <span style="font-size: 0.74rem; color: #94a3b8;">Toca e pausa o áudio em segundo plano sem sair da página do Gilmar Torrez.</span>
+                  </div>
+                </label>
+
+                <label style="display: flex; align-items: flex-start; gap: 10px; background: rgba(0,0,0,0.3); border: 1px solid rgba(255,255,255,0.08); border-radius: 8px; padding: 10px; cursor: pointer;">
+                  <input type="radio" name="adminAudioClickAction" value="open" id="audioActionOpen" onchange="updateAudioLivePreview()" style="margin-top: 3px;">
+                  <div>
+                    <span style="font-size: 0.84rem; font-weight: 700; color: #ffffff; display: block;">Abrir Link em Nova Aba</span>
+                    <span style="font-size: 0.74rem; color: #94a3b8;">Abre o link configurado diretamente no YouTube / Spotify / plataforma do artista.</span>
+                  </div>
+                </label>
+              </div>
+            </div>
+
+            <!-- Campo 4: Exibir Ícone de Link Externo -->
+            <div>
+              <label style="display: flex; align-items: center; gap: 10px; cursor: pointer;">
+                <input type="checkbox" id="adminAudioShowExtLink" checked onchange="updateAudioLivePreview()" style="width: 16px; height: 16px; accent-color: var(--gold-primary);">
+                <span style="font-size: 0.84rem; color: #cbd5e1; font-weight: 600;">
+                  Exibir ícone de seta externa <i class="fa-solid fa-arrow-up-right-from-square" style="color: var(--gold-light); font-size: 0.75rem; margin: 0 4px;"></i> ao lado da cápsula para abertura direta do link
+                </span>
+              </label>
+            </div>
+          </div>
+
+          <!-- Sugestões Rápidas de Músicas / Solos -->
+          <div style="margin-bottom: 20px;">
+            <div style="font-size: 0.8rem; font-weight: 700; color: #94a3b8; text-transform: uppercase; letter-spacing: 0.5px; margin-bottom: 8px;">
+              <i class="fa-solid fa-wand-magic-sparkles" style="color: var(--gold-primary); margin-right: 6px;"></i> Sugestões Rápidas de Músicas do Gilmar:
+            </div>
+            <div class="admin-audio-presets-wrap">
+              <button type="button" class="admin-audio-chip" onclick="applyAudioPreset('Gilmar Torrez • Sweet Child O\' Mine (Solo de Guitarra)', 'https://www.youtube.com/watch?v=BYvXgXSXtfU')">
+                <i class="fa-solid fa-guitar"></i> Sweet Child O' Mine (Solo)
+              </button>
+              <button type="button" class="admin-audio-chip" onclick="applyAudioPreset('Gilmar Torrez • Sultans of Swing (Solo ao Vivo)', 'https://www.youtube.com/watch?v=0fAQH8DrMgk')">
+                <i class="fa-solid fa-music"></i> Sultans of Swing
+              </button>
+              <button type="button" class="admin-audio-chip" onclick="applyAudioPreset('Gilmar Torrez • Hotel California (Guitarra Elétrica)', 'https://www.youtube.com/watch?v=BciS5krYL80')">
+                <i class="fa-solid fa-record-vinyl"></i> Hotel California
+              </button>
+              <button type="button" class="admin-audio-chip" onclick="applyAudioPreset('Gilmar Torrez • Ainda É Cedo (Voz & Guitarra Acústica)', 'https://www.youtube.com/watch?v=mCG0xJ7m8pU')">
+                <i class="fa-solid fa-microphone-lines"></i> Ainda É Cedo
+              </button>
+            </div>
+          </div>
+
+          <!-- Ações de Salvar / Restaurar -->
+          <div class="admin-sticky-actions">
+            <div style="display: flex; gap: 10px; flex-direction: column;">
+              <button type="button" class="admin-btn-primary" id="adminSaveAudioBtn" onclick="saveTopAudioSettings()" style="width: 100%;">
+                <i class="fa-solid fa-floppy-disk"></i> <span>Salvar Música e Letreiro no Site</span>
+              </button>
+              <button type="button" class="admin-btn-cancel" onclick="resetDefaultTopAudioSettings()" style="width: 100%; border: 1px solid rgba(255,255,255,0.15); border-radius: 10px; padding: 10px; text-align: center;">
+                <i class="fa-solid fa-rotate-left"></i> <span>Restaurar Música Oficial Padrão</span>
+              </button>
+            </div>
+            <div id="adminAudioSuccessMsg" style="display: none; margin-top: 10px; background: rgba(34, 197, 94, 0.16); border: 1px solid #22c55e; color: #86efac; padding: 10px 14px; border-radius: 8px; font-size: 0.88rem; text-align: center;">
+              <i class="fa-solid fa-circle-check" style="margin-right: 6px;"></i> Configuração da música e letreiro digital salva com sucesso no site!
+            </div>
+          </div>
+        </div>
       </div>
 
     </div>
@@ -5390,16 +5859,130 @@
     }
 
     /* =======================================================
-       YouTube IFrame Player API - Reprodução de Áudio em Loop
-       Vídeo ID: BYvXgXSXtfU
+       ÁUDIO DO TOPO & LETREIRO DIGITAL PERSONALIZÁVEL
+       Integração com YouTube IFrame Player API & Controles Admin
        ======================================================= */
+    const DEFAULT_TOP_AUDIO_SETTINGS = {
+      songTitle: "Gilmar Torrez • Sweet Child O' Mine (Solo de Guitarra)",
+      url: "https://www.youtube.com/watch?v=BYvXgXSXtfU",
+      clickAction: "play", // 'play' = toca no player do site, 'open' = abre em nova aba
+      showDirectLink: true
+    };
+
     var ytAudioPlayer = null;
     var isAudioPlaying = false;
     var isPlayerReady = false;
     var pendingPlay = false;
+    var currentAudioVideoId = 'BYvXgXSXtfU';
+
+    function extractYouTubeVideoId(url) {
+      if (!url) return '';
+      url = String(url).trim();
+      if (/^[a-zA-Z0-9_-]{11}$/.test(url)) return url;
+      const regExp = /(?:youtu\.be\/|youtube\.com\/(?:embed\/|v\/|watch\?v=|watch\?.+&v=|shorts\/))([a-zA-Z0-9_-]{11})/;
+      const match = url.match(regExp);
+      return match ? match[1] : '';
+    }
+
+    function getStoredTopAudioSettings() {
+      try {
+        const raw = localStorage.getItem('gilmar_top_audio_settings');
+        if (raw) {
+          const parsed = JSON.parse(raw);
+          return {
+            songTitle: parsed.songTitle || DEFAULT_TOP_AUDIO_SETTINGS.songTitle,
+            url: parsed.url || DEFAULT_TOP_AUDIO_SETTINGS.url,
+            clickAction: parsed.clickAction || DEFAULT_TOP_AUDIO_SETTINGS.clickAction,
+            showDirectLink: parsed.showDirectLink !== undefined ? !!parsed.showDirectLink : true
+          };
+        }
+      } catch (e) {
+        console.warn('Erro ao carregar configurações de áudio salvas:', e);
+      }
+      return { ...DEFAULT_TOP_AUDIO_SETTINGS };
+    }
+
+    function applyTopAudioSettingsToUI(settings) {
+      if (!settings) settings = getStoredTopAudioSettings();
+
+      // Atualiza letreiro digital (ambos os spans para loop infinito perfeito)
+      const ticker1 = document.getElementById('topAudioTickerText1');
+      const ticker2 = document.getElementById('topAudioTickerText2');
+      const titleText = (settings.songTitle || DEFAULT_TOP_AUDIO_SETTINGS.songTitle).trim();
+      const formattedTitle = titleText.endsWith('•') ? titleText + ' ' : titleText + ' • ';
+      
+      if (ticker1) ticker1.textContent = formattedTitle;
+      if (ticker2) ticker2.textContent = formattedTitle;
+
+      // Atualiza link de acesso direto
+      const directLink = document.getElementById('topAudioDirectLink');
+      if (directLink) {
+        directLink.href = settings.url || DEFAULT_TOP_AUDIO_SETTINGS.url;
+        directLink.style.display = settings.showDirectLink ? 'inline-flex' : 'none';
+      }
+
+      // Atualiza vídeo no player do YouTube se ID for diferente
+      const newVideoId = extractYouTubeVideoId(settings.url) || 'BYvXgXSXtfU';
+      if (newVideoId && newVideoId !== currentAudioVideoId) {
+        currentAudioVideoId = newVideoId;
+        if (ytAudioPlayer && isPlayerReady && typeof ytAudioPlayer.cueVideoById === 'function') {
+          try {
+            if (isAudioPlaying) {
+              ytAudioPlayer.loadVideoById({ videoId: newVideoId });
+            } else {
+              ytAudioPlayer.cueVideoById({ videoId: newVideoId });
+            }
+          } catch (err) {
+            console.warn('Erro ao atualizar vídeo no player:', err);
+          }
+        }
+      }
+    }
+
+    function updateTopAudioButtonUI(state) {
+      const audioBtn = document.getElementById('topAudioToggleBtn');
+      const label = document.getElementById('topAudioLabel');
+      const playIcon = document.getElementById('topAudioPlayIcon');
+      const eq = document.getElementById('topAudioEqualizer');
+      const led = document.getElementById('topAudioLedDot');
+      if (!audioBtn) return;
+
+      if (state === 'playing') {
+        audioBtn.classList.add('playing');
+        if (label) label.textContent = 'Pausar Som';
+        if (playIcon) playIcon.style.display = 'none';
+        if (eq) eq.style.display = 'inline-flex';
+        if (led) led.classList.add('active');
+      } else if (state === 'loading') {
+        audioBtn.classList.remove('playing');
+        if (label) label.textContent = 'Iniciando...';
+        if (playIcon) playIcon.style.display = 'inline-flex';
+        if (eq) eq.style.display = 'none';
+        if (led) led.classList.remove('active');
+      } else {
+        // Pausado ou estado inicial
+        audioBtn.classList.remove('playing');
+        if (label) label.textContent = 'Ouvir o Artista';
+        if (playIcon) playIcon.style.display = 'inline-flex';
+        if (eq) eq.style.display = 'none';
+        if (led) led.classList.remove('active');
+      }
+    }
+
+    function handleTopAudioButtonClick() {
+      const settings = getStoredTopAudioSettings();
+      if (settings.clickAction === 'open') {
+        window.open(settings.url || DEFAULT_TOP_AUDIO_SETTINGS.url, '_blank');
+        return;
+      }
+      toggleAudio();
+    }
 
     // Carrega a API oficial do YouTube IFrame assincronamente
     (function initYouTubeApi() {
+      const initialSettings = getStoredTopAudioSettings();
+      currentAudioVideoId = extractYouTubeVideoId(initialSettings.url) || 'BYvXgXSXtfU';
+
       if (window.YT && window.YT.Player) {
         window.onYouTubeIframeAPIReady();
       } else {
@@ -5413,17 +5996,20 @@
     // Callback global exigido pela API do YouTube
     window.onYouTubeIframeAPIReady = function() {
       try {
+        const initialSettings = getStoredTopAudioSettings();
+        currentAudioVideoId = extractYouTubeVideoId(initialSettings.url) || 'BYvXgXSXtfU';
+
         ytAudioPlayer = new YT.Player('yt-audio-player', {
           height: '1',
           width: '1',
-          videoId: 'BYvXgXSXtfU',
+          videoId: currentAudioVideoId,
           playerVars: {
             autoplay: 0,
             controls: 0,
             disablekb: 1,
             fs: 0,
             loop: 1,
-            playlist: 'BYvXgXSXtfU', // Necessário para loop contínuo de vídeo único no YouTube
+            playlist: currentAudioVideoId,
             modestbranding: 1,
             rel: 0,
             playsinline: 1
@@ -5448,19 +6034,14 @@
     }
 
     function onYtAudioStateChange(event) {
-      var audioBtn = document.getElementById('topAudioToggleBtn');
-      if (!audioBtn) return;
-
       if (event.data === YT.PlayerState.PLAYING) {
         isAudioPlaying = true;
-        audioBtn.textContent = 'Desligar Som 🔇';
-        audioBtn.classList.add('playing');
+        updateTopAudioButtonUI('playing');
       } else if (event.data === YT.PlayerState.PAUSED || event.data === YT.PlayerState.CUED) {
         isAudioPlaying = false;
-        audioBtn.textContent = 'Ouvir o Artista 🎵';
-        audioBtn.classList.remove('playing');
+        updateTopAudioButtonUI('paused');
       } else if (event.data === YT.PlayerState.ENDED) {
-        // Garantia de loop perfeito
+        // Loop perfeito
         if (ytAudioPlayer && typeof ytAudioPlayer.playVideo === 'function') {
           ytAudioPlayer.playVideo();
         }
@@ -5469,12 +6050,8 @@
 
     function onYtAudioError(event) {
       console.warn('Aviso no player do YouTube:', event.data);
-      var audioBtn = document.getElementById('topAudioToggleBtn');
-      if (audioBtn) {
-        audioBtn.textContent = 'Ouvir o Artista 🎵';
-        audioBtn.classList.remove('playing');
-      }
       isAudioPlaying = false;
+      updateTopAudioButtonUI('paused');
     }
 
     function playAudio() {
@@ -5483,6 +6060,8 @@
           ytAudioPlayer.unMute();
           ytAudioPlayer.setVolume(100);
           ytAudioPlayer.playVideo();
+          isAudioPlaying = true;
+          updateTopAudioButtonUI('playing');
         } catch (e) {
           console.error(e);
         }
@@ -5493,6 +6072,8 @@
       if (ytAudioPlayer && typeof ytAudioPlayer.pauseVideo === 'function') {
         try {
           ytAudioPlayer.pauseVideo();
+          isAudioPlaying = false;
+          updateTopAudioButtonUI('paused');
         } catch (e) {
           console.error(e);
         }
@@ -5500,12 +6081,9 @@
     }
 
     function toggleAudio() {
-      var audioBtn = document.getElementById('topAudioToggleBtn');
       if (!isPlayerReady || !ytAudioPlayer) {
         pendingPlay = !pendingPlay;
-        if (audioBtn) {
-          audioBtn.textContent = pendingPlay ? 'Iniciando áudio... ⏳' : 'Ouvir o Artista 🎵';
-        }
+        updateTopAudioButtonUI(pendingPlay ? 'loading' : 'paused');
         return;
       }
 
@@ -5516,8 +6094,118 @@
       }
     }
 
-    // Expõe globalmente para o evento onclick do botão
+    /* Gestão das Configurações de Áudio no Painel Administrativo */
+    function populateAdminAudioInputs() {
+      const settings = getStoredTopAudioSettings();
+      const titleInput = document.getElementById('adminAudioSongTitle');
+      const urlInput = document.getElementById('adminAudioUrl');
+      const actionPlay = document.getElementById('audioActionPlay');
+      const actionOpen = document.getElementById('audioActionOpen');
+      const showExtLink = document.getElementById('adminAudioShowExtLink');
+
+      if (titleInput) titleInput.value = settings.songTitle || '';
+      if (urlInput) urlInput.value = settings.url || '';
+      if (settings.clickAction === 'open') {
+        if (actionOpen) actionOpen.checked = true;
+      } else {
+        if (actionPlay) actionPlay.checked = true;
+      }
+      if (showExtLink) showExtLink.checked = settings.showDirectLink;
+
+      updateAudioLivePreview();
+    }
+
+    function updateAudioLivePreview() {
+      const titleInput = document.getElementById('adminAudioSongTitle');
+      const urlInput = document.getElementById('adminAudioUrl');
+      const showExtLink = document.getElementById('adminAudioShowExtLink');
+
+      const currentTitle = (titleInput && titleInput.value.trim()) || DEFAULT_TOP_AUDIO_SETTINGS.songTitle;
+      const currentUrl = (urlInput && urlInput.value.trim()) || DEFAULT_TOP_AUDIO_SETTINGS.url;
+      const formattedTitle = currentTitle.endsWith('•') ? currentTitle + ' ' : currentTitle + ' • ';
+
+      const previewText1 = document.getElementById('adminPreviewTickerText1');
+      const previewText2 = document.getElementById('adminPreviewTickerText2');
+      const previewExtLink = document.getElementById('adminPreviewExtLink');
+
+      if (previewText1) previewText1.textContent = formattedTitle;
+      if (previewText2) previewText2.textContent = formattedTitle;
+
+      if (previewExtLink) {
+        previewExtLink.href = currentUrl;
+        previewExtLink.style.display = (showExtLink && showExtLink.checked) ? 'inline-flex' : 'none';
+      }
+    }
+
+    function applyAudioPreset(presetTitle, presetUrl) {
+      const titleInput = document.getElementById('adminAudioSongTitle');
+      const urlInput = document.getElementById('adminAudioUrl');
+      if (titleInput) titleInput.value = presetTitle;
+      if (urlInput) urlInput.value = presetUrl;
+      updateAudioLivePreview();
+    }
+
+    function saveTopAudioSettings() {
+      const titleInput = document.getElementById('adminAudioSongTitle');
+      const urlInput = document.getElementById('adminAudioUrl');
+      const actionOpen = document.getElementById('audioActionOpen');
+      const showExtLink = document.getElementById('adminAudioShowExtLink');
+
+      const newSettings = {
+        songTitle: (titleInput && titleInput.value.trim()) || DEFAULT_TOP_AUDIO_SETTINGS.songTitle,
+        url: (urlInput && urlInput.value.trim()) || DEFAULT_TOP_AUDIO_SETTINGS.url,
+        clickAction: (actionOpen && actionOpen.checked) ? 'open' : 'play',
+        showDirectLink: showExtLink ? showExtLink.checked : true
+      };
+
+      try {
+        localStorage.setItem('gilmar_top_audio_settings', JSON.stringify(newSettings));
+      } catch (err) {
+        console.error('Erro ao salvar no localStorage:', err);
+      }
+
+      applyTopAudioSettingsToUI(newSettings);
+
+      const msg = document.getElementById('adminAudioSuccessMsg');
+      if (msg) {
+        msg.style.display = 'block';
+        setTimeout(() => {
+          msg.style.display = 'none';
+        }, 4000);
+      }
+    }
+
+    function resetDefaultTopAudioSettings() {
+      if (!confirm('Deseja restaurar as configurações oficiais padrão do áudio e letreiro?')) return;
+      
+      try {
+        localStorage.removeItem('gilmar_top_audio_settings');
+      } catch (e) {}
+
+      populateAdminAudioInputs();
+      applyTopAudioSettingsToUI(DEFAULT_TOP_AUDIO_SETTINGS);
+
+      const msg = document.getElementById('adminAudioSuccessMsg');
+      if (msg) {
+        msg.innerHTML = '<i class="fa-solid fa-circle-check" style="margin-right: 6px;"></i> Padrão oficial de áudio restaurado com sucesso!';
+        msg.style.display = 'block';
+        setTimeout(() => {
+          msg.style.display = 'none';
+        }, 4000);
+      }
+    }
+
+    // Inicializa a UI do áudio do topo logo após a renderização
+    applyTopAudioSettingsToUI();
+
+    // Expõe globalmente para os manipuladores inline
     window.toggleAudio = toggleAudio;
+    window.handleTopAudioButtonClick = handleTopAudioButtonClick;
+    window.populateAdminAudioInputs = populateAdminAudioInputs;
+    window.updateAudioLivePreview = updateAudioLivePreview;
+    window.applyAudioPreset = applyAudioPreset;
+    window.saveTopAudioSettings = saveTopAudioSettings;
+    window.resetDefaultTopAudioSettings = resetDefaultTopAudioSettings;
 
     /* ==========================================
        GESTÃO ADMINISTRATIVA DA AGENDA DE SHOWS
@@ -6204,12 +6892,14 @@
       const btnAgenda = document.getElementById('tabBtnAgenda');
       const btnMidias = document.getElementById('tabBtnMidias');
       const btnTemas = document.getElementById('tabBtnTemas');
+      const btnAudioTopo = document.getElementById('tabBtnAudioTopo');
       const tabAgenda = document.getElementById('adminTabAgenda');
       const tabMidias = document.getElementById('adminTabMidias');
       const tabTemas = document.getElementById('adminTabTemas');
+      const tabAudioTopo = document.getElementById('adminTabAudioTopo');
 
-      [btnAgenda, btnMidias, btnTemas].forEach(btn => btn && btn.classList.remove('active'));
-      [tabAgenda, tabMidias, tabTemas].forEach(tab => tab && (tab.style.display = 'none'));
+      [btnAgenda, btnMidias, btnTemas, btnAudioTopo].forEach(btn => btn && btn.classList.remove('active'));
+      [tabAgenda, tabMidias, tabTemas, tabAudioTopo].forEach(tab => tab && (tab.style.display = 'none'));
 
       if (tabName === 'midias') {
         if (btnMidias) btnMidias.classList.add('active');
@@ -6219,6 +6909,10 @@
         if (btnTemas) btnTemas.classList.add('active');
         if (tabTemas) tabTemas.style.display = 'block';
         renderThemeOptions();
+      } else if (tabName === 'audiotopo') {
+        if (btnAudioTopo) btnAudioTopo.classList.add('active');
+        if (tabAudioTopo) tabAudioTopo.style.display = 'block';
+        populateAdminAudioInputs();
       } else {
         if (btnAgenda) btnAgenda.classList.add('active');
         if (tabAgenda) tabAgenda.style.display = 'block';
