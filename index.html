@@ -5,14 +5,14 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   
   <!-- SEO & Social Meta Tags -->
-  <title>Gilmar Torres - Cantor, Guitarrista e Músico Profissional | Pop Rock</title>
-  <meta name="description" content="Show ao vivo de Pop Rock para Bares, Festas e Confraternizações. Aulas particulares de Canto, Guitarra, Violão e Baixo. Solicite seu orçamento com Gilmar Torres!" />
-  <meta name="keywords" content="Gilmar Torres, Gilmar Torrez, cantor pop rock, show para bar, música ao vivo campinas, guitarrista para eventos, aulas de música, professor de guitarra, aula de canto" />
-  <meta name="author" content="Gilmar Torres" />
+  <title>Gilmar Torrez - Cantor, Guitarrista e Músico Profissional | Pop Rock</title>
+  <meta name="description" content="Show ao vivo de Pop Rock para Bares, Festas e Confraternizações. Aulas particulares de Canto, Guitarra, Violão e Baixo. Solicite seu orçamento com Gilmar Torrez!" />
+  <meta name="keywords" content="Gilmar Torrez, cantor pop rock, show para bar, música ao vivo campinas, guitarrista para eventos, aulas de música, professor de guitarra, aula de canto" />
+  <meta name="author" content="Gilmar Torrez" />
   
   <!-- Open Graph / Facebook -->
   <meta property="og:type" content="website" />
-  <meta property="og:title" content="Gilmar Torres - A Energia Ideal para o Seu Evento" />
+  <meta property="og:title" content="Gilmar Torrez - A Energia Ideal para o Seu Evento" />
   <meta property="og:description" content="Pop Rock ao vivo de alta voltagem para Bares, Festas e Eventos Corporativos. Aulas de Canto, Guitarra, Violão e Baixo." />
   <meta property="og:image" content="/stage-bg.jpg" />
   
@@ -1732,14 +1732,15 @@
     }
 
     .agenda-item {
-      background: rgba(25, 28, 38, 0.85);
-      border: 1px solid var(--border-subtle);
-      border-radius: var(--radius-md);
-      padding: 20px 24px;
+      background: #0f121a;
+      border: 1px solid rgba(255, 255, 255, 0.08);
+      border-radius: 14px;
+      padding: 18px 24px;
       display: flex;
       flex-direction: column;
       gap: 16px;
       transition: var(--transition);
+      box-shadow: 0 4px 20px rgba(0, 0, 0, 0.35);
     }
 
     @media (min-width: 640px) {
@@ -1751,58 +1752,71 @@
     }
 
     .agenda-item:hover {
-      border-color: var(--border-gold);
+      border-color: rgba(245, 158, 11, 0.4);
       transform: translateX(4px);
-      background: rgba(32, 36, 48, 0.95);
+      background: #141824;
       box-shadow: 0 8px 24px rgba(0, 0, 0, 0.5);
     }
 
     .agenda-date-box {
       display: flex;
       align-items: center;
-      gap: 16px;
+      gap: 18px;
     }
 
     .agenda-date-badge {
       width: 58px;
       height: 58px;
       border-radius: 12px;
-      background: linear-gradient(135deg, var(--gold-primary), #b45309);
-      color: #120902;
+      background: linear-gradient(135deg, #f59e0b 0%, #d97706 100%);
+      color: #1a0c02;
       display: flex;
       flex-direction: column;
       align-items: center;
       justify-content: center;
       font-weight: 800;
       flex-shrink: 0;
-      box-shadow: 0 4px 14px rgba(245, 158, 11, 0.35);
+      box-shadow: 0 4px 18px rgba(245, 158, 11, 0.45);
     }
 
     .agenda-date-badge .day {
-      font-size: 1.4rem;
+      font-family: var(--font-title);
+      font-size: 1.5rem;
+      font-weight: 900;
       line-height: 1;
+      color: #1a0c02;
     }
 
     .agenda-date-badge .month {
       font-size: 0.72rem;
       text-transform: uppercase;
-      letter-spacing: 0.5px;
+      letter-spacing: 0.8px;
+      font-weight: 900;
+      color: #2e1603;
+      margin-top: 2px;
     }
 
     .agenda-details h5 {
       font-family: var(--font-title);
-      font-size: 1.15rem;
+      font-size: 1.18rem;
       font-weight: 800;
       color: #ffffff;
       margin-bottom: 4px;
+      letter-spacing: -0.2px;
     }
 
     .agenda-details p {
-      font-size: 0.9rem;
-      color: var(--text-muted);
+      font-size: 0.92rem;
+      color: #94a3b8;
       display: flex;
       align-items: center;
       gap: 8px;
+      margin: 0;
+    }
+
+    .agenda-details p i {
+      color: #64748b;
+      font-size: 0.85rem;
     }
 
     .agenda-status {
@@ -1810,23 +1824,24 @@
       align-items: center;
       gap: 6px;
       font-size: 0.82rem;
-      font-weight: 700;
-      padding: 6px 14px;
+      font-weight: 800;
+      padding: 6px 18px;
       border-radius: var(--radius-pill);
       text-transform: uppercase;
-      letter-spacing: 0.5px;
+      letter-spacing: 0.6px;
+      white-space: nowrap;
     }
 
     .agenda-status.confirmed {
-      background: rgba(37, 211, 102, 0.15);
-      color: #4ade80;
-      border: 1px solid rgba(37, 211, 102, 0.3);
+      background: rgba(34, 197, 94, 0.12);
+      color: #22c55e;
+      border: 1.5px solid #22c55e;
     }
 
     .agenda-status.available {
-      background: rgba(245, 158, 11, 0.15);
+      background: rgba(245, 158, 11, 0.12);
       color: var(--gold-light);
-      border: 1px solid var(--border-gold);
+      border: 1.5px solid var(--border-gold);
     }
 
     .agenda-cta-btn {
@@ -1848,6 +1863,467 @@
       background: var(--whatsapp-green);
       color: #082410;
       box-shadow: 0 4px 14px var(--whatsapp-glow);
+    }
+
+    /* Botão Admin no Menu (Apenas Ícone de Cadeado) */
+    .admin-nav-btn {
+      background: rgba(245, 158, 11, 0.12);
+      border: 1px solid rgba(245, 158, 11, 0.35);
+      color: var(--gold-primary);
+      width: 38px;
+      height: 38px;
+      border-radius: 50%;
+      font-size: 0.95rem;
+      cursor: pointer;
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      transition: var(--transition);
+      padding: 0;
+      box-shadow: 0 2px 8px rgba(0, 0, 0, 0.3);
+    }
+
+    .admin-nav-btn:hover {
+      background: var(--gold-primary);
+      color: #0f1016;
+      box-shadow: 0 4px 14px rgba(245, 158, 11, 0.4);
+      transform: translateY(-2px);
+    }
+
+    /* Modal Administrativo */
+    .admin-modal-overlay {
+      position: fixed;
+      inset: 0;
+      background: rgba(4, 5, 8, 0.88);
+      backdrop-filter: blur(10px);
+      -webkit-backdrop-filter: blur(10px);
+      z-index: 100000;
+      display: none;
+      align-items: center;
+      justify-content: center;
+      padding: 20px;
+      opacity: 0;
+      transition: opacity 0.25s ease;
+    }
+
+    .admin-modal-overlay.active {
+      display: flex;
+      opacity: 1;
+    }
+
+    .admin-modal-card {
+      background: #0f121a;
+      border: 1px solid rgba(245, 158, 11, 0.3);
+      border-radius: 18px;
+      width: 100%;
+      max-width: 600px;
+      max-height: 92vh;
+      overflow-y: auto;
+      padding: 28px;
+      position: relative;
+      box-shadow: 0 25px 60px rgba(0, 0, 0, 0.8), 0 0 30px rgba(245, 158, 11, 0.15);
+      animation: modalScaleUp 0.28s ease-out;
+    }
+
+    @keyframes modalScaleUp {
+      from { opacity: 0; transform: scale(0.96); }
+      to { opacity: 1; transform: scale(1); }
+    }
+
+    .admin-modal-header {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      border-bottom: 1px solid rgba(255, 255, 255, 0.08);
+      padding-bottom: 16px;
+      margin-bottom: 22px;
+    }
+
+    .admin-modal-header h3 {
+      font-size: 1.25rem;
+      font-weight: 800;
+      color: #ffffff;
+      display: flex;
+      align-items: center;
+      gap: 10px;
+      margin: 0;
+    }
+
+    .admin-modal-header h3 i {
+      color: var(--gold-primary);
+    }
+
+    .admin-modal-close {
+      background: rgba(255, 255, 255, 0.06);
+      border: 1px solid rgba(255, 255, 255, 0.1);
+      color: #94a3b8;
+      width: 36px;
+      height: 36px;
+      border-radius: 50%;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      cursor: pointer;
+      font-size: 1.1rem;
+      transition: var(--transition);
+    }
+
+    .admin-modal-close:hover {
+      background: rgba(239, 68, 68, 0.2);
+      border-color: #ef4444;
+      color: #ffffff;
+    }
+
+    .admin-form-group {
+      margin-bottom: 18px;
+    }
+
+    .admin-form-group label {
+      display: block;
+      font-size: 0.82rem;
+      font-weight: 700;
+      color: #cbd5e1;
+      margin-bottom: 8px;
+      text-transform: uppercase;
+      letter-spacing: 0.5px;
+    }
+
+    .admin-input {
+      width: 100%;
+      background: rgba(22, 27, 40, 0.95);
+      border: 1px solid rgba(255, 255, 255, 0.12);
+      border-radius: 10px;
+      padding: 12px 16px;
+      color: #ffffff;
+      font-size: 0.95rem;
+      outline: none;
+      transition: var(--transition);
+      box-sizing: border-box;
+      font-family: inherit;
+    }
+
+    .admin-input:focus {
+      border-color: var(--gold-primary);
+      box-shadow: 0 0 12px rgba(245, 158, 11, 0.25);
+      background: rgba(28, 34, 52, 0.95);
+    }
+
+    .admin-grid-2 {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 14px;
+    }
+
+    .admin-radio-group {
+      display: flex;
+      gap: 12px;
+    }
+
+    .admin-radio-btn {
+      flex: 1;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      gap: 8px;
+      padding: 12px 14px;
+      border-radius: 10px;
+      border: 1.5px solid rgba(255, 255, 255, 0.12);
+      background: rgba(22, 27, 40, 0.7);
+      color: #94a3b8;
+      font-weight: 700;
+      font-size: 0.88rem;
+      cursor: pointer;
+      transition: var(--transition);
+      user-select: none;
+    }
+
+    .admin-radio-btn.selected-yes {
+      border-color: #22c55e;
+      background: rgba(34, 197, 94, 0.15);
+      color: #22c55e;
+    }
+
+    .admin-radio-btn.selected-no {
+      border-color: #f59e0b;
+      background: rgba(245, 158, 11, 0.15);
+      color: #f59e0b;
+    }
+
+    .admin-btn-primary {
+      width: 100%;
+      background: linear-gradient(135deg, var(--gold-primary), #d97706);
+      color: #0f1016;
+      border: none;
+      border-radius: 10px;
+      padding: 14px 24px;
+      font-size: 0.98rem;
+      font-weight: 800;
+      cursor: pointer;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      gap: 10px;
+      box-shadow: 0 4px 18px rgba(245, 158, 11, 0.35);
+      transition: var(--transition);
+    }
+
+    .admin-btn-primary:hover {
+      transform: translateY(-2px);
+      box-shadow: 0 8px 24px rgba(245, 158, 11, 0.5);
+    }
+
+    .admin-btn-logout {
+      background: rgba(239, 68, 68, 0.15);
+      border: 1px solid rgba(239, 68, 68, 0.3);
+      color: #ef4444;
+      padding: 5px 12px;
+      border-radius: var(--radius-pill);
+      font-size: 0.78rem;
+      font-weight: 700;
+      cursor: pointer;
+      display: inline-flex;
+      align-items: center;
+      gap: 6px;
+      transition: var(--transition);
+    }
+
+    .admin-btn-logout:hover {
+      background: #ef4444;
+      color: #ffffff;
+    }
+
+    /* Caixa de Pergunta Pós-Cadastro: "Pode informar outro evento?" */
+    .admin-confirm-box {
+      background: rgba(18, 22, 34, 0.95);
+      border: 1.5px solid #22c55e;
+      border-radius: 14px;
+      padding: 22px 20px;
+      margin-top: 20px;
+      text-align: center;
+      animation: modalScaleUp 0.25s ease;
+      box-shadow: 0 10px 25px rgba(34, 197, 94, 0.15);
+    }
+
+    .admin-confirm-box h4 {
+      color: #4ade80;
+      font-size: 1.12rem;
+      font-weight: 800;
+      margin-bottom: 6px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      gap: 8px;
+    }
+
+    .admin-confirm-box p {
+      color: #e2e8f0;
+      font-size: 0.95rem;
+      margin-bottom: 18px;
+    }
+
+    .admin-confirm-actions {
+      display: flex;
+      gap: 12px;
+      justify-content: center;
+      flex-wrap: wrap;
+    }
+
+    .admin-btn-yes {
+      background: #22c55e;
+      color: #082410;
+      border: none;
+      padding: 11px 24px;
+      border-radius: 10px;
+      font-weight: 800;
+      font-size: 0.92rem;
+      cursor: pointer;
+      transition: var(--transition);
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+    }
+
+    .admin-btn-yes:hover {
+      background: #16a34a;
+      transform: scale(1.03);
+    }
+
+    .admin-btn-no {
+      background: rgba(255, 255, 255, 0.08);
+      color: #ffffff;
+      border: 1px solid rgba(255, 255, 255, 0.2);
+      padding: 11px 24px;
+      border-radius: 10px;
+      font-weight: 700;
+      font-size: 0.92rem;
+      cursor: pointer;
+      transition: var(--transition);
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+    }
+
+    .admin-btn-no:hover {
+      background: rgba(255, 255, 255, 0.18);
+      border-color: #ffffff;
+    }
+
+    /* Lista de Gestão de Shows Cadastrados */
+    .admin-events-list {
+      margin-top: 26px;
+      border-top: 1px solid rgba(255, 255, 255, 0.08);
+      padding-top: 20px;
+    }
+
+    .admin-events-list h4 {
+      font-size: 0.95rem;
+      font-weight: 800;
+      color: #94a3b8;
+      text-transform: uppercase;
+      letter-spacing: 0.6px;
+      margin-bottom: 14px;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+    }
+
+    .admin-event-row {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 12px;
+      background: rgba(22, 27, 40, 0.8);
+      border: 1px solid rgba(255, 255, 255, 0.06);
+      border-radius: 10px;
+      padding: 12px 16px;
+      margin-bottom: 10px;
+      transition: var(--transition);
+    }
+
+    .admin-event-row:hover {
+      border-color: rgba(255, 255, 255, 0.15);
+      background: rgba(26, 32, 48, 0.95);
+    }
+
+    .admin-event-info {
+      display: flex;
+      align-items: center;
+      gap: 14px;
+      flex: 1;
+      min-width: 0;
+    }
+
+    .admin-event-tag {
+      background: rgba(245, 158, 11, 0.2);
+      color: var(--gold-light);
+      border-radius: 6px;
+      padding: 4px 8px;
+      font-size: 0.75rem;
+      font-weight: 800;
+      white-space: nowrap;
+    }
+
+    .admin-event-text {
+      min-width: 0;
+    }
+
+    .admin-event-text strong {
+      display: block;
+      color: #ffffff;
+      font-size: 0.9rem;
+      white-space: nowrap;
+      overflow: hidden;
+      text-overflow: ellipsis;
+    }
+
+    .admin-event-text span {
+      display: block;
+      color: #94a3b8;
+      font-size: 0.8rem;
+      white-space: nowrap;
+      overflow: hidden;
+      text-overflow: ellipsis;
+    }
+
+    .admin-event-row.is-editing {
+      border-color: rgba(59, 130, 246, 0.7);
+      background: rgba(30, 58, 138, 0.22);
+      box-shadow: 0 0 16px rgba(59, 130, 246, 0.25);
+    }
+
+    .admin-event-actions {
+      display: flex;
+      align-items: center;
+      gap: 8px;
+      flex-shrink: 0;
+    }
+
+    .admin-action-btn {
+      display: inline-flex;
+      align-items: center;
+      gap: 6px;
+      padding: 6px 12px;
+      border-radius: 8px;
+      font-size: 0.8rem;
+      font-weight: 700;
+      cursor: pointer;
+      transition: var(--transition);
+      border: 1px solid transparent;
+      white-space: nowrap;
+    }
+
+    .admin-action-btn.edit {
+      background: rgba(59, 130, 246, 0.15);
+      border-color: rgba(59, 130, 246, 0.35);
+      color: #60a5fa;
+    }
+
+    .admin-action-btn.edit:hover {
+      background: #3b82f6;
+      color: #ffffff;
+      transform: translateY(-1px);
+      box-shadow: 0 4px 12px rgba(59, 130, 246, 0.35);
+    }
+
+    .admin-action-btn.delete {
+      background: rgba(239, 68, 68, 0.15);
+      border-color: rgba(239, 68, 68, 0.35);
+      color: #f87171;
+    }
+
+    .admin-action-btn.delete:hover {
+      background: #ef4444;
+      color: #ffffff;
+      transform: translateY(-1px);
+      box-shadow: 0 4px 12px rgba(239, 68, 68, 0.35);
+    }
+
+    .admin-form-actions {
+      display: flex;
+      gap: 10px;
+      align-items: center;
+    }
+
+    .admin-btn-cancel {
+      background: rgba(255, 255, 255, 0.08);
+      border: 1px solid rgba(255, 255, 255, 0.2);
+      color: #cbd5e1;
+      padding: 14px 20px;
+      border-radius: 10px;
+      font-weight: 700;
+      font-size: 0.95rem;
+      cursor: pointer;
+      transition: var(--transition);
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      gap: 8px;
+      white-space: nowrap;
+    }
+
+    .admin-btn-cancel:hover {
+      background: rgba(255, 255, 255, 0.18);
+      color: #ffffff;
     }
 
     /* ==========================================
@@ -2295,21 +2771,21 @@
        ========================================== -->
   <header class="header" id="mainHeader">
     <div class="container nav-container">
-      <!-- Logotipo Oficial Gilmar Torres (Destaque Dobrado e Sem Brilho) -->
-      <a href="#hero" class="logo-link" id="headerLogo" aria-label="Gilmar Torres - Início">
+      <!-- Logotipo Oficial Gilmar Torrez (Destaque Dobrado e Sem Brilho) -->
+      <a href="#hero" class="logo-link" id="headerLogo" aria-label="Gilmar Torrez - Início">
         <div class="logo-container">
           <img src="/logo.svg" 
-               alt="Logotipo Gilmar Torres" 
+               alt="Logotipo Gilmar Torrez" 
                class="logo-img" 
                onerror="this.onerror=null; this.src='watermarked_img_18271619073969897132.jpg';" />
         </div>
         <div class="logo-text-group">
-          <span class="logo-name-signature">Gilmar Torres</span>
+          <span class="logo-name-signature">Gilmar Torrez</span>
           <span class="logo-badge">Pop Rock & Música</span>
         </div>
       </a>
 
-      <!-- Menu Desktop: Shows, Banda, Repertório, Mídia, Depoimentos, Agenda, Aulas -->
+      <!-- Menu Desktop: Shows, Banda, Repertório, Mídia, Depoimentos, Agenda, Aulas, Admin -->
       <nav aria-label="Navegação Principal">
         <ul class="nav-menu" id="desktopNav">
           <li><a href="#sobre-show" class="nav-link">Shows</a></li>
@@ -2319,6 +2795,11 @@
           <li><a href="#depoimentos" class="nav-link">Depoimentos</a></li>
           <li><a href="#agenda" class="nav-link">Agenda</a></li>
           <li><a href="#aulas" class="nav-link">Aulas de Música</a></li>
+          <li>
+            <button type="button" onclick="openAdminModal()" class="nav-link admin-nav-btn" id="navAdminBtn" title="Acesso Administrativo" aria-label="Acesso Administrativo">
+              <i class="fa-solid fa-lock"></i>
+            </button>
+          </li>
         </ul>
       </nav>
 
@@ -2371,6 +2852,10 @@
       <span>Aulas de Música</span>
       <i class="fa-solid fa-chevron-right"></i>
     </a>
+    <a href="javascript:void(0)" onclick="openAdminModal(); if(typeof toggleMenu==='function')toggleMenu();" class="nav-link mobile-nav-link admin-mobile-nav-link" id="mobileDrawerAdminLink" title="Acesso Administrativo" aria-label="Acesso Administrativo" style="justify-content: space-between;">
+      <span style="color: var(--gold-primary); font-size: 1.15rem; display: inline-flex; align-items: center;"><i class="fa-solid fa-lock"></i></span>
+      <i class="fa-solid fa-chevron-right"></i>
+    </a>
     
     <a href="https://wa.me/5519988034268?text=Ola%2C%20gostaria%20de%20um%20orcamento%20para%20um%20show!" 
        target="_blank" 
@@ -2389,7 +2874,7 @@
     <div class="container hero-content">
       <!-- Tag Superior de Destaque -->
       <div class="hero-pre-title">
-        <i class="fa-solid fa-bolt"></i> Música Ao Vivo de Alto Nível &bull; <span class="signature-accent" style="font-size: 1.25rem;">Gilmar Torres</span>
+        <i class="fa-solid fa-bolt"></i> Música Ao Vivo de Alto Nível &bull; <span class="signature-accent" style="font-size: 1.25rem;">Gilmar Torrez</span>
       </div>
 
       <!-- Título Principal Forte -->
@@ -2433,12 +2918,12 @@
       <div class="hero-stage-showcase">
         <div class="hero-stage-frame">
           <img src="/stage-bg.jpg" 
-               alt="Gilmar Torres no Palco em Alta Resolução" 
+               alt="Gilmar Torrez no Palco em Alta Resolução" 
                class="hero-stage-photo"
                onerror="this.onerror=null; this.src='0b6471dd-b068-4fc2-b24f-15adceaa265a.jpg';" />
           <div class="hero-stage-overlay">
             <div class="hero-stage-caption">
-              <h4>Gilmar Torres Ao Vivo no Palco</h4>
+              <h4>Gilmar Torrez Ao Vivo no Palco</h4>
               <p><i class="fa-solid fa-location-dot"></i> Bares, Festas Particulares e Grandes Confraternizações</p>
             </div>
             <a href="https://wa.me/5519988034268?text=Ola%2C%20vi%20sua%20foto%20ao%20vivo%20e%20gostaria%20de%20um%20show%20assim!" 
@@ -2496,7 +2981,7 @@
           <div class="authority-content">
             <h3>Uma Entrega Musical Impecável do Início ao Fim</h3>
             <p>
-              Contratar um show ao vivo não pode ser uma loteria. Com <strong>Gilmar Torres</strong>, você garante um profissional comprometido com a pontualidade, comunicação clara pré-evento e execução musical afinada.
+              Contratar um show ao vivo não pode ser uma loteria. Com <strong>Gilmar Torrez</strong>, você garante um profissional comprometido com a pontualidade, comunicação clara pré-evento e execução musical afinada.
             </p>
             <p>
               Voz marcante, solos de guitarra vibrantes e arranjos pensados para manter o ritmo da festa em alta, o repertório é moldado conforme o perfil dos seus convidados.
@@ -3130,85 +3615,15 @@
           <i class="fa-regular fa-calendar-days"></i> Calendário 2025/2026
         </span>
         <h2 class="section-title">
-          Agenda de Shows & <span class="highlight">Datas Disponíveis</span>
+          Agenda de <span class="highlight">Shows</span>
         </h2>
         <p class="section-subtitle">
-          Garanta a data do seu evento com antecedência. Consulte a disponibilidade em tempo real:
+          Próximas apresentações, confira nossa agenda
         </p>
       </div>
 
-      <div class="agenda-list">
-        <!-- Data 1 -->
-        <div class="agenda-item">
-          <div class="agenda-date-box">
-            <div class="agenda-date-badge">
-              <span class="day">12</span>
-              <span class="month">Out</span>
-            </div>
-            <div class="agenda-details">
-              <h5>Red Rock Pub - Noite Classic Rock</h5>
-              <p><i class="fa-solid fa-location-dot"></i> Campinas / SP &bull; 21h00</p>
-            </div>
-          </div>
-          <span class="agenda-status confirmed"><i class="fa-solid fa-circle-check"></i> Confirmado</span>
-        </div>
-
-        <!-- Data 2 (Disponível) -->
-        <div class="agenda-item" style="border-color: rgba(245, 158, 11, 0.4);">
-          <div class="agenda-date-box">
-            <div class="agenda-date-badge" style="background: linear-gradient(135deg, #22c55e, #15803d);">
-              <span class="day">18</span>
-              <span class="month">Out</span>
-            </div>
-            <div class="agenda-details">
-              <h5>Data Aberta para Evento Particular ou Bar</h5>
-              <p><i class="fa-solid fa-star" style="color: var(--gold-light);"></i> Sexta-feira livre para contratação</p>
-            </div>
-          </div>
-          <a href="https://wa.me/5519988034268?text=Ola%2C%20gostaria%20de%20reservar%20a%20data%20de%2018%20de%20Outubro!" 
-             target="_blank" 
-             rel="noopener noreferrer" 
-             class="agenda-cta-btn">
-            <i class="fa-brands fa-whatsapp"></i>
-            <span>Reservar Esta Data</span>
-          </a>
-        </div>
-
-        <!-- Data 3 -->
-        <div class="agenda-item">
-          <div class="agenda-date-box">
-            <div class="agenda-date-badge">
-              <span class="day">25</span>
-              <span class="month">Out</span>
-            </div>
-            <div class="agenda-details">
-              <h5>Evento Corporativo TechSolutions</h5>
-              <p><i class="fa-solid fa-location-dot"></i> Paulínia / SP &bull; Confraternização</p>
-            </div>
-          </div>
-          <span class="agenda-status confirmed"><i class="fa-solid fa-circle-check"></i> Confirmado</span>
-        </div>
-
-        <!-- Data 4 (Disponível) -->
-        <div class="agenda-item" style="border-color: rgba(245, 158, 11, 0.4);">
-          <div class="agenda-date-box">
-            <div class="agenda-date-badge" style="background: linear-gradient(135deg, #22c55e, #15803d);">
-              <span class="day">08</span>
-              <span class="month">Nov</span>
-            </div>
-            <div class="agenda-details">
-              <h5>Data Aberta para Festas de Fim de Ano</h5>
-              <p><i class="fa-solid fa-star" style="color: var(--gold-light);"></i> Sábado livre para contratação</p>
-            </div>
-          </div>
-          <a href="https://wa.me/5519988034268?text=Ola%2C%20gostaria%20de%20reservar%20a%20data%20de%2008%20de%20Novembro%20para%20minha%20festa!" 
-             target="_blank" 
-             rel="noopener noreferrer" 
-             class="agenda-cta-btn">
-            <i class="fa-brands fa-whatsapp"></i>
-            <span>Reservar Esta Data</span>
-          </a>
-        </div>
+      <div class="agenda-list" id="agendaList">
+        <!-- Os eventos são gerenciados e renderizados dinamicamente pelo Painel Admin -->
       </div>
 
       <div style="text-align: center;">
@@ -3336,12 +3751,12 @@
           <a href="#hero" class="logo-link">
             <div class="logo-container">
               <img src="/logo.svg" 
-                   alt="Logotipo Gilmar Torres" 
+                   alt="Logotipo Gilmar Torrez" 
                    class="logo-img" 
                    onerror="this.onerror=null; this.src='watermarked_img_18271619073969897132.jpg';" />
             </div>
             <div class="logo-text-group">
-              <span class="logo-name-signature">Gilmar Torres</span>
+              <span class="logo-name-signature">Gilmar Torrez</span>
             </div>
           </a>
           <p class="footer-quote">
@@ -3381,7 +3796,7 @@
                target="_blank" 
                rel="noopener noreferrer" 
                class="social-btn instagram" 
-               aria-label="Instagram de Gilmar Torres" 
+               aria-label="Instagram de Gilmar Torrez" 
                title="Instagram @gilmartorrez07">
               <i class="fa-brands fa-instagram"></i>
             </a>
@@ -3390,7 +3805,7 @@
                target="_blank" 
                rel="noopener noreferrer" 
                class="social-btn facebook" 
-               aria-label="Facebook de Gilmar Torres" 
+               aria-label="Facebook de Gilmar Torrez" 
                title="Facebook Oficial">
               <i class="fa-brands fa-facebook-f"></i>
             </a>
@@ -3400,7 +3815,7 @@
                target="_blank" 
                rel="noopener noreferrer" 
                class="social-btn tiktok" 
-               aria-label="TikTok do Professor Gilmar Torres" 
+               aria-label="TikTok do Professor Gilmar Torrez" 
                title="TikTok @professorgilmartorrez">
               <i class="fa-brands fa-tiktok"></i>
             </a>
@@ -3420,19 +3835,19 @@
       <!-- Rodapé Inferior -->
       <div class="footer-bottom">
         <p>
-          &copy; <span id="currentYear"></span> <strong>Gilmar Torres</strong>. Todos os direitos reservados. Música ao Vivo & Educação Musical.
+          &copy; <span id="currentYear"></span> <strong>Gilmar Torrez</strong>. Todos os direitos reservados. Música ao Vivo & Educação Musical.
         </p>
       </div>
     </div>
   </footer>
 
   <!-- Botão Flutuante do WhatsApp -->
-  <a href="https://wa.me/5519988034268?text=Ola%2C%20gostaria%20de%20falar%20com%20o%20Gilmar%20Torres!" 
+  <a href="https://wa.me/5519988034268?text=Ola%2C%20gostaria%20de%20falar%20com%20o%20Gilmar%20Torrez!" 
      target="_blank" 
      rel="noopener noreferrer" 
      class="whatsapp-floating" 
      id="floatingWhatsApp" 
-     aria-label="Falar no WhatsApp com Gilmar Torres">
+     aria-label="Falar no WhatsApp com Gilmar Torrez">
     <i class="fa-brands fa-whatsapp"></i>
     <span class="whatsapp-tooltip">Fale com Gilmar no WhatsApp</span>
   </a>
@@ -3445,6 +3860,155 @@
       </button>
       <img src="" alt="Ampliação da foto" class="modal-image" id="modalImg" />
       <div class="modal-caption" id="modalCaption"></div>
+    </div>
+  </div>
+
+  <!-- Modal Administrativo (Programação da Agenda de Shows) -->
+  <div class="admin-modal-overlay" id="adminModal" onclick="handleAdminOverlayClick(event)">
+    <div class="admin-modal-card" id="adminModalCard">
+      
+      <!-- Visão 1: Login do Administrador -->
+      <div id="adminLoginView">
+        <div class="admin-modal-header">
+          <h3><i class="fa-solid fa-lock"></i> Acesso Administrativo</h3>
+          <button type="button" class="admin-modal-close" onclick="closeAdminModal()" aria-label="Fechar painel admin">
+            <i class="fa-solid fa-xmark"></i>
+          </button>
+        </div>
+        <p style="color: #94a3b8; font-size: 0.92rem; margin-bottom: 20px;">
+          Informe o usuário e senha autorizados para programar a <strong>Agenda de Shows</strong>:
+        </p>
+
+        <form id="adminLoginForm" onsubmit="handleAdminLogin(event)">
+          <div class="admin-form-group">
+            <label for="adminUsernameInput"><i class="fa-solid fa-user" style="margin-right: 6px;"></i> Usuário</label>
+            <input type="text" id="adminUsernameInput" class="admin-input" placeholder="Digite seu usuário..." required autocomplete="username" />
+          </div>
+
+          <div class="admin-form-group">
+            <label for="adminPasswordInput"><i class="fa-solid fa-key" style="margin-right: 6px;"></i> Senha</label>
+            <input type="password" id="adminPasswordInput" class="admin-input" placeholder="Digite sua senha..." required autocomplete="current-password" />
+          </div>
+
+          <div id="adminLoginErrorMsg" style="display: none; background: rgba(239, 68, 68, 0.15); border: 1px solid #ef4444; color: #fca5a5; padding: 10px 14px; border-radius: 8px; font-size: 0.88rem; margin-bottom: 16px;">
+            <i class="fa-solid fa-triangle-exclamation" style="margin-right: 6px;"></i> Usuário ou senha incorretos. Verifique suas credenciais.
+          </div>
+
+          <button type="submit" class="admin-btn-primary" id="adminLoginSubmitBtn">
+            <i class="fa-solid fa-right-to-bracket"></i> Acessar Painel
+          </button>
+        </form>
+      </div>
+
+      <!-- Visão 2: Painel de Gerenciamento da Agenda -->
+      <div id="adminPanelView" style="display: none;">
+        <div class="admin-modal-header">
+          <div>
+            <h3><i class="fa-solid fa-calendar-plus"></i> Programar Agenda</h3>
+            <span style="font-size: 0.78rem; color: #4ade80; display: flex; align-items: center; gap: 6px; margin-top: 4px;">
+              <i class="fa-solid fa-circle" style="font-size: 0.55rem;"></i> Conectado como <strong>admin</strong>
+            </span>
+          </div>
+          <div style="display: flex; align-items: center; gap: 10px;">
+            <button type="button" class="admin-btn-logout" onclick="adminLogout()" title="Sair da conta">
+              <i class="fa-solid fa-right-from-bracket"></i> Sair
+            </button>
+            <button type="button" class="admin-modal-close" onclick="closeAdminModal()" aria-label="Fechar painel admin">
+              <i class="fa-solid fa-xmark"></i>
+            </button>
+          </div>
+        </div>
+
+        <!-- Formulário de Cadastro e Edição Manual de Show -->
+        <div id="adminFormHeader" style="display: flex; align-items: center; justify-content: space-between; margin-bottom: 12px;">
+          <span id="adminFormTitleText" style="font-size: 0.92rem; font-weight: 700; color: #e2e8f0; display: flex; align-items: center; gap: 8px;">
+            <i class="fa-solid fa-calendar-plus" style="color: var(--gold-primary);"></i> Cadastrar Novo Show
+          </span>
+          <span id="adminFormModeBadge" style="display: none; background: rgba(59, 130, 246, 0.2); color: #60a5fa; border: 1px solid rgba(59, 130, 246, 0.4); font-size: 0.72rem; font-weight: 700; padding: 2px 8px; border-radius: 999px;">
+            MODO ALTERAÇÃO
+          </span>
+        </div>
+
+        <form id="adminEventForm" onsubmit="handleSaveEvent(event)">
+          <input type="hidden" id="adminEditIdInput" value="" />
+
+          <div class="admin-form-group">
+            <label><i class="fa-regular fa-calendar" style="margin-right: 6px;"></i> Data do Show</label>
+            <div class="admin-grid-2">
+              <div>
+                <input type="text" id="adminDayInput" class="admin-input" placeholder="Dia (Ex: 25)" maxlength="2" required />
+              </div>
+              <div>
+                <input type="text" id="adminMonthInput" class="admin-input" placeholder="Mês (Ex: OUT)" maxlength="4" style="text-transform: uppercase;" required />
+              </div>
+            </div>
+            <div style="display: flex; align-items: center; gap: 8px; margin-top: 8px;">
+              <span style="color: #64748b; font-size: 0.78rem;">Ou selecionar no calendário:</span>
+              <input type="date" id="adminDatePicker" class="admin-input" style="padding: 5px 10px; font-size: 0.8rem; width: auto; cursor: pointer;" onchange="syncDatePicker(this)" />
+            </div>
+          </div>
+
+          <div class="admin-form-group">
+            <label for="adminTitleInput"><i class="fa-solid fa-music" style="margin-right: 6px;"></i> Local / Nome do Show</label>
+            <input type="text" id="adminTitleInput" class="admin-input" placeholder="Ex: Evento Corporativo TechSolutions ou Red Rock Pub" required />
+          </div>
+
+          <div class="admin-form-group">
+            <label for="adminAddressInput"><i class="fa-solid fa-location-dot" style="margin-right: 6px;"></i> Endereço / Cidade / Detalhes</label>
+            <input type="text" id="adminAddressInput" class="admin-input" placeholder="Ex: Paulínia / SP • Confraternização" required />
+          </div>
+
+          <div class="admin-form-group">
+            <label><i class="fa-solid fa-clipboard-check" style="margin-right: 6px;"></i> Confirma este evento? (Status)</label>
+            <div class="admin-radio-group">
+              <div class="admin-radio-btn selected-yes" id="btnRadioYes" onclick="selectEventConfirmed(true)">
+                <i class="fa-solid fa-circle-check"></i>
+                <span>Sim (Confirmado)</span>
+              </div>
+              <div class="admin-radio-btn" id="btnRadioNo" onclick="selectEventConfirmed(false)">
+                <i class="fa-regular fa-clock"></i>
+                <span>Não (Disponível)</span>
+              </div>
+            </div>
+            <input type="hidden" id="adminConfirmedInput" value="true" />
+          </div>
+
+          <div class="admin-form-actions">
+            <button type="submit" class="admin-btn-primary" id="adminSaveBtn" style="flex: 1;">
+              <i class="fa-solid fa-check"></i> <span>Salvar Show na Agenda</span>
+            </button>
+            <button type="button" class="admin-btn-cancel" id="adminCancelEditBtn" onclick="cancelEditEvent()" style="display: none;">
+              <i class="fa-solid fa-xmark"></i> Cancelar
+            </button>
+          </div>
+        </form>
+
+        <!-- Caixa de Diálogo "Pode informar outro evento?" -->
+        <div id="adminAnotherEventBox" class="admin-confirm-box" style="display: none;">
+          <h4><i class="fa-solid fa-circle-check"></i> Show salvo com sucesso!</h4>
+          <p>Pode informar outro evento?</p>
+          <div class="admin-confirm-actions">
+            <button type="button" class="admin-btn-yes" onclick="handleAnotherEvent(true)">
+              <i class="fa-solid fa-plus"></i> Sim, digitar outro evento
+            </button>
+            <button type="button" class="admin-btn-no" onclick="handleAnotherEvent(false)">
+              <i class="fa-solid fa-arrow-left"></i> Não, retornar à página principal
+            </button>
+          </div>
+        </div>
+
+        <!-- Lista de Gerenciamento de Shows Existentes -->
+        <div class="admin-events-list">
+          <h4>
+            <span>Eventos Programados</span>
+            <span id="adminEventsCountBadge" style="font-size: 0.75rem; background: rgba(255,255,255,0.08); padding: 2px 8px; border-radius: 999px; color: #cbd5e1;"></span>
+          </h4>
+          <div id="adminEventsListContainer">
+            <!-- Inserido dinamicamente via JS -->
+          </div>
+        </div>
+      </div>
+
     </div>
   </div>
 
@@ -3540,7 +4104,7 @@
       
       const iframe = document.createElement('iframe');
       iframe.setAttribute('src', videoUrl);
-      iframe.setAttribute('title', 'Apresentação de Gilmar Torres');
+      iframe.setAttribute('title', 'Apresentação de Gilmar Torrez');
       iframe.setAttribute('frameborder', '0');
       iframe.setAttribute('allow', 'accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share');
       iframe.setAttribute('allowfullscreen', 'true');
@@ -3859,6 +4423,527 @@
 
     // Expõe globalmente para o evento onclick do botão
     window.toggleAudio = toggleAudio;
+
+    /* ==========================================
+       GESTÃO ADMINISTRATIVA DA AGENDA DE SHOWS
+       ========================================== */
+    const DEFAULT_SHOWS = [];
+
+    const MONTH_MAP = {
+      'JAN': 0, 'JANEIRO': 0, '01': 0, '1': 0,
+      'FEV': 1, 'FEVEREIRO': 1, '02': 1, '2': 1,
+      'MAR': 2, 'MARCO': 2, 'MARÇO': 2, '03': 2, '3': 2,
+      'ABR': 3, 'ABRIL': 3, '04': 3, '4': 3,
+      'MAI': 4, 'MAIO': 4, '05': 4, '5': 4,
+      'JUN': 5, 'JUNHO': 5, '06': 5, '6': 5,
+      'JUL': 6, 'JULHO': 6, '07': 6, '7': 6,
+      'AGO': 7, 'AGOSTO': 7, '08': 7, '8': 7,
+      'SET': 8, 'SETEMBRO': 8, '09': 8, '9': 8,
+      'OUT': 9, 'OUTUBRO': 9, '10': 9,
+      'NOV': 10, 'NOVEMBRO': 10, '11': 10,
+      'DEZ': 11, 'DEZEMBRO': 11, '12': 11
+    };
+
+    let currentEditingId = null;
+
+    function escapeHtml(str) {
+      if (!str) return '';
+      return String(str)
+        .replace(/&/g, '&amp;')
+        .replace(/</g, '&lt;')
+        .replace(/>/g, '&gt;')
+        .replace(/"/g, '&quot;')
+        .replace(/'/g, '&#039;');
+    }
+
+    // Calcula timestamp para ordenação cronológica precisa por data
+    function getEventTimestamp(show) {
+      if (!show) return 0;
+      if (show.isoDate) {
+        const d = new Date(show.isoDate + 'T00:00:00');
+        if (!isNaN(d.getTime())) return d.getTime();
+      }
+      const rawMonth = (show.month || '').trim().toUpperCase()
+        .normalize('NFD').replace(/[\u0300-\u036f]/g, '');
+      const monthIdx = MONTH_MAP[rawMonth] !== undefined ? MONTH_MAP[rawMonth] : 0;
+      const day = parseInt(show.day, 10) || 1;
+      const now = new Date();
+      const currentYear = now.getFullYear();
+      let year = show.year || currentYear;
+      if (!show.year && monthIdx < now.getMonth()) {
+        year = currentYear + 1;
+      }
+      return new Date(year, monthIdx, day).getTime();
+    }
+
+    function sortShowsByDate(shows) {
+      if (!Array.isArray(shows)) return [];
+      return [...shows].sort((a, b) => getEventTimestamp(a) - getEventTimestamp(b));
+    }
+
+    function getStoredShows() {
+      try {
+        const stored = localStorage.getItem('gilmar_torrez_agenda_shows');
+        if (stored) {
+          const parsed = JSON.parse(stored);
+          if (Array.isArray(parsed)) {
+            // Remove antigos blocos de exemplo padrão se existirem
+            const filtered = parsed.filter(s => !['show-1', 'show-2', 'show-3', 'show-4'].includes(s.id));
+            return sortShowsByDate(filtered);
+          }
+        }
+      } catch (e) {
+        console.warn('Erro ao ler agenda do localStorage:', e);
+      }
+      return sortShowsByDate(DEFAULT_SHOWS);
+    }
+
+    function saveStoredShows(shows) {
+      const sorted = sortShowsByDate(shows);
+      try {
+        localStorage.setItem('gilmar_torrez_agenda_shows', JSON.stringify(sorted));
+      } catch (e) {
+        console.warn('Erro ao salvar agenda no localStorage:', e);
+      }
+      renderAgenda();
+      renderAdminList();
+    }
+
+    function renderAgenda() {
+      const listEl = document.getElementById('agendaList');
+      if (!listEl) return;
+      const shows = getStoredShows();
+
+      if (shows.length === 0) {
+        listEl.innerHTML = `
+          <div style="text-align: center; padding: 36px 20px; background: #0f121a; border: 1px dashed rgba(255,255,255,0.12); border-radius: 14px; color: #94a3b8; max-width: 650px; margin: 0 auto 24px auto;">
+            <i class="fa-regular fa-calendar-days" style="font-size: 2.2rem; color: var(--gold-primary); margin-bottom: 12px; display: block;"></i>
+            <p style="font-size: 1.05rem; font-weight: 700; color: #ffffff; margin-bottom: 6px;">Nenhuma apresentação agendada publicamente no momento</p>
+            <span style="font-size: 0.9rem; color: #94a3b8; display: block; line-height: 1.5;">Novas datas serão adicionadas em breve. Para reservar uma data exclusiva para seu evento ou bar, entre em contato via WhatsApp.</span>
+          </div>
+        `;
+        return;
+      }
+
+      listEl.innerHTML = shows.map(show => {
+        const safeDay = escapeHtml(show.day);
+        const safeMonth = escapeHtml(show.month);
+        const safeTitle = escapeHtml(show.title);
+        const safeAddress = escapeHtml(show.address);
+        const isConfirmed = show.confirmed === true || show.confirmed === 'true';
+
+        if (isConfirmed) {
+          return `
+            <div class="agenda-item" data-id="${show.id}">
+              <div class="agenda-date-box">
+                <div class="agenda-date-badge">
+                  <span class="day">${safeDay}</span>
+                  <span class="month">${safeMonth}</span>
+                </div>
+                <div class="agenda-details">
+                  <h5>${safeTitle}</h5>
+                  <p><i class="fa-solid fa-location-dot"></i> ${safeAddress}</p>
+                </div>
+              </div>
+              <span class="agenda-status confirmed"><i class="fa-solid fa-circle-check"></i> CONFIRMADO</span>
+            </div>
+          `;
+        } else {
+          const whatsappMsg = encodeURIComponent(`Olá Gilmar, gostaria de reservar a data de ${show.day} de ${show.month} para meu evento (${show.title})!`);
+          return `
+            <div class="agenda-item" data-id="${show.id}" style="border-color: rgba(245, 158, 11, 0.4);">
+              <div class="agenda-date-box">
+                <div class="agenda-date-badge" style="background: linear-gradient(135deg, #22c55e, #15803d); box-shadow: 0 4px 14px rgba(34, 197, 94, 0.35);">
+                  <span class="day">${safeDay}</span>
+                  <span class="month">${safeMonth}</span>
+                </div>
+                <div class="agenda-details">
+                  <h5>${safeTitle}</h5>
+                  <p><i class="fa-solid fa-star" style="color: var(--gold-light);"></i> ${safeAddress}</p>
+                </div>
+              </div>
+              <a href="https://wa.me/5519988034268?text=${whatsappMsg}" 
+                 target="_blank" 
+                 rel="noopener noreferrer" 
+                 class="agenda-cta-btn">
+                <i class="fa-brands fa-whatsapp"></i>
+                <span>Reservar Esta Data</span>
+              </a>
+            </div>
+          `;
+        }
+      }).join('');
+    }
+
+    function renderAdminList() {
+      const container = document.getElementById('adminEventsListContainer');
+      const badge = document.getElementById('adminEventsCountBadge');
+      if (!container) return;
+      const shows = getStoredShows();
+
+      if (badge) {
+        badge.textContent = `${shows.length} evento${shows.length === 1 ? '' : 's'}`;
+      }
+
+      if (shows.length === 0) {
+        container.innerHTML = `<p style="color: #64748b; font-size: 0.85rem; text-align: center; padding: 16px;">Nenhum show na agenda. Use o formulário acima para adicionar um evento!</p>`;
+        return;
+      }
+
+      container.innerHTML = shows.map(show => `
+        <div class="admin-event-row ${currentEditingId === show.id ? 'is-editing' : ''}" data-id="${show.id}">
+          <div class="admin-event-info">
+            <span class="admin-event-tag">${escapeHtml(show.day)} ${escapeHtml(show.month)}</span>
+            <div class="admin-event-text">
+              <strong>${escapeHtml(show.title)}</strong>
+              <span>${escapeHtml(show.address)} &bull; ${show.confirmed ? '<span style="color: #4ade80; font-weight: 700;">Confirmado</span>' : '<span style="color: #f59e0b; font-weight: 700;">Disponível</span>'}</span>
+            </div>
+          </div>
+          <div class="admin-event-actions">
+            <button type="button" class="admin-action-btn edit" onclick="editEvent('${show.id}')" title="Alterar informações deste evento">
+              <i class="fa-solid fa-pen-to-square"></i>
+              <span>Alterar</span>
+            </button>
+            <button type="button" class="admin-action-btn delete" onclick="deleteEvent('${show.id}')" title="Excluir este evento da agenda">
+              <i class="fa-solid fa-trash-can"></i>
+              <span>Excluir</span>
+            </button>
+          </div>
+        </div>
+      `).join('');
+    }
+
+    function editEvent(id) {
+      const shows = getStoredShows();
+      const show = shows.find(s => s.id === id);
+      if (!show) return;
+
+      currentEditingId = id;
+
+      const editIdInput = document.getElementById('adminEditIdInput');
+      const dayInput = document.getElementById('adminDayInput');
+      const monthInput = document.getElementById('adminMonthInput');
+      const datePicker = document.getElementById('adminDatePicker');
+      const titleInput = document.getElementById('adminTitleInput');
+      const addressInput = document.getElementById('adminAddressInput');
+      const saveBtn = document.getElementById('adminSaveBtn');
+      const cancelBtn = document.getElementById('adminCancelEditBtn');
+      const titleText = document.getElementById('adminFormTitleText');
+      const modeBadge = document.getElementById('adminFormModeBadge');
+      const form = document.getElementById('adminEventForm');
+      const anotherBox = document.getElementById('adminAnotherEventBox');
+
+      if (anotherBox) anotherBox.style.display = 'none';
+      if (form) form.style.display = 'block';
+
+      if (editIdInput) editIdInput.value = show.id;
+      if (dayInput) dayInput.value = show.day || '';
+      if (monthInput) monthInput.value = show.month || '';
+      if (titleInput) titleInput.value = show.title || '';
+      if (addressInput) addressInput.value = show.address || '';
+      if (datePicker) datePicker.value = show.isoDate || '';
+
+      selectEventConfirmed(show.confirmed === true || show.confirmed === 'true');
+
+      if (titleText) {
+        titleText.innerHTML = `<i class="fa-solid fa-pen-to-square" style="color: #60a5fa;"></i> Alterar Show: "${escapeHtml(show.title)}"`;
+      }
+      if (modeBadge) modeBadge.style.display = 'inline-block';
+      if (saveBtn) {
+        saveBtn.innerHTML = `<i class="fa-solid fa-floppy-disk"></i> <span>Salvar Alterações</span>`;
+      }
+      if (cancelBtn) cancelBtn.style.display = 'inline-flex';
+
+      // Re-renderiza para destacar a linha correspondente
+      renderAdminList();
+
+      if (form) {
+        form.scrollIntoView({ behavior: 'smooth', block: 'start' });
+      }
+      if (dayInput) dayInput.focus();
+    }
+
+    function cancelEditEvent() {
+      currentEditingId = null;
+      const editIdInput = document.getElementById('adminEditIdInput');
+      const dayInput = document.getElementById('adminDayInput');
+      const monthInput = document.getElementById('adminMonthInput');
+      const datePicker = document.getElementById('adminDatePicker');
+      const titleInput = document.getElementById('adminTitleInput');
+      const addressInput = document.getElementById('adminAddressInput');
+      const saveBtn = document.getElementById('adminSaveBtn');
+      const cancelBtn = document.getElementById('adminCancelEditBtn');
+      const titleText = document.getElementById('adminFormTitleText');
+      const modeBadge = document.getElementById('adminFormModeBadge');
+
+      if (editIdInput) editIdInput.value = '';
+      if (dayInput) dayInput.value = '';
+      if (monthInput) monthInput.value = '';
+      if (titleInput) titleInput.value = '';
+      if (addressInput) addressInput.value = '';
+      if (datePicker) datePicker.value = '';
+
+      selectEventConfirmed(true);
+
+      if (titleText) {
+        titleText.innerHTML = `<i class="fa-solid fa-calendar-plus" style="color: var(--gold-primary);"></i> Cadastrar Novo Show`;
+      }
+      if (modeBadge) modeBadge.style.display = 'none';
+      if (saveBtn) {
+        saveBtn.innerHTML = `<i class="fa-solid fa-check"></i> <span>Salvar Show na Agenda</span>`;
+      }
+      if (cancelBtn) cancelBtn.style.display = 'none';
+
+      renderAdminList();
+    }
+
+    function deleteEvent(id) {
+      const shows = getStoredShows();
+      const show = shows.find(s => s.id === id);
+      const title = show ? `"${show.title}"` : 'este show';
+      if (!confirm(`Deseja realmente excluir ${title} da agenda?`)) return;
+
+      if (currentEditingId === id) {
+        cancelEditEvent();
+      }
+
+      const updated = shows.filter(s => s.id !== id);
+      saveStoredShows(updated);
+    }
+
+    function syncDatePicker(input) {
+      if (!input || !input.value) return;
+      const parts = input.value.split('-');
+      if (parts.length === 3) {
+        const day = parts[2];
+        const monthNames = ['JAN', 'FEV', 'MAR', 'ABR', 'MAI', 'JUN', 'JUL', 'AGO', 'SET', 'OUT', 'NOV', 'DEZ'];
+        const monthIdx = parseInt(parts[1], 10) - 1;
+        const monthStr = monthNames[monthIdx] || parts[1];
+
+        const dayInput = document.getElementById('adminDayInput');
+        const monthInput = document.getElementById('adminMonthInput');
+        if (dayInput) dayInput.value = day;
+        if (monthInput) monthInput.value = monthStr;
+      }
+    }
+
+    function selectEventConfirmed(isConfirmed) {
+      const btnYes = document.getElementById('btnRadioYes');
+      const btnNo = document.getElementById('btnRadioNo');
+      const input = document.getElementById('adminConfirmedInput');
+      
+      if (!btnYes || !btnNo || !input) return;
+
+      if (isConfirmed) {
+        btnYes.className = 'admin-radio-btn selected-yes';
+        btnNo.className = 'admin-radio-btn';
+        input.value = 'true';
+      } else {
+        btnYes.className = 'admin-radio-btn';
+        btnNo.className = 'admin-radio-btn selected-no';
+        input.value = 'false';
+      }
+    }
+
+    function openAdminModal() {
+      const modal = document.getElementById('adminModal');
+      if (!modal) return;
+      
+      const isLogged = sessionStorage.getItem('gilmar_admin_logged') === 'true';
+      const loginView = document.getElementById('adminLoginView');
+      const panelView = document.getElementById('adminPanelView');
+      const errorMsg = document.getElementById('adminLoginErrorMsg');
+      const anotherBox = document.getElementById('adminAnotherEventBox');
+      const eventForm = document.getElementById('adminEventForm');
+
+      if (errorMsg) errorMsg.style.display = 'none';
+      if (anotherBox) anotherBox.style.display = 'none';
+      if (eventForm) eventForm.style.display = 'block';
+
+      if (isLogged) {
+        if (loginView) loginView.style.display = 'none';
+        if (panelView) panelView.style.display = 'block';
+        cancelEditEvent();
+        renderAdminList();
+      } else {
+        if (loginView) loginView.style.display = 'block';
+        if (panelView) panelView.style.display = 'none';
+        setTimeout(() => {
+          const userInput = document.getElementById('adminUsernameInput');
+          if (userInput) userInput.focus();
+        }, 100);
+      }
+
+      modal.classList.add('active');
+      document.body.style.overflow = 'hidden';
+    }
+
+    function closeAdminModal() {
+      const modal = document.getElementById('adminModal');
+      if (modal) {
+        modal.classList.remove('active');
+        document.body.style.overflow = '';
+      }
+    }
+
+    function handleAdminOverlayClick(event) {
+      if (event.target === document.getElementById('adminModal')) {
+        closeAdminModal();
+      }
+    }
+
+    function handleAdminLogin(e) {
+      e.preventDefault();
+      const userInput = document.getElementById('adminUsernameInput');
+      const passInput = document.getElementById('adminPasswordInput');
+      const errorMsg = document.getElementById('adminLoginErrorMsg');
+
+      const user = userInput ? userInput.value.trim() : '';
+      const pass = passInput ? passInput.value.trim() : '';
+
+      if (user === 'admin' && pass === 'dndigqol') {
+        sessionStorage.setItem('gilmar_admin_logged', 'true');
+        if (errorMsg) errorMsg.style.display = 'none';
+        if (userInput) userInput.value = '';
+        if (passInput) passInput.value = '';
+        
+        document.getElementById('adminLoginView').style.display = 'none';
+        document.getElementById('adminPanelView').style.display = 'block';
+        cancelEditEvent();
+        renderAdminList();
+      } else {
+        if (errorMsg) errorMsg.style.display = 'block';
+        if (passInput) {
+          passInput.value = '';
+          passInput.focus();
+        }
+      }
+    }
+
+    function adminLogout() {
+      sessionStorage.removeItem('gilmar_admin_logged');
+      currentEditingId = null;
+      document.getElementById('adminPanelView').style.display = 'none';
+      document.getElementById('adminLoginView').style.display = 'block';
+    }
+
+    function handleSaveEvent(e) {
+      e.preventDefault();
+      const editIdInput = document.getElementById('adminEditIdInput');
+      const dayInput = document.getElementById('adminDayInput');
+      const monthInput = document.getElementById('adminMonthInput');
+      const datePicker = document.getElementById('adminDatePicker');
+      const titleInput = document.getElementById('adminTitleInput');
+      const addressInput = document.getElementById('adminAddressInput');
+      const confirmedInput = document.getElementById('adminConfirmedInput');
+
+      const editId = editIdInput ? editIdInput.value.trim() : '';
+      const day = dayInput.value.trim();
+      const month = monthInput.value.trim().toUpperCase();
+      const title = titleInput.value.trim();
+      const address = addressInput.value.trim();
+      const confirmed = confirmedInput.value === 'true';
+
+      if (!day || !month || !title || !address) return;
+
+      // Monta isoDate e ano para ordenação precisa
+      let isoDate = datePicker && datePicker.value ? datePicker.value : '';
+      let year = new Date().getFullYear();
+      if (isoDate) {
+        const y = parseInt(isoDate.split('-')[0], 10);
+        if (!isNaN(y)) year = y;
+      } else {
+        const rawMonth = month.normalize('NFD').replace(/[\u0300-\u036f]/g, '');
+        const monthIdx = MONTH_MAP[rawMonth] !== undefined ? MONTH_MAP[rawMonth] : 0;
+        const now = new Date();
+        if (monthIdx < now.getMonth()) {
+          year = now.getFullYear() + 1;
+        }
+        const mStr = String(monthIdx + 1).padStart(2, '0');
+        const dStr = String(parseInt(day, 10) || 1).padStart(2, '0');
+        isoDate = `${year}-${mStr}-${dStr}`;
+      }
+
+      let shows = getStoredShows();
+
+      if (editId) {
+        // MODO ALTERAÇÃO / EDIÇÃO
+        const index = shows.findIndex(s => s.id === editId);
+        if (index !== -1) {
+          shows[index] = {
+            ...shows[index],
+            day,
+            month,
+            title,
+            address,
+            confirmed,
+            isoDate,
+            year
+          };
+        }
+        saveStoredShows(shows);
+        cancelEditEvent();
+      } else {
+        // MODO NOVO CADASTRO
+        const newShow = {
+          id: 'show-' + Date.now(),
+          day,
+          month,
+          title,
+          address,
+          confirmed,
+          isoDate,
+          year
+        };
+
+        shows.push(newShow);
+        saveStoredShows(shows);
+
+        // Oculta o formulário e exibe a pergunta solicitada pelo usuário: "Pode informar outro evento?"
+        document.getElementById('adminEventForm').style.display = 'none';
+        document.getElementById('adminAnotherEventBox').style.display = 'block';
+      }
+    }
+
+    function handleAnotherEvent(answer) {
+      const anotherBox = document.getElementById('adminAnotherEventBox');
+      const eventForm = document.getElementById('adminEventForm');
+
+      if (answer === true) {
+        // Sim, digita novamente sem sair do painel
+        if (anotherBox) anotherBox.style.display = 'none';
+        cancelEditEvent();
+        if (eventForm) {
+          eventForm.style.display = 'block';
+        }
+        const dayInput = document.getElementById('adminDayInput');
+        if (dayInput) dayInput.focus();
+      } else {
+        // Não, retorna a pagina principal
+        closeAdminModal();
+        const agendaSec = document.getElementById('agenda');
+        if (agendaSec) {
+          agendaSec.scrollIntoView({ behavior: 'smooth' });
+        }
+      }
+    }
+
+    // Inicialização da Agenda ao carregar a página
+    renderAgenda();
+
+    // Expõe funções para chamadas inline do HTML
+    window.openAdminModal = openAdminModal;
+    window.closeAdminModal = closeAdminModal;
+    window.handleAdminOverlayClick = handleAdminOverlayClick;
+    window.handleAdminLogin = handleAdminLogin;
+    window.adminLogout = adminLogout;
+    window.handleSaveEvent = handleSaveEvent;
+    window.handleAnotherEvent = handleAnotherEvent;
+    window.editEvent = editEvent;
+    window.cancelEditEvent = cancelEditEvent;
+    window.deleteEvent = deleteEvent;
+    window.syncDatePicker = syncDatePicker;
+    window.selectEventConfirmed = selectEventConfirmed;
   </script>
 </body>
 </html>
