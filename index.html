@@ -1452,6 +1452,18 @@
       text-shadow: 0 2px 4px rgba(0, 0, 0, 0.8);
     }
 
+    .gallery-caption:empty {
+      display: none;
+    }
+
+    .video-card-info p:empty {
+      display: none;
+    }
+
+    .modal-caption:empty {
+      display: none;
+    }
+
     /* Botões Avançar e Voltar Elegantes */
     .carousel-btn {
       position: absolute;
@@ -2573,6 +2585,30 @@
       display: none !important;
     }
 
+    .admin-photo-desc-wrap {
+      width: 100%;
+      margin-top: 2px;
+    }
+
+    .admin-photo-desc-input {
+      width: 100%;
+      background: rgba(255, 255, 255, 0.05);
+      border: 1px solid rgba(255, 255, 255, 0.12);
+      border-radius: 6px;
+      color: #f1f5f9;
+      font-size: 0.74rem;
+      padding: 6px 8px;
+      transition: var(--transition);
+      box-sizing: border-box;
+    }
+
+    .admin-photo-desc-input:focus {
+      outline: none;
+      border-color: var(--gold-primary);
+      background: rgba(255, 255, 255, 0.09);
+      box-shadow: 0 0 0 2px rgba(245, 158, 11, 0.25);
+    }
+
     /* Bloco de Vídeos YouTube no Admin */
     .admin-video-mgmt-card {
       background: rgba(255, 255, 255, 0.02);
@@ -3522,39 +3558,39 @@
           <div class="carousel-container" id="carousel-show-ao-vivo" aria-label="Carrossel Show ao Vivo">
             <!-- Trilho dos Slides -->
             <div class="carousel-track" data-category="shows-ao-vivo">
-              <!-- Foto 1 (Show ao Vivo) - Substitua a URL src abaixo -->
-              <div class="carousel-slide active" onclick="openModal('/stage-bg.jpg', 'Show ao Vivo: Palco Principal & Iluminação Cênica')">
+              <!-- Foto 1 (Show ao Vivo) -->
+              <div class="carousel-slide active" onclick="openModal('/stage-bg.jpg', '')">
                 <img src="/stage-bg.jpg" alt="Show ao Vivo - Palco Principal" loading="lazy" onerror="this.onerror=null; this.src='https://images.unsplash.com/photo-1501386761578-eac5c94b800a?auto=format&fit=crop&w=1000&q=80';" />
                 <div class="carousel-overlay">
                   <span class="gallery-tag">Show ao Vivo</span>
-                  <span class="gallery-caption">Palco Principal & Iluminação Cênica</span>
+                  <span class="gallery-caption"></span>
                 </div>
               </div>
 
-              <!-- Foto 2 (Show ao Vivo) - Substitua a URL src abaixo -->
-              <div class="carousel-slide" onclick="openModal('https://images.unsplash.com/photo-1470225620780-dba8ba36b745?auto=format&fit=crop&w=1000&q=80', 'Show ao Vivo: Energia Contagiante e Plateia Vibrando')">
+              <!-- Foto 2 (Show ao Vivo) -->
+              <div class="carousel-slide" onclick="openModal('https://images.unsplash.com/photo-1470225620780-dba8ba36b745?auto=format&fit=crop&w=1000&q=80', '')">
                 <img src="https://images.unsplash.com/photo-1470225620780-dba8ba36b745?auto=format&fit=crop&w=1000&q=80" alt="Show ao Vivo - Plateia Vibrando" loading="lazy" />
                 <div class="carousel-overlay">
                   <span class="gallery-tag">Show ao Vivo</span>
-                  <span class="gallery-caption">Energia Contagiante & Plateia</span>
+                  <span class="gallery-caption"></span>
                 </div>
               </div>
 
-              <!-- Foto 3 (Show ao Vivo) - Substitua a URL src abaixo -->
-              <div class="carousel-slide" onclick="openModal('https://images.unsplash.com/photo-1465847899084-d164df4dedc6?auto=format&fit=crop&w=1000&q=80', 'Show ao Vivo: Performance Pop Rock com Banda Completa')">
+              <!-- Foto 3 (Show ao Vivo) -->
+              <div class="carousel-slide" onclick="openModal('https://images.unsplash.com/photo-1465847899084-d164df4dedc6?auto=format&fit=crop&w=1000&q=80', '')">
                 <img src="https://images.unsplash.com/photo-1465847899084-d164df4dedc6?auto=format&fit=crop&w=1000&q=80" alt="Show ao Vivo - Performance com Banda" loading="lazy" />
                 <div class="carousel-overlay">
                   <span class="gallery-tag">Show ao Vivo</span>
-                  <span class="gallery-caption">Performance Pop Rock no Palco</span>
+                  <span class="gallery-caption"></span>
                 </div>
               </div>
 
-              <!-- Foto 4 (Show ao Vivo) - Substitua a URL src abaixo -->
-              <div class="carousel-slide" onclick="openModal('https://images.unsplash.com/photo-1516450360452-9312f5e86fc7?auto=format&fit=crop&w=1000&q=80', 'Show ao Vivo: Clímax Musical Inesquecível')">
+              <!-- Foto 4 (Show ao Vivo) -->
+              <div class="carousel-slide" onclick="openModal('https://images.unsplash.com/photo-1516450360452-9312f5e86fc7?auto=format&fit=crop&w=1000&q=80', '')">
                 <img src="https://images.unsplash.com/photo-1516450360452-9312f5e86fc7?auto=format&fit=crop&w=1000&q=80" alt="Show ao Vivo - Clímax Musical" loading="lazy" />
                 <div class="carousel-overlay">
                   <span class="gallery-tag">Show ao Vivo</span>
-                  <span class="gallery-caption">Clímax Musical & Luzes de Palco</span>
+                  <span class="gallery-caption"></span>
                 </div>
               </div>
             </div>
@@ -3589,39 +3625,39 @@
           <div class="carousel-container" id="carousel-acustico" aria-label="Carrossel Show Acústico">
             <!-- Trilho dos Slides -->
             <div class="carousel-track" data-category="acustico">
-              <!-- Foto 1 (Acústico) - Substitua a URL src abaixo -->
-              <div class="carousel-slide active" onclick="openModal('https://images.unsplash.com/photo-1511671782779-c97d3d27a1d4?auto=format&fit=crop&w=1000&q=80', 'Show Acústico: Voz & Violão no Pub e Lounge')">
+              <!-- Foto 1 (Acústico) -->
+              <div class="carousel-slide active" onclick="openModal('https://images.unsplash.com/photo-1511671782779-c97d3d27a1d4?auto=format&fit=crop&w=1000&q=80', '')">
                 <img src="https://images.unsplash.com/photo-1511671782779-c97d3d27a1d4?auto=format&fit=crop&w=1000&q=80" alt="Show Acústico - Voz & Violão" loading="lazy" />
                 <div class="carousel-overlay">
                   <span class="gallery-tag">Acústico</span>
-                  <span class="gallery-caption">Voz & Violão no Pub e Lounge</span>
+                  <span class="gallery-caption"></span>
                 </div>
               </div>
 
-              <!-- Foto 2 (Acústico) - Substitua a URL src abaixo -->
-              <div class="carousel-slide" onclick="openModal('https://images.unsplash.com/photo-1525201548942-d8732f6617a0?auto=format&fit=crop&w=1000&q=80', 'Show Acústico: Violão de Aço e Arranjos Envolventes')">
+              <!-- Foto 2 (Acústico) -->
+              <div class="carousel-slide" onclick="openModal('https://images.unsplash.com/photo-1525201548942-d8732f6617a0?auto=format&fit=crop&w=1000&q=80', '')">
                 <img src="https://images.unsplash.com/photo-1525201548942-d8732f6617a0?auto=format&fit=crop&w=1000&q=80" alt="Show Acústico - Violão de Aço" loading="lazy" />
                 <div class="carousel-overlay">
                   <span class="gallery-tag">Acústico</span>
-                  <span class="gallery-caption">Violão de Aço & Arranjos Precisos</span>
+                  <span class="gallery-caption"></span>
                 </div>
               </div>
 
-              <!-- Foto 3 (Acústico) - Substitua a URL src abaixo -->
-              <div class="carousel-slide" onclick="openModal('https://images.unsplash.com/photo-1445985543470-41fdd5c31447?auto=format&fit=crop&w=1000&q=80', 'Show Acústico: Pocket Show Intimista para Eventos')">
+              <!-- Foto 3 (Acústico) -->
+              <div class="carousel-slide" onclick="openModal('https://images.unsplash.com/photo-1445985543470-41fdd5c31447?auto=format&fit=crop&w=1000&q=80', '')">
                 <img src="https://images.unsplash.com/photo-1445985543470-41fdd5c31447?auto=format&fit=crop&w=1000&q=80" alt="Show Acústico - Pocket Show Intimista" loading="lazy" />
                 <div class="carousel-overlay">
                   <span class="gallery-tag">Acústico</span>
-                  <span class="gallery-caption">Pocket Show Intimista para Recepções</span>
+                  <span class="gallery-caption"></span>
                 </div>
               </div>
 
-              <!-- Foto 4 (Acústico) - Substitua a URL src abaixo -->
-              <div class="carousel-slide" onclick="openModal('https://images.unsplash.com/photo-1485579149621-3123dd979885?auto=format&fit=crop&w=1000&q=80', 'Show Acústico: Repertório Clássico Descontraído')">
+              <!-- Foto 4 (Acústico) -->
+              <div class="carousel-slide" onclick="openModal('https://images.unsplash.com/photo-1485579149621-3123dd979885?auto=format&fit=crop&w=1000&q=80', '')">
                 <img src="https://images.unsplash.com/photo-1485579149621-3123dd979885?auto=format&fit=crop&w=1000&q=80" alt="Show Acústico - Clássicos Pop Rock" loading="lazy" />
                 <div class="carousel-overlay">
                   <span class="gallery-tag">Acústico</span>
-                  <span class="gallery-caption">Repertório Descontraído & Aconchegante</span>
+                  <span class="gallery-caption"></span>
                 </div>
               </div>
             </div>
@@ -3656,39 +3692,39 @@
           <div class="carousel-container" id="carousel-guitarra-solo" aria-label="Carrossel Guitarra Solo">
             <!-- Trilho dos Slides -->
             <div class="carousel-track" data-category="guitarra-solo">
-              <!-- Foto 1 (Guitarra Solo) - Substitua a URL src abaixo -->
-              <div class="carousel-slide active" onclick="openModal('https://images.unsplash.com/photo-1514525253161-7a46d19cd819?auto=format&fit=crop&w=1000&q=80', 'Guitarra Solo: Solo Expressivo de Stratocaster ao Vivo')">
+              <!-- Foto 1 (Guitarra Solo) -->
+              <div class="carousel-slide active" onclick="openModal('https://images.unsplash.com/photo-1514525253161-7a46d19cd819?auto=format&fit=crop&w=1000&q=80', '')">
                 <img src="https://images.unsplash.com/photo-1514525253161-7a46d19cd819?auto=format&fit=crop&w=1000&q=80" alt="Guitarra Solo - Solo Stratocaster" loading="lazy" />
                 <div class="carousel-overlay">
                   <span class="gallery-tag">Guitarra Solo</span>
-                  <span class="gallery-caption">Solo Expressivo de Guitarra ao Vivo</span>
+                  <span class="gallery-caption"></span>
                 </div>
               </div>
 
-              <!-- Foto 2 (Guitarra Solo) - Substitua a URL src abaixo -->
-              <div class="carousel-slide" onclick="openModal('https://images.unsplash.com/photo-1550291652-6ea9114a47b1?auto=format&fit=crop&w=1000&q=80', 'Guitarra Solo: Pegada Rock e Precisão Técnica')">
+              <!-- Foto 2 (Guitarra Solo) -->
+              <div class="carousel-slide" onclick="openModal('https://images.unsplash.com/photo-1550291652-6ea9114a47b1?auto=format&fit=crop&w=1000&q=80', '')">
                 <img src="https://images.unsplash.com/photo-1550291652-6ea9114a47b1?auto=format&fit=crop&w=1000&q=80" alt="Guitarra Solo - Detalhe das Cordas" loading="lazy" />
                 <div class="carousel-overlay">
                   <span class="gallery-tag">Guitarra Solo</span>
-                  <span class="gallery-caption">Pegada Rock & Precisão Técnica</span>
+                  <span class="gallery-caption"></span>
                 </div>
               </div>
 
-              <!-- Foto 3 (Guitarra Solo) - Substitua a URL src abaixo -->
-              <div class="carousel-slide" onclick="openModal('https://images.unsplash.com/photo-1564186763535-ebb21ef5277f?auto=format&fit=crop&w=1000&q=80', 'Guitarra Solo: Riffs Eletrizantes com Amplificador Valvulado')">
+              <!-- Foto 3 (Guitarra Solo) -->
+              <div class="carousel-slide" onclick="openModal('https://images.unsplash.com/photo-1564186763535-ebb21ef5277f?auto=format&fit=crop&w=1000&q=80', '')">
                 <img src="https://images.unsplash.com/photo-1564186763535-ebb21ef5277f?auto=format&fit=crop&w=1000&q=80" alt="Guitarra Solo - Amplificador Valvulado" loading="lazy" />
                 <div class="carousel-overlay">
                   <span class="gallery-tag">Guitarra Solo</span>
-                  <span class="gallery-caption">Riffs Eletrizantes com Timbre Marcante</span>
+                  <span class="gallery-caption"></span>
                 </div>
               </div>
 
-              <!-- Foto 4 (Guitarra Solo) - Substitua a URL src abaixo -->
-              <div class="carousel-slide" onclick="openModal('https://images.unsplash.com/photo-1510915361894-db8b60106cb1?auto=format&fit=crop&w=1000&q=80', 'Guitarra Solo: Hinos do Pop Rock em Solos Memoráveis')">
+              <!-- Foto 4 (Guitarra Solo) -->
+              <div class="carousel-slide" onclick="openModal('https://images.unsplash.com/photo-1510915361894-db8b60106cb1?auto=format&fit=crop&w=1000&q=80', '')">
                 <img src="https://images.unsplash.com/photo-1510915361894-db8b60106cb1?auto=format&fit=crop&w=1000&q=80" alt="Guitarra Solo - Solos Clássicos" loading="lazy" />
                 <div class="carousel-overlay">
                   <span class="gallery-tag">Guitarra Solo</span>
-                  <span class="gallery-caption">Hinos do Pop Rock em Solos Memoráveis</span>
+                  <span class="gallery-caption"></span>
                 </div>
               </div>
             </div>
@@ -3723,39 +3759,39 @@
           <div class="carousel-container" id="carousel-celebracao" aria-label="Carrossel Celebração">
             <!-- Trilho dos Slides -->
             <div class="carousel-track" data-category="celebracoes">
-              <!-- Foto 1 (Celebração) - Substitua a URL src abaixo -->
-              <div class="carousel-slide active" onclick="openModal('https://images.unsplash.com/photo-1492684223066-81342ee5ff30?auto=format&fit=crop&w=1000&q=80', 'Celebração: Pista Animada e Público Cantando Junto')">
+              <!-- Foto 1 (Celebração) -->
+              <div class="carousel-slide active" onclick="openModal('https://images.unsplash.com/photo-1492684223066-81342ee5ff30?auto=format&fit=crop&w=1000&q=80', '')">
                 <img src="https://images.unsplash.com/photo-1492684223066-81342ee5ff30?auto=format&fit=crop&w=1000&q=80" alt="Celebração - Pista Animada" loading="lazy" />
                 <div class="carousel-overlay">
                   <span class="gallery-tag">Celebração</span>
-                  <span class="gallery-caption">Pista Animada & Convidados Cantando</span>
+                  <span class="gallery-caption"></span>
                 </div>
               </div>
 
-              <!-- Foto 2 (Celebração) - Substitua a URL src abaixo -->
-              <div class="carousel-slide" onclick="openModal('https://images.unsplash.com/photo-1519671482749-fd09be7ccebf?auto=format&fit=crop&w=1000&q=80', 'Celebração: Confraternização com Brinde e Alegria')">
+              <!-- Foto 2 (Celebração) -->
+              <div class="carousel-slide" onclick="openModal('https://images.unsplash.com/photo-1519671482749-fd09be7ccebf?auto=format&fit=crop&w=1000&q=80', '')">
                 <img src="https://images.unsplash.com/photo-1519671482749-fd09be7ccebf?auto=format&fit=crop&w=1000&q=80" alt="Celebração - Confraternização e Brinde" loading="lazy" />
                 <div class="carousel-overlay">
                   <span class="gallery-tag">Celebração</span>
-                  <span class="gallery-caption">Confraternização Especial & Brinde</span>
+                  <span class="gallery-caption"></span>
                 </div>
               </div>
 
-              <!-- Foto 3 (Celebração) - Substitua a URL src abaixo -->
-              <div class="carousel-slide" onclick="openModal('https://images.unsplash.com/photo-1533174072545-7a4b6ad7a6c3?auto=format&fit=crop&w=1000&q=80', 'Celebração: Festa de Casamento com Pista Fervendo')">
+              <!-- Foto 3 (Celebração) -->
+              <div class="carousel-slide" onclick="openModal('https://images.unsplash.com/photo-1533174072545-7a4b6ad7a6c3?auto=format&fit=crop&w=1000&q=80', '')">
                 <img src="https://images.unsplash.com/photo-1533174072545-7a4b6ad7a6c3?auto=format&fit=crop&w=1000&q=80" alt="Celebração - Casamento Animado" loading="lazy" />
                 <div class="carousel-overlay">
                   <span class="gallery-tag">Celebração</span>
-                  <span class="gallery-caption">Festa de Casamento com Pista Vibrando</span>
+                  <span class="gallery-caption"></span>
                 </div>
               </div>
 
-              <!-- Foto 4 (Celebração) - Substitua a URL src abaixo -->
-              <div class="carousel-slide" onclick="openModal('https://images.unsplash.com/photo-1527529482837-4698179dc6ce?auto=format&fit=crop&w=1000&q=80', 'Celebração: Amigos Cantando Clássicos em Coro')">
+              <!-- Foto 4 (Celebração) -->
+              <div class="carousel-slide" onclick="openModal('https://images.unsplash.com/photo-1527529482837-4698179dc6ce?auto=format&fit=crop&w=1000&q=80', '')">
                 <img src="https://images.unsplash.com/photo-1527529482837-4698179dc6ce?auto=format&fit=crop&w=1000&q=80" alt="Celebração - Amigos em Coro" loading="lazy" />
                 <div class="carousel-overlay">
                   <span class="gallery-tag">Celebração</span>
-                  <span class="gallery-caption">Amigos Cantando Clássicos em Coro</span>
+                  <span class="gallery-caption"></span>
                 </div>
               </div>
             </div>
@@ -3803,7 +3839,7 @@
           </div>
           <div class="video-card-info">
             <h5>Show Pop Rock ao Vivo no Pub</h5>
-            <p>Medley de clássicos nacionais e internacionais que colocam a galera para cantar.</p>
+            <p></p>
           </div>
         </div>
 
@@ -3818,7 +3854,7 @@
           </div>
           <div class="video-card-info">
             <h5>Pocket Show Voz & Violão</h5>
-            <p>Arranjos sofisticados e intimistas para eventos que prezam pelo bom gosto e afinação.</p>
+            <p></p>
           </div>
         </div>
       </div>
@@ -4036,7 +4072,7 @@
             "A música certa não é apenas um som de fundo: ela transforma encontros comuns em momentos lendários e inesquecíveis."
           </p>
           <p style="color: var(--text-muted); font-size: 0.9rem;">
-            Cantor, Compositor, Guitarrista e Professor de Música em Campinas e Região.
+            Cantor, Compositor, Guitarrista e Professor de Música em Piracicaba (SP) e Região.
           </p>
         </div>
 
@@ -4056,7 +4092,7 @@
             </li>
             <li class="contact-item">
               <i class="fa-solid fa-location-dot" style="color: var(--gold-primary);"></i>
-              <span>Campinas / SP e Região (Disponível para Viagens)</span>
+              <span>Piracicaba (SP) e Região (Disponível para Viagens)</span>
             </li>
           </ul>
         </div>
@@ -4323,6 +4359,9 @@
                   <i class="fa-solid fa-cloud-arrow-up"></i> Trocar Foto
                   <input type="file" accept="image/*" class="admin-file-hidden" onchange="handleImageUpload(event, 'shows-ao-vivo', 0)" />
                 </label>
+                <div class="admin-photo-desc-wrap">
+                  <input type="text" id="desc-shows-ao-vivo-0" class="admin-photo-desc-input" placeholder="Descrição da foto..." />
+                </div>
               </div>
               <div class="admin-photo-slot">
                 <div class="admin-slot-header">
@@ -4335,6 +4374,9 @@
                   <i class="fa-solid fa-cloud-arrow-up"></i> Trocar Foto
                   <input type="file" accept="image/*" class="admin-file-hidden" onchange="handleImageUpload(event, 'shows-ao-vivo', 1)" />
                 </label>
+                <div class="admin-photo-desc-wrap">
+                  <input type="text" id="desc-shows-ao-vivo-1" class="admin-photo-desc-input" placeholder="Descrição da foto..." />
+                </div>
               </div>
               <div class="admin-photo-slot">
                 <div class="admin-slot-header">
@@ -4347,6 +4389,9 @@
                   <i class="fa-solid fa-cloud-arrow-up"></i> Trocar Foto
                   <input type="file" accept="image/*" class="admin-file-hidden" onchange="handleImageUpload(event, 'shows-ao-vivo', 2)" />
                 </label>
+                <div class="admin-photo-desc-wrap">
+                  <input type="text" id="desc-shows-ao-vivo-2" class="admin-photo-desc-input" placeholder="Descrição da foto..." />
+                </div>
               </div>
               <div class="admin-photo-slot">
                 <div class="admin-slot-header">
@@ -4359,6 +4404,9 @@
                   <i class="fa-solid fa-cloud-arrow-up"></i> Trocar Foto
                   <input type="file" accept="image/*" class="admin-file-hidden" onchange="handleImageUpload(event, 'shows-ao-vivo', 3)" />
                 </label>
+                <div class="admin-photo-desc-wrap">
+                  <input type="text" id="desc-shows-ao-vivo-3" class="admin-photo-desc-input" placeholder="Descrição da foto..." />
+                </div>
               </div>
             </div>
           </div>
@@ -4381,6 +4429,9 @@
                   <i class="fa-solid fa-cloud-arrow-up"></i> Trocar Foto
                   <input type="file" accept="image/*" class="admin-file-hidden" onchange="handleImageUpload(event, 'acustico', 0)" />
                 </label>
+                <div class="admin-photo-desc-wrap">
+                  <input type="text" id="desc-acustico-0" class="admin-photo-desc-input" placeholder="Descrição da foto..." />
+                </div>
               </div>
               <div class="admin-photo-slot">
                 <div class="admin-slot-header">
@@ -4393,6 +4444,9 @@
                   <i class="fa-solid fa-cloud-arrow-up"></i> Trocar Foto
                   <input type="file" accept="image/*" class="admin-file-hidden" onchange="handleImageUpload(event, 'acustico', 1)" />
                 </label>
+                <div class="admin-photo-desc-wrap">
+                  <input type="text" id="desc-acustico-1" class="admin-photo-desc-input" placeholder="Descrição da foto..." />
+                </div>
               </div>
               <div class="admin-photo-slot">
                 <div class="admin-slot-header">
@@ -4405,6 +4459,9 @@
                   <i class="fa-solid fa-cloud-arrow-up"></i> Trocar Foto
                   <input type="file" accept="image/*" class="admin-file-hidden" onchange="handleImageUpload(event, 'acustico', 2)" />
                 </label>
+                <div class="admin-photo-desc-wrap">
+                  <input type="text" id="desc-acustico-2" class="admin-photo-desc-input" placeholder="Descrição da foto..." />
+                </div>
               </div>
               <div class="admin-photo-slot">
                 <div class="admin-slot-header">
@@ -4417,6 +4474,9 @@
                   <i class="fa-solid fa-cloud-arrow-up"></i> Trocar Foto
                   <input type="file" accept="image/*" class="admin-file-hidden" onchange="handleImageUpload(event, 'acustico', 3)" />
                 </label>
+                <div class="admin-photo-desc-wrap">
+                  <input type="text" id="desc-acustico-3" class="admin-photo-desc-input" placeholder="Descrição da foto..." />
+                </div>
               </div>
             </div>
           </div>
@@ -4439,6 +4499,9 @@
                   <i class="fa-solid fa-cloud-arrow-up"></i> Trocar Foto
                   <input type="file" accept="image/*" class="admin-file-hidden" onchange="handleImageUpload(event, 'guitarra-solo', 0)" />
                 </label>
+                <div class="admin-photo-desc-wrap">
+                  <input type="text" id="desc-guitarra-solo-0" class="admin-photo-desc-input" placeholder="Descrição da foto..." />
+                </div>
               </div>
               <div class="admin-photo-slot">
                 <div class="admin-slot-header">
@@ -4451,6 +4514,9 @@
                   <i class="fa-solid fa-cloud-arrow-up"></i> Trocar Foto
                   <input type="file" accept="image/*" class="admin-file-hidden" onchange="handleImageUpload(event, 'guitarra-solo', 1)" />
                 </label>
+                <div class="admin-photo-desc-wrap">
+                  <input type="text" id="desc-guitarra-solo-1" class="admin-photo-desc-input" placeholder="Descrição da foto..." />
+                </div>
               </div>
               <div class="admin-photo-slot">
                 <div class="admin-slot-header">
@@ -4463,6 +4529,9 @@
                   <i class="fa-solid fa-cloud-arrow-up"></i> Trocar Foto
                   <input type="file" accept="image/*" class="admin-file-hidden" onchange="handleImageUpload(event, 'guitarra-solo', 2)" />
                 </label>
+                <div class="admin-photo-desc-wrap">
+                  <input type="text" id="desc-guitarra-solo-2" class="admin-photo-desc-input" placeholder="Descrição da foto..." />
+                </div>
               </div>
               <div class="admin-photo-slot">
                 <div class="admin-slot-header">
@@ -4475,6 +4544,9 @@
                   <i class="fa-solid fa-cloud-arrow-up"></i> Trocar Foto
                   <input type="file" accept="image/*" class="admin-file-hidden" onchange="handleImageUpload(event, 'guitarra-solo', 3)" />
                 </label>
+                <div class="admin-photo-desc-wrap">
+                  <input type="text" id="desc-guitarra-solo-3" class="admin-photo-desc-input" placeholder="Descrição da foto..." />
+                </div>
               </div>
             </div>
           </div>
@@ -4497,6 +4569,9 @@
                   <i class="fa-solid fa-cloud-arrow-up"></i> Trocar Foto
                   <input type="file" accept="image/*" class="admin-file-hidden" onchange="handleImageUpload(event, 'celebracoes', 0)" />
                 </label>
+                <div class="admin-photo-desc-wrap">
+                  <input type="text" id="desc-celebracoes-0" class="admin-photo-desc-input" placeholder="Descrição da foto..." />
+                </div>
               </div>
               <div class="admin-photo-slot">
                 <div class="admin-slot-header">
@@ -4509,6 +4584,9 @@
                   <i class="fa-solid fa-cloud-arrow-up"></i> Trocar Foto
                   <input type="file" accept="image/*" class="admin-file-hidden" onchange="handleImageUpload(event, 'celebracoes', 1)" />
                 </label>
+                <div class="admin-photo-desc-wrap">
+                  <input type="text" id="desc-celebracoes-1" class="admin-photo-desc-input" placeholder="Descrição da foto..." />
+                </div>
               </div>
               <div class="admin-photo-slot">
                 <div class="admin-slot-header">
@@ -4521,6 +4599,9 @@
                   <i class="fa-solid fa-cloud-arrow-up"></i> Trocar Foto
                   <input type="file" accept="image/*" class="admin-file-hidden" onchange="handleImageUpload(event, 'celebracoes', 2)" />
                 </label>
+                <div class="admin-photo-desc-wrap">
+                  <input type="text" id="desc-celebracoes-2" class="admin-photo-desc-input" placeholder="Descrição da foto..." />
+                </div>
               </div>
               <div class="admin-photo-slot">
                 <div class="admin-slot-header">
@@ -4533,6 +4614,9 @@
                   <i class="fa-solid fa-cloud-arrow-up"></i> Trocar Foto
                   <input type="file" accept="image/*" class="admin-file-hidden" onchange="handleImageUpload(event, 'celebracoes', 3)" />
                 </label>
+                <div class="admin-photo-desc-wrap">
+                  <input type="text" id="desc-celebracoes-3" class="admin-photo-desc-input" placeholder="Descrição da foto..." />
+                </div>
               </div>
             </div>
           </div>
@@ -4554,6 +4638,10 @@
                 <label for="adminVideoTitle0">Título do Vídeo 01</label>
                 <input type="text" id="adminVideoTitle0" class="admin-input" placeholder="Ex: Show Pop Rock ao Vivo no Pub" />
               </div>
+              <div class="admin-form-group" style="margin-bottom: 8px;">
+                <label for="adminVideoDesc0">Descrição do Vídeo 01</label>
+                <input type="text" id="adminVideoDesc0" class="admin-input" placeholder="Ex: Medley de clássicos do rock que colocam a galera para cantar..." />
+              </div>
               <div class="admin-form-group" style="margin-bottom: 0;">
                 <label for="adminVideoUrl0">URL do Vídeo no YouTube (ou Link de Compartilhamento)</label>
                 <input type="url" id="adminVideoUrl0" class="admin-input" placeholder="https://www.youtube.com/watch?v=... ou https://youtu.be/..." />
@@ -4569,6 +4657,10 @@
               <div class="admin-form-group" style="margin-bottom: 8px;">
                 <label for="adminVideoTitle1">Título do Vídeo 02</label>
                 <input type="text" id="adminVideoTitle1" class="admin-input" placeholder="Ex: Pocket Show Voz & Violão" />
+              </div>
+              <div class="admin-form-group" style="margin-bottom: 8px;">
+                <label for="adminVideoDesc1">Descrição do Vídeo 02</label>
+                <input type="text" id="adminVideoDesc1" class="admin-input" placeholder="Ex: Arranjos sofisticados e intimistas para eventos..." />
               </div>
               <div class="admin-form-group" style="margin-bottom: 0;">
                 <label for="adminVideoUrl1">URL do Vídeo no YouTube (ou Link de Compartilhamento)</label>
@@ -5526,7 +5618,8 @@
           'https://images.unsplash.com/photo-1470225620780-dba8ba36b745?auto=format&fit=crop&w=1000&q=80',
           'https://images.unsplash.com/photo-1465847899084-d164df4dedc6?auto=format&fit=crop&w=1000&q=80',
           'https://images.unsplash.com/photo-1516450360452-9312f5e86fc7?auto=format&fit=crop&w=1000&q=80'
-        ]
+        ],
+        descricoes: ['', '', '', '']
       },
       'acustico': {
         titulo: 'Acústico',
@@ -5535,7 +5628,8 @@
           'https://images.unsplash.com/photo-1525201548942-d8732f6617a0?auto=format&fit=crop&w=1000&q=80',
           'https://images.unsplash.com/photo-1445985543470-41fdd5c31447?auto=format&fit=crop&w=1000&q=80',
           'https://images.unsplash.com/photo-1485579149621-3123dd979885?auto=format&fit=crop&w=1000&q=80'
-        ]
+        ],
+        descricoes: ['', '', '', '']
       },
       'guitarra-solo': {
         titulo: 'Guitarra Solo',
@@ -5544,7 +5638,8 @@
           'https://images.unsplash.com/photo-1550291652-6ea9114a47b1?auto=format&fit=crop&w=1000&q=80',
           'https://images.unsplash.com/photo-1564186763535-ebb21ef5277f?auto=format&fit=crop&w=1000&q=80',
           'https://images.unsplash.com/photo-1510915361894-db8b60106cb1?auto=format&fit=crop&w=1000&q=80'
-        ]
+        ],
+        descricoes: ['', '', '', '']
       },
       'celebracoes': {
         titulo: 'Celebrações',
@@ -5553,17 +5648,20 @@
           'https://images.unsplash.com/photo-1519671482749-fd09be7ccebf?auto=format&fit=crop&w=1000&q=80',
           'https://images.unsplash.com/photo-1533174072545-7a4b6ad7a6c3?auto=format&fit=crop&w=1000&q=80',
           'https://images.unsplash.com/photo-1527529482837-4698179dc6ce?auto=format&fit=crop&w=1000&q=80'
-        ]
+        ],
+        descricoes: ['', '', '', '']
       },
       videos: [
         {
           id: 'video-1',
           titulo: 'Show Pop Rock ao Vivo no Pub',
+          descricao: '',
           embedUrl: 'https://www.youtube.com/embed/dQw4w9WgXcQ'
         },
         {
           id: 'video-2',
           titulo: 'Pocket Show Voz & Violão',
+          descricao: '',
           embedUrl: 'https://www.youtube.com/embed/dQw4w9WgXcQ'
         }
       ]
@@ -5578,12 +5676,24 @@
         const parsed = JSON.parse(raw);
         const result = JSON.parse(JSON.stringify(defaultGalleryData));
         ['shows-ao-vivo', 'acustico', 'guitarra-solo', 'celebracoes'].forEach(cat => {
-          if (parsed[cat] && Array.isArray(parsed[cat].fotos)) {
-            result[cat].fotos = parsed[cat].fotos.slice(0, 4);
+          if (parsed[cat]) {
+            if (Array.isArray(parsed[cat].fotos)) {
+              result[cat].fotos = parsed[cat].fotos.slice(0, 4);
+            }
+            if (Array.isArray(parsed[cat].descricoes)) {
+              result[cat].descricoes = parsed[cat].descricoes.slice(0, 4);
+            } else {
+              result[cat].descricoes = ['', '', '', ''];
+            }
           }
         });
         if (Array.isArray(parsed.videos) && parsed.videos.length > 0) {
-          result.videos = parsed.videos.slice(0, 2);
+          result.videos = parsed.videos.slice(0, 2).map((v, i) => ({
+            id: v.id || `video-${i + 1}`,
+            titulo: v.titulo || (result.videos[i] ? result.videos[i].titulo : ''),
+            descricao: typeof v.descricao === 'string' ? v.descricao : '',
+            embedUrl: v.embedUrl || (result.videos[i] ? result.videos[i].embedUrl : '')
+          }));
         }
         return result;
       } catch (e) {
@@ -5693,11 +5803,15 @@
 
       categories.forEach(cat => {
         const catData = adminGalleryState[cat];
-        if (!catData || !Array.isArray(catData.fotos)) return;
+        if (!catData) return;
         for (let i = 0; i < 4; i++) {
           const imgEl = document.getElementById(`preview-${cat}-${i}`);
-          if (imgEl && catData.fotos[i]) {
+          if (imgEl && Array.isArray(catData.fotos) && catData.fotos[i]) {
             imgEl.src = catData.fotos[i];
+          }
+          const descInput = document.getElementById(`desc-${cat}-${i}`);
+          if (descInput) {
+            descInput.value = (Array.isArray(catData.descricoes) && catData.descricoes[i]) || '';
           }
         }
       });
@@ -5705,14 +5819,18 @@
       if (Array.isArray(adminGalleryState.videos)) {
         if (adminGalleryState.videos[0]) {
           const t0 = document.getElementById('adminVideoTitle0');
+          const d0 = document.getElementById('adminVideoDesc0');
           const u0 = document.getElementById('adminVideoUrl0');
           if (t0) t0.value = adminGalleryState.videos[0].titulo || '';
+          if (d0) d0.value = adminGalleryState.videos[0].descricao || '';
           if (u0) u0.value = adminGalleryState.videos[0].embedUrl || '';
         }
         if (adminGalleryState.videos[1]) {
           const t1 = document.getElementById('adminVideoTitle1');
+          const d1 = document.getElementById('adminVideoDesc1');
           const u1 = document.getElementById('adminVideoUrl1');
           if (t1) t1.value = adminGalleryState.videos[1].titulo || '';
+          if (d1) d1.value = adminGalleryState.videos[1].descricao || '';
           if (u1) u1.value = adminGalleryState.videos[1].embedUrl || '';
         }
       }
@@ -5723,20 +5841,41 @@
         adminGalleryState = getStoredGalleryData();
       }
 
+      const categories = ['shows-ao-vivo', 'acustico', 'guitarra-solo', 'celebracoes'];
+      categories.forEach(cat => {
+        if (!adminGalleryState[cat]) {
+          adminGalleryState[cat] = { titulo: '', fotos: [], descricoes: [] };
+        }
+        if (!Array.isArray(adminGalleryState[cat].descricoes)) {
+          adminGalleryState[cat].descricoes = ['', '', '', ''];
+        }
+        for (let i = 0; i < 4; i++) {
+          const descInput = document.getElementById(`desc-${cat}-${i}`);
+          if (descInput) {
+            adminGalleryState[cat].descricoes[i] = descInput.value.trim();
+          }
+        }
+      });
+
       const title0 = document.getElementById('adminVideoTitle0')?.value.trim() || '';
+      const desc0 = document.getElementById('adminVideoDesc0')?.value.trim() || '';
       const url0 = document.getElementById('adminVideoUrl0')?.value.trim() || '';
+
       const title1 = document.getElementById('adminVideoTitle1')?.value.trim() || '';
+      const desc1 = document.getElementById('adminVideoDesc1')?.value.trim() || '';
       const url1 = document.getElementById('adminVideoUrl1')?.value.trim() || '';
 
       adminGalleryState.videos = [
         {
           id: 'video-1',
           titulo: title0 || 'Show ao Vivo no Pub',
+          descricao: desc0,
           embedUrl: formatYouTubeEmbedUrl(url0) || 'https://www.youtube.com/embed/dQw4w9WgXcQ'
         },
         {
           id: 'video-2',
           titulo: title1 || 'Pocket Show Voz & Violão',
+          descricao: desc1,
           embedUrl: formatYouTubeEmbedUrl(url1) || 'https://www.youtube.com/embed/dQw4w9WgXcQ'
         }
       ];
@@ -5790,8 +5929,12 @@
             if (img) {
               img.src = fotoUrl;
             }
-            const caption = `${catData.titulo}: Foto 0${idx + 1}`;
-            slides[idx].setAttribute('onclick', `openModal('${fotoUrl}', '${caption.replace(/'/g, "\\'")}')`);
+            const desc = (Array.isArray(catData.descricoes) && catData.descricoes[idx]) ? catData.descricoes[idx].trim() : '';
+            const captionEl = slides[idx].querySelector('.gallery-caption');
+            if (captionEl) {
+              captionEl.textContent = desc;
+            }
+            slides[idx].setAttribute('onclick', `openModal('${fotoUrl}', '${desc.replace(/'/g, "\\'")}')`);
           }
         });
       });
@@ -5814,9 +5957,15 @@
           }
 
           const card = box.closest('.video-card');
-          if (card && video.titulo) {
-            const h5 = card.querySelector('.video-card-info h5');
-            if (h5) h5.textContent = video.titulo;
+          if (card) {
+            if (video.titulo) {
+              const h5 = card.querySelector('.video-card-info h5');
+              if (h5) h5.textContent = video.titulo;
+            }
+            const p = card.querySelector('.video-card-info p');
+            if (p) {
+              p.textContent = video.descricao ? video.descricao.trim() : '';
+            }
           }
         });
       }
