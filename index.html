@@ -1916,10 +1916,10 @@
       border: 1px solid rgba(245, 158, 11, 0.3);
       border-radius: 18px;
       width: 100%;
-      max-width: 600px;
+      max-width: 780px;
       max-height: 92vh;
       overflow-y: auto;
-      padding: 28px;
+      padding: 26px;
       position: relative;
       box-shadow: 0 25px 60px rgba(0, 0, 0, 0.8), 0 0 30px rgba(245, 158, 11, 0.15);
       animation: modalScaleUp 0.28s ease-out;
@@ -2324,6 +2324,245 @@
     .admin-btn-cancel:hover {
       background: rgba(255, 255, 255, 0.18);
       color: #ffffff;
+    }
+
+    /* ==========================================
+       SISTEMA DE ABAS DO PAINEL ADMIN (TABS)
+       ========================================== */
+    .admin-tabs-nav {
+      display: flex;
+      gap: 10px;
+      border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+      margin-bottom: 22px;
+      padding-bottom: 2px;
+    }
+
+    .admin-tab-btn {
+      flex: 1;
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      gap: 8px;
+      padding: 12px 16px;
+      border-radius: 10px 10px 0 0;
+      background: rgba(255, 255, 255, 0.03);
+      border: 1px solid transparent;
+      border-bottom: 2px solid transparent;
+      color: #94a3b8;
+      font-weight: 700;
+      font-size: 0.92rem;
+      cursor: pointer;
+      transition: var(--transition);
+    }
+
+    .admin-tab-btn:hover {
+      color: #ffffff;
+      background: rgba(255, 255, 255, 0.08);
+    }
+
+    .admin-tab-btn.active {
+      color: var(--gold-light);
+      background: rgba(245, 158, 11, 0.12);
+      border-color: rgba(245, 158, 11, 0.25);
+      border-bottom: 2px solid var(--gold-primary);
+    }
+
+    .admin-tab-content {
+      animation: adminFadeIn 0.2s ease-out;
+    }
+
+    @keyframes adminFadeIn {
+      from { opacity: 0; transform: translateY(4px); }
+      to { opacity: 1; transform: translateY(0); }
+    }
+
+    /* ==========================================
+       GESTÃO DE MÍDIAS (FOTOS E VÍDEOS)
+       ========================================== */
+    .admin-media-header-desc {
+      background: rgba(245, 158, 11, 0.06);
+      border: 1px solid rgba(245, 158, 11, 0.15);
+      border-radius: 10px;
+      padding: 12px 14px;
+      font-size: 0.84rem;
+      color: #cbd5e1;
+      margin-bottom: 20px;
+      display: flex;
+      align-items: center;
+      gap: 10px;
+      line-height: 1.45;
+    }
+
+    .admin-media-header-desc i {
+      color: var(--gold-primary);
+      font-size: 1.1rem;
+      flex-shrink: 0;
+    }
+
+    .admin-media-category-card {
+      background: rgba(255, 255, 255, 0.02);
+      border: 1px solid rgba(255, 255, 255, 0.08);
+      border-radius: 12px;
+      padding: 16px;
+      margin-bottom: 20px;
+    }
+
+    .admin-media-category-header {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      margin-bottom: 14px;
+      padding-bottom: 8px;
+      border-bottom: 1px solid rgba(255, 255, 255, 0.06);
+    }
+
+    .admin-media-category-header h5 {
+      margin: 0;
+      font-size: 0.95rem;
+      font-weight: 700;
+      color: #f1f5f9;
+      display: flex;
+      align-items: center;
+      gap: 8px;
+    }
+
+    .admin-media-category-header span {
+      font-size: 0.75rem;
+      color: #94a3b8;
+      background: rgba(255, 255, 255, 0.06);
+      padding: 2px 8px;
+      border-radius: 999px;
+    }
+
+    .admin-photo-grid {
+      display: grid;
+      grid-template-columns: repeat(2, 1fr);
+      gap: 12px;
+    }
+
+    @media (min-width: 620px) {
+      .admin-photo-grid {
+        grid-template-columns: repeat(4, 1fr);
+      }
+    }
+
+    .admin-photo-slot {
+      background: #090b10;
+      border: 1px solid rgba(255, 255, 255, 0.1);
+      border-radius: 10px;
+      padding: 10px;
+      display: flex;
+      flex-direction: column;
+      gap: 8px;
+      transition: var(--transition);
+      position: relative;
+    }
+
+    .admin-photo-slot:hover {
+      border-color: rgba(245, 158, 11, 0.4);
+      box-shadow: 0 4px 14px rgba(0, 0, 0, 0.4);
+    }
+
+    .admin-slot-header {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      font-size: 0.74rem;
+      font-weight: 700;
+      color: #94a3b8;
+    }
+
+    .admin-photo-preview-wrap {
+      position: relative;
+      width: 100%;
+      aspect-ratio: 4 / 3;
+      border-radius: 8px;
+      overflow: hidden;
+      background: #000000;
+      border: 1px solid rgba(255, 255, 255, 0.08);
+    }
+
+    .admin-photo-img {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+      display: block;
+      transition: transform 0.25s ease;
+    }
+
+    .admin-photo-slot:hover .admin-photo-img {
+      transform: scale(1.04);
+    }
+
+    .admin-upload-trigger {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      gap: 6px;
+      width: 100%;
+      padding: 8px 4px;
+      border-radius: 6px;
+      background: rgba(245, 158, 11, 0.12);
+      border: 1px dashed rgba(245, 158, 11, 0.45);
+      color: var(--gold-light);
+      font-size: 0.76rem;
+      font-weight: 700;
+      cursor: pointer;
+      text-align: center;
+      transition: var(--transition);
+      user-select: none;
+    }
+
+    .admin-upload-trigger:hover {
+      background: var(--gold-primary);
+      color: #0f121a;
+      border-style: solid;
+      box-shadow: 0 2px 8px rgba(245, 158, 11, 0.3);
+    }
+
+    .admin-file-hidden {
+      display: none !important;
+    }
+
+    /* Bloco de Vídeos YouTube no Admin */
+    .admin-video-mgmt-card {
+      background: rgba(255, 255, 255, 0.02);
+      border: 1px solid rgba(255, 255, 255, 0.08);
+      border-radius: 12px;
+      padding: 16px;
+      margin-bottom: 24px;
+    }
+
+    .admin-video-slot-box {
+      background: #090b10;
+      border: 1px solid rgba(255, 255, 255, 0.08);
+      border-radius: 10px;
+      padding: 14px;
+      margin-bottom: 14px;
+    }
+
+    .admin-video-slot-box:last-child {
+      margin-bottom: 0;
+    }
+
+    .admin-video-slot-header {
+      display: flex;
+      align-items: center;
+      gap: 8px;
+      font-size: 0.85rem;
+      font-weight: 700;
+      color: #e2e8f0;
+      margin-bottom: 10px;
+    }
+
+    .admin-sticky-actions {
+      position: sticky;
+      bottom: -26px;
+      background: #0f121a;
+      padding: 16px 0 6px 0;
+      margin-top: 20px;
+      border-top: 1px solid rgba(255, 255, 255, 0.08);
+      z-index: 10;
     }
 
     /* ==========================================
@@ -3238,7 +3477,7 @@
         <div class="gallery-carousel-card" data-category="show-ao-vivo">
           <div class="carousel-container" id="carousel-show-ao-vivo" aria-label="Carrossel Show ao Vivo">
             <!-- Trilho dos Slides -->
-            <div class="carousel-track">
+            <div class="carousel-track" data-category="shows-ao-vivo">
               <!-- Foto 1 (Show ao Vivo) - Substitua a URL src abaixo -->
               <div class="carousel-slide active" onclick="openModal('/stage-bg.jpg', 'Show ao Vivo: Palco Principal & Iluminação Cênica')">
                 <img src="/stage-bg.jpg" alt="Show ao Vivo - Palco Principal" loading="lazy" onerror="this.onerror=null; this.src='https://images.unsplash.com/photo-1501386761578-eac5c94b800a?auto=format&fit=crop&w=1000&q=80';" />
@@ -3305,7 +3544,7 @@
         <div class="gallery-carousel-card" data-category="acustico">
           <div class="carousel-container" id="carousel-acustico" aria-label="Carrossel Show Acústico">
             <!-- Trilho dos Slides -->
-            <div class="carousel-track">
+            <div class="carousel-track" data-category="acustico">
               <!-- Foto 1 (Acústico) - Substitua a URL src abaixo -->
               <div class="carousel-slide active" onclick="openModal('https://images.unsplash.com/photo-1511671782779-c97d3d27a1d4?auto=format&fit=crop&w=1000&q=80', 'Show Acústico: Voz & Violão no Pub e Lounge')">
                 <img src="https://images.unsplash.com/photo-1511671782779-c97d3d27a1d4?auto=format&fit=crop&w=1000&q=80" alt="Show Acústico - Voz & Violão" loading="lazy" />
@@ -3372,7 +3611,7 @@
         <div class="gallery-carousel-card" data-category="guitarra-solo">
           <div class="carousel-container" id="carousel-guitarra-solo" aria-label="Carrossel Guitarra Solo">
             <!-- Trilho dos Slides -->
-            <div class="carousel-track">
+            <div class="carousel-track" data-category="guitarra-solo">
               <!-- Foto 1 (Guitarra Solo) - Substitua a URL src abaixo -->
               <div class="carousel-slide active" onclick="openModal('https://images.unsplash.com/photo-1514525253161-7a46d19cd819?auto=format&fit=crop&w=1000&q=80', 'Guitarra Solo: Solo Expressivo de Stratocaster ao Vivo')">
                 <img src="https://images.unsplash.com/photo-1514525253161-7a46d19cd819?auto=format&fit=crop&w=1000&q=80" alt="Guitarra Solo - Solo Stratocaster" loading="lazy" />
@@ -3439,7 +3678,7 @@
         <div class="gallery-carousel-card" data-category="celebracao">
           <div class="carousel-container" id="carousel-celebracao" aria-label="Carrossel Celebração">
             <!-- Trilho dos Slides -->
-            <div class="carousel-track">
+            <div class="carousel-track" data-category="celebracoes">
               <!-- Foto 1 (Celebração) - Substitua a URL src abaixo -->
               <div class="carousel-slide active" onclick="openModal('https://images.unsplash.com/photo-1492684223066-81342ee5ff30?auto=format&fit=crop&w=1000&q=80', 'Celebração: Pista Animada e Público Cantando Junto')">
                 <img src="https://images.unsplash.com/photo-1492684223066-81342ee5ff30?auto=format&fit=crop&w=1000&q=80" alt="Celebração - Pista Animada" loading="lazy" />
@@ -3900,11 +4139,11 @@
         </form>
       </div>
 
-      <!-- Visão 2: Painel de Gerenciamento da Agenda -->
+      <!-- Visão 2: Painel de Gerenciamento da Agenda e Mídias -->
       <div id="adminPanelView" style="display: none;">
         <div class="admin-modal-header">
           <div>
-            <h3><i class="fa-solid fa-calendar-plus"></i> Programar Agenda</h3>
+            <h3><i class="fa-solid fa-sliders"></i> Painel de Controle</h3>
             <span style="font-size: 0.78rem; color: #4ade80; display: flex; align-items: center; gap: 6px; margin-top: 4px;">
               <i class="fa-solid fa-circle" style="font-size: 0.55rem;"></i> Conectado como <strong>admin</strong>
             </span>
@@ -3919,92 +4158,399 @@
           </div>
         </div>
 
-        <!-- Formulário de Cadastro e Edição Manual de Show -->
-        <div id="adminFormHeader" style="display: flex; align-items: center; justify-content: space-between; margin-bottom: 12px;">
-          <span id="adminFormTitleText" style="font-size: 0.92rem; font-weight: 700; color: #e2e8f0; display: flex; align-items: center; gap: 8px;">
-            <i class="fa-solid fa-calendar-plus" style="color: var(--gold-primary);"></i> Cadastrar Novo Show
-          </span>
-          <span id="adminFormModeBadge" style="display: none; background: rgba(59, 130, 246, 0.2); color: #60a5fa; border: 1px solid rgba(59, 130, 246, 0.4); font-size: 0.72rem; font-weight: 700; padding: 2px 8px; border-radius: 999px;">
-            MODO ALTERAÇÃO
-          </span>
+        <!-- Sistema de Abas (Tabs) -->
+        <div class="admin-tabs-nav" role="tablist">
+          <button type="button" class="admin-tab-btn active" id="tabBtnAgenda" onclick="switchAdminTab('agenda')">
+            <i class="fa-regular fa-calendar-days"></i>
+            <span>Agenda de Shows</span>
+          </button>
+          <button type="button" class="admin-tab-btn" id="tabBtnMidias" onclick="switchAdminTab('midias')">
+            <i class="fa-solid fa-photo-film"></i>
+            <span>Mídias & Vídeos</span>
+          </button>
         </div>
 
-        <form id="adminEventForm" onsubmit="handleSaveEvent(event)">
-          <input type="hidden" id="adminEditIdInput" value="" />
-
-          <div class="admin-form-group">
-            <label><i class="fa-regular fa-calendar" style="margin-right: 6px;"></i> Data do Show</label>
-            <div class="admin-grid-2">
-              <div>
-                <input type="text" id="adminDayInput" class="admin-input" placeholder="Dia (Ex: 25)" maxlength="2" required />
-              </div>
-              <div>
-                <input type="text" id="adminMonthInput" class="admin-input" placeholder="Mês (Ex: OUT)" maxlength="4" style="text-transform: uppercase;" required />
-              </div>
-            </div>
-            <div style="display: flex; align-items: center; gap: 8px; margin-top: 8px;">
-              <span style="color: #64748b; font-size: 0.78rem;">Ou selecionar no calendário:</span>
-              <input type="date" id="adminDatePicker" class="admin-input" style="padding: 5px 10px; font-size: 0.8rem; width: auto; cursor: pointer;" onchange="syncDatePicker(this)" />
-            </div>
+        <!-- Aba 1: Agenda de Shows -->
+        <div id="adminTabAgenda" class="admin-tab-content">
+          <!-- Formulário de Cadastro e Edição Manual de Show -->
+          <div id="adminFormHeader" style="display: flex; align-items: center; justify-content: space-between; margin-bottom: 12px;">
+            <span id="adminFormTitleText" style="font-size: 0.92rem; font-weight: 700; color: #e2e8f0; display: flex; align-items: center; gap: 8px;">
+              <i class="fa-solid fa-calendar-plus" style="color: var(--gold-primary);"></i> Cadastrar Novo Show
+            </span>
+            <span id="adminFormModeBadge" style="display: none; background: rgba(59, 130, 246, 0.2); color: #60a5fa; border: 1px solid rgba(59, 130, 246, 0.4); font-size: 0.72rem; font-weight: 700; padding: 2px 8px; border-radius: 999px;">
+              MODO ALTERAÇÃO
+            </span>
           </div>
 
-          <div class="admin-form-group">
-            <label for="adminTitleInput"><i class="fa-solid fa-music" style="margin-right: 6px;"></i> Local / Nome do Show</label>
-            <input type="text" id="adminTitleInput" class="admin-input" placeholder="Ex: Evento Corporativo TechSolutions ou Red Rock Pub" required />
-          </div>
+          <form id="adminEventForm" onsubmit="handleSaveEvent(event)">
+            <input type="hidden" id="adminEditIdInput" value="" />
 
-          <div class="admin-form-group">
-            <label for="adminAddressInput"><i class="fa-solid fa-location-dot" style="margin-right: 6px;"></i> Endereço / Cidade / Detalhes</label>
-            <input type="text" id="adminAddressInput" class="admin-input" placeholder="Ex: Paulínia / SP • Confraternização" required />
-          </div>
-
-          <div class="admin-form-group">
-            <label><i class="fa-solid fa-clipboard-check" style="margin-right: 6px;"></i> Confirma este evento? (Status)</label>
-            <div class="admin-radio-group">
-              <div class="admin-radio-btn selected-yes" id="btnRadioYes" onclick="selectEventConfirmed(true)">
-                <i class="fa-solid fa-circle-check"></i>
-                <span>Sim (Confirmado)</span>
+            <div class="admin-form-group">
+              <label><i class="fa-regular fa-calendar" style="margin-right: 6px;"></i> Data do Show</label>
+              <div class="admin-grid-2">
+                <div>
+                  <input type="text" id="adminDayInput" class="admin-input" placeholder="Dia (Ex: 25)" maxlength="2" required />
+                </div>
+                <div>
+                  <input type="text" id="adminMonthInput" class="admin-input" placeholder="Mês (Ex: OUT)" maxlength="4" style="text-transform: uppercase;" required />
+                </div>
               </div>
-              <div class="admin-radio-btn" id="btnRadioNo" onclick="selectEventConfirmed(false)">
-                <i class="fa-regular fa-clock"></i>
-                <span>Não (Disponível)</span>
+              <div style="display: flex; align-items: center; gap: 8px; margin-top: 8px;">
+                <span style="color: #64748b; font-size: 0.78rem;">Ou selecionar no calendário:</span>
+                <input type="date" id="adminDatePicker" class="admin-input" style="padding: 5px 10px; font-size: 0.8rem; width: auto; cursor: pointer;" onchange="syncDatePicker(this)" />
               </div>
             </div>
-            <input type="hidden" id="adminConfirmedInput" value="true" />
+
+            <div class="admin-form-group">
+              <label for="adminTitleInput"><i class="fa-solid fa-music" style="margin-right: 6px;"></i> Local / Nome do Show</label>
+              <input type="text" id="adminTitleInput" class="admin-input" placeholder="Ex: Evento Corporativo TechSolutions ou Red Rock Pub" required />
+            </div>
+
+            <div class="admin-form-group">
+              <label for="adminAddressInput"><i class="fa-solid fa-location-dot" style="margin-right: 6px;"></i> Endereço / Cidade / Detalhes</label>
+              <input type="text" id="adminAddressInput" class="admin-input" placeholder="Ex: Paulínia / SP • Confraternização" required />
+            </div>
+
+            <div class="admin-form-group">
+              <label><i class="fa-solid fa-clipboard-check" style="margin-right: 6px;"></i> Confirma este evento? (Status)</label>
+              <div class="admin-radio-group">
+                <div class="admin-radio-btn selected-yes" id="btnRadioYes" onclick="selectEventConfirmed(true)">
+                  <i class="fa-solid fa-circle-check"></i>
+                  <span>Sim (Confirmado)</span>
+                </div>
+                <div class="admin-radio-btn" id="btnRadioNo" onclick="selectEventConfirmed(false)">
+                  <i class="fa-regular fa-clock"></i>
+                  <span>Não (Disponível)</span>
+                </div>
+              </div>
+              <input type="hidden" id="adminConfirmedInput" value="true" />
+            </div>
+
+            <div class="admin-form-actions">
+              <button type="submit" class="admin-btn-primary" id="adminSaveBtn" style="flex: 1;">
+                <i class="fa-solid fa-check"></i> <span>Salvar Show na Agenda</span>
+              </button>
+              <button type="button" class="admin-btn-cancel" id="adminCancelEditBtn" onclick="cancelEditEvent()" style="display: none;">
+                <i class="fa-solid fa-xmark"></i> Cancelar
+              </button>
+            </div>
+          </form>
+
+          <!-- Caixa de Diálogo "Pode informar outro evento?" -->
+          <div id="adminAnotherEventBox" class="admin-confirm-box" style="display: none;">
+            <h4><i class="fa-solid fa-circle-check"></i> Show salvo com sucesso!</h4>
+            <p>Pode informar outro evento?</p>
+            <div class="admin-confirm-actions">
+              <button type="button" class="admin-btn-yes" onclick="handleAnotherEvent(true)">
+                <i class="fa-solid fa-plus"></i> Sim, digitar outro evento
+              </button>
+              <button type="button" class="admin-btn-no" onclick="handleAnotherEvent(false)">
+                <i class="fa-solid fa-arrow-left"></i> Não, retornar à página principal
+              </button>
+            </div>
           </div>
 
-          <div class="admin-form-actions">
-            <button type="submit" class="admin-btn-primary" id="adminSaveBtn" style="flex: 1;">
-              <i class="fa-solid fa-check"></i> <span>Salvar Show na Agenda</span>
-            </button>
-            <button type="button" class="admin-btn-cancel" id="adminCancelEditBtn" onclick="cancelEditEvent()" style="display: none;">
-              <i class="fa-solid fa-xmark"></i> Cancelar
-            </button>
-          </div>
-        </form>
-
-        <!-- Caixa de Diálogo "Pode informar outro evento?" -->
-        <div id="adminAnotherEventBox" class="admin-confirm-box" style="display: none;">
-          <h4><i class="fa-solid fa-circle-check"></i> Show salvo com sucesso!</h4>
-          <p>Pode informar outro evento?</p>
-          <div class="admin-confirm-actions">
-            <button type="button" class="admin-btn-yes" onclick="handleAnotherEvent(true)">
-              <i class="fa-solid fa-plus"></i> Sim, digitar outro evento
-            </button>
-            <button type="button" class="admin-btn-no" onclick="handleAnotherEvent(false)">
-              <i class="fa-solid fa-arrow-left"></i> Não, retornar à página principal
-            </button>
+          <!-- Lista de Gerenciamento de Shows Existentes -->
+          <div class="admin-events-list">
+            <h4>
+              <span>Eventos Programados</span>
+              <span id="adminEventsCountBadge" style="font-size: 0.75rem; background: rgba(255,255,255,0.08); padding: 2px 8px; border-radius: 999px; color: #cbd5e1;"></span>
+            </h4>
+            <div id="adminEventsListContainer">
+              <!-- Inserido dinamicamente via JS -->
+            </div>
           </div>
         </div>
 
-        <!-- Lista de Gerenciamento de Shows Existentes -->
-        <div class="admin-events-list">
-          <h4>
-            <span>Eventos Programados</span>
-            <span id="adminEventsCountBadge" style="font-size: 0.75rem; background: rgba(255,255,255,0.08); padding: 2px 8px; border-radius: 999px; color: #cbd5e1;"></span>
-          </h4>
-          <div id="adminEventsListContainer">
-            <!-- Inserido dinamicamente via JS -->
+        <!-- Aba 2: Mídias & Vídeos -->
+        <div id="adminTabMidias" class="admin-tab-content" style="display: none;">
+          <div class="admin-media-header-desc">
+            <i class="fa-solid fa-circle-info"></i>
+            <div>
+              <strong>Gestão Dinâmica da Galeria & Vídeos:</strong> Altere as 4 fotos de cada carrossel ou substitua os links dos vídeos ao vivo do YouTube. Clique em <em>"Salvar Mídias"</em> para aplicar tudo em tempo real no site.
+            </div>
+          </div>
+
+          <!-- Categoria 1: Shows ao Vivo -->
+          <div class="admin-media-category-card">
+            <div class="admin-media-category-header">
+              <h5><i class="fa-solid fa-music" style="color: var(--gold-primary);"></i> Shows ao Vivo</h5>
+              <span>4 Fotos</span>
+            </div>
+            <div class="admin-photo-grid">
+              <div class="admin-photo-slot">
+                <div class="admin-slot-header">
+                  <span>Foto 01</span>
+                </div>
+                <div class="admin-photo-preview-wrap">
+                  <img id="preview-shows-ao-vivo-0" class="admin-photo-img" src="" alt="Preview Foto 01" />
+                </div>
+                <label class="admin-upload-trigger">
+                  <i class="fa-solid fa-cloud-arrow-up"></i> Trocar Foto
+                  <input type="file" accept="image/*" class="admin-file-hidden" onchange="handleImageUpload(event, 'shows-ao-vivo', 0)" />
+                </label>
+              </div>
+              <div class="admin-photo-slot">
+                <div class="admin-slot-header">
+                  <span>Foto 02</span>
+                </div>
+                <div class="admin-photo-preview-wrap">
+                  <img id="preview-shows-ao-vivo-1" class="admin-photo-img" src="" alt="Preview Foto 02" />
+                </div>
+                <label class="admin-upload-trigger">
+                  <i class="fa-solid fa-cloud-arrow-up"></i> Trocar Foto
+                  <input type="file" accept="image/*" class="admin-file-hidden" onchange="handleImageUpload(event, 'shows-ao-vivo', 1)" />
+                </label>
+              </div>
+              <div class="admin-photo-slot">
+                <div class="admin-slot-header">
+                  <span>Foto 03</span>
+                </div>
+                <div class="admin-photo-preview-wrap">
+                  <img id="preview-shows-ao-vivo-2" class="admin-photo-img" src="" alt="Preview Foto 03" />
+                </div>
+                <label class="admin-upload-trigger">
+                  <i class="fa-solid fa-cloud-arrow-up"></i> Trocar Foto
+                  <input type="file" accept="image/*" class="admin-file-hidden" onchange="handleImageUpload(event, 'shows-ao-vivo', 2)" />
+                </label>
+              </div>
+              <div class="admin-photo-slot">
+                <div class="admin-slot-header">
+                  <span>Foto 04</span>
+                </div>
+                <div class="admin-photo-preview-wrap">
+                  <img id="preview-shows-ao-vivo-3" class="admin-photo-img" src="" alt="Preview Foto 04" />
+                </div>
+                <label class="admin-upload-trigger">
+                  <i class="fa-solid fa-cloud-arrow-up"></i> Trocar Foto
+                  <input type="file" accept="image/*" class="admin-file-hidden" onchange="handleImageUpload(event, 'shows-ao-vivo', 3)" />
+                </label>
+              </div>
+            </div>
+          </div>
+
+          <!-- Categoria 2: Acústico -->
+          <div class="admin-media-category-card">
+            <div class="admin-media-category-header">
+              <h5><i class="fa-solid fa-guitar" style="color: var(--gold-primary);"></i> Acústico</h5>
+              <span>4 Fotos</span>
+            </div>
+            <div class="admin-photo-grid">
+              <div class="admin-photo-slot">
+                <div class="admin-slot-header">
+                  <span>Foto 01</span>
+                </div>
+                <div class="admin-photo-preview-wrap">
+                  <img id="preview-acustico-0" class="admin-photo-img" src="" alt="Preview Foto 01" />
+                </div>
+                <label class="admin-upload-trigger">
+                  <i class="fa-solid fa-cloud-arrow-up"></i> Trocar Foto
+                  <input type="file" accept="image/*" class="admin-file-hidden" onchange="handleImageUpload(event, 'acustico', 0)" />
+                </label>
+              </div>
+              <div class="admin-photo-slot">
+                <div class="admin-slot-header">
+                  <span>Foto 02</span>
+                </div>
+                <div class="admin-photo-preview-wrap">
+                  <img id="preview-acustico-1" class="admin-photo-img" src="" alt="Preview Foto 02" />
+                </div>
+                <label class="admin-upload-trigger">
+                  <i class="fa-solid fa-cloud-arrow-up"></i> Trocar Foto
+                  <input type="file" accept="image/*" class="admin-file-hidden" onchange="handleImageUpload(event, 'acustico', 1)" />
+                </label>
+              </div>
+              <div class="admin-photo-slot">
+                <div class="admin-slot-header">
+                  <span>Foto 03</span>
+                </div>
+                <div class="admin-photo-preview-wrap">
+                  <img id="preview-acustico-2" class="admin-photo-img" src="" alt="Preview Foto 03" />
+                </div>
+                <label class="admin-upload-trigger">
+                  <i class="fa-solid fa-cloud-arrow-up"></i> Trocar Foto
+                  <input type="file" accept="image/*" class="admin-file-hidden" onchange="handleImageUpload(event, 'acustico', 2)" />
+                </label>
+              </div>
+              <div class="admin-photo-slot">
+                <div class="admin-slot-header">
+                  <span>Foto 04</span>
+                </div>
+                <div class="admin-photo-preview-wrap">
+                  <img id="preview-acustico-3" class="admin-photo-img" src="" alt="Preview Foto 04" />
+                </div>
+                <label class="admin-upload-trigger">
+                  <i class="fa-solid fa-cloud-arrow-up"></i> Trocar Foto
+                  <input type="file" accept="image/*" class="admin-file-hidden" onchange="handleImageUpload(event, 'acustico', 3)" />
+                </label>
+              </div>
+            </div>
+          </div>
+
+          <!-- Categoria 3: Guitarra Solo -->
+          <div class="admin-media-category-card">
+            <div class="admin-media-category-header">
+              <h5><i class="fa-solid fa-bolt" style="color: var(--gold-primary);"></i> Guitarra Solo</h5>
+              <span>4 Fotos</span>
+            </div>
+            <div class="admin-photo-grid">
+              <div class="admin-photo-slot">
+                <div class="admin-slot-header">
+                  <span>Foto 01</span>
+                </div>
+                <div class="admin-photo-preview-wrap">
+                  <img id="preview-guitarra-solo-0" class="admin-photo-img" src="" alt="Preview Foto 01" />
+                </div>
+                <label class="admin-upload-trigger">
+                  <i class="fa-solid fa-cloud-arrow-up"></i> Trocar Foto
+                  <input type="file" accept="image/*" class="admin-file-hidden" onchange="handleImageUpload(event, 'guitarra-solo', 0)" />
+                </label>
+              </div>
+              <div class="admin-photo-slot">
+                <div class="admin-slot-header">
+                  <span>Foto 02</span>
+                </div>
+                <div class="admin-photo-preview-wrap">
+                  <img id="preview-guitarra-solo-1" class="admin-photo-img" src="" alt="Preview Foto 02" />
+                </div>
+                <label class="admin-upload-trigger">
+                  <i class="fa-solid fa-cloud-arrow-up"></i> Trocar Foto
+                  <input type="file" accept="image/*" class="admin-file-hidden" onchange="handleImageUpload(event, 'guitarra-solo', 1)" />
+                </label>
+              </div>
+              <div class="admin-photo-slot">
+                <div class="admin-slot-header">
+                  <span>Foto 03</span>
+                </div>
+                <div class="admin-photo-preview-wrap">
+                  <img id="preview-guitarra-solo-2" class="admin-photo-img" src="" alt="Preview Foto 03" />
+                </div>
+                <label class="admin-upload-trigger">
+                  <i class="fa-solid fa-cloud-arrow-up"></i> Trocar Foto
+                  <input type="file" accept="image/*" class="admin-file-hidden" onchange="handleImageUpload(event, 'guitarra-solo', 2)" />
+                </label>
+              </div>
+              <div class="admin-photo-slot">
+                <div class="admin-slot-header">
+                  <span>Foto 04</span>
+                </div>
+                <div class="admin-photo-preview-wrap">
+                  <img id="preview-guitarra-solo-3" class="admin-photo-img" src="" alt="Preview Foto 04" />
+                </div>
+                <label class="admin-upload-trigger">
+                  <i class="fa-solid fa-cloud-arrow-up"></i> Trocar Foto
+                  <input type="file" accept="image/*" class="admin-file-hidden" onchange="handleImageUpload(event, 'guitarra-solo', 3)" />
+                </label>
+              </div>
+            </div>
+          </div>
+
+          <!-- Categoria 4: Celebrações -->
+          <div class="admin-media-category-card">
+            <div class="admin-media-category-header">
+              <h5><i class="fa-solid fa-champagne-glasses" style="color: var(--gold-primary);"></i> Celebrações</h5>
+              <span>4 Fotos</span>
+            </div>
+            <div class="admin-photo-grid">
+              <div class="admin-photo-slot">
+                <div class="admin-slot-header">
+                  <span>Foto 01</span>
+                </div>
+                <div class="admin-photo-preview-wrap">
+                  <img id="preview-celebracoes-0" class="admin-photo-img" src="" alt="Preview Foto 01" />
+                </div>
+                <label class="admin-upload-trigger">
+                  <i class="fa-solid fa-cloud-arrow-up"></i> Trocar Foto
+                  <input type="file" accept="image/*" class="admin-file-hidden" onchange="handleImageUpload(event, 'celebracoes', 0)" />
+                </label>
+              </div>
+              <div class="admin-photo-slot">
+                <div class="admin-slot-header">
+                  <span>Foto 02</span>
+                </div>
+                <div class="admin-photo-preview-wrap">
+                  <img id="preview-celebracoes-1" class="admin-photo-img" src="" alt="Preview Foto 02" />
+                </div>
+                <label class="admin-upload-trigger">
+                  <i class="fa-solid fa-cloud-arrow-up"></i> Trocar Foto
+                  <input type="file" accept="image/*" class="admin-file-hidden" onchange="handleImageUpload(event, 'celebracoes', 1)" />
+                </label>
+              </div>
+              <div class="admin-photo-slot">
+                <div class="admin-slot-header">
+                  <span>Foto 03</span>
+                </div>
+                <div class="admin-photo-preview-wrap">
+                  <img id="preview-celebracoes-2" class="admin-photo-img" src="" alt="Preview Foto 03" />
+                </div>
+                <label class="admin-upload-trigger">
+                  <i class="fa-solid fa-cloud-arrow-up"></i> Trocar Foto
+                  <input type="file" accept="image/*" class="admin-file-hidden" onchange="handleImageUpload(event, 'celebracoes', 2)" />
+                </label>
+              </div>
+              <div class="admin-photo-slot">
+                <div class="admin-slot-header">
+                  <span>Foto 04</span>
+                </div>
+                <div class="admin-photo-preview-wrap">
+                  <img id="preview-celebracoes-3" class="admin-photo-img" src="" alt="Preview Foto 04" />
+                </div>
+                <label class="admin-upload-trigger">
+                  <i class="fa-solid fa-cloud-arrow-up"></i> Trocar Foto
+                  <input type="file" accept="image/*" class="admin-file-hidden" onchange="handleImageUpload(event, 'celebracoes', 3)" />
+                </label>
+              </div>
+            </div>
+          </div>
+
+          <!-- Seção de Vídeos do YouTube -->
+          <div class="admin-video-mgmt-card">
+            <div class="admin-media-category-header">
+              <h5><i class="fa-brands fa-youtube" style="color: #ef4444;"></i> Vídeos em Destaque (YouTube)</h5>
+              <span>Até 2 Vídeos</span>
+            </div>
+
+            <!-- Vídeo 1 -->
+            <div class="admin-video-slot-box">
+              <div class="admin-video-slot-header">
+                <i class="fa-solid fa-film" style="color: var(--gold-primary);"></i>
+                <span>Vídeo 01 (Principal)</span>
+              </div>
+              <div class="admin-form-group" style="margin-bottom: 8px;">
+                <label for="adminVideoTitle0">Título do Vídeo 01</label>
+                <input type="text" id="adminVideoTitle0" class="admin-input" placeholder="Ex: Show Pop Rock ao Vivo no Pub" />
+              </div>
+              <div class="admin-form-group" style="margin-bottom: 0;">
+                <label for="adminVideoUrl0">URL do Vídeo no YouTube (ou Link de Compartilhamento)</label>
+                <input type="url" id="adminVideoUrl0" class="admin-input" placeholder="https://www.youtube.com/watch?v=... ou https://youtu.be/..." />
+              </div>
+            </div>
+
+            <!-- Vídeo 2 -->
+            <div class="admin-video-slot-box">
+              <div class="admin-video-slot-header">
+                <i class="fa-solid fa-film" style="color: var(--gold-primary);"></i>
+                <span>Vídeo 02 (Secundário)</span>
+              </div>
+              <div class="admin-form-group" style="margin-bottom: 8px;">
+                <label for="adminVideoTitle1">Título do Vídeo 02</label>
+                <input type="text" id="adminVideoTitle1" class="admin-input" placeholder="Ex: Pocket Show Voz & Violão" />
+              </div>
+              <div class="admin-form-group" style="margin-bottom: 0;">
+                <label for="adminVideoUrl1">URL do Vídeo no YouTube (ou Link de Compartilhamento)</label>
+                <input type="url" id="adminVideoUrl1" class="admin-input" placeholder="https://www.youtube.com/watch?v=... ou https://youtu.be/..." />
+              </div>
+            </div>
+          </div>
+
+          <!-- Botão Principal Salvar Mídias -->
+          <div class="admin-sticky-actions">
+            <button type="button" class="admin-btn-primary" id="adminSaveMediaBtn" onclick="saveMediaGallery()" style="width: 100%;">
+              <i class="fa-solid fa-floppy-disk"></i> <span>Salvar Mídias</span>
+            </button>
+            <div id="adminMediaSuccessMsg" style="display: none; margin-top: 10px; background: rgba(34, 197, 94, 0.16); border: 1px solid #22c55e; color: #86efac; padding: 10px 14px; border-radius: 8px; font-size: 0.88rem; text-align: center;">
+              <i class="fa-solid fa-circle-check" style="margin-right: 6px;"></i> Mídias e vídeos salvos com sucesso! A galeria do site foi atualizada.
+            </div>
           </div>
         </div>
       </div>
@@ -4763,8 +5309,10 @@
       if (isLogged) {
         if (loginView) loginView.style.display = 'none';
         if (panelView) panelView.style.display = 'block';
+        switchAdminTab('agenda');
         cancelEditEvent();
         renderAdminList();
+        populateAdminMediaInputs();
       } else {
         if (loginView) loginView.style.display = 'block';
         if (panelView) panelView.style.display = 'none';
@@ -4809,8 +5357,10 @@
         
         document.getElementById('adminLoginView').style.display = 'none';
         document.getElementById('adminPanelView').style.display = 'block';
+        switchAdminTab('agenda');
         cancelEditEvent();
         renderAdminList();
+        populateAdminMediaInputs();
       } else {
         if (errorMsg) errorMsg.style.display = 'block';
         if (passInput) {
@@ -4823,6 +5373,7 @@
     function adminLogout() {
       sessionStorage.removeItem('gilmar_admin_logged');
       currentEditingId = null;
+      switchAdminTab('agenda');
       document.getElementById('adminPanelView').style.display = 'none';
       document.getElementById('adminLoginView').style.display = 'block';
     }
@@ -4928,8 +5479,318 @@
       }
     }
 
-    // Inicialização da Agenda ao carregar a página
+    /* ==========================================
+       GESTÃO DE MÍDIAS (FOTOS DOS CARROSSÉIS E VÍDEOS)
+       ========================================== */
+    const MEDIA_STORAGE_KEY = 'site_musico_midias';
+
+    const defaultGalleryData = {
+      'shows-ao-vivo': {
+        titulo: 'Shows ao Vivo',
+        fotos: [
+          '/stage-bg.jpg',
+          'https://images.unsplash.com/photo-1470225620780-dba8ba36b745?auto=format&fit=crop&w=1000&q=80',
+          'https://images.unsplash.com/photo-1465847899084-d164df4dedc6?auto=format&fit=crop&w=1000&q=80',
+          'https://images.unsplash.com/photo-1516450360452-9312f5e86fc7?auto=format&fit=crop&w=1000&q=80'
+        ]
+      },
+      'acustico': {
+        titulo: 'Acústico',
+        fotos: [
+          'https://images.unsplash.com/photo-1511671782779-c97d3d27a1d4?auto=format&fit=crop&w=1000&q=80',
+          'https://images.unsplash.com/photo-1525201548942-d8732f6617a0?auto=format&fit=crop&w=1000&q=80',
+          'https://images.unsplash.com/photo-1445985543470-41fdd5c31447?auto=format&fit=crop&w=1000&q=80',
+          'https://images.unsplash.com/photo-1485579149621-3123dd979885?auto=format&fit=crop&w=1000&q=80'
+        ]
+      },
+      'guitarra-solo': {
+        titulo: 'Guitarra Solo',
+        fotos: [
+          'https://images.unsplash.com/photo-1514525253161-7a46d19cd819?auto=format&fit=crop&w=1000&q=80',
+          'https://images.unsplash.com/photo-1550291652-6ea9114a47b1?auto=format&fit=crop&w=1000&q=80',
+          'https://images.unsplash.com/photo-1564186763535-ebb21ef5277f?auto=format&fit=crop&w=1000&q=80',
+          'https://images.unsplash.com/photo-1510915361894-db8b60106cb1?auto=format&fit=crop&w=1000&q=80'
+        ]
+      },
+      'celebracoes': {
+        titulo: 'Celebrações',
+        fotos: [
+          'https://images.unsplash.com/photo-1492684223066-81342ee5ff30?auto=format&fit=crop&w=1000&q=80',
+          'https://images.unsplash.com/photo-1519671482749-fd09be7ccebf?auto=format&fit=crop&w=1000&q=80',
+          'https://images.unsplash.com/photo-1533174072545-7a4b6ad7a6c3?auto=format&fit=crop&w=1000&q=80',
+          'https://images.unsplash.com/photo-1527529482837-4698179dc6ce?auto=format&fit=crop&w=1000&q=80'
+        ]
+      },
+      videos: [
+        {
+          id: 'video-1',
+          titulo: 'Show Pop Rock ao Vivo no Pub',
+          embedUrl: 'https://www.youtube.com/embed/dQw4w9WgXcQ'
+        },
+        {
+          id: 'video-2',
+          titulo: 'Pocket Show Voz & Violão',
+          embedUrl: 'https://www.youtube.com/embed/dQw4w9WgXcQ'
+        }
+      ]
+    };
+
+    let adminGalleryState = null;
+
+    function getStoredGalleryData() {
+      try {
+        const raw = localStorage.getItem(MEDIA_STORAGE_KEY);
+        if (!raw) return JSON.parse(JSON.stringify(defaultGalleryData));
+        const parsed = JSON.parse(raw);
+        const result = JSON.parse(JSON.stringify(defaultGalleryData));
+        ['shows-ao-vivo', 'acustico', 'guitarra-solo', 'celebracoes'].forEach(cat => {
+          if (parsed[cat] && Array.isArray(parsed[cat].fotos)) {
+            result[cat].fotos = parsed[cat].fotos.slice(0, 4);
+          }
+        });
+        if (Array.isArray(parsed.videos) && parsed.videos.length > 0) {
+          result.videos = parsed.videos.slice(0, 2);
+        }
+        return result;
+      } catch (e) {
+        console.error('Erro ao ler galeria do localStorage:', e);
+        return JSON.parse(JSON.stringify(defaultGalleryData));
+      }
+    }
+
+    function formatYouTubeEmbedUrl(url) {
+      if (!url) return '';
+      const trimmed = url.trim();
+      if (trimmed.includes('youtube.com/embed/')) {
+        return trimmed;
+      }
+      const regExp = /^.*(youtu.be\/|v\/|u\/\w\/|embed\/|watch\?v=|&v=|shorts\/)([^#&?]*).*/;
+      const match = trimmed.match(regExp);
+      if (match && match[2] && match[2].length === 11) {
+        return `https://www.youtube.com/embed/${match[2]}`;
+      }
+      return trimmed;
+    }
+
+    // Compressão via canvas antes de converter para Base64 (otimização de localStorage)
+    function compressImage(file, maxWidth = 1200, maxHeight = 1200, quality = 0.82) {
+      return new Promise((resolve, reject) => {
+        const reader = new FileReader();
+        reader.onerror = reject;
+        reader.onload = function(e) {
+          const img = new Image();
+          img.onerror = reject;
+          img.onload = function() {
+            let width = img.width;
+            let height = img.height;
+
+            if (width > maxWidth || height > maxHeight) {
+              if (width > height) {
+                height = Math.round((height * maxWidth) / width);
+                width = maxWidth;
+              } else {
+                width = Math.round((width * maxHeight) / height);
+                height = maxHeight;
+              }
+            }
+
+            const canvas = document.createElement('canvas');
+            canvas.width = width;
+            canvas.height = height;
+            const ctx = canvas.getContext('2d');
+            ctx.drawImage(img, 0, 0, width, height);
+            const compressedBase64 = canvas.toDataURL('image/jpeg', quality);
+            resolve(compressedBase64);
+          };
+          img.src = e.target.result;
+        };
+        reader.readAsDataURL(file);
+      });
+    }
+
+    async function handleImageUpload(event, category, index) {
+      const file = event.target.files && event.target.files[0];
+      if (!file) return;
+
+      try {
+        const base64 = await compressImage(file);
+
+        if (!adminGalleryState) {
+          adminGalleryState = getStoredGalleryData();
+        }
+
+        if (adminGalleryState[category] && Array.isArray(adminGalleryState[category].fotos)) {
+          adminGalleryState[category].fotos[index] = base64;
+        }
+
+        const previewEl = document.getElementById(`preview-${category}-${index}`);
+        if (previewEl) {
+          previewEl.src = base64;
+        }
+      } catch (err) {
+        console.error('Erro ao processar upload da imagem:', err);
+        alert('Não foi possível carregar a imagem. Tente outro arquivo.');
+      }
+    }
+
+    function switchAdminTab(tabName) {
+      const btnAgenda = document.getElementById('tabBtnAgenda');
+      const btnMidias = document.getElementById('tabBtnMidias');
+      const tabAgenda = document.getElementById('adminTabAgenda');
+      const tabMidias = document.getElementById('adminTabMidias');
+
+      if (tabName === 'midias') {
+        if (btnMidias) btnMidias.classList.add('active');
+        if (btnAgenda) btnAgenda.classList.remove('active');
+        if (tabMidias) tabMidias.style.display = 'block';
+        if (tabAgenda) tabAgenda.style.display = 'none';
+        populateAdminMediaInputs();
+      } else {
+        if (btnAgenda) btnAgenda.classList.add('active');
+        if (btnMidias) btnMidias.classList.remove('active');
+        if (tabAgenda) tabAgenda.style.display = 'block';
+        if (tabMidias) tabMidias.style.display = 'none';
+      }
+    }
+
+    function populateAdminMediaInputs() {
+      adminGalleryState = getStoredGalleryData();
+      const categories = ['shows-ao-vivo', 'acustico', 'guitarra-solo', 'celebracoes'];
+
+      categories.forEach(cat => {
+        const catData = adminGalleryState[cat];
+        if (!catData || !Array.isArray(catData.fotos)) return;
+        for (let i = 0; i < 4; i++) {
+          const imgEl = document.getElementById(`preview-${cat}-${i}`);
+          if (imgEl && catData.fotos[i]) {
+            imgEl.src = catData.fotos[i];
+          }
+        }
+      });
+
+      if (Array.isArray(adminGalleryState.videos)) {
+        if (adminGalleryState.videos[0]) {
+          const t0 = document.getElementById('adminVideoTitle0');
+          const u0 = document.getElementById('adminVideoUrl0');
+          if (t0) t0.value = adminGalleryState.videos[0].titulo || '';
+          if (u0) u0.value = adminGalleryState.videos[0].embedUrl || '';
+        }
+        if (adminGalleryState.videos[1]) {
+          const t1 = document.getElementById('adminVideoTitle1');
+          const u1 = document.getElementById('adminVideoUrl1');
+          if (t1) t1.value = adminGalleryState.videos[1].titulo || '';
+          if (u1) u1.value = adminGalleryState.videos[1].embedUrl || '';
+        }
+      }
+    }
+
+    function saveMediaGallery() {
+      if (!adminGalleryState) {
+        adminGalleryState = getStoredGalleryData();
+      }
+
+      const title0 = document.getElementById('adminVideoTitle0')?.value.trim() || '';
+      const url0 = document.getElementById('adminVideoUrl0')?.value.trim() || '';
+      const title1 = document.getElementById('adminVideoTitle1')?.value.trim() || '';
+      const url1 = document.getElementById('adminVideoUrl1')?.value.trim() || '';
+
+      adminGalleryState.videos = [
+        {
+          id: 'video-1',
+          titulo: title0 || 'Show ao Vivo no Pub',
+          embedUrl: formatYouTubeEmbedUrl(url0) || 'https://www.youtube.com/embed/dQw4w9WgXcQ'
+        },
+        {
+          id: 'video-2',
+          titulo: title1 || 'Pocket Show Voz & Violão',
+          embedUrl: formatYouTubeEmbedUrl(url1) || 'https://www.youtube.com/embed/dQw4w9WgXcQ'
+        }
+      ];
+
+      try {
+        localStorage.setItem(MEDIA_STORAGE_KEY, JSON.stringify(adminGalleryState));
+        renderSiteGallery();
+
+        const successMsg = document.getElementById('adminMediaSuccessMsg');
+        if (successMsg) {
+          successMsg.style.display = 'block';
+          setTimeout(() => {
+            successMsg.style.display = 'none';
+          }, 3500);
+        }
+      } catch (e) {
+        console.error('Erro ao salvar galeria:', e);
+        alert('Erro ao gravar mídias no armazenamento do navegador. Tente enviar fotos menores.');
+      }
+    }
+
+    function renderSiteGallery() {
+      const data = getStoredGalleryData();
+      const categories = ['shows-ao-vivo', 'acustico', 'guitarra-solo', 'celebracoes'];
+
+      categories.forEach(cat => {
+        const catData = data[cat];
+        if (!catData || !Array.isArray(catData.fotos)) return;
+
+        const aliases = [cat];
+        if (cat === 'shows-ao-vivo') aliases.push('show-ao-vivo');
+        if (cat === 'celebracoes') aliases.push('celebracao');
+
+        let track = null;
+        for (const alias of aliases) {
+          track = document.querySelector(`.carousel-track[data-category="${alias}"]`);
+          if (track) break;
+          const card = document.querySelector(`.gallery-carousel-card[data-category="${alias}"]`);
+          if (card) {
+            track = card.querySelector('.carousel-track');
+            if (track) break;
+          }
+        }
+
+        if (!track) return;
+
+        const slides = track.querySelectorAll('.carousel-slide');
+        catData.fotos.forEach((fotoUrl, idx) => {
+          if (slides[idx] && fotoUrl) {
+            const img = slides[idx].querySelector('img');
+            if (img) {
+              img.src = fotoUrl;
+            }
+            const caption = `${catData.titulo}: Foto 0${idx + 1}`;
+            slides[idx].setAttribute('onclick', `openModal('${fotoUrl}', '${caption.replace(/'/g, "\\'")}')`);
+          }
+        });
+      });
+
+      if (Array.isArray(data.videos)) {
+        data.videos.forEach((video, idx) => {
+          const boxId = `videoBox${idx + 1}`;
+          const box = document.getElementById(boxId);
+          if (!box || !video) return;
+
+          const embedUrl = formatYouTubeEmbedUrl(video.embedUrl);
+          const cover = box.querySelector('.video-placeholder-cover');
+          if (cover && embedUrl) {
+            cover.setAttribute('onclick', `loadVideo('${boxId}', '${embedUrl}${embedUrl.includes('?') ? '&' : '?'}autoplay=1')`);
+          }
+
+          const iframe = box.querySelector('iframe');
+          if (iframe && embedUrl) {
+            iframe.src = `${embedUrl}${embedUrl.includes('?') ? '&' : '?'}autoplay=1`;
+          }
+
+          const card = box.closest('.video-card');
+          if (card && video.titulo) {
+            const h5 = card.querySelector('.video-card-info h5');
+            if (h5) h5.textContent = video.titulo;
+          }
+        });
+      }
+    }
+
+    // Inicialização da Agenda e da Galeria ao carregar a página
     renderAgenda();
+    renderSiteGallery();
 
     // Expõe funções para chamadas inline do HTML
     window.openAdminModal = openAdminModal;
@@ -4944,6 +5805,10 @@
     window.deleteEvent = deleteEvent;
     window.syncDatePicker = syncDatePicker;
     window.selectEventConfirmed = selectEventConfirmed;
+    window.switchAdminTab = switchAdminTab;
+    window.handleImageUpload = handleImageUpload;
+    window.saveMediaGallery = saveMediaGallery;
+    window.renderSiteGallery = renderSiteGallery;
   </script>
 </body>
 </html>
