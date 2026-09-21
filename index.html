@@ -1518,6 +1518,36 @@
       flex-direction: column;
       transition: var(--transition);
       position: relative;
+      background-size: cover;
+      background-position: center;
+      background-repeat: no-repeat;
+      overflow: hidden;
+    }
+
+    .band-card.has-custom-bg {
+      background-size: cover;
+      background-position: center;
+      background-repeat: no-repeat;
+    }
+
+    .band-card.has-custom-bg::before {
+      content: '';
+      position: absolute;
+      inset: 0;
+      background: linear-gradient(180deg, rgba(13, 15, 23, 0.82) 0%, rgba(9, 10, 16, 0.90) 50%, rgba(6, 7, 10, 0.97) 100%);
+      border-radius: inherit;
+      z-index: 1;
+      transition: background 0.3s ease;
+      pointer-events: none;
+    }
+
+    .band-card.has-custom-bg:hover::before {
+      background: linear-gradient(180deg, rgba(13, 15, 23, 0.72) 0%, rgba(9, 10, 16, 0.84) 50%, rgba(6, 7, 10, 0.93) 100%);
+    }
+
+    .band-card > * {
+      position: relative;
+      z-index: 2;
     }
 
     .band-card.featured {
@@ -4098,7 +4128,7 @@
 
       <div class="band-grid">
         <!-- Formação 1: Voz & Violão / Guitarra Solo -->
-        <div class="band-card">
+        <div class="band-card" id="bandCardSolo">
           <i class="fa-solid fa-guitar band-icon"></i>
           <h4>Formato Solo</h4>
           <span class="band-lineup">Voz + Violão / Guitarra</span>
@@ -4114,7 +4144,7 @@
         </div>
 
         <!-- Formação 2: Duo Acústico -->
-        <div class="band-card">
+        <div class="band-card" id="bandCardDuo">
           <i class="fa-solid fa-user-group band-icon"></i>
           <h4>Duo Acústico</h4>
           <span class="band-lineup">Voz/Violão + Percussão / Cajón</span>
@@ -4130,7 +4160,7 @@
         </div>
 
         <!-- Formação 3: Power Trio (Destaque) -->
-        <div class="band-card featured">
+        <div class="band-card featured" id="bandCardTrio">
           <span class="band-badge">Mais Pedido</span>
           <i class="fa-solid fa-drum band-icon"></i>
           <h4>Power Trio Rock</h4>
@@ -4148,7 +4178,7 @@
         </div>
 
         <!-- Formação 4: Banda Completa -->
-        <div class="band-card">
+        <div class="band-card" id="bandCardBanda">
           <i class="fa-solid fa-compact-disc band-icon"></i>
           <h4>Banda Completa</h4>
           <span class="band-lineup">Guitarra + Teclados + Baixo + Bateria</span>
@@ -5162,6 +5192,194 @@
                   <div style="font-size: 0.75rem; color: #a1a1aa; line-height: 1.45; background: rgba(255, 255, 255, 0.04); border-left: 3px solid var(--gold-primary); padding: 8px 12px; border-radius: 0 6px 6px 0;">
                     <i class="fa-solid fa-circle-info" style="color: var(--gold-primary); margin-right: 4px;"></i>
                     O novo logotipo oficial com monograma <strong>GT</strong> e assinatura <strong>Gilmar Torrez</strong> é aplicado no <strong>Cabeçalho Fixo (topo)</strong>, no <strong>Rodapé</strong> e na aba do navegador (Favicon).
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+
+          <!-- SEÇÃO: Fundos dos Blocos Musicais (Formações ao Vivo) -->
+          <div style="margin: 28px 0 16px 0; padding: 12px 18px; background: rgba(245, 158, 11, 0.08); border-left: 4px solid var(--gold-primary); border-radius: 4px 10px 10px 4px; display: flex; align-items: center; justify-content: space-between; flex-wrap: wrap; gap: 10px;">
+            <div>
+              <h4 style="font-family: var(--font-title); font-size: 1.05rem; color: #ffffff; margin: 0; display: flex; align-items: center; gap: 8px;">
+                <i class="fa-solid fa-layer-group" style="color: var(--gold-primary);"></i>
+                Fundos dos Blocos de Formações (Shows ao Vivo)
+              </h4>
+              <p style="font-size: 0.8rem; color: #cbd5e1; margin: 4px 0 0 0;">
+                Selecione ou envie fotos personalizadas para o preenchimento de fundo dos 4 blocos da seção <em>A Banda & As Formações ao Vivo</em>.
+              </p>
+            </div>
+            <span style="font-size: 0.72rem; font-weight: 700; color: var(--gold-light); background: rgba(245, 158, 11, 0.15); padding: 4px 10px; border-radius: 999px; border: 1px solid rgba(245, 158, 11, 0.3);">
+              4 Blocos Personalizáveis
+            </span>
+          </div>
+
+          <!-- Item 3: Fundo do Bloco SOLO -->
+          <div class="admin-media-category-card" style="border: 1px solid rgba(255, 255, 255, 0.12); background: linear-gradient(135deg, rgba(255, 255, 255, 0.03) 0%, rgba(18, 19, 26, 0.95) 100%); margin-bottom: 20px; box-shadow: 0 4px 20px rgba(0, 0, 0, 0.35);">
+            <div class="admin-media-category-header" style="border-bottom: 1px solid rgba(255, 255, 255, 0.1); padding-bottom: 10px;">
+              <h5>
+                <i class="fa-solid fa-guitar" style="color: var(--gold-primary);"></i> Fundo do Bloco SOLO (Voz & Violão)
+              </h5>
+              <span style="background: rgba(245, 158, 11, 0.12); color: var(--gold-light); font-weight: 700; border: 1px solid rgba(245, 158, 11, 0.25);">Bloco 1 • Solo</span>
+            </div>
+
+            <div style="padding: 14px 0 6px 0;">
+              <div style="display: flex; flex-direction: column; md:flex-row; gap: 16px; align-items: stretch;">
+                <div style="width: 100%; max-width: 200px; height: 130px; position: relative; border-radius: 12px; overflow: hidden; border: 1.5px solid rgba(245, 158, 11, 0.35); background: #000; margin: 0 auto; display: flex; align-items: center; justify-content: center; box-shadow: 0 8px 24px rgba(0,0,0,0.6);">
+                  <img id="preview-fundo-solo" src="https://images.unsplash.com/photo-1511671782779-c97d3d27a1d4?auto=format&fit=crop&w=800&q=80" alt="Prévia Fundo Bloco Solo" style="width: 100%; height: 100%; object-fit: cover; display: block;" onerror="this.onerror=null; this.src='/stage-bg.jpg';" />
+                  <div style="position: absolute; bottom: 0; left: 0; right: 0; padding: 4px 8px; background: linear-gradient(0deg, rgba(0,0,0,0.92) 0%, transparent 100%); font-size: 0.7rem; color: #fbbf24; font-weight: 600; text-align: center;">
+                    Fundo Solo Ativo
+                  </div>
+                </div>
+
+                <div style="flex: 1; display: flex; flex-direction: column; gap: 10px; justify-content: center;">
+                  <div style="display: flex; gap: 10px; flex-wrap: wrap;">
+                    <label class="admin-upload-trigger" style="flex: 1; min-width: 160px; margin: 0; background: rgba(255, 255, 255, 0.1); color: #ffffff; font-weight: 700; border: 1px solid rgba(255, 255, 255, 0.25); cursor: pointer; text-align: center; padding: 10px 16px; border-radius: 8px; display: inline-flex; align-items: center; justify-content: center; gap: 8px; transition: all 0.2s ease;">
+                      <i class="fa-solid fa-cloud-arrow-up"></i> Selecionar Foto
+                      <input type="file" accept="image/*" class="admin-file-hidden" onchange="handleFormationBgUpload(event, 'solo')" />
+                    </label>
+                    <button type="button" class="btn-secondary" onclick="resetFormationBgToDefault('solo')" style="padding: 10px 14px; font-size: 0.82rem; border-radius: 8px; border: 1px solid rgba(255,255,255,0.2); background: rgba(255,255,255,0.06); color: #e2e8f0;" title="Restaurar imagem padrão do bloco solo">
+                      <i class="fa-solid fa-rotate-left"></i> Restaurar Padrão
+                    </button>
+                  </div>
+
+                  <div>
+                    <label style="font-size: 0.78rem; color: #cbd5e1; display: block; margin-bottom: 4px; font-weight: 600;">Ou informe o Link / URL direta da foto:</label>
+                    <input type="url" id="adminFormationBgUrl_solo" class="admin-input" placeholder="https://exemplo.com/foto-solo.jpg" oninput="handleFormationBgUrlInput(this.value, 'solo')" style="width: 100%; padding: 8px 12px; font-size: 0.85rem;" />
+                  </div>
+
+                  <div style="font-size: 0.75rem; color: #a1a1aa; line-height: 1.45; background: rgba(255, 255, 255, 0.04); border-left: 3px solid var(--gold-primary); padding: 8px 12px; border-radius: 0 6px 6px 0;">
+                    <i class="fa-solid fa-circle-info" style="color: var(--gold-primary); margin-right: 4px;"></i>
+                    Preenche o <strong>fundo do bloco Formato Solo</strong> na seção de bandas com filtro escurecido automático para manter os textos nítidos.
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+
+          <!-- Item 4: Fundo do Bloco DUO -->
+          <div class="admin-media-category-card" style="border: 1px solid rgba(255, 255, 255, 0.12); background: linear-gradient(135deg, rgba(255, 255, 255, 0.03) 0%, rgba(18, 19, 26, 0.95) 100%); margin-bottom: 20px; box-shadow: 0 4px 20px rgba(0, 0, 0, 0.35);">
+            <div class="admin-media-category-header" style="border-bottom: 1px solid rgba(255, 255, 255, 0.1); padding-bottom: 10px;">
+              <h5>
+                <i class="fa-solid fa-user-group" style="color: var(--gold-primary);"></i> Fundo do Bloco DUO (Duo Acústico)
+              </h5>
+              <span style="background: rgba(245, 158, 11, 0.12); color: var(--gold-light); font-weight: 700; border: 1px solid rgba(245, 158, 11, 0.25);">Bloco 2 • Duo</span>
+            </div>
+
+            <div style="padding: 14px 0 6px 0;">
+              <div style="display: flex; flex-direction: column; md:flex-row; gap: 16px; align-items: stretch;">
+                <div style="width: 100%; max-width: 200px; height: 130px; position: relative; border-radius: 12px; overflow: hidden; border: 1.5px solid rgba(245, 158, 11, 0.35); background: #000; margin: 0 auto; display: flex; align-items: center; justify-content: center; box-shadow: 0 8px 24px rgba(0,0,0,0.6);">
+                  <img id="preview-fundo-duo" src="https://images.unsplash.com/photo-1514525253161-7a46d19cd819?auto=format&fit=crop&w=800&q=80" alt="Prévia Fundo Bloco Duo" style="width: 100%; height: 100%; object-fit: cover; display: block;" onerror="this.onerror=null; this.src='/stage-bg.jpg';" />
+                  <div style="position: absolute; bottom: 0; left: 0; right: 0; padding: 4px 8px; background: linear-gradient(0deg, rgba(0,0,0,0.92) 0%, transparent 100%); font-size: 0.7rem; color: #fbbf24; font-weight: 600; text-align: center;">
+                    Fundo Duo Ativo
+                  </div>
+                </div>
+
+                <div style="flex: 1; display: flex; flex-direction: column; gap: 10px; justify-content: center;">
+                  <div style="display: flex; gap: 10px; flex-wrap: wrap;">
+                    <label class="admin-upload-trigger" style="flex: 1; min-width: 160px; margin: 0; background: rgba(255, 255, 255, 0.1); color: #ffffff; font-weight: 700; border: 1px solid rgba(255, 255, 255, 0.25); cursor: pointer; text-align: center; padding: 10px 16px; border-radius: 8px; display: inline-flex; align-items: center; justify-content: center; gap: 8px; transition: all 0.2s ease;">
+                      <i class="fa-solid fa-cloud-arrow-up"></i> Selecionar Foto
+                      <input type="file" accept="image/*" class="admin-file-hidden" onchange="handleFormationBgUpload(event, 'duo')" />
+                    </label>
+                    <button type="button" class="btn-secondary" onclick="resetFormationBgToDefault('duo')" style="padding: 10px 14px; font-size: 0.82rem; border-radius: 8px; border: 1px solid rgba(255,255,255,0.2); background: rgba(255,255,255,0.06); color: #e2e8f0;" title="Restaurar imagem padrão do bloco duo">
+                      <i class="fa-solid fa-rotate-left"></i> Restaurar Padrão
+                    </button>
+                  </div>
+
+                  <div>
+                    <label style="font-size: 0.78rem; color: #cbd5e1; display: block; margin-bottom: 4px; font-weight: 600;">Ou informe o Link / URL direta da foto:</label>
+                    <input type="url" id="adminFormationBgUrl_duo" class="admin-input" placeholder="https://exemplo.com/foto-duo.jpg" oninput="handleFormationBgUrlInput(this.value, 'duo')" style="width: 100%; padding: 8px 12px; font-size: 0.85rem;" />
+                  </div>
+
+                  <div style="font-size: 0.75rem; color: #a1a1aa; line-height: 1.45; background: rgba(255, 255, 255, 0.04); border-left: 3px solid var(--gold-primary); padding: 8px 12px; border-radius: 0 6px 6px 0;">
+                    <i class="fa-solid fa-circle-info" style="color: var(--gold-primary); margin-right: 4px;"></i>
+                    Preenche o <strong>fundo do bloco Duo Acústico</strong> (Voz/Violão + Percussão/Cajón) com visual harmonizado.
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+
+          <!-- Item 5: Fundo do Bloco TRIO -->
+          <div class="admin-media-category-card" style="border: 1px solid rgba(255, 255, 255, 0.12); background: linear-gradient(135deg, rgba(255, 255, 255, 0.03) 0%, rgba(18, 19, 26, 0.95) 100%); margin-bottom: 20px; box-shadow: 0 4px 20px rgba(0, 0, 0, 0.35);">
+            <div class="admin-media-category-header" style="border-bottom: 1px solid rgba(255, 255, 255, 0.1); padding-bottom: 10px;">
+              <h5>
+                <i class="fa-solid fa-drum" style="color: var(--gold-primary);"></i> Fundo do Bloco TRIO (Power Trio Rock)
+              </h5>
+              <span style="background: rgba(245, 158, 11, 0.12); color: var(--gold-light); font-weight: 700; border: 1px solid rgba(245, 158, 11, 0.25);">Bloco 3 • Power Trio</span>
+            </div>
+
+            <div style="padding: 14px 0 6px 0;">
+              <div style="display: flex; flex-direction: column; md:flex-row; gap: 16px; align-items: stretch;">
+                <div style="width: 100%; max-width: 200px; height: 130px; position: relative; border-radius: 12px; overflow: hidden; border: 1.5px solid rgba(245, 158, 11, 0.35); background: #000; margin: 0 auto; display: flex; align-items: center; justify-content: center; box-shadow: 0 8px 24px rgba(0,0,0,0.6);">
+                  <img id="preview-fundo-trio" src="https://images.unsplash.com/photo-1501386761578-eac5c94b800a?auto=format&fit=crop&w=800&q=80" alt="Prévia Fundo Bloco Trio" style="width: 100%; height: 100%; object-fit: cover; display: block;" onerror="this.onerror=null; this.src='/stage-bg.jpg';" />
+                  <div style="position: absolute; bottom: 0; left: 0; right: 0; padding: 4px 8px; background: linear-gradient(0deg, rgba(0,0,0,0.92) 0%, transparent 100%); font-size: 0.7rem; color: #fbbf24; font-weight: 600; text-align: center;">
+                    Fundo Trio Ativo
+                  </div>
+                </div>
+
+                <div style="flex: 1; display: flex; flex-direction: column; gap: 10px; justify-content: center;">
+                  <div style="display: flex; gap: 10px; flex-wrap: wrap;">
+                    <label class="admin-upload-trigger" style="flex: 1; min-width: 160px; margin: 0; background: rgba(255, 255, 255, 0.1); color: #ffffff; font-weight: 700; border: 1px solid rgba(255, 255, 255, 0.25); cursor: pointer; text-align: center; padding: 10px 16px; border-radius: 8px; display: inline-flex; align-items: center; justify-content: center; gap: 8px; transition: all 0.2s ease;">
+                      <i class="fa-solid fa-cloud-arrow-up"></i> Selecionar Foto
+                      <input type="file" accept="image/*" class="admin-file-hidden" onchange="handleFormationBgUpload(event, 'trio')" />
+                    </label>
+                    <button type="button" class="btn-secondary" onclick="resetFormationBgToDefault('trio')" style="padding: 10px 14px; font-size: 0.82rem; border-radius: 8px; border: 1px solid rgba(255,255,255,0.2); background: rgba(255,255,255,0.06); color: #e2e8f0;" title="Restaurar imagem padrão do bloco trio">
+                      <i class="fa-solid fa-rotate-left"></i> Restaurar Padrão
+                    </button>
+                  </div>
+
+                  <div>
+                    <label style="font-size: 0.78rem; color: #cbd5e1; display: block; margin-bottom: 4px; font-weight: 600;">Ou informe o Link / URL direta da foto:</label>
+                    <input type="url" id="adminFormationBgUrl_trio" class="admin-input" placeholder="https://exemplo.com/foto-trio.jpg" oninput="handleFormationBgUrlInput(this.value, 'trio')" style="width: 100%; padding: 8px 12px; font-size: 0.85rem;" />
+                  </div>
+
+                  <div style="font-size: 0.75rem; color: #a1a1aa; line-height: 1.45; background: rgba(255, 255, 255, 0.04); border-left: 3px solid var(--gold-primary); padding: 8px 12px; border-radius: 0 6px 6px 0;">
+                    <i class="fa-solid fa-circle-info" style="color: var(--gold-primary); margin-right: 4px;"></i>
+                    Preenche o <strong>fundo do bloco Power Trio Rock</strong> (o formato Mais Pedido) com pegada vibrante de palco.
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+
+          <!-- Item 6: Fundo do Bloco BANDA COMPLETA -->
+          <div class="admin-media-category-card" style="border: 1px solid rgba(255, 255, 255, 0.12); background: linear-gradient(135deg, rgba(255, 255, 255, 0.03) 0%, rgba(18, 19, 26, 0.95) 100%); margin-bottom: 24px; box-shadow: 0 4px 20px rgba(0, 0, 0, 0.35);">
+            <div class="admin-media-category-header" style="border-bottom: 1px solid rgba(255, 255, 255, 0.1); padding-bottom: 10px;">
+              <h5>
+                <i class="fa-solid fa-compact-disc" style="color: var(--gold-primary);"></i> Fundo do Bloco BANDA COMPLETA (Show Completo)
+              </h5>
+              <span style="background: rgba(245, 158, 11, 0.12); color: var(--gold-light); font-weight: 700; border: 1px solid rgba(245, 158, 11, 0.25);">Bloco 4 • Banda Completa</span>
+            </div>
+
+            <div style="padding: 14px 0 6px 0;">
+              <div style="display: flex; flex-direction: column; md:flex-row; gap: 16px; align-items: stretch;">
+                <div style="width: 100%; max-width: 200px; height: 130px; position: relative; border-radius: 12px; overflow: hidden; border: 1.5px solid rgba(245, 158, 11, 0.35); background: #000; margin: 0 auto; display: flex; align-items: center; justify-content: center; box-shadow: 0 8px 24px rgba(0,0,0,0.6);">
+                  <img id="preview-fundo-banda" src="https://images.unsplash.com/photo-1470225620780-dba8ba36b745?auto=format&fit=crop&w=800&q=80" alt="Prévia Fundo Bloco Banda Completa" style="width: 100%; height: 100%; object-fit: cover; display: block;" onerror="this.onerror=null; this.src='/stage-bg.jpg';" />
+                  <div style="position: absolute; bottom: 0; left: 0; right: 0; padding: 4px 8px; background: linear-gradient(0deg, rgba(0,0,0,0.92) 0%, transparent 100%); font-size: 0.7rem; color: #fbbf24; font-weight: 600; text-align: center;">
+                    Fundo Banda Ativo
+                  </div>
+                </div>
+
+                <div style="flex: 1; display: flex; flex-direction: column; gap: 10px; justify-content: center;">
+                  <div style="display: flex; gap: 10px; flex-wrap: wrap;">
+                    <label class="admin-upload-trigger" style="flex: 1; min-width: 160px; margin: 0; background: rgba(255, 255, 255, 0.1); color: #ffffff; font-weight: 700; border: 1px solid rgba(255, 255, 255, 0.25); cursor: pointer; text-align: center; padding: 10px 16px; border-radius: 8px; display: inline-flex; align-items: center; justify-content: center; gap: 8px; transition: all 0.2s ease;">
+                      <i class="fa-solid fa-cloud-arrow-up"></i> Selecionar Foto
+                      <input type="file" accept="image/*" class="admin-file-hidden" onchange="handleFormationBgUpload(event, 'banda')" />
+                    </label>
+                    <button type="button" class="btn-secondary" onclick="resetFormationBgToDefault('banda')" style="padding: 10px 14px; font-size: 0.82rem; border-radius: 8px; border: 1px solid rgba(255,255,255,0.2); background: rgba(255,255,255,0.06); color: #e2e8f0;" title="Restaurar imagem padrão do bloco banda completa">
+                      <i class="fa-solid fa-rotate-left"></i> Restaurar Padrão
+                    </button>
+                  </div>
+
+                  <div>
+                    <label style="font-size: 0.78rem; color: #cbd5e1; display: block; margin-bottom: 4px; font-weight: 600;">Ou informe o Link / URL direta da foto:</label>
+                    <input type="url" id="adminFormationBgUrl_banda" class="admin-input" placeholder="https://exemplo.com/foto-banda.jpg" oninput="handleFormationBgUrlInput(this.value, 'banda')" style="width: 100%; padding: 8px 12px; font-size: 0.85rem;" />
+                  </div>
+
+                  <div style="font-size: 0.75rem; color: #a1a1aa; line-height: 1.45; background: rgba(255, 255, 255, 0.04); border-left: 3px solid var(--gold-primary); padding: 8px 12px; border-radius: 0 6px 6px 0;">
+                    <i class="fa-solid fa-circle-info" style="color: var(--gold-primary); margin-right: 4px;"></i>
+                    Preenche o <strong>fundo do bloco Banda Completa</strong> com iluminação cenográfica de grandes palcos.
                   </div>
                 </div>
               </div>
@@ -6870,6 +7088,24 @@
       logoOficial: {
         url: '/logo.png'
       },
+      bandaFundos: {
+        solo: {
+          url: 'https://images.unsplash.com/photo-1511671782779-c97d3d27a1d4?auto=format&fit=crop&w=800&q=80',
+          titulo: 'Formato Solo'
+        },
+        duo: {
+          url: 'https://images.unsplash.com/photo-1514525253161-7a46d19cd819?auto=format&fit=crop&w=800&q=80',
+          titulo: 'Duo Acústico'
+        },
+        trio: {
+          url: 'https://images.unsplash.com/photo-1501386761578-eac5c94b800a?auto=format&fit=crop&w=800&q=80',
+          titulo: 'Power Trio Rock'
+        },
+        banda: {
+          url: 'https://images.unsplash.com/photo-1470225620780-dba8ba36b745?auto=format&fit=crop&w=800&q=80',
+          titulo: 'Banda Completa'
+        }
+      },
       'shows-ao-vivo': {
         titulo: 'Shows ao Vivo',
         fotos: [
@@ -6949,6 +7185,28 @@
           result.logoOficial = {
             url: logoUrl
           };
+        }
+        if (parsed.bandaFundos) {
+          result.bandaFundos = {
+            solo: {
+              url: (parsed.bandaFundos.solo && parsed.bandaFundos.solo.url) ? parsed.bandaFundos.solo.url : defaultGalleryData.bandaFundos.solo.url,
+              titulo: 'Formato Solo'
+            },
+            duo: {
+              url: (parsed.bandaFundos.duo && parsed.bandaFundos.duo.url) ? parsed.bandaFundos.duo.url : defaultGalleryData.bandaFundos.duo.url,
+              titulo: 'Duo Acústico'
+            },
+            trio: {
+              url: (parsed.bandaFundos.trio && parsed.bandaFundos.trio.url) ? parsed.bandaFundos.trio.url : defaultGalleryData.bandaFundos.trio.url,
+              titulo: 'Power Trio Rock'
+            },
+            banda: {
+              url: (parsed.bandaFundos.banda && parsed.bandaFundos.banda.url) ? parsed.bandaFundos.banda.url : defaultGalleryData.bandaFundos.banda.url,
+              titulo: 'Banda Completa'
+            }
+          };
+        } else {
+          result.bandaFundos = JSON.parse(JSON.stringify(defaultGalleryData.bandaFundos));
         }
         ['shows-ao-vivo', 'acustico', 'guitarra-solo', 'celebracoes'].forEach(cat => {
           if (parsed[cat]) {
@@ -7191,6 +7449,113 @@
       if (favicon) favicon.href = '/logo.png';
     }
 
+    async function handleFormationBgUpload(event, key) {
+      const file = event.target.files && event.target.files[0];
+      if (!file) return;
+
+      try {
+        const base64 = await compressImage(file, 1400, 1400, 0.85);
+        if (!adminGalleryState) {
+          adminGalleryState = getStoredGalleryData();
+        }
+        if (!adminGalleryState.bandaFundos) {
+          adminGalleryState.bandaFundos = JSON.parse(JSON.stringify(defaultGalleryData.bandaFundos));
+        }
+        if (!adminGalleryState.bandaFundos[key]) {
+          adminGalleryState.bandaFundos[key] = { url: base64, titulo: '' };
+        } else {
+          adminGalleryState.bandaFundos[key].url = base64;
+        }
+
+        const previewEl = document.getElementById(`preview-fundo-${key}`);
+        if (previewEl) previewEl.src = base64;
+
+        const urlInput = document.getElementById(`adminFormationBgUrl_${key}`);
+        if (urlInput) urlInput.value = '';
+
+        // Atualização em tempo real do card na página
+        const cardIdMap = {
+          solo: 'bandCardSolo',
+          duo: 'bandCardDuo',
+          trio: 'bandCardTrio',
+          banda: 'bandCardBanda'
+        };
+        const card = document.getElementById(cardIdMap[key]);
+        if (card) {
+          card.style.backgroundImage = `url('${base64}')`;
+          card.classList.add('has-custom-bg');
+        }
+      } catch (err) {
+        console.error(`Erro ao processar imagem de fundo do bloco ${key}:`, err);
+        alert('Não foi possível carregar a imagem selecionada. Tente outro arquivo.');
+      }
+    }
+
+    function handleFormationBgUrlInput(url, key) {
+      const trimmed = (url || '').trim();
+      if (!trimmed) return;
+      if (!adminGalleryState) adminGalleryState = getStoredGalleryData();
+      if (!adminGalleryState.bandaFundos) {
+        adminGalleryState.bandaFundos = JSON.parse(JSON.stringify(defaultGalleryData.bandaFundos));
+      }
+      if (!adminGalleryState.bandaFundos[key]) {
+        adminGalleryState.bandaFundos[key] = { url: trimmed, titulo: '' };
+      } else {
+        adminGalleryState.bandaFundos[key].url = trimmed;
+      }
+
+      const previewEl = document.getElementById(`preview-fundo-${key}`);
+      if (previewEl) previewEl.src = trimmed;
+
+      const cardIdMap = {
+        solo: 'bandCardSolo',
+        duo: 'bandCardDuo',
+        trio: 'bandCardTrio',
+        banda: 'bandCardBanda'
+      };
+      const card = document.getElementById(cardIdMap[key]);
+      if (card) {
+        card.style.backgroundImage = `url('${trimmed}')`;
+        card.classList.add('has-custom-bg');
+      }
+    }
+
+    function resetFormationBgToDefault(key) {
+      if (!adminGalleryState) adminGalleryState = getStoredGalleryData();
+      if (!adminGalleryState.bandaFundos) {
+        adminGalleryState.bandaFundos = JSON.parse(JSON.stringify(defaultGalleryData.bandaFundos));
+      }
+      const defaultUrl = (defaultGalleryData.bandaFundos && defaultGalleryData.bandaFundos[key]) ? defaultGalleryData.bandaFundos[key].url : '';
+      if (!adminGalleryState.bandaFundos[key]) {
+        adminGalleryState.bandaFundos[key] = { url: defaultUrl, titulo: '' };
+      } else {
+        adminGalleryState.bandaFundos[key].url = defaultUrl;
+      }
+
+      const previewEl = document.getElementById(`preview-fundo-${key}`);
+      if (previewEl) previewEl.src = defaultUrl;
+
+      const urlInput = document.getElementById(`adminFormationBgUrl_${key}`);
+      if (urlInput) urlInput.value = '';
+
+      const cardIdMap = {
+        solo: 'bandCardSolo',
+        duo: 'bandCardDuo',
+        trio: 'bandCardTrio',
+        banda: 'bandCardBanda'
+      };
+      const card = document.getElementById(cardIdMap[key]);
+      if (card) {
+        if (defaultUrl) {
+          card.style.backgroundImage = `url('${defaultUrl}')`;
+          card.classList.add('has-custom-bg');
+        } else {
+          card.style.backgroundImage = 'none';
+          card.classList.remove('has-custom-bg');
+        }
+      }
+    }
+
     function switchAdminTab(tabName) {
       const btnAgenda = document.getElementById('tabBtnAgenda');
       const btnMidias = document.getElementById('tabBtnMidias');
@@ -7256,6 +7621,22 @@
           urlLogoInput.value = adminGalleryState.logoOficial.url.startsWith('data:') ? '' : adminGalleryState.logoOficial.url;
         }
       }
+
+      // Fundos dos Blocos Musicais (Solo, Duo, Trio, Banda)
+      if (!adminGalleryState.bandaFundos) {
+        adminGalleryState.bandaFundos = JSON.parse(JSON.stringify(defaultGalleryData.bandaFundos));
+      }
+      ['solo', 'duo', 'trio', 'banda'].forEach(key => {
+        const item = adminGalleryState.bandaFundos[key];
+        const previewEl = document.getElementById(`preview-fundo-${key}`);
+        if (previewEl && item && item.url) {
+          previewEl.src = item.url;
+        }
+        const urlInput = document.getElementById(`adminFormationBgUrl_${key}`);
+        if (urlInput && item) {
+          urlInput.value = (item.url && !item.url.startsWith('data:')) ? item.url : '';
+        }
+      });
 
       const categories = ['shows-ao-vivo', 'acustico', 'guitarra-solo', 'celebracoes'];
 
@@ -7324,6 +7705,20 @@
       if (customLogoUrl) {
         adminGalleryState.logoOficial.url = customLogoUrl;
       }
+
+      // Fundos dos Blocos Musicais (Solo, Duo, Trio, Banda)
+      if (!adminGalleryState.bandaFundos) {
+        adminGalleryState.bandaFundos = JSON.parse(JSON.stringify(defaultGalleryData.bandaFundos));
+      }
+      ['solo', 'duo', 'trio', 'banda'].forEach(key => {
+        if (!adminGalleryState.bandaFundos[key]) {
+          adminGalleryState.bandaFundos[key] = { url: (defaultGalleryData.bandaFundos && defaultGalleryData.bandaFundos[key]) ? defaultGalleryData.bandaFundos[key].url : '', titulo: '' };
+        }
+        const inputUrl = document.getElementById(`adminFormationBgUrl_${key}`)?.value.trim();
+        if (inputUrl) {
+          adminGalleryState.bandaFundos[key].url = inputUrl;
+        }
+      });
 
       const categories = ['shows-ao-vivo', 'acustico', 'guitarra-solo', 'celebracoes'];
       categories.forEach(cat => {
@@ -7431,6 +7826,28 @@
       }
       const favicon = document.getElementById('siteFavicon');
       if (favicon) favicon.href = currentLogo;
+
+      // Aplica Fundos Personalizados dos Blocos da Banda (Solo, Duo, Trio, Banda Completa)
+      const fundos = data.bandaFundos || defaultGalleryData.bandaFundos;
+      const formationMap = [
+        { key: 'solo', id: 'bandCardSolo', fallback: defaultGalleryData.bandaFundos.solo.url },
+        { key: 'duo', id: 'bandCardDuo', fallback: defaultGalleryData.bandaFundos.duo.url },
+        { key: 'trio', id: 'bandCardTrio', fallback: defaultGalleryData.bandaFundos.trio.url },
+        { key: 'banda', id: 'bandCardBanda', fallback: defaultGalleryData.bandaFundos.banda.url }
+      ];
+
+      formationMap.forEach(item => {
+        const card = document.getElementById(item.id);
+        if (!card) return;
+        const bgUrl = (fundos && fundos[item.key] && fundos[item.key].url) ? fundos[item.key].url : item.fallback;
+        if (bgUrl && bgUrl.trim()) {
+          card.style.backgroundImage = `url('${bgUrl}')`;
+          card.classList.add('has-custom-bg');
+        } else {
+          card.style.backgroundImage = 'none';
+          card.classList.remove('has-custom-bg');
+        }
+      });
 
       const categories = ['shows-ao-vivo', 'acustico', 'guitarra-solo', 'celebracoes'];
 
