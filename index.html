@@ -1483,13 +1483,19 @@
     .band-grid {
       display: grid;
       grid-template-columns: 1fr;
-      gap: 26px;
+      gap: 24px;
       margin-bottom: 40px;
     }
 
-    @media (min-width: 768px) {
+    @media (min-width: 640px) {
       .band-grid {
-        grid-template-columns: repeat(3, 1fr);
+        grid-template-columns: repeat(2, 1fr);
+      }
+    }
+
+    @media (min-width: 1024px) {
+      .band-grid {
+        grid-template-columns: repeat(4, 1fr);
       }
     }
 
@@ -3962,7 +3968,7 @@
         </div>
         <div class="trust-item">
           <i class="fa-solid fa-users"></i>
-          <span>Formato Solo ou Banda</span>
+          <span>Solo, Duo ou Banda</span>
         </div>
         <div class="trust-item">
           <i class="fa-solid fa-guitar"></i>
@@ -4097,7 +4103,23 @@
           </a>
         </div>
 
-        <!-- Formação 2: Power Trio (Destaque) -->
+        <!-- Formação 2: Duo Acústico -->
+        <div class="band-card">
+          <i class="fa-solid fa-user-group band-icon"></i>
+          <h4>Duo Acústico</h4>
+          <span class="band-lineup">Voz/Violão + Percussão / Cajón</span>
+          <p>
+            Equilíbrio perfeito entre aconchego acústico e energia rítmica! Harmonias vocais cativantes, violão de aço e a pulsação do cajón para bares, aniversários e confraternizações.
+          </p>
+          <a href="https://wa.me/5519988034268?text=Ola%2C%20tenho%20interesse%20no%20Duo%20Acustico%20(Voz%2C%20Violao%20e%20Percussao)!" 
+             target="_blank" 
+             rel="noopener noreferrer" 
+             class="btn-secondary">
+            <span>Orçamento Duo</span>
+          </a>
+        </div>
+
+        <!-- Formação 3: Power Trio (Destaque) -->
         <div class="band-card featured">
           <span class="band-badge">Mais Pedido</span>
           <i class="fa-solid fa-drum band-icon"></i>
@@ -4115,7 +4137,7 @@
           </a>
         </div>
 
-        <!-- Formação 3: Banda Completa -->
+        <!-- Formação 4: Banda Completa -->
         <div class="band-card">
           <i class="fa-solid fa-compact-disc band-icon"></i>
           <h4>Banda Completa</h4>
