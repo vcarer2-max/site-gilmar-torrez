@@ -3927,13 +3927,14 @@
       <div class="hero-stage-showcase">
         <div class="hero-stage-frame">
           <img src="/stage-bg.jpg" 
+               id="heroStagePhoto"
                alt="Gilmar Torrez no Palco em Alta Resolução" 
                class="hero-stage-photo"
                onerror="this.onerror=null; this.src='0b6471dd-b068-4fc2-b24f-15adceaa265a.jpg';" />
           <div class="hero-stage-overlay">
             <div class="hero-stage-caption">
-              <h4>Gilmar Torrez Ao Vivo no Palco</h4>
-              <p><i class="fa-solid fa-location-dot"></i> Bares, Festas Particulares e Grandes Confraternizações</p>
+              <h4 id="heroStageTitle">Gilmar Torrez Ao Vivo no Palco</h4>
+              <p id="heroStageSubtitle"><i class="fa-solid fa-location-dot"></i> Bares, Festas Particulares e Grandes Confraternizações</p>
             </div>
             <a href="https://wa.me/5519988034268?text=Ola%2C%20vi%20sua%20foto%20ao%20vivo%20e%20gostaria%20de%20um%20show%20assim!" 
                target="_blank" 
@@ -4915,7 +4916,7 @@
           </button>
           <button type="button" class="admin-tab-btn" id="tabBtnMidias" onclick="switchAdminTab('midias')">
             <i class="fa-solid fa-photo-film"></i>
-            <span>Mídias & Vídeos</span>
+            <span>Fotos e Vídeos</span>
           </button>
           <button type="button" class="admin-tab-btn" id="tabBtnTemas" onclick="switchAdminTab('temas')">
             <i class="fa-solid fa-palette"></i>
@@ -5019,12 +5020,70 @@
           </div>
         </div>
 
-        <!-- Aba 2: Mídias & Vídeos -->
+        <!-- Aba 2: Fotos e Vídeos -->
         <div id="adminTabMidias" class="admin-tab-content" style="display: none;">
           <div class="admin-media-header-desc">
             <i class="fa-solid fa-circle-info"></i>
             <div>
-              <strong>Gestão Dinâmica da Galeria & Vídeos:</strong> Altere as 4 fotos de cada carrossel ou substitua os links dos vídeos ao vivo do YouTube. Clique em <em>"Salvar Mídias"</em> para aplicar tudo em tempo real no site.
+              <strong>Gestão de Fotos & Vídeos:</strong> Altere a <strong>Foto Principal</strong> (que também define o fundo principal do site), as 4 fotos de cada carrossel ou substitua os links dos vídeos do YouTube. Clique em <em>"Salvar Fotos e Vídeos"</em> para aplicar tudo em tempo real no site.
+            </div>
+          </div>
+
+          <!-- Item 1: Foto Principal & Fundo do Site (Primeiro Item) -->
+          <div class="admin-media-category-card" style="border: 1px solid rgba(245, 158, 11, 0.4); background: linear-gradient(135deg, rgba(245, 158, 11, 0.09) 0%, rgba(20, 21, 28, 0.95) 100%); margin-bottom: 24px; box-shadow: 0 4px 20px rgba(0, 0, 0, 0.4);">
+            <div class="admin-media-category-header" style="border-bottom: 1px solid rgba(245, 158, 11, 0.25); padding-bottom: 10px;">
+              <h5>
+                <i class="fa-solid fa-star" style="color: var(--gold-primary);"></i> Foto Principal & Fundo do Site
+              </h5>
+              <span style="background: rgba(245, 158, 11, 0.2); color: var(--gold-light); font-weight: 700; border: 1px solid rgba(245, 158, 11, 0.35);">Hero & Background Oficial</span>
+            </div>
+
+            <div style="padding: 14px 0 6px 0;">
+              <div style="display: flex; flex-direction: column; gap: 16px;">
+                <div style="display: flex; flex-direction: column; md:flex-row; gap: 16px; align-items: stretch;">
+                  <!-- Prévia da Foto Principal -->
+                  <div style="width: 100%; max-width: 290px; position: relative; border-radius: 12px; overflow: hidden; border: 1.5px solid rgba(245, 158, 11, 0.4); background: #000; aspect-ratio: 16/10; margin: 0 auto; box-shadow: 0 8px 24px rgba(0,0,0,0.6);">
+                    <img id="preview-foto-principal" src="/stage-bg.jpg" alt="Prévia da Foto Principal" style="width: 100%; height: 100%; object-fit: cover; display: block;" onerror="this.onerror=null; this.src='0b6471dd-b068-4fc2-b24f-15adceaa265a.jpg';" />
+                    <div style="position: absolute; bottom: 0; left: 0; right: 0; padding: 6px 10px; background: linear-gradient(0deg, rgba(0,0,0,0.9) 0%, transparent 100%); font-size: 0.76rem; color: #fbbf24; font-weight: 600; display: flex; align-items: center; gap: 6px;">
+                      <i class="fa-solid fa-eye"></i> Prévia em Tempo Real
+                    </div>
+                  </div>
+
+                  <!-- Controles de Upload e Customização -->
+                  <div style="flex: 1; display: flex; flex-direction: column; gap: 10px; justify-content: center;">
+                    <div style="display: flex; gap: 10px; flex-wrap: wrap;">
+                      <label class="admin-upload-trigger" style="flex: 1; min-width: 180px; margin: 0; background: var(--gold-primary); color: #090a0e; font-weight: 700; border-color: var(--gold-light); cursor: pointer; text-align: center; padding: 12px 16px; border-radius: 8px; display: inline-flex; align-items: center; justify-content: center; gap: 8px;">
+                        <i class="fa-solid fa-cloud-arrow-up"></i> Trocar Foto Principal
+                        <input type="file" accept="image/*" class="admin-file-hidden" onchange="handleMainPhotoUpload(event)" />
+                      </label>
+                      <button type="button" class="btn-secondary" onclick="resetMainPhotoToDefault()" style="padding: 10px 14px; font-size: 0.82rem; border-radius: 8px; border: 1px solid rgba(255,255,255,0.2); background: rgba(255,255,255,0.06); color: #e2e8f0;" title="Restaurar foto original padrão">
+                        <i class="fa-solid fa-rotate-left"></i> Restaurar Original
+                      </button>
+                    </div>
+
+                    <div>
+                      <label style="font-size: 0.78rem; color: #cbd5e1; display: block; margin-bottom: 4px; font-weight: 600;">Ou informe o Link / URL direta da foto:</label>
+                      <input type="url" id="adminMainPhotoUrl" class="admin-input" placeholder="https://exemplo.com/sua-foto-ao-vivo.jpg" oninput="handleMainPhotoUrlInput(this.value)" style="width: 100%; padding: 8px 12px; font-size: 0.85rem;" />
+                    </div>
+
+                    <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 8px;">
+                      <div>
+                        <label style="font-size: 0.74rem; color: #94a3b8; display: block; margin-bottom: 3px;">Título do Card (Hero):</label>
+                        <input type="text" id="adminMainPhotoTitle" class="admin-input" placeholder="Gilmar Torrez Ao Vivo no Palco" style="width: 100%; padding: 6px 10px; font-size: 0.82rem;" />
+                      </div>
+                      <div>
+                        <label style="font-size: 0.74rem; color: #94a3b8; display: block; margin-bottom: 3px;">Legenda do Card:</label>
+                        <input type="text" id="adminMainPhotoSubtitle" class="admin-input" placeholder="Bares, Festas Particulares..." style="width: 100%; padding: 6px 10px; font-size: 0.82rem;" />
+                      </div>
+                    </div>
+
+                    <div style="font-size: 0.75rem; color: #a1a1aa; line-height: 1.45; background: rgba(245, 158, 11, 0.08); border-left: 3px solid var(--gold-primary); padding: 8px 12px; border-radius: 0 6px 6px 0;">
+                      <i class="fa-solid fa-circle-check" style="color: var(--gold-primary); margin-right: 4px;"></i>
+                      <strong>Integração Dupla:</strong> Esta foto é exibida no card principal do topo do site e também aplicada dinamicamente como o <strong>fundo (background) principal</strong> de toda a página com efeito de iluminação profissional.
+                    </div>
+                  </div>
+                </div>
+              </div>
             </div>
           </div>
 
@@ -5356,13 +5415,13 @@
             </div>
           </div>
 
-          <!-- Botão Principal Salvar Mídias -->
+          <!-- Botão Principal Salvar Fotos e Vídeos -->
           <div class="admin-sticky-actions">
             <button type="button" class="admin-btn-primary" id="adminSaveMediaBtn" onclick="saveMediaGallery()" style="width: 100%;">
-              <i class="fa-solid fa-floppy-disk"></i> <span>Salvar Mídias</span>
+              <i class="fa-solid fa-floppy-disk"></i> <span>Salvar Fotos e Vídeos</span>
             </button>
             <div id="adminMediaSuccessMsg" style="display: none; margin-top: 10px; background: rgba(34, 197, 94, 0.16); border: 1px solid #22c55e; color: #86efac; padding: 10px 14px; border-radius: 8px; font-size: 0.88rem; text-align: center;">
-              <i class="fa-solid fa-circle-check" style="margin-right: 6px;"></i> Mídias e vídeos salvos com sucesso! A galeria do site foi atualizada.
+              <i class="fa-solid fa-circle-check" style="margin-right: 6px;"></i> Fotos e vídeos salvos com sucesso! A Foto Principal, fundo e carrosséis foram atualizados.
             </div>
           </div>
         </div>
@@ -6722,6 +6781,11 @@
     const MEDIA_STORAGE_KEY = 'site_musico_midias';
 
     const defaultGalleryData = {
+      fotoPrincipal: {
+        url: '/stage-bg.jpg',
+        titulo: 'Gilmar Torrez Ao Vivo no Palco',
+        subtitulo: 'Bares, Festas Particulares e Grandes Confraternizações'
+      },
       'shows-ao-vivo': {
         titulo: 'Shows ao Vivo',
         fotos: [
@@ -6786,6 +6850,13 @@
         if (!raw) return JSON.parse(JSON.stringify(defaultGalleryData));
         const parsed = JSON.parse(raw);
         const result = JSON.parse(JSON.stringify(defaultGalleryData));
+        if (parsed.fotoPrincipal) {
+          result.fotoPrincipal = {
+            url: parsed.fotoPrincipal.url || defaultGalleryData.fotoPrincipal.url,
+            titulo: parsed.fotoPrincipal.titulo || defaultGalleryData.fotoPrincipal.titulo,
+            subtitulo: parsed.fotoPrincipal.subtitulo || defaultGalleryData.fotoPrincipal.subtitulo
+          };
+        }
         ['shows-ao-vivo', 'acustico', 'guitarra-solo', 'celebracoes'].forEach(cat => {
           if (parsed[cat]) {
             if (Array.isArray(parsed[cat].fotos)) {
@@ -6888,6 +6959,78 @@
       }
     }
 
+    async function handleMainPhotoUpload(event) {
+      const file = event.target.files && event.target.files[0];
+      if (!file) return;
+
+      try {
+        const base64 = await compressImage(file, 1600, 1600, 0.85);
+        if (!adminGalleryState) {
+          adminGalleryState = getStoredGalleryData();
+        }
+        if (!adminGalleryState.fotoPrincipal) {
+          adminGalleryState.fotoPrincipal = { ...defaultGalleryData.fotoPrincipal };
+        }
+        adminGalleryState.fotoPrincipal.url = base64;
+
+        const previewEl = document.getElementById('preview-foto-principal');
+        if (previewEl) previewEl.src = base64;
+
+        const urlInput = document.getElementById('adminMainPhotoUrl');
+        if (urlInput) urlInput.value = '';
+
+        // Atualização instantânea da foto no Hero e do fundo principal do site
+        const heroPhoto = document.getElementById('heroStagePhoto');
+        if (heroPhoto) heroPhoto.src = base64;
+        document.body.style.backgroundImage = `linear-gradient(180deg, var(--bg-overlay-top) 0%, var(--bg-overlay-mid) 50%, var(--bg-overlay-bot) 100%), url('${base64}'), url('/stage-bg.jpg')`;
+      } catch (err) {
+        console.error('Erro ao processar Foto Principal:', err);
+        alert('Não foi possível carregar a imagem selecionada. Tente outro arquivo.');
+      }
+    }
+
+    function handleMainPhotoUrlInput(url) {
+      const trimmed = (url || '').trim();
+      if (!trimmed) return;
+      if (!adminGalleryState) adminGalleryState = getStoredGalleryData();
+      if (!adminGalleryState.fotoPrincipal) adminGalleryState.fotoPrincipal = { ...defaultGalleryData.fotoPrincipal };
+      adminGalleryState.fotoPrincipal.url = trimmed;
+
+      const previewEl = document.getElementById('preview-foto-principal');
+      if (previewEl) previewEl.src = trimmed;
+
+      const heroPhoto = document.getElementById('heroStagePhoto');
+      if (heroPhoto) heroPhoto.src = trimmed;
+      document.body.style.backgroundImage = `linear-gradient(180deg, var(--bg-overlay-top) 0%, var(--bg-overlay-mid) 50%, var(--bg-overlay-bot) 100%), url('${trimmed}'), url('/stage-bg.jpg')`;
+    }
+
+    function resetMainPhotoToDefault() {
+      if (!adminGalleryState) adminGalleryState = getStoredGalleryData();
+      adminGalleryState.fotoPrincipal = {
+        url: '/stage-bg.jpg',
+        titulo: 'Gilmar Torrez Ao Vivo no Palco',
+        subtitulo: 'Bares, Festas Particulares e Grandes Confraternizações'
+      };
+
+      const previewEl = document.getElementById('preview-foto-principal');
+      if (previewEl) previewEl.src = '/stage-bg.jpg';
+      const urlInput = document.getElementById('adminMainPhotoUrl');
+      if (urlInput) urlInput.value = '';
+      const titleInput = document.getElementById('adminMainPhotoTitle');
+      if (titleInput) titleInput.value = adminGalleryState.fotoPrincipal.titulo;
+      const subInput = document.getElementById('adminMainPhotoSubtitle');
+      if (subInput) subInput.value = adminGalleryState.fotoPrincipal.subtitulo;
+
+      const heroPhoto = document.getElementById('heroStagePhoto');
+      if (heroPhoto) heroPhoto.src = '/stage-bg.jpg';
+      const heroTitle = document.getElementById('heroStageTitle');
+      if (heroTitle) heroTitle.textContent = adminGalleryState.fotoPrincipal.titulo;
+      const heroSubtitle = document.getElementById('heroStageSubtitle');
+      if (heroSubtitle) heroSubtitle.innerHTML = `<i class="fa-solid fa-location-dot"></i> ${adminGalleryState.fotoPrincipal.subtitulo}`;
+
+      document.body.style.backgroundImage = `linear-gradient(180deg, var(--bg-overlay-top) 0%, var(--bg-overlay-mid) 50%, var(--bg-overlay-bot) 100%), url('/stage-bg.jpg'), url('0b6471dd-b068-4fc2-b24f-15adceaa265a.jpg')`;
+    }
+
     function switchAdminTab(tabName) {
       const btnAgenda = document.getElementById('tabBtnAgenda');
       const btnMidias = document.getElementById('tabBtnMidias');
@@ -6921,6 +7064,27 @@
 
     function populateAdminMediaInputs() {
       adminGalleryState = getStoredGalleryData();
+
+      // Foto Principal
+      if (adminGalleryState.fotoPrincipal) {
+        const previewEl = document.getElementById('preview-foto-principal');
+        if (previewEl && adminGalleryState.fotoPrincipal.url) {
+          previewEl.src = adminGalleryState.fotoPrincipal.url;
+        }
+        const urlInput = document.getElementById('adminMainPhotoUrl');
+        if (urlInput) {
+          urlInput.value = adminGalleryState.fotoPrincipal.url.startsWith('data:') ? '' : adminGalleryState.fotoPrincipal.url;
+        }
+        const titleInput = document.getElementById('adminMainPhotoTitle');
+        if (titleInput) {
+          titleInput.value = adminGalleryState.fotoPrincipal.titulo || '';
+        }
+        const subInput = document.getElementById('adminMainPhotoSubtitle');
+        if (subInput) {
+          subInput.value = adminGalleryState.fotoPrincipal.subtitulo || '';
+        }
+      }
+
       const categories = ['shows-ao-vivo', 'acustico', 'guitarra-solo', 'celebracoes'];
 
       categories.forEach(cat => {
@@ -6961,6 +7125,23 @@
     function saveMediaGallery() {
       if (!adminGalleryState) {
         adminGalleryState = getStoredGalleryData();
+      }
+
+      // Foto Principal
+      if (!adminGalleryState.fotoPrincipal) {
+        adminGalleryState.fotoPrincipal = { ...defaultGalleryData.fotoPrincipal };
+      }
+      const customUrl = document.getElementById('adminMainPhotoUrl')?.value.trim();
+      if (customUrl) {
+        adminGalleryState.fotoPrincipal.url = customUrl;
+      }
+      const customTitle = document.getElementById('adminMainPhotoTitle')?.value.trim();
+      if (customTitle) {
+        adminGalleryState.fotoPrincipal.titulo = customTitle;
+      }
+      const customSub = document.getElementById('adminMainPhotoSubtitle')?.value.trim();
+      if (customSub) {
+        adminGalleryState.fotoPrincipal.subtitulo = customSub;
       }
 
       const categories = ['shows-ao-vivo', 'acustico', 'guitarra-solo', 'celebracoes'];
@@ -7021,6 +7202,25 @@
 
     function renderSiteGallery() {
       const data = getStoredGalleryData();
+
+      // Aplica Foto Principal e Fundo do Site
+      if (data.fotoPrincipal && data.fotoPrincipal.url) {
+        const heroPhoto = document.getElementById('heroStagePhoto');
+        if (heroPhoto) {
+          heroPhoto.src = data.fotoPrincipal.url;
+        }
+        const heroTitle = document.getElementById('heroStageTitle');
+        if (heroTitle && data.fotoPrincipal.titulo) {
+          heroTitle.textContent = data.fotoPrincipal.titulo;
+        }
+        const heroSubtitle = document.getElementById('heroStageSubtitle');
+        if (heroSubtitle && data.fotoPrincipal.subtitulo) {
+          heroSubtitle.innerHTML = `<i class="fa-solid fa-location-dot"></i> ${data.fotoPrincipal.subtitulo}`;
+        }
+        // Aplica a foto principal como fundo do site (body)
+        document.body.style.backgroundImage = `linear-gradient(180deg, var(--bg-overlay-top) 0%, var(--bg-overlay-mid) 50%, var(--bg-overlay-bot) 100%), url('${data.fotoPrincipal.url}'), url('/stage-bg.jpg')`;
+      }
+
       const categories = ['shows-ao-vivo', 'acustico', 'guitarra-solo', 'celebracoes'];
 
       categories.forEach(cat => {
@@ -7615,6 +7815,9 @@
     window.selectEventConfirmed = selectEventConfirmed;
     window.switchAdminTab = switchAdminTab;
     window.handleImageUpload = handleImageUpload;
+    window.handleMainPhotoUpload = handleMainPhotoUpload;
+    window.handleMainPhotoUrlInput = handleMainPhotoUrlInput;
+    window.resetMainPhotoToDefault = resetMainPhotoToDefault;
     window.saveMediaGallery = saveMediaGallery;
     window.renderSiteGallery = renderSiteGallery;
     window.selectColorPalette = selectColorPalette;
