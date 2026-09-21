@@ -3353,6 +3353,10 @@
       border-top: 1px solid var(--border-gold);
       border-bottom: 1px solid var(--border-gold);
       overflow: hidden;
+      background-size: cover;
+      background-position: center center;
+      background-repeat: no-repeat;
+      transition: background-image 0.4s ease;
     }
 
     .classes-grid {
@@ -5386,6 +5390,66 @@
             </div>
           </div>
 
+          <!-- SEÇÃO: Fundo do Bloco Quer Aprender a Tocar ou Cantar? -->
+          <div style="margin: 28px 0 16px 0; padding: 12px 18px; background: rgba(37, 211, 102, 0.08); border-left: 4px solid #22c55e; border-radius: 4px 10px 10px 4px; display: flex; align-items: center; justify-content: space-between; flex-wrap: wrap; gap: 10px;">
+            <div>
+              <h4 style="font-family: var(--font-title); font-size: 1.05rem; color: #ffffff; margin: 0; display: flex; align-items: center; gap: 8px;">
+                <i class="fa-solid fa-graduation-cap" style="color: #4ade80;"></i>
+                Fundo do Bloco: Quer Aprender a Tocar ou Cantar?
+              </h4>
+              <p style="font-size: 0.8rem; color: #cbd5e1; margin: 4px 0 0 0;">
+                Selecione ou envie a foto de preenchimento para a seção inteira de <strong>Educação Musical & Aulas</strong> (Canto, Guitarra, Violão e Baixo).
+              </p>
+            </div>
+            <span style="font-size: 0.72rem; font-weight: 700; color: #4ade80; background: rgba(34, 197, 94, 0.15); padding: 4px 10px; border-radius: 999px; border: 1px solid rgba(34, 197, 94, 0.3);">
+              Seção Aulas (#aulas)
+            </span>
+          </div>
+
+          <!-- Item 7: Fundo do Bloco Aulas (Quer Aprender a Tocar ou Cantar?) -->
+          <div class="admin-media-category-card" style="border: 1px solid rgba(34, 197, 94, 0.25); background: linear-gradient(135deg, rgba(34, 197, 94, 0.04) 0%, rgba(18, 22, 28, 0.95) 100%); margin-bottom: 24px; box-shadow: 0 4px 20px rgba(0, 0, 0, 0.35);">
+            <div class="admin-media-category-header" style="border-bottom: 1px solid rgba(255, 255, 255, 0.1); padding-bottom: 10px;">
+              <h5>
+                <i class="fa-solid fa-chalkboard-user" style="color: #4ade80;"></i> Fundo do Bloco Quer Aprender a Tocar ou Cantar?
+              </h5>
+              <span style="background: rgba(34, 197, 94, 0.12); color: #4ade80; font-weight: 700; border: 1px solid rgba(34, 197, 94, 0.3);">Aulas de Música</span>
+            </div>
+
+            <div style="padding: 14px 0 6px 0;">
+              <div style="display: flex; flex-direction: column; md:flex-row; gap: 16px; align-items: stretch;">
+                <div style="width: 100%; max-width: 240px; height: 140px; position: relative; border-radius: 12px; overflow: hidden; border: 1.5px solid rgba(34, 197, 94, 0.4); background: #000; margin: 0 auto; display: flex; align-items: center; justify-content: center; box-shadow: 0 8px 24px rgba(0,0,0,0.6);">
+                  <img id="preview-fundo-aulas" src="https://images.unsplash.com/photo-1511671782779-c97d3d27a1d4?auto=format&fit=crop&w=1200&q=80" alt="Prévia Fundo Bloco Aulas" style="width: 100%; height: 100%; object-fit: cover; display: block;" onerror="this.onerror=null; this.src='/stage-bg.jpg';" />
+                  <div style="position: absolute; bottom: 0; left: 0; right: 0; padding: 4px 8px; background: linear-gradient(0deg, rgba(0,0,0,0.92) 0%, transparent 100%); font-size: 0.7rem; color: #4ade80; font-weight: 600; text-align: center;">
+                    Prévia do Fundo das Aulas
+                  </div>
+                </div>
+
+                <div style="flex: 1; display: flex; flex-direction: column; gap: 10px; justify-content: center;">
+                  <div style="display: flex; gap: 8px; flex-wrap: wrap;">
+                    <label class="admin-upload-trigger" style="display: inline-flex; align-items: center; gap: 8px; cursor: pointer; margin: 0; padding: 10px 16px; background: linear-gradient(135deg, #15803d, #22c55e); color: #fff; font-weight: 700; border-radius: 8px; font-size: 0.85rem; box-shadow: 0 4px 12px rgba(34, 197, 94, 0.3);">
+                      <i class="fa-solid fa-cloud-arrow-up"></i> Trocar Foto do Bloco
+                      <input type="file" accept="image/*" class="admin-file-hidden" onchange="handleAulasBgUpload(event)" />
+                    </label>
+
+                    <button type="button" class="btn-secondary" onclick="resetAulasBgToDefault()" style="padding: 10px 14px; font-size: 0.82rem; border-radius: 8px; border: 1px solid rgba(255,255,255,0.2); background: rgba(255,255,255,0.06); color: #e2e8f0;" title="Restaurar imagem padrão do bloco de aulas">
+                      <i class="fa-solid fa-rotate-left"></i> Restaurar Padrão
+                    </button>
+                  </div>
+
+                  <div>
+                    <label style="font-size: 0.78rem; color: #cbd5e1; display: block; margin-bottom: 4px; font-weight: 600;">Ou informe o Link / URL direta da foto:</label>
+                    <input type="url" id="adminAulasBgUrl" class="admin-input" placeholder="https://exemplo.com/foto-aulas-musica.jpg" oninput="handleAulasBgUrlInput(this.value)" style="width: 100%; padding: 8px 12px; font-size: 0.85rem;" />
+                  </div>
+
+                  <div style="font-size: 0.75rem; color: #a1a1aa; line-height: 1.45; background: rgba(255, 255, 255, 0.04); border-left: 3px solid #22c55e; padding: 8px 12px; border-radius: 0 6px 6px 0;">
+                    <i class="fa-solid fa-circle-info" style="color: #4ade80; margin-right: 4px;"></i>
+                    Preenche o <strong>fundo do bloco Quer Aprender a Tocar ou Cantar?</strong> com uma elegante máscara translúcida para garantir máxima nitidez aos textos e cards de aulas.
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+
           <!-- Categoria 1: Shows ao Vivo -->
           <div class="admin-media-category-card">
             <div class="admin-media-category-header">
@@ -7106,6 +7170,10 @@
           titulo: 'Banda Completa'
         }
       },
+      aulasFundo: {
+        url: 'https://images.unsplash.com/photo-1511671782779-c97d3d27a1d4?auto=format&fit=crop&w=1400&q=80',
+        titulo: 'Fundo Quer Aprender a Tocar ou Cantar?'
+      },
       'shows-ao-vivo': {
         titulo: 'Shows ao Vivo',
         fotos: [
@@ -7207,6 +7275,14 @@
           };
         } else {
           result.bandaFundos = JSON.parse(JSON.stringify(defaultGalleryData.bandaFundos));
+        }
+        if (parsed.aulasFundo) {
+          result.aulasFundo = {
+            url: parsed.aulasFundo.url || defaultGalleryData.aulasFundo.url,
+            titulo: parsed.aulasFundo.titulo || defaultGalleryData.aulasFundo.titulo
+          };
+        } else {
+          result.aulasFundo = JSON.parse(JSON.stringify(defaultGalleryData.aulasFundo));
         }
         ['shows-ao-vivo', 'acustico', 'guitarra-solo', 'celebracoes'].forEach(cat => {
           if (parsed[cat]) {
@@ -7556,6 +7632,89 @@
       }
     }
 
+    async function handleAulasBgUpload(event) {
+      const file = event.target.files && event.target.files[0];
+      if (!file) return;
+
+      try {
+        const base64 = await compressImage(file, 1600, 1600, 0.85);
+        if (!adminGalleryState) {
+          adminGalleryState = getStoredGalleryData();
+        }
+        if (!adminGalleryState.aulasFundo) {
+          adminGalleryState.aulasFundo = { ...defaultGalleryData.aulasFundo };
+        }
+        adminGalleryState.aulasFundo.url = base64;
+
+        const previewEl = document.getElementById('preview-fundo-aulas');
+        if (previewEl) previewEl.src = base64;
+
+        const urlInput = document.getElementById('adminAulasBgUrl');
+        if (urlInput) urlInput.value = '';
+
+        // Atualização em tempo real da seção #aulas
+        const sectionAulas = document.getElementById('aulas');
+        if (sectionAulas) {
+          sectionAulas.style.backgroundImage = `linear-gradient(180deg, rgba(9, 10, 14, 0.88) 0%, rgba(14, 18, 25, 0.90) 50%, rgba(9, 10, 14, 0.92) 100%), url('${base64}')`;
+          sectionAulas.style.backgroundSize = 'cover';
+          sectionAulas.style.backgroundPosition = 'center center';
+          sectionAulas.style.backgroundRepeat = 'no-repeat';
+        }
+      } catch (err) {
+        console.error('Erro ao processar imagem de fundo da seção de aulas:', err);
+        alert('Não foi possível carregar a imagem selecionada. Tente outro arquivo.');
+      }
+    }
+
+    function handleAulasBgUrlInput(url) {
+      const trimmed = (url || '').trim();
+      if (!trimmed) return;
+      if (!adminGalleryState) adminGalleryState = getStoredGalleryData();
+      if (!adminGalleryState.aulasFundo) {
+        adminGalleryState.aulasFundo = { ...defaultGalleryData.aulasFundo };
+      }
+      adminGalleryState.aulasFundo.url = trimmed;
+
+      const previewEl = document.getElementById('preview-fundo-aulas');
+      if (previewEl) previewEl.src = trimmed;
+
+      const sectionAulas = document.getElementById('aulas');
+      if (sectionAulas) {
+        sectionAulas.style.backgroundImage = `linear-gradient(180deg, rgba(9, 10, 14, 0.88) 0%, rgba(14, 18, 25, 0.90) 50%, rgba(9, 10, 14, 0.92) 100%), url('${trimmed}')`;
+        sectionAulas.style.backgroundSize = 'cover';
+        sectionAulas.style.backgroundPosition = 'center center';
+        sectionAulas.style.backgroundRepeat = 'no-repeat';
+      }
+    }
+
+    function resetAulasBgToDefault() {
+      if (!adminGalleryState) adminGalleryState = getStoredGalleryData();
+      const defaultUrl = (defaultGalleryData.aulasFundo && defaultGalleryData.aulasFundo.url) ? defaultGalleryData.aulasFundo.url : '';
+      if (!adminGalleryState.aulasFundo) {
+        adminGalleryState.aulasFundo = { url: defaultUrl, titulo: 'Fundo Quer Aprender a Tocar ou Cantar?' };
+      } else {
+        adminGalleryState.aulasFundo.url = defaultUrl;
+      }
+
+      const previewEl = document.getElementById('preview-fundo-aulas');
+      if (previewEl) previewEl.src = defaultUrl;
+
+      const urlInput = document.getElementById('adminAulasBgUrl');
+      if (urlInput) urlInput.value = '';
+
+      const sectionAulas = document.getElementById('aulas');
+      if (sectionAulas) {
+        if (defaultUrl) {
+          sectionAulas.style.backgroundImage = `linear-gradient(180deg, rgba(9, 10, 14, 0.88) 0%, rgba(14, 18, 25, 0.90) 50%, rgba(9, 10, 14, 0.92) 100%), url('${defaultUrl}')`;
+          sectionAulas.style.backgroundSize = 'cover';
+          sectionAulas.style.backgroundPosition = 'center center';
+          sectionAulas.style.backgroundRepeat = 'no-repeat';
+        } else {
+          sectionAulas.style.backgroundImage = '';
+        }
+      }
+    }
+
     function switchAdminTab(tabName) {
       const btnAgenda = document.getElementById('tabBtnAgenda');
       const btnMidias = document.getElementById('tabBtnMidias');
@@ -7638,6 +7797,19 @@
         }
       });
 
+      // Fundo do Bloco Quer Aprender a Tocar ou Cantar?
+      if (!adminGalleryState.aulasFundo) {
+        adminGalleryState.aulasFundo = JSON.parse(JSON.stringify(defaultGalleryData.aulasFundo));
+      }
+      const previewAulas = document.getElementById('preview-fundo-aulas');
+      if (previewAulas && adminGalleryState.aulasFundo && adminGalleryState.aulasFundo.url) {
+        previewAulas.src = adminGalleryState.aulasFundo.url;
+      }
+      const urlAulasInput = document.getElementById('adminAulasBgUrl');
+      if (urlAulasInput && adminGalleryState.aulasFundo) {
+        urlAulasInput.value = (adminGalleryState.aulasFundo.url && !adminGalleryState.aulasFundo.url.startsWith('data:')) ? adminGalleryState.aulasFundo.url : '';
+      }
+
       const categories = ['shows-ao-vivo', 'acustico', 'guitarra-solo', 'celebracoes'];
 
       categories.forEach(cat => {
@@ -7719,6 +7891,15 @@
           adminGalleryState.bandaFundos[key].url = inputUrl;
         }
       });
+
+      // Fundo do Bloco Quer Aprender a Tocar ou Cantar?
+      if (!adminGalleryState.aulasFundo) {
+        adminGalleryState.aulasFundo = { ...defaultGalleryData.aulasFundo };
+      }
+      const inputAulasUrl = document.getElementById('adminAulasBgUrl')?.value.trim();
+      if (inputAulasUrl) {
+        adminGalleryState.aulasFundo.url = inputAulasUrl;
+      }
 
       const categories = ['shows-ao-vivo', 'acustico', 'guitarra-solo', 'celebracoes'];
       categories.forEach(cat => {
@@ -7848,6 +8029,20 @@
           card.classList.remove('has-custom-bg');
         }
       });
+
+      // Aplica Fundo Personalizado do Bloco Quer Aprender a Tocar ou Cantar? (#aulas)
+      const aulasBgUrl = (data.aulasFundo && data.aulasFundo.url) ? data.aulasFundo.url : (defaultGalleryData.aulasFundo ? defaultGalleryData.aulasFundo.url : '');
+      const sectionAulas = document.getElementById('aulas');
+      if (sectionAulas) {
+        if (aulasBgUrl && aulasBgUrl.trim()) {
+          sectionAulas.style.backgroundImage = `linear-gradient(180deg, rgba(9, 10, 14, 0.88) 0%, rgba(14, 18, 25, 0.90) 50%, rgba(9, 10, 14, 0.92) 100%), url('${aulasBgUrl}')`;
+          sectionAulas.style.backgroundSize = 'cover';
+          sectionAulas.style.backgroundPosition = 'center center';
+          sectionAulas.style.backgroundRepeat = 'no-repeat';
+        } else {
+          sectionAulas.style.backgroundImage = '';
+        }
+      }
 
       const categories = ['shows-ao-vivo', 'acustico', 'guitarra-solo', 'celebracoes'];
 
