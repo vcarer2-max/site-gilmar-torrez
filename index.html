@@ -14,7 +14,9 @@
   <meta property="og:type" content="website" />
   <meta property="og:title" content="Gilmar Torrez - A Energia Ideal para o Seu Evento" />
   <meta property="og:description" content="Pop Rock ao vivo de alta voltagem para Bares, Festas e Eventos Corporativos. Aulas de Canto, Guitarra, Violão e Baixo." />
-  <meta property="og:image" content="/stage-bg.jpg" />
+  <meta property="og:image" content="/logo.png" />
+  <link rel="icon" type="image/png" id="siteFavicon" href="/logo.png" />
+  <link rel="apple-touch-icon" href="/logo.png" />
   
   <!-- Google Fonts: Padrão Principal e Padrões Alternativos Selecionáveis -->
   <link rel="preconnect" href="https://fonts.googleapis.com" />
@@ -3777,10 +3779,11 @@
       <!-- Logotipo Oficial Gilmar Torrez (Destaque Dobrado e Sem Brilho) -->
       <a href="#hero" class="logo-link" id="headerLogo" aria-label="Gilmar Torrez - Início">
         <div class="logo-container">
-          <img src="/logo.svg" 
+          <img src="/logo.png" 
+               id="siteHeaderLogo"
                alt="Logotipo Gilmar Torrez" 
                class="logo-img" 
-               onerror="this.onerror=null; this.src='watermarked_img_18271619073969897132.jpg';" />
+               onerror="this.onerror=null; this.src='/logo.jpg';" />
         </div>
         <div class="logo-text-group">
           <span class="logo-name-signature">Gilmar Torrez</span>
@@ -4739,10 +4742,11 @@
         <div class="footer-brand">
           <a href="#hero" class="logo-link">
             <div class="logo-container">
-              <img src="/logo.svg" 
+              <img src="/logo.png" 
+                   id="siteFooterLogo"
                    alt="Logotipo Gilmar Torrez" 
                    class="logo-img" 
-                   onerror="this.onerror=null; this.src='watermarked_img_18271619073969897132.jpg';" />
+                   onerror="this.onerror=null; this.src='/logo.jpg';" />
             </div>
             <div class="logo-text-group">
               <span class="logo-name-signature">Gilmar Torrez</span>
@@ -5081,6 +5085,51 @@
                       <i class="fa-solid fa-circle-check" style="color: var(--gold-primary); margin-right: 4px;"></i>
                       <strong>Integração Dupla:</strong> Esta foto é exibida no card principal do topo do site e também aplicada dinamicamente como o <strong>fundo (background) principal</strong> de toda a página com efeito de iluminação profissional.
                     </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+
+          <!-- Item 2: Logotipo Oficial da Marca -->
+          <div class="admin-media-category-card" style="border: 1px solid rgba(255, 255, 255, 0.12); background: linear-gradient(135deg, rgba(255, 255, 255, 0.03) 0%, rgba(18, 19, 26, 0.95) 100%); margin-bottom: 24px; box-shadow: 0 4px 20px rgba(0, 0, 0, 0.35);">
+            <div class="admin-media-category-header" style="border-bottom: 1px solid rgba(255, 255, 255, 0.1); padding-bottom: 10px;">
+              <h5>
+                <i class="fa-solid fa-certificate" style="color: var(--gold-primary);"></i> Logotipo Oficial do Site
+              </h5>
+              <span style="background: rgba(255, 255, 255, 0.08); color: #f8fafc; font-weight: 700; border: 1px solid rgba(255, 255, 255, 0.15);">Identidade Visual</span>
+            </div>
+
+            <div style="padding: 14px 0 6px 0;">
+              <div style="display: flex; flex-direction: column; md:flex-row; gap: 16px; align-items: stretch;">
+                <!-- Prévia do Logotipo Oficial -->
+                <div style="width: 100%; max-width: 170px; height: 170px; position: relative; border-radius: 12px; overflow: hidden; border: 1.5px solid rgba(255, 255, 255, 0.2); background: #000; margin: 0 auto; display: flex; align-items: center; justify-content: center; padding: 10px; box-shadow: 0 8px 24px rgba(0,0,0,0.6);">
+                  <img id="preview-logo-oficial" src="/logo.png" alt="Prévia do Logotipo Oficial" style="max-width: 100%; max-height: 100%; object-fit: contain; display: block;" onerror="this.onerror=null; this.src='/logo.jpg';" />
+                  <div style="position: absolute; bottom: 0; left: 0; right: 0; padding: 4px 8px; background: linear-gradient(0deg, rgba(0,0,0,0.92) 0%, transparent 100%); font-size: 0.7rem; color: #fbbf24; font-weight: 600; text-align: center;">
+                    Logo Ativo
+                  </div>
+                </div>
+
+                <!-- Controles de Troca do Logotipo -->
+                <div style="flex: 1; display: flex; flex-direction: column; gap: 10px; justify-content: center;">
+                  <div style="display: flex; gap: 10px; flex-wrap: wrap;">
+                    <label class="admin-upload-trigger" style="flex: 1; min-width: 170px; margin: 0; background: rgba(255, 255, 255, 0.1); color: #ffffff; font-weight: 700; border: 1px solid rgba(255, 255, 255, 0.25); cursor: pointer; text-align: center; padding: 10px 16px; border-radius: 8px; display: inline-flex; align-items: center; justify-content: center; gap: 8px; transition: all 0.2s ease;">
+                      <i class="fa-solid fa-cloud-arrow-up"></i> Trocar Logotipo
+                      <input type="file" accept="image/*" class="admin-file-hidden" onchange="handleLogoUpload(event)" />
+                    </label>
+                    <button type="button" class="btn-secondary" onclick="resetLogoToDefault()" style="padding: 10px 14px; font-size: 0.82rem; border-radius: 8px; border: 1px solid rgba(255,255,255,0.2); background: rgba(255,255,255,0.06); color: #e2e8f0;" title="Restaurar logotipo oficial padrão">
+                      <i class="fa-solid fa-rotate-left"></i> Restaurar Padrão
+                    </button>
+                  </div>
+
+                  <div>
+                    <label style="font-size: 0.78rem; color: #cbd5e1; display: block; margin-bottom: 4px; font-weight: 600;">Ou informe o Link / URL direta do logotipo:</label>
+                    <input type="url" id="adminLogoUrl" class="admin-input" placeholder="https://exemplo.com/logo-gilmar-torrez.png" oninput="handleLogoUrlInput(this.value)" style="width: 100%; padding: 8px 12px; font-size: 0.85rem;" />
+                  </div>
+
+                  <div style="font-size: 0.75rem; color: #a1a1aa; line-height: 1.45; background: rgba(255, 255, 255, 0.04); border-left: 3px solid var(--gold-primary); padding: 8px 12px; border-radius: 0 6px 6px 0;">
+                    <i class="fa-solid fa-circle-info" style="color: var(--gold-primary); margin-right: 4px;"></i>
+                    O novo logotipo oficial com monograma <strong>GT</strong> e assinatura <strong>Gilmar Torrez</strong> é aplicado no <strong>Cabeçalho Fixo (topo)</strong>, no <strong>Rodapé</strong> e na aba do navegador (Favicon).
                   </div>
                 </div>
               </div>
@@ -6786,6 +6835,9 @@
         titulo: 'Gilmar Torrez Ao Vivo no Palco',
         subtitulo: 'Bares, Festas Particulares e Grandes Confraternizações'
       },
+      logoOficial: {
+        url: '/logo.png'
+      },
       'shows-ao-vivo': {
         titulo: 'Shows ao Vivo',
         fotos: [
@@ -6855,6 +6907,11 @@
             url: parsed.fotoPrincipal.url || defaultGalleryData.fotoPrincipal.url,
             titulo: parsed.fotoPrincipal.titulo || defaultGalleryData.fotoPrincipal.titulo,
             subtitulo: parsed.fotoPrincipal.subtitulo || defaultGalleryData.fotoPrincipal.subtitulo
+          };
+        }
+        if (parsed.logoOficial) {
+          result.logoOficial = {
+            url: parsed.logoOficial.url || defaultGalleryData.logoOficial.url
           };
         }
         ['shows-ao-vivo', 'acustico', 'guitarra-solo', 'celebracoes'].forEach(cat => {
@@ -7031,6 +7088,73 @@
       document.body.style.backgroundImage = `linear-gradient(180deg, var(--bg-overlay-top) 0%, var(--bg-overlay-mid) 50%, var(--bg-overlay-bot) 100%), url('/stage-bg.jpg'), url('0b6471dd-b068-4fc2-b24f-15adceaa265a.jpg')`;
     }
 
+    async function handleLogoUpload(event) {
+      const file = event.target.files && event.target.files[0];
+      if (!file) return;
+
+      try {
+        const base64 = await compressImage(file, 800, 800, 0.9);
+        if (!adminGalleryState) {
+          adminGalleryState = getStoredGalleryData();
+        }
+        if (!adminGalleryState.logoOficial) {
+          adminGalleryState.logoOficial = { url: '/logo.png' };
+        }
+        adminGalleryState.logoOficial.url = base64;
+
+        const previewEl = document.getElementById('preview-logo-oficial');
+        if (previewEl) previewEl.src = base64;
+
+        const urlInput = document.getElementById('adminLogoUrl');
+        if (urlInput) urlInput.value = '';
+
+        const headerLogo = document.getElementById('siteHeaderLogo');
+        if (headerLogo) headerLogo.src = base64;
+        const footerLogo = document.getElementById('siteFooterLogo');
+        if (footerLogo) footerLogo.src = base64;
+        const favicon = document.getElementById('siteFavicon');
+        if (favicon) favicon.href = base64;
+      } catch (err) {
+        console.error('Erro ao processar logotipo:', err);
+        alert('Não foi possível carregar o arquivo do logotipo. Tente outra imagem.');
+      }
+    }
+
+    function handleLogoUrlInput(url) {
+      const trimmed = (url || '').trim();
+      if (!trimmed) return;
+      if (!adminGalleryState) adminGalleryState = getStoredGalleryData();
+      if (!adminGalleryState.logoOficial) adminGalleryState.logoOficial = { url: '/logo.png' };
+      adminGalleryState.logoOficial.url = trimmed;
+
+      const previewEl = document.getElementById('preview-logo-oficial');
+      if (previewEl) previewEl.src = trimmed;
+
+      const headerLogo = document.getElementById('siteHeaderLogo');
+      if (headerLogo) headerLogo.src = trimmed;
+      const footerLogo = document.getElementById('siteFooterLogo');
+      if (footerLogo) footerLogo.src = trimmed;
+      const favicon = document.getElementById('siteFavicon');
+      if (favicon) favicon.href = trimmed;
+    }
+
+    function resetLogoToDefault() {
+      if (!adminGalleryState) adminGalleryState = getStoredGalleryData();
+      adminGalleryState.logoOficial = { url: '/logo.png' };
+
+      const previewEl = document.getElementById('preview-logo-oficial');
+      if (previewEl) previewEl.src = '/logo.png';
+      const urlInput = document.getElementById('adminLogoUrl');
+      if (urlInput) urlInput.value = '';
+
+      const headerLogo = document.getElementById('siteHeaderLogo');
+      if (headerLogo) headerLogo.src = '/logo.png';
+      const footerLogo = document.getElementById('siteFooterLogo');
+      if (footerLogo) footerLogo.src = '/logo.png';
+      const favicon = document.getElementById('siteFavicon');
+      if (favicon) favicon.href = '/logo.png';
+    }
+
     function switchAdminTab(tabName) {
       const btnAgenda = document.getElementById('tabBtnAgenda');
       const btnMidias = document.getElementById('tabBtnMidias');
@@ -7082,6 +7206,18 @@
         const subInput = document.getElementById('adminMainPhotoSubtitle');
         if (subInput) {
           subInput.value = adminGalleryState.fotoPrincipal.subtitulo || '';
+        }
+      }
+
+      // Logotipo Oficial
+      if (adminGalleryState.logoOficial) {
+        const previewLogo = document.getElementById('preview-logo-oficial');
+        if (previewLogo && adminGalleryState.logoOficial.url) {
+          previewLogo.src = adminGalleryState.logoOficial.url;
+        }
+        const urlLogoInput = document.getElementById('adminLogoUrl');
+        if (urlLogoInput) {
+          urlLogoInput.value = adminGalleryState.logoOficial.url.startsWith('data:') ? '' : adminGalleryState.logoOficial.url;
         }
       }
 
@@ -7142,6 +7278,15 @@
       const customSub = document.getElementById('adminMainPhotoSubtitle')?.value.trim();
       if (customSub) {
         adminGalleryState.fotoPrincipal.subtitulo = customSub;
+      }
+
+      // Logotipo Oficial
+      if (!adminGalleryState.logoOficial) {
+        adminGalleryState.logoOficial = { ...defaultGalleryData.logoOficial };
+      }
+      const customLogoUrl = document.getElementById('adminLogoUrl')?.value.trim();
+      if (customLogoUrl) {
+        adminGalleryState.logoOficial.url = customLogoUrl;
       }
 
       const categories = ['shows-ao-vivo', 'acustico', 'guitarra-solo', 'celebracoes'];
@@ -7220,6 +7365,15 @@
         // Aplica a foto principal como fundo do site (body)
         document.body.style.backgroundImage = `linear-gradient(180deg, var(--bg-overlay-top) 0%, var(--bg-overlay-mid) 50%, var(--bg-overlay-bot) 100%), url('${data.fotoPrincipal.url}'), url('/stage-bg.jpg')`;
       }
+
+      // Aplica Logotipo Oficial do Site
+      const currentLogo = (data.logoOficial && data.logoOficial.url) ? data.logoOficial.url : '/logo.png';
+      const headerLogo = document.getElementById('siteHeaderLogo');
+      if (headerLogo) headerLogo.src = currentLogo;
+      const footerLogo = document.getElementById('siteFooterLogo');
+      if (footerLogo) footerLogo.src = currentLogo;
+      const favicon = document.getElementById('siteFavicon');
+      if (favicon) favicon.href = currentLogo;
 
       const categories = ['shows-ao-vivo', 'acustico', 'guitarra-solo', 'celebracoes'];
 
@@ -7818,6 +7972,9 @@
     window.handleMainPhotoUpload = handleMainPhotoUpload;
     window.handleMainPhotoUrlInput = handleMainPhotoUrlInput;
     window.resetMainPhotoToDefault = resetMainPhotoToDefault;
+    window.handleLogoUpload = handleLogoUpload;
+    window.handleLogoUrlInput = handleLogoUrlInput;
+    window.resetLogoToDefault = resetLogoToDefault;
     window.saveMediaGallery = saveMediaGallery;
     window.renderSiteGallery = renderSiteGallery;
     window.selectColorPalette = selectColorPalette;

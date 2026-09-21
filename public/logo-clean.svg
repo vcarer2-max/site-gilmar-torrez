@@ -1,23 +1,6 @@
-<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 600 600" width="100%" height="100%" fill="none" style="overflow: visible;">
-  <!-- Símbolo Circular Branco sem brilho (com ampla margem para nunca cortar) -->
-  <circle cx="300" cy="200" r="145" stroke="#FFFFFF" stroke-width="12" fill="none" />
-  
-  <!-- Monograma Caligráfico Estilizado Rock GT centralizado -->
-  <g fill="#FFFFFF" stroke="#FFFFFF" stroke-linecap="round" stroke-linejoin="round">
-    <!-- Traço expressivo e dinâmico do monograma GT -->
-    <path d="M 235 170 C 230 145 250 120 280 102 C 318 80 355 60 385 45 C 388 44 391 48 387 52 C 367 75 345 105 332 135 C 342 135 368 130 390 124 C 405 120 412 126 408 135 C 400 150 370 160 358 162 C 354 175 350 195 355 208 C 358 215 353 220 345 218 C 337 216 334 205 336 192 C 337 182 340 170 343 160 L 312 166 C 294 202 274 245 256 284 C 251 292 243 295 241 287 C 238 279 262 225 282 178 C 260 182 242 190 236 204 C 230 217 234 230 246 236 C 256 241 270 236 286 224 C 292 220 296 224 292 230 C 272 254 250 264 232 254 C 218 245 214 224 222 200 C 225 190 230 179 235 170 Z" />
-    <!-- Haste superior angular cortando o topo -->
-    <path d="M 285 165 C 310 120 342 85 376 58 C 380 55 383 58 380 62 C 350 96 324 136 302 182 C 296 193 290 188 285 165 Z" />
-    <!-- Haste diagonal cortando o centro para baixo -->
-    <path d="M 330 156 L 246 315 C 242 323 234 321 232 313 C 230 302 312 148 330 156 Z" />
-  </g>
-
-  <!-- Assinatura "Gilmar Torres" com espaço generoso nas bordas para NUNCA cortar -->
-  <text x="300" y="440" 
-        text-anchor="middle" 
-        fill="#FFFFFF" 
-        font-family="'Caveat', 'Segoe Script', 'Brush Script MT', 'Dancing Script', cursive, sans-serif" 
-        font-size="64" 
-        font-weight="700" 
-        letter-spacing="1.5">Gilmar Torres</text>
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 600 600" width="100%" height="100%">
+  <!-- Novo Logotipo Oficial Gilmar Torrez -->
+  <rect width="600" height="600" fill="#000000" />
+  <image href="/logo.png" width="600" height="600" preserveAspectRatio="xMidYMid meet" />
 </svg>
+
