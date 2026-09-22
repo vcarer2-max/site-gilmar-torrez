@@ -1,0 +1,207 @@
+{
+  "shows": [
+    {
+      "id": "show-1",
+      "day": "27",
+      "month": "SET",
+      "year": "2024",
+      "title": "Noite de Rock Acústico no Capitão Cook Pub",
+      "address": "Rua do Porto, Piracicaba - SP • A partir das 20h30",
+      "confirmed": true,
+      "timestamp": 1727481600000
+    },
+    {
+      "id": "show-2",
+      "day": "05",
+      "month": "OUT",
+      "year": "2024",
+      "title": "Especial Clássicos 80 & 90 no Vila Bohemia",
+      "address": "Av. Carlos Botelho, São Pedro - SP • A partir das 21h",
+      "confirmed": true,
+      "timestamp": 1728172800000
+    },
+    {
+      "id": "show-3",
+      "day": "18",
+      "month": "OUT",
+      "year": "2024",
+      "title": "Festival Primavera Rock & Beer",
+      "address": "Espaço Beira Rio, Piracicaba - SP • A partir das 19h",
+      "confirmed": true,
+      "timestamp": 1729296000000
+    },
+    {
+      "id": "show-4",
+      "day": "09",
+      "month": "NOV",
+      "year": "2024",
+      "title": "Gilmar Torrez Trio no Botequim da Villa",
+      "address": "Centro, Limeira - SP • A partir das 21h30",
+      "confirmed": false,
+      "timestamp": 1731196800000
+    }
+  ],
+  "midias": {
+    "fotoPrincipal": {
+      "url": "/stage-bg.jpg",
+      "titulo": "Gilmar Torrez Ao Vivo no Palco",
+      "subtitulo": "Bares, Festas Particulares e Grandes Confraternizações"
+    },
+    "logoOficial": {
+      "url": "/logo.png"
+    },
+    "bandaFundos": {
+      "solo": {
+        "url": "https://images.unsplash.com/photo-1511671782779-c97d3d27a1d4?auto=format&fit=crop&w=800&q=80",
+        "titulo": "Formato Solo"
+      },
+      "duo": {
+        "url": "https://images.unsplash.com/photo-1514525253161-7a46d19cd819?auto=format&fit=crop&w=800&q=80",
+        "titulo": "Duo Acústico"
+      },
+      "trio": {
+        "url": "https://images.unsplash.com/photo-1501386761578-eac5c94b800a?auto=format&fit=crop&w=800&q=80",
+        "titulo": "Power Trio Rock"
+      },
+      "banda": {
+        "url": "https://images.unsplash.com/photo-1470225620780-dba8ba36b745?auto=format&fit=crop&w=800&q=80",
+        "titulo": "Banda Completa"
+      }
+    },
+    "aulasFundo": {
+      "url": "https://images.unsplash.com/photo-1511671782779-c97d3d27a1d4?auto=format&fit=crop&w=1400&q=80",
+      "titulo": "Fundo Quer Aprender a Tocar ou Cantar?"
+    },
+    "shows-ao-vivo": {
+      "titulo": "Shows ao Vivo",
+      "fotos": [
+        "/stage-bg.jpg",
+        "https://images.unsplash.com/photo-1470225620780-dba8ba36b745?auto=format&fit=crop&w=1000&q=80",
+        "https://images.unsplash.com/photo-1465847899084-d164df4dedc6?auto=format&fit=crop&w=1000&q=80",
+        "https://images.unsplash.com/photo-1516450360452-9312f5e86fc7?auto=format&fit=crop&w=1000&q=80"
+      ],
+      "descricoes": [
+        "",
+        "",
+        "",
+        ""
+      ]
+    },
+    "acustico": {
+      "titulo": "Acústico",
+      "fotos": [
+        "https://images.unsplash.com/photo-1511671782779-c97d3d27a1d4?auto=format&fit=crop&w=1000&q=80",
+        "https://images.unsplash.com/photo-1525201548942-d8732f6617a0?auto=format&fit=crop&w=1000&q=80",
+        "https://images.unsplash.com/photo-1445985543470-41fdd5c31447?auto=format&fit=crop&w=1000&q=80",
+        "https://images.unsplash.com/photo-1485579149621-3123dd979885?auto=format&fit=crop&w=1000&q=80"
+      ],
+      "descricoes": [
+        "",
+        "",
+        "",
+        ""
+      ]
+    },
+    "guitarra-solo": {
+      "titulo": "Guitarra Solo",
+      "fotos": [
+        "https://images.unsplash.com/photo-1514525253161-7a46d19cd819?auto=format&fit=crop&w=1000&q=80",
+        "https://images.unsplash.com/photo-1550291652-6ea9114a47b1?auto=format&fit=crop&w=1000&q=80",
+        "https://images.unsplash.com/photo-1564186763535-ebb21ef5277f?auto=format&fit=crop&w=1000&q=80",
+        "https://images.unsplash.com/photo-1510915361894-db8b60106cb1?auto=format&fit=crop&w=1000&q=80"
+      ],
+      "descricoes": [
+        "",
+        "",
+        "",
+        ""
+      ]
+    },
+    "celebracoes": {
+      "titulo": "Celebrações",
+      "fotos": [
+        "https://images.unsplash.com/photo-1492684223066-81342ee5ff30?auto=format&fit=crop&w=1000&q=80",
+        "https://images.unsplash.com/photo-1519671482749-fd09be7ccebf?auto=format&fit=crop&w=1000&q=80",
+        "https://images.unsplash.com/photo-1533174072545-7a4b6ad7a6c3?auto=format&fit=crop&w=1000&q=80",
+        "https://images.unsplash.com/photo-1527529482837-4698179dc6ce?auto=format&fit=crop&w=1000&q=80"
+      ],
+      "descricoes": [
+        "",
+        "",
+        "",
+        ""
+      ]
+    },
+    "videos": [
+      {
+        "id": "video-1",
+        "titulo": "Show Pop Rock ao Vivo no Pub",
+        "descricao": "",
+        "embedUrl": "https://www.youtube.com/embed/dQw4w9WgXcQ"
+      },
+      {
+        "id": "video-2",
+        "titulo": "Pocket Show Voz & Violão",
+        "descricao": "",
+        "embedUrl": "https://www.youtube.com/embed/dQw4w9WgXcQ"
+      }
+    ],
+    "instagram": [
+      {
+        "url": "/stage-bg.jpg",
+        "caption": "Soltando o som ao vivo com o público cantando junto! 🎸🔥 #GilmarTorrez #PopRock #AoVivo",
+        "likes": "184",
+        "comments": "26",
+        "link": "https://www.instagram.com/gilmartorrez07/"
+      },
+      {
+        "url": "https://images.unsplash.com/photo-1511671782779-c97d3d27a1d4?auto=format&fit=crop&w=800&q=80",
+        "caption": "Pocket show voz e violão acústico intimista. Gratidão a todos presentes! 🎶✨ #VozEViolao #Acustico",
+        "likes": "247",
+        "comments": "31",
+        "link": "https://www.instagram.com/gilmartorrez07/"
+      },
+      {
+        "url": "https://images.unsplash.com/photo-1514525253161-7a46d19cd819?auto=format&fit=crop&w=800&q=80",
+        "caption": "Guitarra solo no talo! Noite incrível de clássicos do rock nacional e internacional ⚡🎸 #GuitarSolo #Rock",
+        "likes": "312",
+        "comments": "42",
+        "link": "https://www.instagram.com/gilmartorrez07/"
+      },
+      {
+        "url": "https://images.unsplash.com/photo-1501386761578-eac5c94b800a?auto=format&fit=crop&w=800&q=80",
+        "caption": "Power Trio na pressão máxima! Sintonia pura com essa cozinha pesada 🥁🔊 #PowerTrio #Banda",
+        "likes": "198",
+        "comments": "19",
+        "link": "https://www.instagram.com/gilmartorrez07/"
+      },
+      {
+        "url": "https://images.unsplash.com/photo-1470225620780-dba8ba36b745?auto=format&fit=crop&w=800&q=80",
+        "caption": "Grande celebração e pista lotada! Evento corporativo inesquecível em Piracicaba 🥂🎉 #Eventos #Festa",
+        "likes": "275",
+        "comments": "38",
+        "link": "https://www.instagram.com/gilmartorrez07/"
+      },
+      {
+        "url": "https://images.unsplash.com/photo-1465847899084-d164df4dedc6?auto=format&fit=crop&w=800&q=80",
+        "caption": "Passagem de som e últimos ajustes antes de subir ao palco. Vamos com tudo! 🎤🎵 #Bastidores #Palco",
+        "likes": "220",
+        "comments": "24",
+        "link": "https://www.instagram.com/gilmartorrez07/"
+      }
+    ]
+  },
+  "audioTopo": {
+    "mode": "off",
+    "selectedTrackId": "track1",
+    "customUrl": "",
+    "title": "Gilmar Torrez - Som Ao Vivo",
+    "artist": "Gilmar Torrez",
+    "autoplay": false
+  },
+  "theme": {
+    "colorId": "principal",
+    "fontId": "principal"
+  },
+  "updatedAt": "2026-09-22T23:44:19.989Z"
+}

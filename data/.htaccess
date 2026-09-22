@@ -1,0 +1,8 @@
+# Proteção da pasta de dados da hospedagem
+# Impede o download direto de arquivos .json via navegador por terceiros
+<FilesMatch "\.(json|lock|tmp)$">
+    Require all denied
+</FilesMatch>
+
+# Garante charset UTF-8 nos retornos
+AddDefaultCharset UTF-8

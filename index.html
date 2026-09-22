@@ -23,11 +23,11 @@
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
   <link href="https://fonts.googleapis.com/css2?family=Bebas+Neue&family=Caveat:wght@600;700&family=Cinzel:wght@600;700;800&family=DM+Sans:wght@400;500;700&family=Inter:wght@400;500;600;700&family=Lora:ital,wght@0,400;0,600;1,400&family=Montserrat:wght@400;500;600;700;800;900&family=Open+Sans:wght@300;400;500;600;700&family=Oswald:wght@500;600;700&family=Outfit:wght@500;600;700;800&family=Playfair+Display:ital,wght@0,600;0,700;1,600&family=Plus+Jakarta+Sans:wght@600;700;800&family=Poppins:wght@500;600;700;800&family=Raleway:wght@400;500;600;700&family=Roboto:wght@400;500;700&family=Space+Grotesk:wght@600;700&family=Syne:wght@700;800&display=swap" rel="stylesheet" />
   
-  <!-- Script de Inicialização Instantânea do Tema Escolhido (Previne Flicker) -->
+  <!-- Script de Inicialização Instantânea do Tema Oficial (Zero Armazenamento Local) -->
   <script>
     (function() {
       try {
-        var raw = localStorage.getItem('gilmar_theme_settings');
+        var raw = null;
         if (raw) {
           var settings = JSON.parse(raw);
           var palettes = {
@@ -5325,6 +5325,17 @@
           </div>
         </div>
 
+        <!-- Banner de Persistência Direta no Servidor -->
+        <div style="margin: 0 0 14px 0; padding: 9px 14px; background: rgba(59, 130, 246, 0.08); border: 1px solid rgba(59, 130, 246, 0.25); border-radius: 8px; display: flex; align-items: center; justify-content: space-between; font-size: 0.78rem; flex-wrap: wrap; gap: 8px;">
+          <div style="display: flex; align-items: center; gap: 8px; color: #93c5fd;">
+            <i class="fa-solid fa-server" style="color: #60a5fa; font-size: 0.95rem;"></i>
+            <span><strong>Servidor / Hospedagem Ativo:</strong> Gravação direta no servidor via API REST (Zero armazenamento local).</span>
+          </div>
+          <span id="serverConnectionStatus" style="color: #4ade80; font-weight: 700; display: inline-flex; align-items: center; gap: 6px; background: rgba(34, 197, 94, 0.12); padding: 3px 8px; border-radius: 6px; border: 1px solid rgba(34, 197, 94, 0.3);">
+            <i class="fa-solid fa-circle-check"></i> Conectado à Hospedagem
+          </span>
+        </div>
+
         <!-- Sistema de Abas (Tabs) -->
         <div class="admin-tabs-nav" role="tablist">
           <button type="button" class="admin-tab-btn active" id="tabBtnAgenda" onclick="switchAdminTab('agenda')">
@@ -6758,6 +6769,57 @@
     }
 
     /* =======================================================
+       API REST DE PERSISTÊNCIA DIRETA NO SERVIDOR (Zero Armazenamento Local)
+       Gravação e recuperação de dados exclusivamente na hospedagem/servidor.
+       ======================================================= */
+    const SERVER_API_BASE = '/api';
+    let adminAuthToken = 'gilmar_admin_secret_token_2026';
+    let liveServerData = null;
+
+    async function fetchServerContent() {
+      try {
+        const response = await fetch(`${SERVER_API_BASE}/content`, {
+          method: 'GET',
+          headers: {
+            'Accept': 'application/json',
+            'Cache-Control': 'no-cache, no-store'
+          }
+        });
+        if (response.ok) {
+          const json = await response.json();
+          if (json && json.success && json.data) {
+            liveServerData = json.data;
+            return liveServerData;
+          }
+        }
+      } catch (err) {
+        console.warn('[Servidor] Não foi possível carregar dados da API:', err);
+      }
+      return null;
+    }
+
+    async function persistSectionToServer(section, data) {
+      const response = await fetch(`${SERVER_API_BASE}/admin/content`, {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json',
+          'Authorization': `Bearer ${adminAuthToken}`
+        },
+        body: JSON.stringify({ section, data })
+      });
+
+      if (!response.ok) {
+        const errJson = await response.json().catch(() => ({}));
+        throw new Error(errJson.error || `Erro HTTP ${response.status} ao salvar no servidor.`);
+      }
+
+      const result = await response.json();
+      if (!liveServerData) liveServerData = {};
+      liveServerData[section] = data;
+      return result;
+    }
+
+    /* =======================================================
        ÁUDIO DO TOPO & LETREIRO DIGITAL PERSONALIZÁVEL
        Integração com YouTube IFrame Player API & Controles Admin
        ======================================================= */
@@ -6784,19 +6846,14 @@
     }
 
     function getStoredTopAudioSettings() {
-      try {
-        const raw = localStorage.getItem('gilmar_top_audio_settings');
-        if (raw) {
-          const parsed = JSON.parse(raw);
-          return {
-            songTitle: parsed.songTitle || DEFAULT_TOP_AUDIO_SETTINGS.songTitle,
-            url: parsed.url || DEFAULT_TOP_AUDIO_SETTINGS.url,
-            clickAction: parsed.clickAction || DEFAULT_TOP_AUDIO_SETTINGS.clickAction,
-            showDirectLink: parsed.showDirectLink !== undefined ? !!parsed.showDirectLink : true
-          };
-        }
-      } catch (e) {
-        console.warn('Erro ao carregar configurações de áudio salvas:', e);
+      if (liveServerData && liveServerData.audioTopo) {
+        const parsed = liveServerData.audioTopo;
+        return {
+          songTitle: parsed.songTitle || DEFAULT_TOP_AUDIO_SETTINGS.songTitle,
+          url: parsed.url || DEFAULT_TOP_AUDIO_SETTINGS.url,
+          clickAction: parsed.clickAction || DEFAULT_TOP_AUDIO_SETTINGS.clickAction,
+          showDirectLink: parsed.showDirectLink !== undefined ? !!parsed.showDirectLink : true
+        };
       }
       return { ...DEFAULT_TOP_AUDIO_SETTINGS };
     }
@@ -7044,7 +7101,7 @@
       updateAudioLivePreview();
     }
 
-    function saveTopAudioSettings() {
+    async function saveTopAudioSettings() {
       const titleInput = document.getElementById('adminAudioSongTitle');
       const urlInput = document.getElementById('adminAudioUrl');
       const actionOpen = document.getElementById('audioActionOpen');
@@ -7058,15 +7115,18 @@
       };
 
       try {
-        localStorage.setItem('gilmar_top_audio_settings', JSON.stringify(newSettings));
+        await persistSectionToServer('audioTopo', newSettings);
       } catch (err) {
-        console.error('Erro ao salvar no localStorage:', err);
+        console.error('Erro ao salvar no servidor:', err);
+        alert('Erro ao gravar configurações de áudio no servidor: ' + (err.message || ''));
+        return;
       }
 
       applyTopAudioSettingsToUI(newSettings);
 
       const msg = document.getElementById('adminAudioSuccessMsg');
       if (msg) {
+        msg.innerHTML = '<i class="fa-solid fa-cloud-arrow-up" style="margin-right: 6px;"></i> Configurações de áudio salvas diretamente no servidor!';
         msg.style.display = 'block';
         setTimeout(() => {
           msg.style.display = 'none';
@@ -7074,19 +7134,22 @@
       }
     }
 
-    function resetDefaultTopAudioSettings() {
-      if (!confirm('Deseja restaurar as configurações oficiais padrão do áudio e letreiro?')) return;
+    async function resetDefaultTopAudioSettings() {
+      if (!confirm('Deseja restaurar as configurações oficiais padrão do áudio e letreiro no servidor?')) return;
       
       try {
-        localStorage.removeItem('gilmar_top_audio_settings');
-      } catch (e) {}
+        await persistSectionToServer('audioTopo', DEFAULT_TOP_AUDIO_SETTINGS);
+      } catch (e) {
+        alert('Erro ao restaurar configurações no servidor: ' + (e.message || ''));
+        return;
+      }
 
       populateAdminAudioInputs();
       applyTopAudioSettingsToUI(DEFAULT_TOP_AUDIO_SETTINGS);
 
       const msg = document.getElementById('adminAudioSuccessMsg');
       if (msg) {
-        msg.innerHTML = '<i class="fa-solid fa-circle-check" style="margin-right: 6px;"></i> Padrão oficial de áudio restaurado com sucesso!';
+        msg.innerHTML = '<i class="fa-solid fa-circle-check" style="margin-right: 6px;"></i> Padrão oficial de áudio restaurado e salvo no servidor!';
         msg.style.display = 'block';
         setTimeout(() => {
           msg.style.display = 'none';
@@ -7164,28 +7227,22 @@
     }
 
     function getStoredShows() {
-      try {
-        const stored = localStorage.getItem('gilmar_torrez_agenda_shows');
-        if (stored) {
-          const parsed = JSON.parse(stored);
-          if (Array.isArray(parsed)) {
-            // Remove antigos blocos de exemplo padrão se existirem
-            const filtered = parsed.filter(s => !['show-1', 'show-2', 'show-3', 'show-4'].includes(s.id));
-            return sortShowsByDate(filtered);
-          }
-        }
-      } catch (e) {
-        console.warn('Erro ao ler agenda do localStorage:', e);
+      if (liveServerData && Array.isArray(liveServerData.shows)) {
+        return sortShowsByDate(liveServerData.shows);
       }
       return sortShowsByDate(DEFAULT_SHOWS);
     }
 
-    function saveStoredShows(shows) {
+    async function saveStoredShows(shows) {
       const sorted = sortShowsByDate(shows);
+      if (!liveServerData) liveServerData = {};
+      liveServerData.shows = sorted;
+      
       try {
-        localStorage.setItem('gilmar_torrez_agenda_shows', JSON.stringify(sorted));
+        await persistSectionToServer('shows', sorted);
       } catch (e) {
-        console.warn('Erro ao salvar agenda no localStorage:', e);
+        console.warn('Erro ao salvar agenda no servidor:', e);
+        alert('Erro ao gravar shows no servidor: ' + (e.message || 'Verifique sua conexão.'));
       }
       renderAgenda();
       renderAdminList();
@@ -7427,11 +7484,13 @@
       }
     }
 
+    let isAdminAuthenticated = false;
+
     function openAdminModal() {
       const modal = document.getElementById('adminModal');
       if (!modal) return;
       
-      const isLogged = sessionStorage.getItem('gilmar_admin_logged') === 'true';
+      const isLogged = isAdminAuthenticated;
       const loginView = document.getElementById('adminLoginView');
       const panelView = document.getElementById('adminPanelView');
       const errorMsg = document.getElementById('adminLoginErrorMsg');
@@ -7476,7 +7535,7 @@
       }
     }
 
-    function handleAdminLogin(e) {
+    async function handleAdminLogin(e) {
       e.preventDefault();
       const userInput = document.getElementById('adminUsernameInput');
       const passInput = document.getElementById('adminPasswordInput');
@@ -7486,7 +7545,7 @@
       const pass = passInput ? passInput.value.trim() : '';
 
       if (user === 'admin' && pass === 'dndigqol') {
-        sessionStorage.setItem('gilmar_admin_logged', 'true');
+        isAdminAuthenticated = true;
         if (errorMsg) errorMsg.style.display = 'none';
         if (userInput) userInput.value = '';
         if (passInput) passInput.value = '';
@@ -7507,7 +7566,7 @@
     }
 
     function adminLogout() {
-      sessionStorage.removeItem('gilmar_admin_logged');
+      isAdminAuthenticated = false;
       currentEditingId = null;
       switchAdminTab('agenda');
       document.getElementById('adminPanelView').style.display = 'none';
@@ -7754,79 +7813,78 @@
     let adminGalleryState = null;
 
     function getStoredGalleryData() {
+      if (adminGalleryState) return adminGalleryState;
+
+      const sourceData = (liveServerData && liveServerData.midias) ? liveServerData.midias : defaultGalleryData;
+      const result = JSON.parse(JSON.stringify(defaultGalleryData));
+
       try {
-        const raw = localStorage.getItem(MEDIA_STORAGE_KEY);
-        if (!raw) return JSON.parse(JSON.stringify(defaultGalleryData));
-        const parsed = JSON.parse(raw);
-        const result = JSON.parse(JSON.stringify(defaultGalleryData));
-        if (parsed.fotoPrincipal) {
+        if (sourceData.fotoPrincipal) {
           result.fotoPrincipal = {
-            url: parsed.fotoPrincipal.url || defaultGalleryData.fotoPrincipal.url,
-            titulo: parsed.fotoPrincipal.titulo || defaultGalleryData.fotoPrincipal.titulo,
-            subtitulo: parsed.fotoPrincipal.subtitulo || defaultGalleryData.fotoPrincipal.subtitulo
+            url: sourceData.fotoPrincipal.url || defaultGalleryData.fotoPrincipal.url,
+            titulo: sourceData.fotoPrincipal.titulo || defaultGalleryData.fotoPrincipal.titulo,
+            subtitulo: sourceData.fotoPrincipal.subtitulo || defaultGalleryData.fotoPrincipal.subtitulo
           };
         }
-        if (parsed.logoOficial) {
-          let logoUrl = parsed.logoOficial.url || defaultGalleryData.logoOficial.url;
+        if (sourceData.logoOficial) {
+          let logoUrl = sourceData.logoOficial.url || defaultGalleryData.logoOficial.url;
           if (!logoUrl || logoUrl === '/logo.svg' || logoUrl === '/logo-clean.svg' || logoUrl.includes('undefined') || logoUrl.includes('null')) {
             logoUrl = '/logo.png';
           }
-          result.logoOficial = {
-            url: logoUrl
-          };
+          result.logoOficial = { url: logoUrl };
         }
-        if (parsed.bandaFundos) {
+        if (sourceData.bandaFundos) {
           result.bandaFundos = {
             solo: {
-              url: (parsed.bandaFundos.solo && parsed.bandaFundos.solo.url) ? parsed.bandaFundos.solo.url : defaultGalleryData.bandaFundos.solo.url,
+              url: (sourceData.bandaFundos.solo && sourceData.bandaFundos.solo.url) ? sourceData.bandaFundos.solo.url : defaultGalleryData.bandaFundos.solo.url,
               titulo: 'Formato Solo'
             },
             duo: {
-              url: (parsed.bandaFundos.duo && parsed.bandaFundos.duo.url) ? parsed.bandaFundos.duo.url : defaultGalleryData.bandaFundos.duo.url,
+              url: (sourceData.bandaFundos.duo && sourceData.bandaFundos.duo.url) ? sourceData.bandaFundos.duo.url : defaultGalleryData.bandaFundos.duo.url,
               titulo: 'Duo Acústico'
             },
             trio: {
-              url: (parsed.bandaFundos.trio && parsed.bandaFundos.trio.url) ? parsed.bandaFundos.trio.url : defaultGalleryData.bandaFundos.trio.url,
+              url: (sourceData.bandaFundos.trio && sourceData.bandaFundos.trio.url) ? sourceData.bandaFundos.trio.url : defaultGalleryData.bandaFundos.trio.url,
               titulo: 'Power Trio Rock'
             },
             banda: {
-              url: (parsed.bandaFundos.banda && parsed.bandaFundos.banda.url) ? parsed.bandaFundos.banda.url : defaultGalleryData.bandaFundos.banda.url,
+              url: (sourceData.bandaFundos.banda && sourceData.bandaFundos.banda.url) ? sourceData.bandaFundos.banda.url : defaultGalleryData.bandaFundos.banda.url,
               titulo: 'Banda Completa'
             }
           };
         } else {
           result.bandaFundos = JSON.parse(JSON.stringify(defaultGalleryData.bandaFundos));
         }
-        if (parsed.aulasFundo) {
+        if (sourceData.aulasFundo) {
           result.aulasFundo = {
-            url: parsed.aulasFundo.url || defaultGalleryData.aulasFundo.url,
-            titulo: parsed.aulasFundo.titulo || defaultGalleryData.aulasFundo.titulo
+            url: sourceData.aulasFundo.url || defaultGalleryData.aulasFundo.url,
+            titulo: sourceData.aulasFundo.titulo || defaultGalleryData.aulasFundo.titulo
           };
         } else {
           result.aulasFundo = JSON.parse(JSON.stringify(defaultGalleryData.aulasFundo));
         }
         ['shows-ao-vivo', 'acustico', 'guitarra-solo', 'celebracoes'].forEach(cat => {
-          if (parsed[cat]) {
-            if (Array.isArray(parsed[cat].fotos)) {
-              result[cat].fotos = parsed[cat].fotos.slice(0, 4);
+          if (sourceData[cat]) {
+            if (Array.isArray(sourceData[cat].fotos)) {
+              result[cat].fotos = sourceData[cat].fotos.slice(0, 4);
             }
-            if (Array.isArray(parsed[cat].descricoes)) {
-              result[cat].descricoes = parsed[cat].descricoes.slice(0, 4);
+            if (Array.isArray(sourceData[cat].descricoes)) {
+              result[cat].descricoes = sourceData[cat].descricoes.slice(0, 4);
             } else {
               result[cat].descricoes = ['', '', '', ''];
             }
           }
         });
-        if (Array.isArray(parsed.videos) && parsed.videos.length > 0) {
-          result.videos = parsed.videos.slice(0, 2).map((v, i) => ({
+        if (Array.isArray(sourceData.videos) && sourceData.videos.length > 0) {
+          result.videos = sourceData.videos.slice(0, 2).map((v, i) => ({
             id: v.id || `video-${i + 1}`,
             titulo: v.titulo || (result.videos[i] ? result.videos[i].titulo : ''),
             descricao: typeof v.descricao === 'string' ? v.descricao : '',
             embedUrl: v.embedUrl || (result.videos[i] ? result.videos[i].embedUrl : '')
           }));
         }
-        if (Array.isArray(parsed.instagram) && parsed.instagram.length > 0) {
-          result.instagram = parsed.instagram.slice(0, 6).map((item, idx) => ({
+        if (Array.isArray(sourceData.instagram) && sourceData.instagram.length > 0) {
+          result.instagram = sourceData.instagram.slice(0, 6).map((item, idx) => ({
             url: item.url || (defaultGalleryData.instagram[idx] ? defaultGalleryData.instagram[idx].url : '/stage-bg.jpg'),
             caption: typeof item.caption === 'string' ? item.caption : (defaultGalleryData.instagram[idx] ? defaultGalleryData.instagram[idx].caption : ''),
             likes: item.likes || (defaultGalleryData.instagram[idx] ? defaultGalleryData.instagram[idx].likes : '180'),
@@ -7836,11 +7894,11 @@
         } else {
           result.instagram = JSON.parse(JSON.stringify(defaultGalleryData.instagram));
         }
-        return result;
       } catch (e) {
-        console.error('Erro ao ler galeria do localStorage:', e);
-        return JSON.parse(JSON.stringify(defaultGalleryData));
+        console.error('Erro ao processar dados de galeria do servidor:', e);
       }
+      adminGalleryState = result;
+      return adminGalleryState;
     }
 
     function formatYouTubeEmbedUrl(url) {
@@ -7857,7 +7915,7 @@
       return trimmed;
     }
 
-    // Compressão via canvas antes de converter para Base64 (otimização de localStorage)
+    // Compressão via canvas antes de converter para Base64 (otimização de tráfego HTTP e payload do servidor)
     function compressImage(file, maxWidth = 1200, maxHeight = 1200, quality = 0.82) {
       return new Promise((resolve, reject) => {
         const reader = new FileReader();
@@ -8508,7 +8566,7 @@
       }
     }
 
-    function saveMediaGallery() {
+    async function saveMediaGallery() {
       if (!adminGalleryState) {
         adminGalleryState = getStoredGalleryData();
       }
@@ -8620,19 +8678,20 @@
       }
 
       try {
-        localStorage.setItem(MEDIA_STORAGE_KEY, JSON.stringify(adminGalleryState));
+        await persistSectionToServer('midias', adminGalleryState);
         renderSiteGallery();
 
         const successMsg = document.getElementById('adminMediaSuccessMsg');
         if (successMsg) {
+          successMsg.innerHTML = '<i class="fa-solid fa-cloud-arrow-up" style="margin-right: 6px;"></i> Mídias gravadas diretamente no servidor com sucesso!';
           successMsg.style.display = 'block';
           setTimeout(() => {
             successMsg.style.display = 'none';
           }, 3500);
         }
       } catch (e) {
-        console.error('Erro ao salvar galeria:', e);
-        alert('Erro ao gravar mídias no armazenamento do navegador. Tente enviar fotos menores.');
+        console.error('Erro ao salvar galeria no servidor:', e);
+        alert('Erro ao gravar mídias no servidor: ' + (e.message || 'Tente fotos menores ou verifique a conexão.'));
       }
     }
 
@@ -9148,17 +9207,11 @@
     let pendingThemeState = { colorId: 'principal', fontId: 'principal' };
 
     function getStoredThemeSettings() {
-      try {
-        const raw = localStorage.getItem('gilmar_theme_settings');
-        if (raw) {
-          const parsed = JSON.parse(raw);
-          return {
-            colorId: parsed.colorId || 'principal',
-            fontId: parsed.fontId || 'principal'
-          };
-        }
-      } catch (err) {
-        console.warn('Erro ao carregar tema do localStorage:', err);
+      if (liveServerData && liveServerData.theme) {
+        return {
+          colorId: liveServerData.theme.paletteId || liveServerData.theme.colorId || 'principal',
+          fontId: liveServerData.theme.fontId || 'principal'
+        };
       }
       return { colorId: 'principal', fontId: 'principal' };
     }
@@ -9196,16 +9249,18 @@
       renderThemeOptions();
     }
 
-    function saveCustomTheme() {
+    async function saveCustomTheme() {
       currentThemeState = { ...pendingThemeState };
       try {
-        localStorage.setItem('gilmar_theme_settings', JSON.stringify(currentThemeState));
+        await persistSectionToServer('theme', currentThemeState);
       } catch (err) {
-        console.error('Erro ao salvar tema:', err);
+        console.error('Erro ao salvar tema no servidor:', err);
+        alert('Erro ao gravar tema no servidor: ' + (err.message || 'Verifique a conexão.'));
       }
 
       const msg = document.getElementById('adminThemeSuccessMsg');
       if (msg) {
+        msg.innerHTML = '<i class="fa-solid fa-cloud-arrow-up" style="margin-right: 6px;"></i> Cores e Tipografia salvas diretamente no servidor!';
         msg.style.display = 'block';
         setTimeout(() => {
           msg.style.display = 'none';
@@ -9214,9 +9269,9 @@
       renderThemeOptions();
     }
 
-    function resetDefaultTheme() {
+    async function resetDefaultTheme() {
       pendingThemeState = { colorId: 'principal', fontId: 'principal' };
-      saveCustomTheme();
+      await saveCustomTheme();
       applyCurrentThemeLive();
       renderThemeOptions();
     }
@@ -9300,10 +9355,26 @@
       applyCurrentThemeLive();
     }
 
-    // Inicialização da Agenda, Galeria e Tema ao carregar a página
+    async function initSiteContentFromServer() {
+      const serverData = await fetchServerContent();
+      if (serverData) {
+        initThemeSystem();
+        renderAgenda();
+        renderSiteGallery();
+        applyTopAudioSettingsToUI();
+        const statusEl = document.getElementById('serverConnectionStatus');
+        if (statusEl) {
+          statusEl.innerHTML = '<i class="fa-solid fa-circle-check"></i> Conectado à Hospedagem';
+          statusEl.style.color = '#4ade80';
+        }
+      }
+    }
+
+    // Inicialização inicial e sincronização em tempo real com o servidor da hospedagem
     initThemeSystem();
     renderAgenda();
     renderSiteGallery();
+    initSiteContentFromServer();
 
     // Expõe funções para chamadas inline do HTML
     window.openAdminModal = openAdminModal;
