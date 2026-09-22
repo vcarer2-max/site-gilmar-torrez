@@ -3509,7 +3509,302 @@
     }
 
     /* ==========================================
-       6. FOOTER (RODAPÉ ATUALIZADO COM TIKTOK OFICIAL)
+       6. GALERIA DO INSTAGRAM (@gilmartorrez07)
+       ========================================== */
+    .instagram-section {
+      background: linear-gradient(180deg, rgba(10, 11, 16, 0.96) 0%, rgba(16, 18, 26, 0.98) 50%, rgba(9, 10, 14, 0.98) 100%);
+      position: relative;
+      border-top: 1px solid var(--border-subtle);
+      overflow: hidden;
+    }
+
+    .instagram-profile-header {
+      background: rgba(22, 24, 32, 0.7);
+      border: 1px solid rgba(255, 255, 255, 0.08);
+      border-radius: var(--radius-lg);
+      padding: 18px 24px;
+      margin-bottom: 32px;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      flex-wrap: wrap;
+      gap: 16px;
+    }
+
+    .instagram-profile-info {
+      display: flex;
+      align-items: center;
+      gap: 16px;
+    }
+
+    .instagram-avatar-wrap {
+      position: relative;
+      width: 58px;
+      height: 58px;
+      border-radius: 50%;
+      padding: 2.5px;
+      background: linear-gradient(45deg, #f09433 0%, #e6683c 25%, #dc2743 50%, #cc2366 75%, #bc1888 100%);
+      flex-shrink: 0;
+    }
+
+    .instagram-avatar-img {
+      width: 100%;
+      height: 100%;
+      border-radius: 50%;
+      object-fit: cover;
+      background: #090a0e;
+      display: block;
+    }
+
+    .instagram-badge-icon {
+      position: absolute;
+      bottom: -2px;
+      right: -2px;
+      width: 20px;
+      height: 20px;
+      border-radius: 50%;
+      background: linear-gradient(45deg, #f09433 0%, #dc2743 50%, #bc1888 100%);
+      color: #fff;
+      font-size: 0.72rem;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      border: 2px solid #090a0e;
+    }
+
+    .instagram-meta {
+      display: flex;
+      flex-direction: column;
+      gap: 3px;
+    }
+
+    .instagram-user-row {
+      display: flex;
+      align-items: center;
+      gap: 8px;
+    }
+
+    .instagram-handle {
+      font-family: var(--font-title);
+      font-size: 1.15rem;
+      font-weight: 800;
+      color: var(--text-white);
+      margin: 0;
+    }
+
+    .instagram-tag-verified {
+      display: inline-flex;
+      align-items: center;
+      gap: 4px;
+      font-size: 0.72rem;
+      font-weight: 700;
+      color: #38bdf8;
+      background: rgba(56, 189, 248, 0.12);
+      padding: 2px 8px;
+      border-radius: 999px;
+      border: 1px solid rgba(56, 189, 248, 0.25);
+    }
+
+    .instagram-bio {
+      font-size: 0.84rem;
+      color: var(--text-muted);
+      margin: 0;
+    }
+
+    .btn-instagram-follow {
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+      padding: 10px 20px;
+      border-radius: 999px;
+      background: linear-gradient(45deg, #f09433 0%, #e6683c 25%, #dc2743 50%, #cc2366 75%, #bc1888 100%);
+      color: #ffffff;
+      font-family: var(--font-title);
+      font-size: 0.85rem;
+      font-weight: 700;
+      text-decoration: none;
+      box-shadow: 0 4px 16px rgba(220, 39, 67, 0.35);
+      transition: var(--transition);
+      white-space: nowrap;
+    }
+
+    .btn-instagram-follow:hover {
+      transform: translateY(-2px);
+      box-shadow: 0 8px 24px rgba(220, 39, 67, 0.5);
+      color: #ffffff;
+    }
+
+    /* Grid do Instagram: 2 cols mobile, 3 cols tablet, 6 cols desktop */
+    .instagram-grid {
+      display: grid;
+      grid-template-columns: repeat(2, 1fr);
+      gap: 14px;
+      margin-bottom: 32px;
+    }
+
+    @media (min-width: 640px) {
+      .instagram-grid {
+        grid-template-columns: repeat(3, 1fr);
+        gap: 16px;
+      }
+    }
+
+    @media (min-width: 1024px) {
+      .instagram-grid {
+        grid-template-columns: repeat(6, 1fr);
+        gap: 16px;
+      }
+    }
+
+    .instagram-card {
+      position: relative;
+      border-radius: var(--radius-md);
+      overflow: hidden;
+      aspect-ratio: 1 / 1;
+      background: #090a0e;
+      border: 1px solid rgba(255, 255, 255, 0.08);
+      box-shadow: 0 4px 16px rgba(0, 0, 0, 0.4);
+      cursor: pointer;
+      display: block;
+      text-decoration: none;
+      transition: transform 0.35s ease, box-shadow 0.35s ease, border-color 0.35s ease;
+    }
+
+    .instagram-card:hover {
+      transform: translateY(-4px) scale(1.02);
+      border-color: rgba(225, 48, 108, 0.5);
+      box-shadow: 0 12px 30px rgba(0, 0, 0, 0.6), 0 0 20px rgba(225, 48, 108, 0.25);
+    }
+
+    .instagram-card img {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+      display: block;
+      transition: transform 0.6s cubic-bezier(0.16, 1, 0.3, 1);
+    }
+
+    .instagram-card:hover img {
+      transform: scale(1.08);
+    }
+
+    .instagram-card-badge {
+      position: absolute;
+      top: 10px;
+      right: 10px;
+      width: 26px;
+      height: 26px;
+      border-radius: 50%;
+      background: rgba(0, 0, 0, 0.55);
+      backdrop-filter: blur(4px);
+      color: #ffffff;
+      font-size: 0.75rem;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      z-index: 2;
+      transition: opacity 0.3s ease;
+    }
+
+    .instagram-card:hover .instagram-card-badge {
+      opacity: 0;
+    }
+
+    .instagram-overlay {
+      position: absolute;
+      inset: 0;
+      background: linear-gradient(180deg, rgba(0, 0, 0, 0.25) 0%, rgba(15, 12, 19, 0.90) 100%);
+      opacity: 0;
+      transition: opacity 0.3s ease;
+      display: flex;
+      flex-direction: column;
+      justify-content: space-between;
+      padding: 12px;
+      z-index: 3;
+    }
+
+    .instagram-card:hover .instagram-overlay {
+      opacity: 1;
+    }
+
+    .instagram-overlay-top {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      color: #ffffff;
+      font-size: 0.85rem;
+    }
+
+    .instagram-overlay-top i {
+      font-size: 1.1rem;
+      color: #f43f5e;
+    }
+
+    .instagram-overlay-center {
+      text-align: center;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      gap: 12px;
+      color: #ffffff;
+      font-family: var(--font-title);
+      font-weight: 700;
+      font-size: 0.82rem;
+    }
+
+    .instagram-stat-pill {
+      display: inline-flex;
+      align-items: center;
+      gap: 4px;
+    }
+
+    .instagram-stat-pill i {
+      color: #f43f5e;
+      font-size: 0.78rem;
+    }
+
+    .instagram-overlay-caption {
+      font-size: 0.72rem;
+      color: #f1f5f9;
+      line-height: 1.35;
+      display: -webkit-box;
+      -webkit-line-clamp: 2;
+      -webkit-box-orient: vertical;
+      overflow: hidden;
+      margin: 0;
+    }
+
+    .instagram-footer-cta {
+      text-align: center;
+      margin-top: 10px;
+    }
+
+    .instagram-main-cta {
+      background: linear-gradient(135deg, rgba(225, 48, 108, 0.15) 0%, rgba(225, 48, 108, 0.05) 100%);
+      border: 1px solid rgba(225, 48, 108, 0.4);
+      color: #ffffff;
+      display: inline-flex;
+      align-items: center;
+      gap: 10px;
+      padding: 14px 28px;
+      border-radius: var(--radius-full);
+      font-family: var(--font-title);
+      font-weight: 700;
+      font-size: 0.95rem;
+      text-decoration: none;
+      transition: var(--transition);
+    }
+
+    .instagram-main-cta:hover {
+      background: linear-gradient(45deg, #f09433 0%, #dc2743 50%, #bc1888 100%);
+      border-color: transparent;
+      color: #ffffff;
+      box-shadow: 0 8px 24px rgba(220, 39, 67, 0.4);
+      transform: translateY(-2px);
+    }
+
+    /* ==========================================
+       7. FOOTER (RODAPÉ ATUALIZADO COM TIKTOK OFICIAL)
        ========================================== */
     .footer {
       background-color: #06070a;
@@ -4799,7 +5094,59 @@
   </section>
 
   <!-- ==========================================
-       6. FOOTER (RODAPÉ COM TIKTOK OFICIAL ATUALIZADO)
+       6. GALERIA DO INSTAGRAM (@gilmartorrez07)
+       ========================================== -->
+  <section class="section-padding instagram-section" id="instagram">
+    <div class="container">
+      <div class="section-header">
+        <span class="section-badge" style="background: rgba(225, 48, 108, 0.12); border-color: rgba(225, 48, 108, 0.35); color: #f43f5e;">
+          <i class="fa-brands fa-instagram"></i> @gilmartorrez07
+        </span>
+        <h2 class="section-title">
+          Galeria do <span class="highlight">Instagram</span>
+        </h2>
+        <p class="section-subtitle">
+          Acompanhe os bastidores dos shows, trechos de ensaios, fotos ao vivo e momentos musicais em tempo real no perfil oficial de Gilmar Torrez.
+        </p>
+      </div>
+
+      <!-- Cabeçalho do Perfil Instagram -->
+      <div class="instagram-profile-header">
+        <div class="instagram-profile-info">
+          <div class="instagram-avatar-wrap">
+            <img src="/logo.png" alt="Gilmar Torrez" class="instagram-avatar-img" onerror="if(this.src.indexOf('/logo.jpg')===-1){this.src='/logo.jpg';}else{this.onerror=null;}" />
+            <span class="instagram-badge-icon"><i class="fa-brands fa-instagram"></i></span>
+          </div>
+          <div class="instagram-meta">
+            <div class="instagram-user-row">
+              <h3 class="instagram-handle">@gilmartorrez07</h3>
+              <span class="instagram-tag-verified" title="Músico Verificado"><i class="fa-solid fa-circle-check"></i> Oficial</span>
+            </div>
+            <p class="instagram-bio">Músico, Cantor, Guitarrista e Professor • Pop Rock & Acústico</p>
+          </div>
+        </div>
+        <a href="https://www.instagram.com/gilmartorrez07/" target="_blank" rel="noopener noreferrer" class="btn-instagram-follow" id="btnFollowInstagramTop">
+          <i class="fa-brands fa-instagram"></i>
+          <span>Seguir Perfil</span>
+        </a>
+      </div>
+
+      <!-- Grid de 6 fotos recentes do Instagram -->
+      <div class="instagram-grid" id="instagramPhotosGrid">
+        <!-- Preenchido e atualizado dinamicamente via renderSiteGallery / loadInstagramFeed -->
+      </div>
+
+      <div class="instagram-footer-cta">
+        <a href="https://www.instagram.com/gilmartorrez07/" target="_blank" rel="noopener noreferrer" class="btn-cta instagram-main-cta" id="btnInstagramProfileFull">
+          <i class="fa-brands fa-instagram"></i>
+          <span>Ver Mais Fotos e Vídeos no Instagram</span>
+        </a>
+      </div>
+    </div>
+  </section>
+
+  <!-- ==========================================
+       7. FOOTER (RODAPÉ COM TIKTOK OFICIAL ATUALIZADO)
        ========================================== -->
   <footer class="footer" id="contato">
     <div class="container">
@@ -5774,6 +6121,136 @@
               <div class="admin-form-group" style="margin-bottom: 0;">
                 <label for="adminVideoUrl1">URL do Vídeo no YouTube (ou Link de Compartilhamento)</label>
                 <input type="url" id="adminVideoUrl1" class="admin-input" placeholder="https://www.youtube.com/watch?v=... ou https://youtu.be/..." />
+              </div>
+            </div>
+          </div>
+
+          <!-- Categoria: Galeria do Instagram (@gilmartorrez07) -->
+          <div class="admin-media-category-card" style="border: 1px solid rgba(225, 48, 108, 0.35); background: linear-gradient(135deg, rgba(225, 48, 108, 0.05) 0%, rgba(18, 20, 28, 0.95) 100%); margin-bottom: 24px; box-shadow: 0 4px 20px rgba(0, 0, 0, 0.35);">
+            <div class="admin-media-category-header" style="border-bottom: 1px solid rgba(225, 48, 108, 0.25); padding-bottom: 10px;">
+              <h5>
+                <i class="fa-brands fa-instagram" style="color: #f43f5e;"></i> Galeria do Instagram (@gilmartorrez07)
+              </h5>
+              <span style="background: rgba(225, 48, 108, 0.15); color: #fda4af; border: 1px solid rgba(225, 48, 108, 0.3); font-weight: 700;">6 Fotos Recentes</span>
+            </div>
+
+            <div style="font-size: 0.8rem; color: #cbd5e1; margin: 10px 0 16px 0; line-height: 1.45;">
+              Personalize as <strong>6 fotos recentes</strong> exibidas no grid da <strong>Galeria do Instagram</strong> no final da página (antes do rodapé). Você pode enviar arquivos do seu dispositivo ou informar links diretos com legendas personalizadas.
+            </div>
+
+            <div class="admin-photo-grid" style="grid-template-columns: repeat(auto-fit, minmax(140px, 1fr));">
+              <!-- Slot 1 -->
+              <div class="admin-photo-slot">
+                <div class="admin-slot-header">
+                  <span>Foto 01</span>
+                  <button type="button" onclick="resetInstagramPhotoToDefault(0)" class="btn-text-xs" style="color: #94a3b8; font-size: 0.7rem; background: none; border: none; cursor: pointer;" title="Restaurar padrão"><i class="fa-solid fa-rotate-left"></i></button>
+                </div>
+                <div class="admin-photo-preview-wrap">
+                  <img id="preview-instagram-0" class="admin-photo-img" src="" alt="Preview Instagram 01" />
+                </div>
+                <label class="admin-upload-trigger">
+                  <i class="fa-solid fa-cloud-arrow-up"></i> Trocar Foto
+                  <input type="file" accept="image/*" class="admin-file-hidden" onchange="handleInstagramImageUpload(event, 0)" />
+                </label>
+                <div class="admin-photo-desc-wrap">
+                  <input type="text" id="desc-instagram-0" class="admin-photo-desc-input" placeholder="Legenda do post..." />
+                  <input type="url" id="adminInstagramUrl_0" class="admin-input" placeholder="Ou URL da foto..." oninput="handleInstagramUrlInput(this.value, 0)" style="margin-top: 4px; font-size: 0.72rem; padding: 4px 6px;" />
+                </div>
+              </div>
+
+              <!-- Slot 2 -->
+              <div class="admin-photo-slot">
+                <div class="admin-slot-header">
+                  <span>Foto 02</span>
+                  <button type="button" onclick="resetInstagramPhotoToDefault(1)" class="btn-text-xs" style="color: #94a3b8; font-size: 0.7rem; background: none; border: none; cursor: pointer;" title="Restaurar padrão"><i class="fa-solid fa-rotate-left"></i></button>
+                </div>
+                <div class="admin-photo-preview-wrap">
+                  <img id="preview-instagram-1" class="admin-photo-img" src="" alt="Preview Instagram 02" />
+                </div>
+                <label class="admin-upload-trigger">
+                  <i class="fa-solid fa-cloud-arrow-up"></i> Trocar Foto
+                  <input type="file" accept="image/*" class="admin-file-hidden" onchange="handleInstagramImageUpload(event, 1)" />
+                </label>
+                <div class="admin-photo-desc-wrap">
+                  <input type="text" id="desc-instagram-1" class="admin-photo-desc-input" placeholder="Legenda do post..." />
+                  <input type="url" id="adminInstagramUrl_1" class="admin-input" placeholder="Ou URL da foto..." oninput="handleInstagramUrlInput(this.value, 1)" style="margin-top: 4px; font-size: 0.72rem; padding: 4px 6px;" />
+                </div>
+              </div>
+
+              <!-- Slot 3 -->
+              <div class="admin-photo-slot">
+                <div class="admin-slot-header">
+                  <span>Foto 03</span>
+                  <button type="button" onclick="resetInstagramPhotoToDefault(2)" class="btn-text-xs" style="color: #94a3b8; font-size: 0.7rem; background: none; border: none; cursor: pointer;" title="Restaurar padrão"><i class="fa-solid fa-rotate-left"></i></button>
+                </div>
+                <div class="admin-photo-preview-wrap">
+                  <img id="preview-instagram-2" class="admin-photo-img" src="" alt="Preview Instagram 03" />
+                </div>
+                <label class="admin-upload-trigger">
+                  <i class="fa-solid fa-cloud-arrow-up"></i> Trocar Foto
+                  <input type="file" accept="image/*" class="admin-file-hidden" onchange="handleInstagramImageUpload(event, 2)" />
+                </label>
+                <div class="admin-photo-desc-wrap">
+                  <input type="text" id="desc-instagram-2" class="admin-photo-desc-input" placeholder="Legenda do post..." />
+                  <input type="url" id="adminInstagramUrl_2" class="admin-input" placeholder="Ou URL da foto..." oninput="handleInstagramUrlInput(this.value, 2)" style="margin-top: 4px; font-size: 0.72rem; padding: 4px 6px;" />
+                </div>
+              </div>
+
+              <!-- Slot 4 -->
+              <div class="admin-photo-slot">
+                <div class="admin-slot-header">
+                  <span>Foto 04</span>
+                  <button type="button" onclick="resetInstagramPhotoToDefault(3)" class="btn-text-xs" style="color: #94a3b8; font-size: 0.7rem; background: none; border: none; cursor: pointer;" title="Restaurar padrão"><i class="fa-solid fa-rotate-left"></i></button>
+                </div>
+                <div class="admin-photo-preview-wrap">
+                  <img id="preview-instagram-3" class="admin-photo-img" src="" alt="Preview Instagram 04" />
+                </div>
+                <label class="admin-upload-trigger">
+                  <i class="fa-solid fa-cloud-arrow-up"></i> Trocar Foto
+                  <input type="file" accept="image/*" class="admin-file-hidden" onchange="handleInstagramImageUpload(event, 3)" />
+                </label>
+                <div class="admin-photo-desc-wrap">
+                  <input type="text" id="desc-instagram-3" class="admin-photo-desc-input" placeholder="Legenda do post..." />
+                  <input type="url" id="adminInstagramUrl_3" class="admin-input" placeholder="Ou URL da foto..." oninput="handleInstagramUrlInput(this.value, 3)" style="margin-top: 4px; font-size: 0.72rem; padding: 4px 6px;" />
+                </div>
+              </div>
+
+              <!-- Slot 5 -->
+              <div class="admin-photo-slot">
+                <div class="admin-slot-header">
+                  <span>Foto 05</span>
+                  <button type="button" onclick="resetInstagramPhotoToDefault(4)" class="btn-text-xs" style="color: #94a3b8; font-size: 0.7rem; background: none; border: none; cursor: pointer;" title="Restaurar padrão"><i class="fa-solid fa-rotate-left"></i></button>
+                </div>
+                <div class="admin-photo-preview-wrap">
+                  <img id="preview-instagram-4" class="admin-photo-img" src="" alt="Preview Instagram 05" />
+                </div>
+                <label class="admin-upload-trigger">
+                  <i class="fa-solid fa-cloud-arrow-up"></i> Trocar Foto
+                  <input type="file" accept="image/*" class="admin-file-hidden" onchange="handleInstagramImageUpload(event, 4)" />
+                </label>
+                <div class="admin-photo-desc-wrap">
+                  <input type="text" id="desc-instagram-4" class="admin-photo-desc-input" placeholder="Legenda do post..." />
+                  <input type="url" id="adminInstagramUrl_4" class="admin-input" placeholder="Ou URL da foto..." oninput="handleInstagramUrlInput(this.value, 4)" style="margin-top: 4px; font-size: 0.72rem; padding: 4px 6px;" />
+                </div>
+              </div>
+
+              <!-- Slot 6 -->
+              <div class="admin-photo-slot">
+                <div class="admin-slot-header">
+                  <span>Foto 06</span>
+                  <button type="button" onclick="resetInstagramPhotoToDefault(5)" class="btn-text-xs" style="color: #94a3b8; font-size: 0.7rem; background: none; border: none; cursor: pointer;" title="Restaurar padrão"><i class="fa-solid fa-rotate-left"></i></button>
+                </div>
+                <div class="admin-photo-preview-wrap">
+                  <img id="preview-instagram-5" class="admin-photo-img" src="" alt="Preview Instagram 06" />
+                </div>
+                <label class="admin-upload-trigger">
+                  <i class="fa-solid fa-cloud-arrow-up"></i> Trocar Foto
+                  <input type="file" accept="image/*" class="admin-file-hidden" onchange="handleInstagramImageUpload(event, 5)" />
+                </label>
+                <div class="admin-photo-desc-wrap">
+                  <input type="text" id="desc-instagram-5" class="admin-photo-desc-input" placeholder="Legenda do post..." />
+                  <input type="url" id="adminInstagramUrl_5" class="admin-input" placeholder="Ou URL da foto..." oninput="handleInstagramUrlInput(this.value, 5)" style="margin-top: 4px; font-size: 0.72rem; padding: 4px 6px;" />
+                </div>
               </div>
             </div>
           </div>
@@ -7227,6 +7704,50 @@
           descricao: '',
           embedUrl: 'https://www.youtube.com/embed/dQw4w9WgXcQ'
         }
+      ],
+      instagram: [
+        {
+          url: '/stage-bg.jpg',
+          caption: 'Soltando o som ao vivo com o público cantando junto! 🎸🔥 #GilmarTorrez #PopRock #AoVivo',
+          likes: '184',
+          comments: '26',
+          link: 'https://www.instagram.com/gilmartorrez07/'
+        },
+        {
+          url: 'https://images.unsplash.com/photo-1511671782779-c97d3d27a1d4?auto=format&fit=crop&w=800&q=80',
+          caption: 'Pocket show voz e violão acústico intimista. Gratidão a todos presentes! 🎶✨ #VozEViolao #Acustico',
+          likes: '247',
+          comments: '31',
+          link: 'https://www.instagram.com/gilmartorrez07/'
+        },
+        {
+          url: 'https://images.unsplash.com/photo-1514525253161-7a46d19cd819?auto=format&fit=crop&w=800&q=80',
+          caption: 'Guitarra solo no talo! Noite incrível de clássicos do rock nacional e internacional ⚡🎸 #GuitarSolo #Rock',
+          likes: '312',
+          comments: '42',
+          link: 'https://www.instagram.com/gilmartorrez07/'
+        },
+        {
+          url: 'https://images.unsplash.com/photo-1501386761578-eac5c94b800a?auto=format&fit=crop&w=800&q=80',
+          caption: 'Power Trio na pressão máxima! Sintonia pura com essa cozinha pesada 🥁🔊 #PowerTrio #Banda',
+          likes: '198',
+          comments: '19',
+          link: 'https://www.instagram.com/gilmartorrez07/'
+        },
+        {
+          url: 'https://images.unsplash.com/photo-1470225620780-dba8ba36b745?auto=format&fit=crop&w=800&q=80',
+          caption: 'Grande celebração e pista lotada! Evento corporativo inesquecível em Piracicaba 🥂🎉 #Eventos #Festa',
+          likes: '275',
+          comments: '38',
+          link: 'https://www.instagram.com/gilmartorrez07/'
+        },
+        {
+          url: 'https://images.unsplash.com/photo-1465847899084-d164df4dedc6?auto=format&fit=crop&w=800&q=80',
+          caption: 'Passagem de som e últimos ajustes antes de subir ao palco. Vamos com tudo! 🎤🎵 #Bastidores #Palco',
+          likes: '220',
+          comments: '24',
+          link: 'https://www.instagram.com/gilmartorrez07/'
+        }
       ]
     };
 
@@ -7303,6 +7824,17 @@
             descricao: typeof v.descricao === 'string' ? v.descricao : '',
             embedUrl: v.embedUrl || (result.videos[i] ? result.videos[i].embedUrl : '')
           }));
+        }
+        if (Array.isArray(parsed.instagram) && parsed.instagram.length > 0) {
+          result.instagram = parsed.instagram.slice(0, 6).map((item, idx) => ({
+            url: item.url || (defaultGalleryData.instagram[idx] ? defaultGalleryData.instagram[idx].url : '/stage-bg.jpg'),
+            caption: typeof item.caption === 'string' ? item.caption : (defaultGalleryData.instagram[idx] ? defaultGalleryData.instagram[idx].caption : ''),
+            likes: item.likes || (defaultGalleryData.instagram[idx] ? defaultGalleryData.instagram[idx].likes : '180'),
+            comments: item.comments || (defaultGalleryData.instagram[idx] ? defaultGalleryData.instagram[idx].comments : '25'),
+            link: item.link || 'https://www.instagram.com/gilmartorrez07/'
+          }));
+        } else {
+          result.instagram = JSON.parse(JSON.stringify(defaultGalleryData.instagram));
         }
         return result;
       } catch (e) {
@@ -7715,6 +8247,115 @@
       }
     }
 
+    async function handleInstagramImageUpload(event, index) {
+      const file = event.target.files && event.target.files[0];
+      if (!file) return;
+
+      try {
+        const base64 = await compressImage(file, 1000, 1000, 0.85);
+        if (!adminGalleryState) {
+          adminGalleryState = getStoredGalleryData();
+        }
+        if (!adminGalleryState.instagram) {
+          adminGalleryState.instagram = JSON.parse(JSON.stringify(defaultGalleryData.instagram));
+        }
+        if (!adminGalleryState.instagram[index]) {
+          adminGalleryState.instagram[index] = { ...defaultGalleryData.instagram[index] };
+        }
+        adminGalleryState.instagram[index].url = base64;
+
+        const previewEl = document.getElementById(`preview-instagram-${index}`);
+        if (previewEl) previewEl.src = base64;
+
+        const urlInput = document.getElementById(`adminInstagramUrl_${index}`);
+        if (urlInput) urlInput.value = '';
+
+        // Atualização em tempo real do grid do Instagram
+        renderInstagramGallery(adminGalleryState.instagram);
+      } catch (err) {
+        console.error('Erro ao processar foto do Instagram:', err);
+        alert('Não foi possível carregar a imagem. Tente outro arquivo.');
+      }
+    }
+
+    function handleInstagramUrlInput(url, index) {
+      const trimmed = (url || '').trim();
+      if (!adminGalleryState) adminGalleryState = getStoredGalleryData();
+      if (!adminGalleryState.instagram) {
+        adminGalleryState.instagram = JSON.parse(JSON.stringify(defaultGalleryData.instagram));
+      }
+      if (!adminGalleryState.instagram[index]) {
+        adminGalleryState.instagram[index] = { ...defaultGalleryData.instagram[index] };
+      }
+      adminGalleryState.instagram[index].url = trimmed || defaultGalleryData.instagram[index]?.url || '/stage-bg.jpg';
+
+      const previewEl = document.getElementById(`preview-instagram-${index}`);
+      if (previewEl) previewEl.src = adminGalleryState.instagram[index].url;
+
+      renderInstagramGallery(adminGalleryState.instagram);
+    }
+
+    function resetInstagramPhotoToDefault(index) {
+      if (!adminGalleryState) adminGalleryState = getStoredGalleryData();
+      if (!adminGalleryState.instagram) {
+        adminGalleryState.instagram = JSON.parse(JSON.stringify(defaultGalleryData.instagram));
+      }
+      const defaultItem = defaultGalleryData.instagram[index] || {
+        url: '/stage-bg.jpg',
+        caption: 'Momento musical ao vivo @gilmartorrez07',
+        likes: '180',
+        comments: '25',
+        link: 'https://www.instagram.com/gilmartorrez07/'
+      };
+
+      adminGalleryState.instagram[index] = JSON.parse(JSON.stringify(defaultItem));
+
+      const previewEl = document.getElementById(`preview-instagram-${index}`);
+      if (previewEl) previewEl.src = defaultItem.url;
+
+      const descInput = document.getElementById(`desc-instagram-${index}`);
+      if (descInput) descInput.value = defaultItem.caption;
+
+      const urlInput = document.getElementById(`adminInstagramUrl_${index}`);
+      if (urlInput) urlInput.value = '';
+
+      renderInstagramGallery(adminGalleryState.instagram);
+    }
+
+    function renderInstagramGallery(items) {
+      const grid = document.getElementById('instagramPhotosGrid');
+      if (!grid) return;
+
+      const list = (items && Array.isArray(items) && items.length > 0) ? items : defaultGalleryData.instagram;
+      grid.innerHTML = list.map((item, index) => {
+        const url = (item && item.url) ? item.url : (defaultGalleryData.instagram[index]?.url || '/stage-bg.jpg');
+        const caption = (item && item.caption) ? item.caption : (defaultGalleryData.instagram[index]?.caption || `Post no Instagram @gilmartorrez07 #${index + 1}`);
+        const likes = (item && item.likes) ? item.likes : (defaultGalleryData.instagram[index]?.likes || '180');
+        const comments = (item && item.comments) ? item.comments : (defaultGalleryData.instagram[index]?.comments || '25');
+        const link = (item && item.link) ? item.link : 'https://www.instagram.com/gilmartorrez07/';
+
+        return `
+          <a href="${link}" target="_blank" rel="noopener noreferrer" class="instagram-card" id="instaCard_${index}" title="Ver foto no Instagram @gilmartorrez07: ${caption.replace(/"/g, '&quot;')}">
+            <img src="${url}" alt="Instagram @gilmartorrez07 - Foto ${index + 1}" loading="lazy" onerror="this.onerror=null; this.src='/stage-bg.jpg';" />
+            <div class="instagram-card-badge">
+              <i class="fa-brands fa-instagram"></i>
+            </div>
+            <div class="instagram-overlay">
+              <div class="instagram-overlay-top">
+                <i class="fa-brands fa-instagram"></i>
+                <span style="font-size: 0.72rem; color: #cbd5e1; font-weight: 600;">@gilmartorrez07</span>
+              </div>
+              <div class="instagram-overlay-center">
+                <span class="instagram-stat-pill"><i class="fa-solid fa-heart"></i> ${likes}</span>
+                <span class="instagram-stat-pill"><i class="fa-solid fa-comment"></i> ${comments}</span>
+              </div>
+              <p class="instagram-overlay-caption">${caption}</p>
+            </div>
+          </a>
+        `;
+      }).join('');
+    }
+
     function switchAdminTab(tabName) {
       const btnAgenda = document.getElementById('tabBtnAgenda');
       const btnMidias = document.getElementById('tabBtnMidias');
@@ -7845,6 +8486,26 @@
           if (u1) u1.value = adminGalleryState.videos[1].embedUrl || '';
         }
       }
+
+      // Fotos do Instagram (@gilmartorrez07)
+      if (!adminGalleryState.instagram) {
+        adminGalleryState.instagram = JSON.parse(JSON.stringify(defaultGalleryData.instagram));
+      }
+      for (let i = 0; i < 6; i++) {
+        const item = adminGalleryState.instagram[i] || defaultGalleryData.instagram[i];
+        const previewEl = document.getElementById(`preview-instagram-${i}`);
+        if (previewEl && item && item.url) {
+          previewEl.src = item.url;
+        }
+        const descInput = document.getElementById(`desc-instagram-${i}`);
+        if (descInput && item) {
+          descInput.value = item.caption || '';
+        }
+        const urlInput = document.getElementById(`adminInstagramUrl_${i}`);
+        if (urlInput && item) {
+          urlInput.value = (item.url && !item.url.startsWith('data:')) ? item.url : '';
+        }
+      }
     }
 
     function saveMediaGallery() {
@@ -7939,6 +8600,24 @@
           embedUrl: formatYouTubeEmbedUrl(url1) || 'https://www.youtube.com/embed/dQw4w9WgXcQ'
         }
       ];
+
+      // Fotos do Instagram (@gilmartorrez07)
+      if (!adminGalleryState.instagram) {
+        adminGalleryState.instagram = JSON.parse(JSON.stringify(defaultGalleryData.instagram));
+      }
+      for (let i = 0; i < 6; i++) {
+        if (!adminGalleryState.instagram[i]) {
+          adminGalleryState.instagram[i] = { ...defaultGalleryData.instagram[i] };
+        }
+        const descInput = document.getElementById(`desc-instagram-${i}`);
+        if (descInput) {
+          adminGalleryState.instagram[i].caption = descInput.value.trim();
+        }
+        const urlInput = document.getElementById(`adminInstagramUrl_${i}`)?.value.trim();
+        if (urlInput) {
+          adminGalleryState.instagram[i].url = urlInput;
+        }
+      }
 
       try {
         localStorage.setItem(MEDIA_STORAGE_KEY, JSON.stringify(adminGalleryState));
@@ -8114,6 +8793,9 @@
           }
         });
       }
+
+      // Renderiza Galeria do Instagram (@gilmartorrez07)
+      renderInstagramGallery(data.instagram);
     }
 
     /* ==========================================
