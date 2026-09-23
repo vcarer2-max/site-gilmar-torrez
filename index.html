@@ -5357,6 +5357,10 @@
             <i class="fa-solid fa-compact-disc"></i>
             <span>Música do Topo</span>
           </button>
+          <button type="button" class="admin-tab-btn" id="tabBtnLinks" onclick="switchAdminTab('links')">
+            <i class="fa-solid fa-link"></i>
+            <span>Links & Redes</span>
+          </button>
         </div>
 
         <!-- Aba 1: Agenda de Shows -->
@@ -6484,6 +6488,67 @@
             </div>
           </div>
         </div>
+
+        <!-- Aba 5: Links Oficiais & Redes Sociais -->
+        <div id="adminTabLinks" class="admin-tab-content" style="display: none;">
+          <div style="background: rgba(37, 211, 102, 0.08); border: 1px solid rgba(37, 211, 102, 0.25); border-radius: 10px; padding: 14px 16px; margin-bottom: 18px;">
+            <div style="display: flex; align-items: center; gap: 10px; color: #86efac; font-weight: 700; font-size: 0.96rem; margin-bottom: 6px;">
+              <i class="fa-solid fa-link" style="color: #22c55e;"></i>
+              <span>Gerenciamento de Links, Contatos & Redes Sociais</span>
+            </div>
+            <p style="font-size: 0.84rem; color: #94a3b8; line-height: 1.5; margin: 0;">
+              Altere os links oficiais e contatos do Gilmar Torrez. Todas as alterações são <strong>salvas diretamente no banco de dados Supabase</strong> e atualizam em tempo real todos os botões do WhatsApp, Instagram e YouTube do site.
+            </p>
+          </div>
+
+          <div style="background: rgba(255, 255, 255, 0.02); border: 1px solid rgba(255, 255, 255, 0.08); border-radius: 12px; padding: 18px; margin-bottom: 20px;">
+            <!-- Campo 1: WhatsApp Número ou Link -->
+            <div style="margin-bottom: 18px;">
+              <label for="adminLinksWhatsapp" style="display: block; font-size: 0.85rem; font-weight: 700; color: #f1f5f9; margin-bottom: 6px;">
+                <i class="fa-brands fa-whatsapp" style="color: #22c55e; margin-right: 6px;"></i> WhatsApp (Número com DDD ou link wa.me):
+              </label>
+              <input type="text" id="adminLinksWhatsapp" class="admin-input" placeholder="Ex: 5519988034268 ou https://wa.me/5519988034268">
+              <span style="display: block; font-size: 0.76rem; color: #94a3b8; margin-top: 4px;">
+                Atualiza o botão flutuante do WhatsApp, o botão de contratação de shows, o botão de aulas e o rodapé.
+              </span>
+            </div>
+
+            <!-- Campo 2: Mensagem Padrão do WhatsApp -->
+            <div style="margin-bottom: 18px;">
+              <label for="adminLinksWhatsappMsg" style="display: block; font-size: 0.85rem; font-weight: 700; color: #f1f5f9; margin-bottom: 6px;">
+                <i class="fa-solid fa-comment-dots" style="color: #22c55e; margin-right: 6px;"></i> Mensagem Inicial ao Clicar no WhatsApp:
+              </label>
+              <input type="text" id="adminLinksWhatsappMsg" class="admin-input" placeholder="Ex: Olá Gilmar Torrez! Gostaria de um orçamento para show.">
+            </div>
+
+            <!-- Campo 3: Instagram -->
+            <div style="margin-bottom: 18px;">
+              <label for="adminLinksInstagram" style="display: block; font-size: 0.85rem; font-weight: 700; color: #f1f5f9; margin-bottom: 6px;">
+                <i class="fa-brands fa-instagram" style="color: #e1306c; margin-right: 6px;"></i> Perfil do Instagram (URL completa):
+              </label>
+              <input type="url" id="adminLinksInstagram" class="admin-input" placeholder="Ex: https://www.instagram.com/gilmartorrez07/">
+            </div>
+
+            <!-- Campo 4: YouTube -->
+            <div style="margin-bottom: 18px;">
+              <label for="adminLinksYoutube" style="display: block; font-size: 0.85rem; font-weight: 700; color: #f1f5f9; margin-bottom: 6px;">
+                <i class="fa-brands fa-youtube" style="color: #ef4444; margin-right: 6px;"></i> Canal Oficial do YouTube (URL completa):
+              </label>
+              <input type="url" id="adminLinksYoutube" class="admin-input" placeholder="Ex: https://www.youtube.com/@gilmartorrez">
+            </div>
+          </div>
+
+          <div class="admin-sticky-actions">
+            <div style="display: flex; gap: 10px; flex-direction: column;">
+              <button type="button" class="admin-btn-primary" id="adminSaveLinksBtn" onclick="saveSiteLinks()" style="width: 100%;">
+                <i class="fa-solid fa-cloud-arrow-up"></i> <span>Salvar Links no Banco de Dados Supabase</span>
+              </button>
+            </div>
+            <div id="adminLinksSuccessMsg" style="display: none; margin-top: 10px; background: rgba(34, 197, 94, 0.16); border: 1px solid #22c55e; color: #86efac; padding: 10px 14px; border-radius: 8px; font-size: 0.88rem; text-align: center;">
+              <i class="fa-solid fa-circle-check" style="margin-right: 6px;"></i> Links gravados no banco de dados com sucesso e aplicados em todo o site!
+            </div>
+          </div>
+        </div>
       </div>
 
     </div>
@@ -7293,6 +7358,118 @@
     window.applyAudioPreset = applyAudioPreset;
     window.saveTopAudioSettings = saveTopAudioSettings;
     window.resetDefaultTopAudioSettings = resetDefaultTopAudioSettings;
+
+    /* =======================================================
+       LINKS OFICIAIS & REDES SOCIAIS (PERSISTÊNCIA SUPABASE)
+       ======================================================= */
+    const DEFAULT_SITE_LINKS = {
+      whatsappNumber: "5519988034268",
+      whatsappMessage: "Olá Gilmar Torrez! Gostaria de solicitar um orçamento para show.",
+      instagramUrl: "https://www.instagram.com/gilmartorrez07/",
+      youtubeUrl: "https://www.youtube.com/@gilmartorrez"
+    };
+
+    function getStoredLinksData() {
+      if (liveServerData && liveServerData.links) {
+        return {
+          whatsappNumber: liveServerData.links.whatsappNumber || DEFAULT_SITE_LINKS.whatsappNumber,
+          whatsappMessage: liveServerData.links.whatsappMessage || DEFAULT_SITE_LINKS.whatsappMessage,
+          instagramUrl: liveServerData.links.instagramUrl || DEFAULT_SITE_LINKS.instagramUrl,
+          youtubeUrl: liveServerData.links.youtubeUrl || DEFAULT_SITE_LINKS.youtubeUrl
+        };
+      }
+      return { ...DEFAULT_SITE_LINKS };
+    }
+
+    function populateAdminLinksInputs() {
+      const links = getStoredLinksData();
+      const waInput = document.getElementById('adminLinksWhatsapp');
+      const waMsgInput = document.getElementById('adminLinksWhatsappMsg');
+      const instaInput = document.getElementById('adminLinksInstagram');
+      const ytInput = document.getElementById('adminLinksYoutube');
+
+      if (waInput) waInput.value = links.whatsappNumber;
+      if (waMsgInput) waMsgInput.value = links.whatsappMessage;
+      if (instaInput) instaInput.value = links.instagramUrl;
+      if (ytInput) ytInput.value = links.youtubeUrl;
+    }
+
+    function applySiteLinks(customLinks) {
+      const links = customLinks || getStoredLinksData();
+      
+      // Gera URL completa do WhatsApp
+      let cleanWa = (links.whatsappNumber || '').trim();
+      let waHref = cleanWa;
+      if (!cleanWa.startsWith('http://') && !cleanWa.startsWith('https://')) {
+        cleanWa = cleanWa.replace(/\D/g, '');
+        if (cleanWa.length <= 11 && !cleanWa.startsWith('55') && cleanWa.length > 0) {
+          cleanWa = '55' + cleanWa;
+        }
+        waHref = `https://wa.me/${cleanWa}?text=${encodeURIComponent(links.whatsappMessage || 'Olá Gilmar!')}`;
+      }
+
+      // 1. Atualiza todos os links do WhatsApp na página
+      const waLinks = document.querySelectorAll('a[href*="wa.me"], a.whatsapp-floating, a.btn-whatsapp');
+      waLinks.forEach(el => {
+        el.href = waHref;
+      });
+
+      // 2. Atualiza todos os links do Instagram (exceto cards individuais de posts da galeria)
+      if (links.instagramUrl) {
+        const instaLinks = document.querySelectorAll('a[href*="instagram.com"]');
+        instaLinks.forEach(el => {
+          if (!el.closest('.instagram-card')) {
+            el.href = links.instagramUrl;
+          }
+        });
+      }
+
+      // 3. Atualiza todos os links do canal do YouTube
+      if (links.youtubeUrl) {
+        const ytLinks = document.querySelectorAll('a[href*="youtube.com"]');
+        ytLinks.forEach(el => {
+          if (!el.classList.contains('top-audio-ext-link') && !el.closest('.video-card')) {
+            el.href = links.youtubeUrl;
+          }
+        });
+      }
+    }
+
+    async function saveSiteLinks() {
+      const waInput = document.getElementById('adminLinksWhatsapp');
+      const waMsgInput = document.getElementById('adminLinksWhatsappMsg');
+      const instaInput = document.getElementById('adminLinksInstagram');
+      const ytInput = document.getElementById('adminLinksYoutube');
+
+      const linksData = {
+        whatsappNumber: (waInput && waInput.value.trim()) || DEFAULT_SITE_LINKS.whatsappNumber,
+        whatsappMessage: (waMsgInput && waMsgInput.value.trim()) || DEFAULT_SITE_LINKS.whatsappMessage,
+        instagramUrl: (instaInput && instaInput.value.trim()) || DEFAULT_SITE_LINKS.instagramUrl,
+        youtubeUrl: (ytInput && ytInput.value.trim()) || DEFAULT_SITE_LINKS.youtubeUrl
+      };
+
+      try {
+        await persistSectionToServer('links', linksData);
+      } catch (err) {
+        console.error('Erro ao salvar links no banco de dados:', err);
+        alert('Erro ao gravar links no banco de dados Supabase: ' + (err.message || ''));
+        return;
+      }
+
+      applySiteLinks(linksData);
+
+      const msg = document.getElementById('adminLinksSuccessMsg');
+      if (msg) {
+        msg.style.display = 'block';
+        setTimeout(() => {
+          msg.style.display = 'none';
+        }, 3500);
+      }
+    }
+
+    window.populateAdminLinksInputs = populateAdminLinksInputs;
+    window.saveSiteLinks = saveSiteLinks;
+    window.applySiteLinks = applySiteLinks;
 
     /* ==========================================
        GESTÃO ADMINISTRATIVA DA AGENDA DE SHOWS
@@ -8608,13 +8785,15 @@
       const btnMidias = document.getElementById('tabBtnMidias');
       const btnTemas = document.getElementById('tabBtnTemas');
       const btnAudioTopo = document.getElementById('tabBtnAudioTopo');
+      const btnLinks = document.getElementById('tabBtnLinks');
       const tabAgenda = document.getElementById('adminTabAgenda');
       const tabMidias = document.getElementById('adminTabMidias');
       const tabTemas = document.getElementById('adminTabTemas');
       const tabAudioTopo = document.getElementById('adminTabAudioTopo');
+      const tabLinks = document.getElementById('adminTabLinks');
 
-      [btnAgenda, btnMidias, btnTemas, btnAudioTopo].forEach(btn => btn && btn.classList.remove('active'));
-      [tabAgenda, tabMidias, tabTemas, tabAudioTopo].forEach(tab => tab && (tab.style.display = 'none'));
+      [btnAgenda, btnMidias, btnTemas, btnAudioTopo, btnLinks].forEach(btn => btn && btn.classList.remove('active'));
+      [tabAgenda, tabMidias, tabTemas, tabAudioTopo, tabLinks].forEach(tab => tab && (tab.style.display = 'none'));
 
       if (tabName === 'midias') {
         if (btnMidias) btnMidias.classList.add('active');
@@ -8628,6 +8807,10 @@
         if (btnAudioTopo) btnAudioTopo.classList.add('active');
         if (tabAudioTopo) tabAudioTopo.style.display = 'block';
         populateAdminAudioInputs();
+      } else if (tabName === 'links') {
+        if (btnLinks) btnLinks.classList.add('active');
+        if (tabLinks) tabLinks.style.display = 'block';
+        populateAdminLinksInputs();
       } else {
         if (btnAgenda) btnAgenda.classList.add('active');
         if (tabAgenda) tabAgenda.style.display = 'block';
@@ -9551,18 +9734,22 @@
         renderAgenda();
         renderSiteGallery();
         applyTopAudioSettingsToUI();
+        applySiteLinks();
         const statusEl = document.getElementById('serverConnectionStatus');
         if (statusEl) {
-          statusEl.innerHTML = '<i class="fa-solid fa-circle-check"></i> Conectado à Hospedagem';
+          statusEl.innerHTML = '<i class="fa-solid fa-circle-check"></i> Conectado ao Banco Supabase';
           statusEl.style.color = '#4ade80';
         }
+      } else {
+        applySiteLinks();
       }
     }
 
-    // Inicialização inicial e sincronização em tempo real com o servidor da hospedagem
+    // Inicialização inicial e sincronização em tempo real com o banco Supabase / hospedagem
     initThemeSystem();
     renderAgenda();
     renderSiteGallery();
+    applySiteLinks();
     initSiteContentFromServer();
 
     // Expõe funções para chamadas inline do HTML
