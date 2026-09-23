@@ -23,6 +23,9 @@
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
   <link href="https://fonts.googleapis.com/css2?family=Bebas+Neue&family=Caveat:wght@600;700&family=Cinzel:wght@600;700;800&family=DM+Sans:wght@400;500;700&family=Inter:wght@400;500;600;700&family=Lora:ital,wght@0,400;0,600;1,400&family=Montserrat:wght@400;500;600;700;800;900&family=Open+Sans:wght@300;400;500;600;700&family=Oswald:wght@500;600;700&family=Outfit:wght@500;600;700;800&family=Playfair+Display:ital,wght@0,600;0,700;1,600&family=Plus+Jakarta+Sans:wght@600;700;800&family=Poppins:wght@500;600;700;800&family=Raleway:wght@400;500;600;700&family=Roboto:wght@400;500;700&family=Space+Grotesk:wght@600;700&family=Syne:wght@700;800&display=swap" rel="stylesheet" />
   
+  <!-- Supabase JS Client v2 via CDN para persistência na nuvem no GitHub Pages -->
+  <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+  
   <!-- Script de Inicialização Instantânea do Tema Oficial (Zero Armazenamento Local) -->
   <script>
     (function() {
@@ -6769,54 +6772,176 @@
     }
 
     /* =======================================================
-       API REST DE PERSISTÊNCIA DIRETA NO SERVIDOR (Zero Armazenamento Local)
-       Gravação e recuperação de dados exclusivamente na hospedagem/servidor.
+       SUPABASE & API REST DE PERSISTÊNCIA DIRETA NA NUVEM / HOSPEDAGEM
+       Compatível 100% com GitHub Pages (vcarer2-max.github.io) e Servidores Dedicados
        ======================================================= */
+    const SUPABASE_URL = 'https://ykcfzpxvonnpgrveqqla.supabase.co';
+    const SUPABASE_ANON_KEY = 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6InlrY2Z6cHh2b25ucGdydmVxcWxhIiwicm9sZSI6ImFub24iLCJpYXQiOjE3OTAxMDY1NjYsImV4cCI6MjEwNTY4MjU2Nn0.M3MFkx2FVZbjPBVOyu-i3wjO6fYEIyZERTlyGuJhuMk';
+
+    let supabaseClient = null;
+    try {
+      if (window.supabase && typeof window.supabase.createClient === 'function') {
+        supabaseClient = window.supabase.createClient(SUPABASE_URL, SUPABASE_ANON_KEY);
+      }
+    } catch (e) {
+      console.warn('Erro ao inicializar Supabase:', e);
+    }
+
+    const isStaticHosting = window.location.hostname.includes('github.io') || window.location.hostname.includes('.pages.dev') || window.location.protocol === 'file:';
     const SERVER_API_BASE = '/api';
     let adminAuthToken = 'gilmar_admin_secret_token_2026';
     let liveServerData = null;
+    let supabaseUserSession = null;
 
     async function fetchServerContent() {
-      try {
-        const response = await fetch(`${SERVER_API_BASE}/content`, {
-          method: 'GET',
-          headers: {
-            'Accept': 'application/json',
-            'Cache-Control': 'no-cache, no-store'
+      // 1. Tenta carregar do Supabase primeiro (Ideal para GitHub Pages e produção)
+      if (supabaseClient) {
+        try {
+          const configPromise = supabaseClient.from('site_config').select('id, data');
+          const showsPromise = supabaseClient.from('agenda_shows').select('*').order('timestamp', { ascending: true });
+
+          const [configRes, showsRes] = await Promise.allSettled([configPromise, showsPromise]);
+
+          let hasSupabaseData = false;
+          const mergedData = {};
+
+          if (configRes.status === 'fulfilled' && configRes.value && !configRes.value.error && Array.isArray(configRes.value.data)) {
+            configRes.value.data.forEach(row => {
+              if (row.id && row.data) {
+                mergedData[row.id] = row.data;
+                hasSupabaseData = true;
+              }
+            });
           }
-        });
-        if (response.ok) {
-          const json = await response.json();
-          if (json && json.success && json.data) {
-            liveServerData = json.data;
+
+          if (showsRes.status === 'fulfilled' && showsRes.value && !showsRes.value.error && Array.isArray(showsRes.value.data) && showsRes.value.data.length > 0) {
+            mergedData.shows = showsRes.value.data.map(item => ({
+              id: item.id,
+              day: item.day,
+              month: item.month,
+              year: item.year,
+              title: item.title,
+              address: item.address,
+              confirmed: item.confirmed,
+              timestamp: Number(item.timestamp) || 0
+            }));
+            hasSupabaseData = true;
+          }
+
+          if (hasSupabaseData) {
+            liveServerData = Object.assign(liveServerData || {}, mergedData);
             return liveServerData;
           }
+        } catch (sbErr) {
+          console.warn('[Supabase] Leitura da nuvem inicial:', sbErr);
         }
-      } catch (err) {
-        console.warn('[Servidor] Não foi possível carregar dados da API:', err);
+      }
+
+      // 2. Se não estiver no GitHub Pages, tenta o backend Node/Express local
+      if (!isStaticHosting) {
+        try {
+          const response = await fetch(`${SERVER_API_BASE}/content`, {
+            method: 'GET',
+            headers: {
+              'Accept': 'application/json',
+              'Cache-Control': 'no-cache, no-store'
+            }
+          });
+          if (response.ok) {
+            const json = await response.json();
+            if (json && json.success && json.data) {
+              liveServerData = json.data;
+              return liveServerData;
+            }
+          }
+        } catch (err) {
+          console.warn('[Servidor Local] API não disponível:', err);
+        }
       }
       return null;
     }
 
     async function persistSectionToServer(section, data) {
-      const response = await fetch(`${SERVER_API_BASE}/admin/content`, {
-        method: 'POST',
-        headers: {
-          'Content-Type': 'application/json',
-          'Authorization': `Bearer ${adminAuthToken}`
-        },
-        body: JSON.stringify({ section, data })
-      });
+      // 1. Persistência no Supabase (Nuvem Oficial - Funciona no GitHub Pages sem erro 405)
+      if (supabaseClient) {
+        try {
+          // Gravação na tabela site_config
+          const { error: cfgError } = await supabaseClient
+            .from('site_config')
+            .upsert({
+              id: section,
+              data: data,
+              updated_at: new Date().toISOString()
+            });
 
-      if (!response.ok) {
-        const errJson = await response.json().catch(() => ({}));
-        throw new Error(errJson.error || `Erro HTTP ${response.status} ao salvar no servidor.`);
+          // Se for a agenda de shows, também espelha na tabela relacional agenda_shows
+          if (section === 'shows' && Array.isArray(data)) {
+            try {
+              // Limpa e reinsere a agenda ordenada
+              await supabaseClient.from('agenda_shows').delete().neq('id', '00000000-0000-0000-0000-000000000000');
+              const rows = data.map(s => ({
+                day: String(s.day || '01').padStart(2, '0'),
+                month: String(s.month || 'SET').toUpperCase(),
+                year: String(s.year || '2026'),
+                title: String(s.title || '').trim(),
+                address: String(s.address || '').trim(),
+                confirmed: s.confirmed !== undefined ? Boolean(s.confirmed) : true,
+                timestamp: Number(s.timestamp) || Date.now()
+              }));
+              if (rows.length > 0) {
+                await supabaseClient.from('agenda_shows').insert(rows);
+              }
+            } catch (showsSyncErr) {
+              console.warn('[Supabase] Aviso ao sincronizar agenda_shows:', showsSyncErr);
+            }
+          }
+
+          if (cfgError) {
+            if (cfgError.code === 'PGRST205' || (cfgError.message && cfgError.message.includes('Could not find the table'))) {
+              throw new Error('A tabela do Supabase ainda não foi criada. Por favor, execute o script SQL fornecido no "SQL Editor" do painel do Supabase para criar as tabelas.');
+            }
+            if (cfgError.code === '42501' || (cfgError.message && cfgError.message.includes('policy'))) {
+              throw new Error('Permissão negada pelo Supabase (RLS). Faça login com e-mail e senha no painel ou revise as Políticas (Policies) no Supabase.');
+            }
+            throw new Error(cfgError.message || 'Falha ao salvar no Supabase.');
+          }
+
+          if (!liveServerData) liveServerData = {};
+          liveServerData[section] = data;
+          return { success: true, message: 'Dados gravados com sucesso na nuvem do Supabase!' };
+        } catch (sbErr) {
+          console.error('[Supabase Save Error]', sbErr);
+          // Se estiver hospedado no GitHub Pages, NUNCA tenta POST /api/admin/content (causaria HTTP 405)
+          if (isStaticHosting) {
+            throw sbErr;
+          }
+          // Caso contrário, tenta o fallback local do Express abaixo
+        }
       }
 
-      const result = await response.json();
-      if (!liveServerData) liveServerData = {};
-      liveServerData[section] = data;
-      return result;
+      // 2. Fallback para servidor dedicado Node/Express/PHP (quando NÃO for GitHub Pages)
+      if (!isStaticHosting) {
+        const response = await fetch(`${SERVER_API_BASE}/admin/content`, {
+          method: 'POST',
+          headers: {
+            'Content-Type': 'application/json',
+            'Authorization': `Bearer ${adminAuthToken}`
+          },
+          body: JSON.stringify({ section, data })
+        });
+
+        if (!response.ok) {
+          const errJson = await response.json().catch(() => ({}));
+          throw new Error(errJson.error || `Erro HTTP ${response.status} ao salvar no servidor.`);
+        }
+
+        const result = await response.json();
+        if (!liveServerData) liveServerData = {};
+        liveServerData[section] = data;
+        return result;
+      } else {
+        throw new Error('Ambiente GitHub Pages: Por ser hospedagem estática, não aceita POST local. Crie as tabelas no seu painel do Supabase com o script SQL.');
+      }
     }
 
     /* =======================================================
@@ -7540,10 +7665,65 @@
       const userInput = document.getElementById('adminUsernameInput');
       const passInput = document.getElementById('adminPasswordInput');
       const errorMsg = document.getElementById('adminLoginErrorMsg');
+      const submitBtn = document.getElementById('adminLoginSubmitBtn');
 
       const user = userInput ? userInput.value.trim() : '';
       const pass = passInput ? passInput.value.trim() : '';
 
+      if (errorMsg) errorMsg.style.display = 'none';
+
+      // 1. Tenta autenticação via Supabase Auth (caso fornecido e-mail ou cliente ativo)
+      if (supabaseClient && user.includes('@')) {
+        if (submitBtn) {
+          submitBtn.disabled = true;
+          submitBtn.innerHTML = '<i class="fa-solid fa-spinner fa-spin"></i> Autenticando no Supabase...';
+        }
+        try {
+          const { data: authData, error: authError } = await supabaseClient.auth.signInWithPassword({
+            email: user,
+            password: pass
+          });
+
+          if (authError) throw authError;
+
+          isAdminAuthenticated = true;
+          supabaseUserSession = authData.session;
+
+          if (userInput) userInput.value = '';
+          if (passInput) passInput.value = '';
+
+          const userBadge = document.querySelector('#adminPanelView span');
+          if (userBadge && authData.user) {
+            userBadge.innerHTML = `<i class="fa-solid fa-circle" style="font-size: 0.55rem; color: #4ade80;"></i> Supabase: <strong>${authData.user.email}</strong>`;
+          }
+
+          document.getElementById('adminLoginView').style.display = 'none';
+          document.getElementById('adminPanelView').style.display = 'block';
+          switchAdminTab('agenda');
+          cancelEditEvent();
+          renderAdminList();
+          populateAdminMediaInputs();
+          return;
+        } catch (sbAuthErr) {
+          console.warn('[Supabase Auth]', sbAuthErr);
+          if (errorMsg) {
+            errorMsg.innerHTML = `<i class="fa-solid fa-triangle-exclamation" style="margin-right: 6px;"></i> Erro Supabase: ${sbAuthErr.message || 'Credenciais inválidas.'}`;
+            errorMsg.style.display = 'block';
+          }
+          if (passInput) {
+            passInput.value = '';
+            passInput.focus();
+          }
+          return;
+        } finally {
+          if (submitBtn) {
+            submitBtn.disabled = false;
+            submitBtn.innerHTML = '<i class="fa-solid fa-right-to-bracket"></i> Acessar Painel';
+          }
+        }
+      }
+
+      // 2. Autenticação Master Admin Local ('admin' / 'dndigqol')
       if (user === 'admin' && pass === 'dndigqol') {
         isAdminAuthenticated = true;
         if (errorMsg) errorMsg.style.display = 'none';
@@ -7557,7 +7737,10 @@
         renderAdminList();
         populateAdminMediaInputs();
       } else {
-        if (errorMsg) errorMsg.style.display = 'block';
+        if (errorMsg) {
+          errorMsg.innerHTML = '<i class="fa-solid fa-triangle-exclamation" style="margin-right: 6px;"></i> Usuário ou senha incorretos. (Use seu e-mail do Supabase ou usuário admin).';
+          errorMsg.style.display = 'block';
+        }
         if (passInput) {
           passInput.value = '';
           passInput.focus();
@@ -7565,8 +7748,14 @@
       }
     }
 
-    function adminLogout() {
+    async function adminLogout() {
+      if (supabaseClient) {
+        try {
+          await supabaseClient.auth.signOut();
+        } catch (e) {}
+      }
       isAdminAuthenticated = false;
+      supabaseUserSession = null;
       currentEditingId = null;
       switchAdminTab('agenda');
       document.getElementById('adminPanelView').style.display = 'none';
