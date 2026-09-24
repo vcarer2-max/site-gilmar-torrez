@@ -162,6 +162,14 @@
       --bg-overlay-top: rgba(9, 10, 14, 0.86);
       --bg-overlay-mid: rgba(9, 10, 14, 0.94);
       --bg-overlay-bot: rgba(9, 10, 14, 0.97);
+
+      /* Variáveis Dinâmicas de Opacidade/Transparência dos Fundos dos Blocos */
+      --block-bg-visibility: 0.35;
+      --banda-bg-darkness: 0.82;
+      --aulas-bg-darkness: 0.88;
+      --class-bg-darkness: 0.86;
+      --body-bg-darkness: 0.88;
+      --test-bg-darkness: 0.72;
       
       --text-white: #f8fafc;
       --text-light: #e2e8f0;
@@ -1537,15 +1545,23 @@
       content: '';
       position: absolute;
       inset: 0;
-      background: linear-gradient(180deg, rgba(13, 15, 23, 0.82) 0%, rgba(9, 10, 16, 0.90) 50%, rgba(6, 7, 10, 0.97) 100%);
+      background: linear-gradient(180deg, 
+        rgba(13, 15, 23, var(--banda-bg-darkness, 0.82)) 0%, 
+        rgba(9, 10, 16, calc(var(--banda-bg-darkness, 0.82) * 1.05)) 50%, 
+        rgba(6, 7, 10, calc(var(--banda-bg-darkness, 0.82) * 1.1)) 100%
+      );
       border-radius: inherit;
       z-index: 1;
-      transition: background 0.3s ease;
+      transition: background 0.2s ease;
       pointer-events: none;
     }
 
     .band-card.has-custom-bg:hover::before {
-      background: linear-gradient(180deg, rgba(13, 15, 23, 0.72) 0%, rgba(9, 10, 16, 0.84) 50%, rgba(6, 7, 10, 0.93) 100%);
+      background: linear-gradient(180deg, 
+        rgba(13, 15, 23, calc(var(--banda-bg-darkness, 0.82) * 0.88)) 0%, 
+        rgba(9, 10, 16, calc(var(--banda-bg-darkness, 0.82) * 0.95)) 50%, 
+        rgba(6, 7, 10, var(--banda-bg-darkness, 0.82)) 100%
+      );
     }
 
     .band-card > * {
@@ -3035,6 +3051,224 @@
       margin-bottom: 10px;
     }
 
+    /* ==========================================
+       CONTROLADOR DE TRANSPARÊNCIA & OPACIDADE COM TESTE
+       ========================================== */
+    .admin-opacity-ctrl-card {
+      background: linear-gradient(135deg, rgba(245, 158, 11, 0.05) 0%, rgba(18, 22, 32, 0.96) 100%);
+      border: 1.5px solid rgba(245, 158, 11, 0.35);
+      border-radius: 14px;
+      padding: 20px;
+      margin-bottom: 24px;
+      box-shadow: 0 8px 32px rgba(0, 0, 0, 0.45);
+      position: relative;
+      overflow: hidden;
+    }
+
+    .admin-opacity-ctrl-card::before {
+      content: '';
+      position: absolute;
+      top: 0;
+      left: 0;
+      right: 0;
+      height: 3px;
+      background: linear-gradient(90deg, #f59e0b, #fbbf24, #22c55e);
+    }
+
+    .admin-opacity-grid {
+      display: grid;
+      grid-template-columns: 1fr;
+      gap: 22px;
+      margin-top: 16px;
+    }
+
+    @media (min-width: 860px) {
+      .admin-opacity-grid {
+        grid-template-columns: 1.15fr 0.85fr;
+      }
+    }
+
+    .admin-slider-box {
+      background: rgba(10, 12, 18, 0.7);
+      border: 1px solid rgba(255, 255, 255, 0.08);
+      border-radius: 10px;
+      padding: 12px 14px;
+      margin-bottom: 10px;
+      transition: var(--transition);
+    }
+
+    .admin-slider-box:hover {
+      border-color: rgba(245, 158, 11, 0.3);
+      background: rgba(14, 17, 26, 0.85);
+    }
+
+    .admin-slider-box.master {
+      background: rgba(245, 158, 11, 0.08);
+      border-color: rgba(245, 158, 11, 0.4);
+      padding: 14px 16px;
+      margin-bottom: 14px;
+    }
+
+    .admin-slider-header {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      margin-bottom: 6px;
+    }
+
+    .admin-slider-title {
+      font-size: 0.85rem;
+      font-weight: 700;
+      color: #f1f5f9;
+      display: flex;
+      align-items: center;
+      gap: 8px;
+    }
+
+    .admin-slider-val {
+      font-family: monospace;
+      font-size: 0.92rem;
+      font-weight: 800;
+      color: var(--gold-light);
+      background: rgba(245, 158, 11, 0.15);
+      border: 1px solid rgba(245, 158, 11, 0.3);
+      padding: 2px 8px;
+      border-radius: 6px;
+      min-width: 48px;
+      text-align: center;
+    }
+
+    .admin-range-slider {
+      width: 100%;
+      height: 7px;
+      -webkit-appearance: none;
+      appearance: none;
+      background: #1e2433;
+      border-radius: 999px;
+      outline: none;
+      transition: background 0.2s;
+      cursor: pointer;
+      margin: 8px 0 6px 0;
+    }
+
+    .admin-range-slider::-webkit-slider-thumb {
+      -webkit-appearance: none;
+      appearance: none;
+      width: 20px;
+      height: 20px;
+      border-radius: 50%;
+      background: linear-gradient(135deg, #fbbf24, #d97706);
+      cursor: pointer;
+      border: 2px solid #ffffff;
+      box-shadow: 0 0 10px rgba(245, 158, 11, 0.6);
+      transition: transform 0.15s ease, box-shadow 0.15s ease;
+    }
+
+    .admin-range-slider::-webkit-slider-thumb:hover {
+      transform: scale(1.15);
+      box-shadow: 0 0 14px rgba(245, 158, 11, 0.9);
+    }
+
+    .admin-range-slider::-moz-range-thumb {
+      width: 20px;
+      height: 20px;
+      border-radius: 50%;
+      background: linear-gradient(135deg, #fbbf24, #d97706);
+      cursor: pointer;
+      border: 2px solid #ffffff;
+      box-shadow: 0 0 10px rgba(245, 158, 11, 0.6);
+      transition: transform 0.15s ease, box-shadow 0.15s ease;
+    }
+
+    .admin-slider-footer {
+      display: flex;
+      justify-content: space-between;
+      font-size: 0.72rem;
+      color: #94a3b8;
+    }
+
+    .opacity-preset-btn {
+      padding: 4px 10px;
+      font-size: 0.74rem;
+      font-weight: 600;
+      border-radius: 6px;
+      border: 1px solid rgba(255, 255, 255, 0.12);
+      background: rgba(255, 255, 255, 0.05);
+      color: #cbd5e1;
+      cursor: pointer;
+      transition: all 0.2s;
+    }
+
+    .opacity-preset-btn:hover {
+      background: rgba(245, 158, 11, 0.2);
+      border-color: var(--gold-primary);
+      color: #ffffff;
+    }
+
+    /* Card de Demonstração / Foto Teste */
+    .test-preview-wrapper {
+      display: flex;
+      flex-direction: column;
+      height: 100%;
+    }
+
+    .test-preview-card {
+      position: relative;
+      border-radius: 14px;
+      overflow: hidden;
+      border: 1.5px solid rgba(245, 158, 11, 0.4);
+      background-size: cover;
+      background-position: center;
+      background-repeat: no-repeat;
+      min-height: 270px;
+      box-shadow: 0 14px 30px rgba(0, 0, 0, 0.7);
+      display: flex;
+      flex-direction: column;
+      justify-content: flex-end;
+      padding: 20px;
+    }
+
+    .test-preview-overlay {
+      position: absolute;
+      inset: 0;
+      pointer-events: none;
+      transition: background 0.15s ease;
+      z-index: 1;
+    }
+
+    .test-preview-content {
+      position: relative;
+      z-index: 2;
+    }
+
+    .test-photo-picker-btn {
+      padding: 6px 12px;
+      border-radius: 8px;
+      border: 1px solid rgba(255, 255, 255, 0.15);
+      background: rgba(18, 22, 32, 0.85);
+      color: #94a3b8;
+      font-size: 0.75rem;
+      font-weight: 700;
+      cursor: pointer;
+      transition: all 0.2s;
+      display: inline-flex;
+      align-items: center;
+      gap: 6px;
+    }
+
+    .test-photo-picker-btn:hover {
+      color: #ffffff;
+      border-color: var(--gold-light);
+      background: rgba(245, 158, 11, 0.15);
+    }
+
+    .test-photo-picker-btn.active {
+      color: #0f1016;
+      background: var(--gold-primary);
+      border-color: var(--gold-primary);
+      box-shadow: 0 2px 10px rgba(245, 158, 11, 0.4);
+    }
+
     .admin-sticky-actions {
       position: sticky;
       bottom: -26px;
@@ -3391,6 +3625,40 @@
       transition: var(--transition);
       display: flex;
       flex-direction: column;
+      position: relative;
+    }
+
+    .class-card.has-custom-bg {
+      background-size: cover !important;
+      background-position: center center !important;
+      background-repeat: no-repeat !important;
+      overflow: hidden;
+    }
+
+    .class-card.has-custom-bg::before {
+      content: '';
+      position: absolute;
+      inset: 0;
+      background: linear-gradient(180deg, 
+        rgba(14, 18, 26, var(--class-bg-darkness, 0.86)) 0%, 
+        rgba(14, 18, 26, calc(var(--class-bg-darkness, 0.86) * 1.08)) 100%
+      );
+      border-radius: inherit;
+      z-index: 0;
+      transition: background 0.2s ease;
+      pointer-events: none;
+    }
+
+    .class-card.has-custom-bg:hover::before {
+      background: linear-gradient(180deg, 
+        rgba(14, 18, 26, calc(var(--class-bg-darkness, 0.86) * 0.88)) 0%, 
+        rgba(14, 18, 26, var(--class-bg-darkness, 0.86)) 100%
+      );
+    }
+
+    .class-card.has-custom-bg > * {
+      position: relative;
+      z-index: 1;
     }
 
     .class-card:hover {
@@ -5012,7 +5280,7 @@
       </div>
 
       <div class="classes-grid">
-        <div class="class-card">
+        <div class="class-card" id="classCardCanto">
           <div class="class-icon-wrapper"><i class="fa-solid fa-microphone-lines"></i></div>
           <h4>Canto</h4>
           <p>Desenvolva sua voz com segurança, eliminando rouquidão e descobrindo seu timbre autêntico.</p>
@@ -5023,7 +5291,7 @@
           </ul>
         </div>
 
-        <div class="class-card">
+        <div class="class-card" id="classCardGuitarra">
           <div class="class-icon-wrapper"><i class="fa-solid fa-guitar"></i></div>
           <h4>Guitarra</h4>
           <p>Domine as seis cordas: dos primeiros riffs aos solos mais velozes com precisão e pegada rock.</p>
@@ -5034,7 +5302,7 @@
           </ul>
         </div>
 
-        <div class="class-card">
+        <div class="class-card" id="classCardViolao">
           <div class="class-icon-wrapper"><i class="fa-solid fa-music"></i></div>
           <h4>Violão</h4>
           <p>O instrumento mais versátil de todos. Toque suas músicas favoritas nas rodas de amigos e eventos.</p>
@@ -5045,7 +5313,7 @@
           </ul>
         </div>
 
-        <div class="class-card">
+        <div class="class-card" id="classCardBaixo">
           <div class="class-icon-wrapper"><i class="fa-solid fa-bolt"></i></div>
           <h4>Contrabaixo</h4>
           <p>Seja o alicerce rítmico e harmônico de qualquer banda. Domine o groove com precisão cirúrgica.</p>
@@ -5460,17 +5728,264 @@
           <div class="admin-media-header-desc">
             <i class="fa-solid fa-circle-info"></i>
             <div>
-              <strong>Gestão de Fotos & Vídeos:</strong> Altere a <strong>Foto Principal</strong> (que também define o fundo principal do site), as 4 fotos de cada carrossel ou substitua os links dos vídeos do YouTube. Clique em <em>"Salvar Fotos e Vídeos"</em> para aplicar tudo em tempo real no site.
+              <strong>Gestão de Fotos & Vídeos:</strong> Todos os itens de manutenção abaixo estão organizados <strong>seguindo exatamente a mesma ordem em que aparecem no site</strong> (Topo/Logo &rarr; Hero/Fundo &rarr; Formações da Banda &rarr; Carrosséis de Mídia &rarr; Vídeos do YouTube &rarr; Quer Aprender a Tocar ou Cantar &rarr; Galeria do Instagram). Clique em <em>"Salvar Fotos e Vídeos"</em> para aplicar tudo em tempo real.
             </div>
           </div>
 
-          <!-- Item 1: Foto Principal & Fundo do Site (Primeiro Item) -->
+          <!-- CONTROLADOR MASTER DE TRANSPARÊNCIA & OPACIDADE COM FOTO TESTE (NO TOPO DO MENU) -->
+          <div class="admin-opacity-ctrl-card">
+            <div style="display: flex; align-items: center; justify-content: space-between; flex-wrap: wrap; gap: 10px; border-bottom: 1px solid rgba(255, 255, 255, 0.1); padding-bottom: 12px;">
+              <div>
+                <h4 style="font-family: var(--font-title); font-size: 1.15rem; color: #ffffff; margin: 0; display: flex; align-items: center; gap: 10px;">
+                  <i class="fa-solid fa-sliders" style="color: var(--gold-primary);"></i>
+                  Controlador de Transparência / Opacidade dos Fundos
+                </h4>
+                <p style="font-size: 0.82rem; color: #cbd5e1; margin: 4px 0 0 0;">
+                  Ajuste o nível de transparência e intensidade das fotos de fundo de todos os blocos com as <strong>barras de slide</strong>. O texto permanece sempre com leitura nítida e contraste calibrado.
+                </p>
+              </div>
+              <div style="display: flex; gap: 8px; align-items: center;">
+                <button type="button" class="btn-secondary" onclick="resetOpacityToFactory()" style="padding: 6px 12px; font-size: 0.78rem; border-radius: 8px;" title="Restaurar padrão equilibrado">
+                  <i class="fa-solid fa-rotate-left"></i> Restaurar Padrão (35%)
+                </button>
+              </div>
+            </div>
+
+            <div class="admin-opacity-grid">
+              <!-- Coluna 1: Barras de Slide (Sliders) -->
+              <div>
+                <!-- Barra Master Geral -->
+                <div class="admin-slider-box master">
+                  <div class="admin-slider-header">
+                    <span class="admin-slider-title" style="color: var(--gold-light); font-size: 0.92rem;">
+                      <i class="fa-solid fa-wand-magic-sparkles" style="color: var(--gold-primary);"></i>
+                      <strong>Opacidade Geral de Todos os Fundos (Master)</strong>
+                    </span>
+                    <span id="valOpacityMaster" class="admin-slider-val">35%</span>
+                  </div>
+                  <input type="range" min="5" max="95" step="1" id="sliderOpacityMaster" value="35" class="admin-range-slider" oninput="handleOpacityChange('master', this.value)" />
+                  <div class="admin-slider-footer">
+                    <span><i class="fa-solid fa-moon"></i> 5% (Mais Escuro / Leitura Máxima)</span>
+                    <span style="color: var(--gold-light); font-weight: 700;">Recomendado: 30% a 45%</span>
+                    <span><i class="fa-solid fa-sun"></i> 95% (Foto Muito Clara)</span>
+                  </div>
+                  <!-- Botões de Ajuste Rápido -->
+                  <div style="display: flex; gap: 6px; margin-top: 10px; flex-wrap: wrap;">
+                    <span style="font-size: 0.72rem; color: #94a3b8; align-self: center; margin-right: 2px;">Atalhos:</span>
+                    <button type="button" class="opacity-preset-btn" onclick="setOpacityPreset('master', 18)">Sutil (18%)</button>
+                    <button type="button" class="opacity-preset-btn" onclick="setOpacityPreset('master', 35)">Equilibrado (35%)</button>
+                    <button type="button" class="opacity-preset-btn" onclick="setOpacityPreset('master', 55)">Intenso (55%)</button>
+                    <button type="button" class="opacity-preset-btn" onclick="setOpacityPreset('master', 75)">Vibrante (75%)</button>
+                  </div>
+                </div>
+
+                <!-- Sliders Específicos para Ajuste Fino -->
+                <div style="margin-top: 14px;">
+                  <div style="font-size: 0.78rem; text-transform: uppercase; letter-spacing: 0.8px; color: #94a3b8; font-weight: 700; margin-bottom: 8px; display: flex; align-items: center; gap: 6px;">
+                    <i class="fa-solid fa-sliders"></i> Ajustes Individuais por Seção
+                  </div>
+
+                  <!-- Slider 1: Formações da Banda (Solo, Duo, Trio, Banda) -->
+                  <div class="admin-slider-box">
+                    <div class="admin-slider-header">
+                      <span class="admin-slider-title">
+                        <i class="fa-solid fa-users" style="color: var(--gold-primary);"></i>
+                        Blocos de Formações (A Banda: Solo, Duo, Trio, Banda)
+                      </span>
+                      <span id="valOpacityBanda" class="admin-slider-val">35%</span>
+                    </div>
+                    <input type="range" min="5" max="95" step="1" id="sliderOpacityBanda" value="35" class="admin-range-slider" oninput="handleOpacityChange('banda', this.value)" />
+                    <div class="admin-slider-footer">
+                      <span>Mais Escuro</span>
+                      <span id="labelOpacityBanda" style="color: #cbd5e1;">Contraste Calibrado</span>
+                      <span>Mais Claro</span>
+                    </div>
+                  </div>
+
+                  <!-- Slider 2: Cards de Aulas (Canto, Guitarra, Violão, Baixo) -->
+                  <div class="admin-slider-box">
+                    <div class="admin-slider-header">
+                      <span class="admin-slider-title">
+                        <i class="fa-solid fa-graduation-cap" style="color: #4ade80;"></i>
+                        Fundos dos 4 Cards de Aulas (Canto, Guitarra, Violão, Baixo)
+                      </span>
+                      <span id="valOpacityClass" class="admin-slider-val" style="color: #86efac; border-color: rgba(34, 197, 94, 0.4); background: rgba(34, 197, 94, 0.15);">35%</span>
+                    </div>
+                    <input type="range" min="5" max="95" step="1" id="sliderOpacityClass" value="35" class="admin-range-slider" oninput="handleOpacityChange('aulasCards', this.value)" />
+                    <div class="admin-slider-footer">
+                      <span>Mais Escuro</span>
+                      <span id="labelOpacityClass" style="color: #cbd5e1;">Contraste Calibrado</span>
+                      <span>Mais Claro</span>
+                    </div>
+                  </div>
+
+                  <!-- Slider 3: Fundo Geral da Seção Aulas (#aulas) -->
+                  <div class="admin-slider-box">
+                    <div class="admin-slider-header">
+                      <span class="admin-slider-title">
+                        <i class="fa-solid fa-chalkboard-user" style="color: #4ade80;"></i>
+                        Fundo Geral da Seção Aulas (#aulas)
+                      </span>
+                      <span id="valOpacityAulas" class="admin-slider-val" style="color: #86efac; border-color: rgba(34, 197, 94, 0.4); background: rgba(34, 197, 94, 0.15);">35%</span>
+                    </div>
+                    <input type="range" min="5" max="95" step="1" id="sliderOpacityAulas" value="35" class="admin-range-slider" oninput="handleOpacityChange('aulas', this.value)" />
+                    <div class="admin-slider-footer">
+                      <span>Mais Escuro</span>
+                      <span id="labelOpacityAulas" style="color: #cbd5e1;">Contraste Calibrado</span>
+                      <span>Mais Claro</span>
+                    </div>
+                  </div>
+
+                  <!-- Slider 4: Fundo Principal / Hero do Site (Body) -->
+                  <div class="admin-slider-box">
+                    <div class="admin-slider-header">
+                      <span class="admin-slider-title">
+                        <i class="fa-solid fa-desktop" style="color: #60a5fa;"></i>
+                        Fundo Principal do Site & Hero (Background Global)
+                      </span>
+                      <span id="valOpacitySiteFundo" class="admin-slider-val" style="color: #93c5fd; border-color: rgba(59, 130, 246, 0.4); background: rgba(59, 130, 246, 0.15);">40%</span>
+                    </div>
+                    <input type="range" min="5" max="95" step="1" id="sliderOpacitySiteFundo" value="40" class="admin-range-slider" oninput="handleOpacityChange('siteFundo', this.value)" />
+                    <div class="admin-slider-footer">
+                      <span>Mais Escuro</span>
+                      <span id="labelOpacitySiteFundo" style="color: #cbd5e1;">Contraste Calibrado</span>
+                      <span>Mais Claro</span>
+                    </div>
+                  </div>
+                </div>
+              </div>
+
+              <!-- Coluna 2: Card de Teste / Demonstração ao Vivo -->
+              <div class="test-preview-wrapper">
+                <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 8px;">
+                  <span style="font-size: 0.82rem; font-weight: 800; color: #ffffff; display: flex; align-items: center; gap: 6px;">
+                    <i class="fa-solid fa-eye" style="color: var(--gold-primary);"></i>
+                    Card de Teste & Demonstração ao Vivo
+                  </span>
+                  <span style="font-size: 0.7rem; color: #22c55e; font-weight: 700; background: rgba(34, 197, 94, 0.15); border: 1px solid rgba(34, 197, 94, 0.3); padding: 2px 8px; border-radius: 999px;">
+                    <i class="fa-solid fa-bolt"></i> Resposta Instantânea
+                  </span>
+                </div>
+
+                <!-- O Bloco de Teste Real com Imagem e Overlay Dinâmico -->
+                <div id="testCardElement" class="test-preview-card" style="background-image: url('https://images.unsplash.com/photo-1516280440614-37939bbacd81?auto=format&fit=crop&w=800&q=80');">
+                  <div id="testCardOverlay" class="test-preview-overlay" style="background: linear-gradient(180deg, rgba(13, 15, 23, 0.72) 0%, rgba(9, 10, 16, 0.82) 50%, rgba(6, 7, 10, 0.92) 100%);"></div>
+                  
+                  <div class="test-preview-content">
+                    <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 10px;">
+                      <span class="band-badge" style="position: static; font-size: 0.68rem; padding: 3px 8px;">Demonstração</span>
+                      <span id="testCardContrastBadge" style="font-size: 0.72rem; padding: 3px 8px; border-radius: 999px; border: 1px solid rgba(245, 158, 11, 0.4); background: rgba(245, 158, 11, 0.15); color: var(--gold-light); font-weight: 700;">
+                        <i class="fa-solid fa-star"></i> Contraste Equilibrado
+                      </span>
+                    </div>
+
+                    <div style="font-size: 1.8rem; color: var(--gold-primary); margin-bottom: 6px;">
+                      <i class="fa-solid fa-guitar"></i>
+                    </div>
+
+                    <h4 style="font-family: var(--font-title); font-size: 1.25rem; font-weight: 800; color: #ffffff; margin-bottom: 4px; text-shadow: 0 2px 6px rgba(0,0,0,0.8);">
+                      BLOCO DE DEMONSTRAÇÃO
+                    </h4>
+
+                    <span style="font-size: 0.84rem; color: var(--gold-light); font-weight: 700; display: block; margin-bottom: 8px;">
+                      Gilmar Torrez • Voz, Guitarra & Rock
+                    </span>
+
+                    <p style="font-size: 0.82rem; color: #e2e8f0; line-height: 1.45; margin-bottom: 12px; text-shadow: 0 1px 4px rgba(0,0,0,0.9);">
+                      Arraste as barras de slide ao lado para ajustar a opacidade. O texto, ícones e botões devem permanecer sempre nítidos e confortáveis para leitura.
+                    </p>
+
+                    <div style="display: flex; gap: 8px; align-items: center; flex-wrap: wrap;">
+                      <button type="button" class="btn-cta" style="padding: 8px 16px; font-size: 0.78rem; pointer-events: none; animation: none;">
+                        <i class="fa-brands fa-whatsapp"></i> Botão Simulado
+                      </button>
+                      <span style="font-size: 0.72rem; color: #cbd5e1;">
+                        <i class="fa-solid fa-circle-check" style="color: #22c55e;"></i> Prévia do site em tempo real
+                      </span>
+                    </div>
+                  </div>
+                </div>
+
+                <!-- Seletor de Foto de Teste -->
+                <div style="margin-top: 14px; background: rgba(10, 12, 18, 0.6); border: 1px solid rgba(255, 255, 255, 0.08); border-radius: 10px; padding: 10px 12px;">
+                  <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 8px;">
+                    <span style="font-size: 0.75rem; color: #cbd5e1; font-weight: 700; display: flex; align-items: center; gap: 6px;">
+                      <i class="fa-solid fa-images" style="color: var(--gold-primary);"></i> Escolha a Foto de Teste:
+                    </span>
+                    <span style="font-size: 0.7rem; color: #94a3b8;">4 amostras</span>
+                  </div>
+
+                  <div style="display: flex; gap: 6px; flex-wrap: wrap;">
+                    <button type="button" id="btnTestPhoto1" class="test-photo-picker-btn active" onclick="setTestPhoto('https://images.unsplash.com/photo-1516280440614-37939bbacd81?auto=format&fit=crop&w=800&q=80', this)">
+                      <i class="fa-solid fa-microphone"></i> Palco Luzes
+                    </button>
+                    <button type="button" id="btnTestPhoto2" class="test-photo-picker-btn" onclick="setTestPhoto('https://images.unsplash.com/photo-1511671782779-c97d3d27a1d4?auto=format&fit=crop&w=800&q=80', this)">
+                      <i class="fa-solid fa-guitar"></i> Guitarra & Solo
+                    </button>
+                    <button type="button" id="btnTestPhoto3" class="test-photo-picker-btn" onclick="setTestPhoto('https://images.unsplash.com/photo-1510915361894-db8b60106cb1?auto=format&fit=crop&w=800&q=80', this)">
+                      <i class="fa-solid fa-music"></i> Acústico Quente
+                    </button>
+                    <button type="button" id="btnTestPhoto4" class="test-photo-picker-btn" onclick="setTestPhotoFromHero(this)">
+                      <i class="fa-solid fa-user"></i> Foto Principal (Hero)
+                    </button>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+
+          <!-- Item 1: Logotipo Oficial da Marca (Topo/Cabeçalho e Rodapé) -->
+          <div class="admin-media-category-card" style="border: 1px solid rgba(255, 255, 255, 0.12); background: linear-gradient(135deg, rgba(255, 255, 255, 0.03) 0%, rgba(18, 19, 26, 0.95) 100%); margin-bottom: 24px; box-shadow: 0 4px 20px rgba(0, 0, 0, 0.35);">
+            <div class="admin-media-category-header" style="border-bottom: 1px solid rgba(255, 255, 255, 0.1); padding-bottom: 10px;">
+              <h5>
+                <i class="fa-solid fa-certificate" style="color: var(--gold-primary);"></i> Logotipo Oficial do Site
+              </h5>
+              <span style="background: rgba(255, 255, 255, 0.08); color: #f8fafc; font-weight: 700; border: 1px solid rgba(255, 255, 255, 0.15);">1. Cabeçalho / Navbar</span>
+            </div>
+
+            <div style="padding: 14px 0 6px 0;">
+              <div style="display: flex; flex-direction: column; md:flex-row; gap: 16px; align-items: stretch;">
+                <!-- Prévia do Logotipo Oficial -->
+                <div style="width: 100%; max-width: 170px; height: 170px; position: relative; border-radius: 12px; overflow: hidden; border: 1.5px solid rgba(255, 255, 255, 0.2); background: #000; margin: 0 auto; display: flex; align-items: center; justify-content: center; padding: 10px; box-shadow: 0 8px 24px rgba(0,0,0,0.6);">
+                  <img id="preview-logo-oficial" src="/logo.png" alt="Prévia do Logotipo Oficial" style="max-width: 100%; max-height: 100%; object-fit: contain; display: block;" onerror="if(this.src.indexOf('/logo.jpg')===-1){this.src='/logo.jpg';}else{this.onerror=null;}" />
+                  <div style="position: absolute; bottom: 0; left: 0; right: 0; padding: 4px 8px; background: linear-gradient(0deg, rgba(0,0,0,0.92) 0%, transparent 100%); font-size: 0.7rem; color: #fbbf24; font-weight: 600; text-align: center;">
+                    Logo Ativo
+                  </div>
+                </div>
+
+                <!-- Controles de Troca do Logotipo -->
+                <div style="flex: 1; display: flex; flex-direction: column; gap: 10px; justify-content: center;">
+                  <div style="display: flex; gap: 10px; flex-wrap: wrap;">
+                    <label class="admin-upload-trigger" style="flex: 1; min-width: 170px; margin: 0; background: rgba(255, 255, 255, 0.1); color: #ffffff; font-weight: 700; border: 1px solid rgba(255, 255, 255, 0.25); cursor: pointer; text-align: center; padding: 10px 16px; border-radius: 8px; display: inline-flex; align-items: center; justify-content: center; gap: 8px; transition: all 0.2s ease;">
+                      <i class="fa-solid fa-cloud-arrow-up"></i> Trocar Logotipo
+                      <input type="file" accept="image/*" class="admin-file-hidden" onchange="handleLogoUpload(event)" />
+                    </label>
+                    <button type="button" class="btn-secondary" onclick="resetLogoToDefault()" style="padding: 10px 14px; font-size: 0.82rem; border-radius: 8px; border: 1px solid rgba(255,255,255,0.2); background: rgba(255,255,255,0.06); color: #e2e8f0;" title="Restaurar logotipo oficial padrão">
+                      <i class="fa-solid fa-rotate-left"></i> Restaurar Padrão
+                    </button>
+                  </div>
+
+                  <div>
+                    <label style="font-size: 0.78rem; color: #cbd5e1; display: block; margin-bottom: 4px; font-weight: 600;">Ou informe o Link / URL direta do logotipo:</label>
+                    <input type="url" id="adminLogoUrl" class="admin-input" placeholder="https://exemplo.com/logo-gilmar-torrez.png" oninput="handleLogoUrlInput(this.value)" style="width: 100%; padding: 8px 12px; font-size: 0.85rem;" />
+                  </div>
+
+                  <div style="font-size: 0.75rem; color: #a1a1aa; line-height: 1.45; background: rgba(255, 255, 255, 0.04); border-left: 3px solid var(--gold-primary); padding: 8px 12px; border-radius: 0 6px 6px 0;">
+                    <i class="fa-solid fa-circle-info" style="color: var(--gold-primary); margin-right: 4px;"></i>
+                    O novo logotipo oficial com monograma <strong>GT</strong> e assinatura <strong>Gilmar Torrez</strong> é aplicado no <strong>Cabeçalho Fixo (topo)</strong>, no <strong>Rodapé</strong> e na aba do navegador (Favicon).
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+
+          <!-- Item 2: Foto Principal & Fundo do Site (Hero) -->
           <div class="admin-media-category-card" style="border: 1px solid rgba(245, 158, 11, 0.4); background: linear-gradient(135deg, rgba(245, 158, 11, 0.09) 0%, rgba(20, 21, 28, 0.95) 100%); margin-bottom: 24px; box-shadow: 0 4px 20px rgba(0, 0, 0, 0.4);">
             <div class="admin-media-category-header" style="border-bottom: 1px solid rgba(245, 158, 11, 0.25); padding-bottom: 10px;">
               <h5>
                 <i class="fa-solid fa-star" style="color: var(--gold-primary);"></i> Foto Principal & Fundo do Site
               </h5>
-              <span style="background: rgba(245, 158, 11, 0.2); color: var(--gold-light); font-weight: 700; border: 1px solid rgba(245, 158, 11, 0.35);">Hero & Background Oficial</span>
+              <span style="background: rgba(245, 158, 11, 0.2); color: var(--gold-light); font-weight: 700; border: 1px solid rgba(245, 158, 11, 0.35);">2. Hero & Background Oficial</span>
             </div>
 
             <div style="padding: 14px 0 6px 0;">
@@ -5522,64 +6037,19 @@
             </div>
           </div>
 
-          <!-- Item 2: Logotipo Oficial da Marca -->
-          <div class="admin-media-category-card" style="border: 1px solid rgba(255, 255, 255, 0.12); background: linear-gradient(135deg, rgba(255, 255, 255, 0.03) 0%, rgba(18, 19, 26, 0.95) 100%); margin-bottom: 24px; box-shadow: 0 4px 20px rgba(0, 0, 0, 0.35);">
-            <div class="admin-media-category-header" style="border-bottom: 1px solid rgba(255, 255, 255, 0.1); padding-bottom: 10px;">
-              <h5>
-                <i class="fa-solid fa-certificate" style="color: var(--gold-primary);"></i> Logotipo Oficial do Site
-              </h5>
-              <span style="background: rgba(255, 255, 255, 0.08); color: #f8fafc; font-weight: 700; border: 1px solid rgba(255, 255, 255, 0.15);">Identidade Visual</span>
-            </div>
-
-            <div style="padding: 14px 0 6px 0;">
-              <div style="display: flex; flex-direction: column; md:flex-row; gap: 16px; align-items: stretch;">
-                <!-- Prévia do Logotipo Oficial -->
-                <div style="width: 100%; max-width: 170px; height: 170px; position: relative; border-radius: 12px; overflow: hidden; border: 1.5px solid rgba(255, 255, 255, 0.2); background: #000; margin: 0 auto; display: flex; align-items: center; justify-content: center; padding: 10px; box-shadow: 0 8px 24px rgba(0,0,0,0.6);">
-                  <img id="preview-logo-oficial" src="/logo.png" alt="Prévia do Logotipo Oficial" style="max-width: 100%; max-height: 100%; object-fit: contain; display: block;" onerror="if(this.src.indexOf('/logo.jpg')===-1){this.src='/logo.jpg';}else{this.onerror=null;}" />
-                  <div style="position: absolute; bottom: 0; left: 0; right: 0; padding: 4px 8px; background: linear-gradient(0deg, rgba(0,0,0,0.92) 0%, transparent 100%); font-size: 0.7rem; color: #fbbf24; font-weight: 600; text-align: center;">
-                    Logo Ativo
-                  </div>
-                </div>
-
-                <!-- Controles de Troca do Logotipo -->
-                <div style="flex: 1; display: flex; flex-direction: column; gap: 10px; justify-content: center;">
-                  <div style="display: flex; gap: 10px; flex-wrap: wrap;">
-                    <label class="admin-upload-trigger" style="flex: 1; min-width: 170px; margin: 0; background: rgba(255, 255, 255, 0.1); color: #ffffff; font-weight: 700; border: 1px solid rgba(255, 255, 255, 0.25); cursor: pointer; text-align: center; padding: 10px 16px; border-radius: 8px; display: inline-flex; align-items: center; justify-content: center; gap: 8px; transition: all 0.2s ease;">
-                      <i class="fa-solid fa-cloud-arrow-up"></i> Trocar Logotipo
-                      <input type="file" accept="image/*" class="admin-file-hidden" onchange="handleLogoUpload(event)" />
-                    </label>
-                    <button type="button" class="btn-secondary" onclick="resetLogoToDefault()" style="padding: 10px 14px; font-size: 0.82rem; border-radius: 8px; border: 1px solid rgba(255,255,255,0.2); background: rgba(255,255,255,0.06); color: #e2e8f0;" title="Restaurar logotipo oficial padrão">
-                      <i class="fa-solid fa-rotate-left"></i> Restaurar Padrão
-                    </button>
-                  </div>
-
-                  <div>
-                    <label style="font-size: 0.78rem; color: #cbd5e1; display: block; margin-bottom: 4px; font-weight: 600;">Ou informe o Link / URL direta do logotipo:</label>
-                    <input type="url" id="adminLogoUrl" class="admin-input" placeholder="https://exemplo.com/logo-gilmar-torrez.png" oninput="handleLogoUrlInput(this.value)" style="width: 100%; padding: 8px 12px; font-size: 0.85rem;" />
-                  </div>
-
-                  <div style="font-size: 0.75rem; color: #a1a1aa; line-height: 1.45; background: rgba(255, 255, 255, 0.04); border-left: 3px solid var(--gold-primary); padding: 8px 12px; border-radius: 0 6px 6px 0;">
-                    <i class="fa-solid fa-circle-info" style="color: var(--gold-primary); margin-right: 4px;"></i>
-                    O novo logotipo oficial com monograma <strong>GT</strong> e assinatura <strong>Gilmar Torrez</strong> é aplicado no <strong>Cabeçalho Fixo (topo)</strong>, no <strong>Rodapé</strong> e na aba do navegador (Favicon).
-                  </div>
-                </div>
-              </div>
-            </div>
-          </div>
-
-          <!-- SEÇÃO: Fundos dos Blocos Musicais (Formações ao Vivo) -->
+          <!-- SEÇÃO 3: Fundos dos Blocos Musicais (Formações ao Vivo) -->
           <div style="margin: 28px 0 16px 0; padding: 12px 18px; background: rgba(245, 158, 11, 0.08); border-left: 4px solid var(--gold-primary); border-radius: 4px 10px 10px 4px; display: flex; align-items: center; justify-content: space-between; flex-wrap: wrap; gap: 10px;">
             <div>
               <h4 style="font-family: var(--font-title); font-size: 1.05rem; color: #ffffff; margin: 0; display: flex; align-items: center; gap: 8px;">
                 <i class="fa-solid fa-layer-group" style="color: var(--gold-primary);"></i>
-                Fundos dos Blocos de Formações (Shows ao Vivo)
+                3. Fundos dos Blocos de Formações (Seção A Banda)
               </h4>
               <p style="font-size: 0.8rem; color: #cbd5e1; margin: 4px 0 0 0;">
                 Selecione ou envie fotos personalizadas para o preenchimento de fundo dos 4 blocos da seção <em>A Banda & As Formações ao Vivo</em>.
               </p>
             </div>
             <span style="font-size: 0.72rem; font-weight: 700; color: var(--gold-light); background: rgba(245, 158, 11, 0.15); padding: 4px 10px; border-radius: 999px; border: 1px solid rgba(245, 158, 11, 0.3);">
-              4 Blocos Personalizáveis
+              Seção A Banda (#banda) • 4 Blocos
             </span>
           </div>
 
@@ -5755,64 +6225,20 @@
             </div>
           </div>
 
-          <!-- SEÇÃO: Fundo do Bloco Quer Aprender a Tocar ou Cantar? -->
-          <div style="margin: 28px 0 16px 0; padding: 12px 18px; background: rgba(37, 211, 102, 0.08); border-left: 4px solid #22c55e; border-radius: 4px 10px 10px 4px; display: flex; align-items: center; justify-content: space-between; flex-wrap: wrap; gap: 10px;">
+          <!-- SEÇÃO: Carrosséis de Fotos (Mídia) -->
+          <div style="margin: 28px 0 16px 0; padding: 12px 18px; background: rgba(245, 158, 11, 0.08); border-left: 4px solid var(--gold-primary); border-radius: 4px 10px 10px 4px; display: flex; align-items: center; justify-content: space-between; flex-wrap: wrap; gap: 10px;">
             <div>
               <h4 style="font-family: var(--font-title); font-size: 1.05rem; color: #ffffff; margin: 0; display: flex; align-items: center; gap: 8px;">
-                <i class="fa-solid fa-graduation-cap" style="color: #4ade80;"></i>
-                Fundo do Bloco: Quer Aprender a Tocar ou Cantar?
+                <i class="fa-solid fa-images" style="color: var(--gold-primary);"></i>
+                4. Carrosséis de Fotos (Seção Mídia)
               </h4>
               <p style="font-size: 0.8rem; color: #cbd5e1; margin: 4px 0 0 0;">
-                Selecione ou envie a foto de preenchimento para a seção inteira de <strong>Educação Musical & Aulas</strong> (Canto, Guitarra, Violão e Baixo).
+                Gerencie as 4 fotos de alta resolução e legendas de cada uma das 4 categorias de shows ao vivo e acústico.
               </p>
             </div>
-            <span style="font-size: 0.72rem; font-weight: 700; color: #4ade80; background: rgba(34, 197, 94, 0.15); padding: 4px 10px; border-radius: 999px; border: 1px solid rgba(34, 197, 94, 0.3);">
-              Seção Aulas (#aulas)
+            <span style="font-size: 0.72rem; font-weight: 700; color: var(--gold-light); background: rgba(245, 158, 11, 0.15); padding: 4px 10px; border-radius: 999px; border: 1px solid rgba(245, 158, 11, 0.3);">
+              16 Fotos Totais
             </span>
-          </div>
-
-          <!-- Item 7: Fundo do Bloco Aulas (Quer Aprender a Tocar ou Cantar?) -->
-          <div class="admin-media-category-card" style="border: 1px solid rgba(34, 197, 94, 0.25); background: linear-gradient(135deg, rgba(34, 197, 94, 0.04) 0%, rgba(18, 22, 28, 0.95) 100%); margin-bottom: 24px; box-shadow: 0 4px 20px rgba(0, 0, 0, 0.35);">
-            <div class="admin-media-category-header" style="border-bottom: 1px solid rgba(255, 255, 255, 0.1); padding-bottom: 10px;">
-              <h5>
-                <i class="fa-solid fa-chalkboard-user" style="color: #4ade80;"></i> Fundo do Bloco Quer Aprender a Tocar ou Cantar?
-              </h5>
-              <span style="background: rgba(34, 197, 94, 0.12); color: #4ade80; font-weight: 700; border: 1px solid rgba(34, 197, 94, 0.3);">Aulas de Música</span>
-            </div>
-
-            <div style="padding: 14px 0 6px 0;">
-              <div style="display: flex; flex-direction: column; md:flex-row; gap: 16px; align-items: stretch;">
-                <div style="width: 100%; max-width: 240px; height: 140px; position: relative; border-radius: 12px; overflow: hidden; border: 1.5px solid rgba(34, 197, 94, 0.4); background: #000; margin: 0 auto; display: flex; align-items: center; justify-content: center; box-shadow: 0 8px 24px rgba(0,0,0,0.6);">
-                  <img id="preview-fundo-aulas" src="https://images.unsplash.com/photo-1511671782779-c97d3d27a1d4?auto=format&fit=crop&w=1200&q=80" alt="Prévia Fundo Bloco Aulas" style="width: 100%; height: 100%; object-fit: cover; display: block;" onerror="this.onerror=null; this.src='/stage-bg.jpg';" />
-                  <div style="position: absolute; bottom: 0; left: 0; right: 0; padding: 4px 8px; background: linear-gradient(0deg, rgba(0,0,0,0.92) 0%, transparent 100%); font-size: 0.7rem; color: #4ade80; font-weight: 600; text-align: center;">
-                    Prévia do Fundo das Aulas
-                  </div>
-                </div>
-
-                <div style="flex: 1; display: flex; flex-direction: column; gap: 10px; justify-content: center;">
-                  <div style="display: flex; gap: 8px; flex-wrap: wrap;">
-                    <label class="admin-upload-trigger" style="display: inline-flex; align-items: center; gap: 8px; cursor: pointer; margin: 0; padding: 10px 16px; background: linear-gradient(135deg, #15803d, #22c55e); color: #fff; font-weight: 700; border-radius: 8px; font-size: 0.85rem; box-shadow: 0 4px 12px rgba(34, 197, 94, 0.3);">
-                      <i class="fa-solid fa-cloud-arrow-up"></i> Trocar Foto do Bloco
-                      <input type="file" accept="image/*" class="admin-file-hidden" onchange="handleAulasBgUpload(event)" />
-                    </label>
-
-                    <button type="button" class="btn-secondary" onclick="resetAulasBgToDefault()" style="padding: 10px 14px; font-size: 0.82rem; border-radius: 8px; border: 1px solid rgba(255,255,255,0.2); background: rgba(255,255,255,0.06); color: #e2e8f0;" title="Restaurar imagem padrão do bloco de aulas">
-                      <i class="fa-solid fa-rotate-left"></i> Restaurar Padrão
-                    </button>
-                  </div>
-
-                  <div>
-                    <label style="font-size: 0.78rem; color: #cbd5e1; display: block; margin-bottom: 4px; font-weight: 600;">Ou informe o Link / URL direta da foto:</label>
-                    <input type="url" id="adminAulasBgUrl" class="admin-input" placeholder="https://exemplo.com/foto-aulas-musica.jpg" oninput="handleAulasBgUrlInput(this.value)" style="width: 100%; padding: 8px 12px; font-size: 0.85rem;" />
-                  </div>
-
-                  <div style="font-size: 0.75rem; color: #a1a1aa; line-height: 1.45; background: rgba(255, 255, 255, 0.04); border-left: 3px solid #22c55e; padding: 8px 12px; border-radius: 0 6px 6px 0;">
-                    <i class="fa-solid fa-circle-info" style="color: #4ade80; margin-right: 4px;"></i>
-                    Preenche o <strong>fundo do bloco Quer Aprender a Tocar ou Cantar?</strong> com uma elegante máscara translúcida para garantir máxima nitidez aos textos e cards de aulas.
-                  </div>
-                </div>
-              </div>
-            </div>
           </div>
 
           <!-- Categoria 1: Shows ao Vivo -->
@@ -6095,10 +6521,10 @@
             </div>
           </div>
 
-          <!-- Seção de Vídeos do YouTube -->
+          <!-- SEÇÃO 5: Vídeos do YouTube (Seção Mídia) -->
           <div class="admin-video-mgmt-card">
             <div class="admin-media-category-header">
-              <h5><i class="fa-brands fa-youtube" style="color: #ef4444;"></i> Vídeos em Destaque (YouTube)</h5>
+              <h5><i class="fa-brands fa-youtube" style="color: #ef4444;"></i> 5. Vídeos em Destaque no YouTube (Seção Mídia)</h5>
               <span>Até 2 Vídeos</span>
             </div>
 
@@ -6143,13 +6569,245 @@
             </div>
           </div>
 
-          <!-- Categoria: Galeria do Instagram (@gilmartorrez07) -->
+          <!-- SEÇÃO 6: QUER APRENDER A TOCAR OU CANTAR? (Aulas de Música) -->
+          <div style="margin: 28px 0 16px 0; padding: 12px 18px; background: rgba(34, 197, 94, 0.08); border-left: 4px solid #22c55e; border-radius: 4px 10px 10px 4px; display: flex; align-items: center; justify-content: space-between; flex-wrap: wrap; gap: 10px;">
+            <div>
+              <h4 style="font-family: var(--font-title); font-size: 1.05rem; color: #ffffff; margin: 0; display: flex; align-items: center; gap: 8px;">
+                <i class="fa-solid fa-graduation-cap" style="color: #4ade80;"></i>
+                6. Fundos do Item "Quer Aprender a Tocar ou Cantar?"
+              </h4>
+              <p style="font-size: 0.8rem; color: #cbd5e1; margin: 4px 0 0 0;">
+                Altere a foto do fundo geral da seção e as fotos de fundo individuais para cada um dos 4 blocos de instrumentos (Canto, Guitarra, Violão e Baixo).
+              </p>
+            </div>
+            <span style="font-size: 0.72rem; font-weight: 700; color: #4ade80; background: rgba(34, 197, 94, 0.15); padding: 4px 10px; border-radius: 999px; border: 1px solid rgba(34, 197, 94, 0.3);">
+              Seção Aulas (#aulas) • 5 Fotos
+            </span>
+          </div>
+
+          <!-- Item 6.0: Fundo Geral da Seção Aulas -->
+          <div class="admin-media-category-card" style="border: 1px solid rgba(34, 197, 94, 0.25); background: linear-gradient(135deg, rgba(34, 197, 94, 0.04) 0%, rgba(18, 22, 28, 0.95) 100%); margin-bottom: 20px; box-shadow: 0 4px 20px rgba(0, 0, 0, 0.35);">
+            <div class="admin-media-category-header" style="border-bottom: 1px solid rgba(255, 255, 255, 0.1); padding-bottom: 10px;">
+              <h5>
+                <i class="fa-solid fa-chalkboard-user" style="color: #4ade80;"></i> Fundo Geral da Seção: Quer Aprender a Tocar ou Cantar?
+              </h5>
+              <span style="background: rgba(34, 197, 94, 0.12); color: #4ade80; font-weight: 700; border: 1px solid rgba(34, 197, 94, 0.3);">Fundo Geral (#aulas)</span>
+            </div>
+
+            <div style="padding: 14px 0 6px 0;">
+              <div style="display: flex; flex-direction: column; md:flex-row; gap: 16px; align-items: stretch;">
+                <div style="width: 100%; max-width: 240px; height: 140px; position: relative; border-radius: 12px; overflow: hidden; border: 1.5px solid rgba(34, 197, 94, 0.4); background: #000; margin: 0 auto; display: flex; align-items: center; justify-content: center; box-shadow: 0 8px 24px rgba(0,0,0,0.6);">
+                  <img id="preview-fundo-aulas" src="https://images.unsplash.com/photo-1511671782779-c97d3d27a1d4?auto=format&fit=crop&w=1200&q=80" alt="Prévia Fundo Bloco Aulas" style="width: 100%; height: 100%; object-fit: cover; display: block;" onerror="this.onerror=null; this.src='/stage-bg.jpg';" />
+                  <div style="position: absolute; bottom: 0; left: 0; right: 0; padding: 4px 8px; background: linear-gradient(0deg, rgba(0,0,0,0.92) 0%, transparent 100%); font-size: 0.7rem; color: #4ade80; font-weight: 600; text-align: center;">
+                    Prévia do Fundo Geral
+                  </div>
+                </div>
+
+                <div style="flex: 1; display: flex; flex-direction: column; gap: 10px; justify-content: center;">
+                  <div style="display: flex; gap: 8px; flex-wrap: wrap;">
+                    <label class="admin-upload-trigger" style="display: inline-flex; align-items: center; gap: 8px; cursor: pointer; margin: 0; padding: 10px 16px; background: linear-gradient(135deg, #15803d, #22c55e); color: #fff; font-weight: 700; border-radius: 8px; font-size: 0.85rem; box-shadow: 0 4px 12px rgba(34, 197, 94, 0.3);">
+                      <i class="fa-solid fa-cloud-arrow-up"></i> Trocar Foto Geral
+                      <input type="file" accept="image/*" class="admin-file-hidden" onchange="handleAulasBgUpload(event)" />
+                    </label>
+
+                    <button type="button" class="btn-secondary" onclick="resetAulasBgToDefault()" style="padding: 10px 14px; font-size: 0.82rem; border-radius: 8px; border: 1px solid rgba(255,255,255,0.2); background: rgba(255,255,255,0.06); color: #e2e8f0;" title="Restaurar imagem padrão do bloco de aulas">
+                      <i class="fa-solid fa-rotate-left"></i> Restaurar Padrão
+                    </button>
+                  </div>
+
+                  <div>
+                    <label style="font-size: 0.78rem; color: #cbd5e1; display: block; margin-bottom: 4px; font-weight: 600;">Ou informe o Link / URL direta da foto:</label>
+                    <input type="url" id="adminAulasBgUrl" class="admin-input" placeholder="https://exemplo.com/foto-aulas-musica.jpg" oninput="handleAulasBgUrlInput(this.value)" style="width: 100%; padding: 8px 12px; font-size: 0.85rem;" />
+                  </div>
+
+                  <div style="font-size: 0.75rem; color: #a1a1aa; line-height: 1.45; background: rgba(255, 255, 255, 0.04); border-left: 3px solid #22c55e; padding: 8px 12px; border-radius: 0 6px 6px 0;">
+                    <i class="fa-solid fa-circle-info" style="color: #4ade80; margin-right: 4px;"></i>
+                    Preenche o <strong>fundo geral da seção inteira de Aulas</strong> com uma elegante máscara escura translúcida.
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+
+          <!-- Item 6.1: Fundo do Bloco Canto -->
+          <div class="admin-media-category-card" style="border: 1px solid rgba(34, 197, 94, 0.2); background: linear-gradient(135deg, rgba(34, 197, 94, 0.03) 0%, rgba(18, 20, 26, 0.95) 100%); margin-bottom: 20px; box-shadow: 0 4px 20px rgba(0, 0, 0, 0.35);">
+            <div class="admin-media-category-header" style="border-bottom: 1px solid rgba(255, 255, 255, 0.1); padding-bottom: 10px;">
+              <h5>
+                <i class="fa-solid fa-microphone-lines" style="color: #4ade80;"></i> Fundo do Bloco: Canto (Voz & Técnica Vocal)
+              </h5>
+              <span style="background: rgba(34, 197, 94, 0.12); color: #4ade80; font-weight: 700; border: 1px solid rgba(34, 197, 94, 0.25);">Bloco Aulas 1 • Canto</span>
+            </div>
+
+            <div style="padding: 14px 0 6px 0;">
+              <div style="display: flex; flex-direction: column; md:flex-row; gap: 16px; align-items: stretch;">
+                <div style="width: 100%; max-width: 220px; height: 130px; position: relative; border-radius: 12px; overflow: hidden; border: 1.5px solid rgba(34, 197, 94, 0.35); background: #000; margin: 0 auto; display: flex; align-items: center; justify-content: center; box-shadow: 0 8px 24px rgba(0,0,0,0.6);">
+                  <img id="preview-fundo-class-canto" src="https://images.unsplash.com/photo-1516280440614-37939bbacd81?auto=format&fit=crop&w=800&q=80" alt="Prévia Fundo Canto" style="width: 100%; height: 100%; object-fit: cover; display: block;" onerror="this.onerror=null; this.src='/stage-bg.jpg';" />
+                  <div style="position: absolute; bottom: 0; left: 0; right: 0; padding: 4px 8px; background: linear-gradient(0deg, rgba(0,0,0,0.92) 0%, transparent 100%); font-size: 0.7rem; color: #4ade80; font-weight: 600; text-align: center;">
+                    Card Canto
+                  </div>
+                </div>
+
+                <div style="flex: 1; display: flex; flex-direction: column; gap: 10px; justify-content: center;">
+                  <div style="display: flex; gap: 8px; flex-wrap: wrap;">
+                    <label class="admin-upload-trigger" style="display: inline-flex; align-items: center; gap: 8px; cursor: pointer; margin: 0; padding: 9px 14px; background: rgba(34, 197, 94, 0.15); color: #86efac; border: 1px solid rgba(34, 197, 94, 0.4); font-weight: 700; border-radius: 8px; font-size: 0.82rem;">
+                      <i class="fa-solid fa-cloud-arrow-up"></i> Trocar Foto Canto
+                      <input type="file" accept="image/*" class="admin-file-hidden" onchange="handleClassBgUpload(event, 'canto')" />
+                    </label>
+
+                    <button type="button" class="btn-secondary" onclick="resetClassBgToDefault('canto')" style="padding: 9px 12px; font-size: 0.8rem; border-radius: 8px; border: 1px solid rgba(255,255,255,0.2); background: rgba(255,255,255,0.06); color: #e2e8f0;" title="Restaurar imagem padrão">
+                      <i class="fa-solid fa-rotate-left"></i> Restaurar Padrão
+                    </button>
+                  </div>
+
+                  <div>
+                    <label style="font-size: 0.76rem; color: #cbd5e1; display: block; margin-bottom: 4px; font-weight: 600;">Link / URL direta da foto:</label>
+                    <input type="url" id="adminClassBgUrl_canto" class="admin-input" placeholder="https://exemplo.com/foto-aula-canto.jpg" oninput="handleClassBgUrlInput(this.value, 'canto')" style="width: 100%; padding: 7px 10px; font-size: 0.82rem;" />
+                  </div>
+
+                  <div style="font-size: 0.74rem; color: #a1a1aa; line-height: 1.4; background: rgba(255, 255, 255, 0.03); border-left: 3px solid #22c55e; padding: 6px 10px; border-radius: 0 6px 6px 0;">
+                    Aplica imagem ao fundo do card <strong>Canto</strong> com sobreposição para leitura nítida de tópicos e botões.
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+
+          <!-- Item 6.2: Fundo do Bloco Guitarra -->
+          <div class="admin-media-category-card" style="border: 1px solid rgba(34, 197, 94, 0.2); background: linear-gradient(135deg, rgba(34, 197, 94, 0.03) 0%, rgba(18, 20, 26, 0.95) 100%); margin-bottom: 20px; box-shadow: 0 4px 20px rgba(0, 0, 0, 0.35);">
+            <div class="admin-media-category-header" style="border-bottom: 1px solid rgba(255, 255, 255, 0.1); padding-bottom: 10px;">
+              <h5>
+                <i class="fa-solid fa-guitar" style="color: #4ade80;"></i> Fundo do Bloco: Guitarra (Solos, Riffs & Improviso)
+              </h5>
+              <span style="background: rgba(34, 197, 94, 0.12); color: #4ade80; font-weight: 700; border: 1px solid rgba(34, 197, 94, 0.25);">Bloco Aulas 2 • Guitarra</span>
+            </div>
+
+            <div style="padding: 14px 0 6px 0;">
+              <div style="display: flex; flex-direction: column; md:flex-row; gap: 16px; align-items: stretch;">
+                <div style="width: 100%; max-width: 220px; height: 130px; position: relative; border-radius: 12px; overflow: hidden; border: 1.5px solid rgba(34, 197, 94, 0.35); background: #000; margin: 0 auto; display: flex; align-items: center; justify-content: center; box-shadow: 0 8px 24px rgba(0,0,0,0.6);">
+                  <img id="preview-fundo-class-guitarra" src="https://images.unsplash.com/photo-1511671782779-c97d3d27a1d4?auto=format&fit=crop&w=800&q=80" alt="Prévia Fundo Guitarra" style="width: 100%; height: 100%; object-fit: cover; display: block;" onerror="this.onerror=null; this.src='/stage-bg.jpg';" />
+                  <div style="position: absolute; bottom: 0; left: 0; right: 0; padding: 4px 8px; background: linear-gradient(0deg, rgba(0,0,0,0.92) 0%, transparent 100%); font-size: 0.7rem; color: #4ade80; font-weight: 600; text-align: center;">
+                    Card Guitarra
+                  </div>
+                </div>
+
+                <div style="flex: 1; display: flex; flex-direction: column; gap: 10px; justify-content: center;">
+                  <div style="display: flex; gap: 8px; flex-wrap: wrap;">
+                    <label class="admin-upload-trigger" style="display: inline-flex; align-items: center; gap: 8px; cursor: pointer; margin: 0; padding: 9px 14px; background: rgba(34, 197, 94, 0.15); color: #86efac; border: 1px solid rgba(34, 197, 94, 0.4); font-weight: 700; border-radius: 8px; font-size: 0.82rem;">
+                      <i class="fa-solid fa-cloud-arrow-up"></i> Trocar Foto Guitarra
+                      <input type="file" accept="image/*" class="admin-file-hidden" onchange="handleClassBgUpload(event, 'guitarra')" />
+                    </label>
+
+                    <button type="button" class="btn-secondary" onclick="resetClassBgToDefault('guitarra')" style="padding: 9px 12px; font-size: 0.8rem; border-radius: 8px; border: 1px solid rgba(255,255,255,0.2); background: rgba(255,255,255,0.06); color: #e2e8f0;" title="Restaurar imagem padrão">
+                      <i class="fa-solid fa-rotate-left"></i> Restaurar Padrão
+                    </button>
+                  </div>
+
+                  <div>
+                    <label style="font-size: 0.76rem; color: #cbd5e1; display: block; margin-bottom: 4px; font-weight: 600;">Link / URL direta da foto:</label>
+                    <input type="url" id="adminClassBgUrl_guitarra" class="admin-input" placeholder="https://exemplo.com/foto-aula-guitarra.jpg" oninput="handleClassBgUrlInput(this.value, 'guitarra')" style="width: 100%; padding: 7px 10px; font-size: 0.82rem;" />
+                  </div>
+
+                  <div style="font-size: 0.74rem; color: #a1a1aa; line-height: 1.4; background: rgba(255, 255, 255, 0.03); border-left: 3px solid #22c55e; padding: 6px 10px; border-radius: 0 6px 6px 0;">
+                    Aplica imagem ao fundo do card <strong>Guitarra</strong> no bloco Quer Aprender a Tocar ou Cantar.
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+
+          <!-- Item 6.3: Fundo do Bloco Violão -->
+          <div class="admin-media-category-card" style="border: 1px solid rgba(34, 197, 94, 0.2); background: linear-gradient(135deg, rgba(34, 197, 94, 0.03) 0%, rgba(18, 20, 26, 0.95) 100%); margin-bottom: 20px; box-shadow: 0 4px 20px rgba(0, 0, 0, 0.35);">
+            <div class="admin-media-category-header" style="border-bottom: 1px solid rgba(255, 255, 255, 0.1); padding-bottom: 10px;">
+              <h5>
+                <i class="fa-solid fa-music" style="color: #4ade80;"></i> Fundo do Bloco: Violão (Harmonia & Ritmos Brasileiros)
+              </h5>
+              <span style="background: rgba(34, 197, 94, 0.12); color: #4ade80; font-weight: 700; border: 1px solid rgba(34, 197, 94, 0.25);">Bloco Aulas 3 • Violão</span>
+            </div>
+
+            <div style="padding: 14px 0 6px 0;">
+              <div style="display: flex; flex-direction: column; md:flex-row; gap: 16px; align-items: stretch;">
+                <div style="width: 100%; max-width: 220px; height: 130px; position: relative; border-radius: 12px; overflow: hidden; border: 1.5px solid rgba(34, 197, 94, 0.35); background: #000; margin: 0 auto; display: flex; align-items: center; justify-content: center; box-shadow: 0 8px 24px rgba(0,0,0,0.6);">
+                  <img id="preview-fundo-class-violao" src="https://images.unsplash.com/photo-1510915361894-db8b60106cb1?auto=format&fit=crop&w=800&q=80" alt="Prévia Fundo Violão" style="width: 100%; height: 100%; object-fit: cover; display: block;" onerror="this.onerror=null; this.src='/stage-bg.jpg';" />
+                  <div style="position: absolute; bottom: 0; left: 0; right: 0; padding: 4px 8px; background: linear-gradient(0deg, rgba(0,0,0,0.92) 0%, transparent 100%); font-size: 0.7rem; color: #4ade80; font-weight: 600; text-align: center;">
+                    Card Violão
+                  </div>
+                </div>
+
+                <div style="flex: 1; display: flex; flex-direction: column; gap: 10px; justify-content: center;">
+                  <div style="display: flex; gap: 8px; flex-wrap: wrap;">
+                    <label class="admin-upload-trigger" style="display: inline-flex; align-items: center; gap: 8px; cursor: pointer; margin: 0; padding: 9px 14px; background: rgba(34, 197, 94, 0.15); color: #86efac; border: 1px solid rgba(34, 197, 94, 0.4); font-weight: 700; border-radius: 8px; font-size: 0.82rem;">
+                      <i class="fa-solid fa-cloud-arrow-up"></i> Trocar Foto Violão
+                      <input type="file" accept="image/*" class="admin-file-hidden" onchange="handleClassBgUpload(event, 'violao')" />
+                    </label>
+
+                    <button type="button" class="btn-secondary" onclick="resetClassBgToDefault('violao')" style="padding: 9px 12px; font-size: 0.8rem; border-radius: 8px; border: 1px solid rgba(255,255,255,0.2); background: rgba(255,255,255,0.06); color: #e2e8f0;" title="Restaurar imagem padrão">
+                      <i class="fa-solid fa-rotate-left"></i> Restaurar Padrão
+                    </button>
+                  </div>
+
+                  <div>
+                    <label style="font-size: 0.76rem; color: #cbd5e1; display: block; margin-bottom: 4px; font-weight: 600;">Link / URL direta da foto:</label>
+                    <input type="url" id="adminClassBgUrl_violao" class="admin-input" placeholder="https://exemplo.com/foto-aula-violao.jpg" oninput="handleClassBgUrlInput(this.value, 'violao')" style="width: 100%; padding: 7px 10px; font-size: 0.82rem;" />
+                  </div>
+
+                  <div style="font-size: 0.74rem; color: #a1a1aa; line-height: 1.4; background: rgba(255, 255, 255, 0.03); border-left: 3px solid #22c55e; padding: 6px 10px; border-radius: 0 6px 6px 0;">
+                    Aplica imagem ao fundo do card <strong>Violão</strong> no bloco Quer Aprender a Tocar ou Cantar.
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+
+          <!-- Item 6.4: Fundo do Bloco Contrabaixo -->
+          <div class="admin-media-category-card" style="border: 1px solid rgba(34, 197, 94, 0.2); background: linear-gradient(135deg, rgba(34, 197, 94, 0.03) 0%, rgba(18, 20, 26, 0.95) 100%); margin-bottom: 24px; box-shadow: 0 4px 20px rgba(0, 0, 0, 0.35);">
+            <div class="admin-media-category-header" style="border-bottom: 1px solid rgba(255, 255, 255, 0.1); padding-bottom: 10px;">
+              <h5>
+                <i class="fa-solid fa-wave-square" style="color: #4ade80;"></i> Fundo do Bloco: Contrabaixo (Groove, Slap & Condução)
+              </h5>
+              <span style="background: rgba(34, 197, 94, 0.12); color: #4ade80; font-weight: 700; border: 1px solid rgba(34, 197, 94, 0.25);">Bloco Aulas 4 • Contrabaixo</span>
+            </div>
+
+            <div style="padding: 14px 0 6px 0;">
+              <div style="display: flex; flex-direction: column; md:flex-row; gap: 16px; align-items: stretch;">
+                <div style="width: 100%; max-width: 220px; height: 130px; position: relative; border-radius: 12px; overflow: hidden; border: 1.5px solid rgba(34, 197, 94, 0.35); background: #000; margin: 0 auto; display: flex; align-items: center; justify-content: center; box-shadow: 0 8px 24px rgba(0,0,0,0.6);">
+                  <img id="preview-fundo-class-baixo" src="https://images.unsplash.com/photo-1520523839898-5071282543e2?auto=format&fit=crop&w=800&q=80" alt="Prévia Fundo Baixo" style="width: 100%; height: 100%; object-fit: cover; display: block;" onerror="this.onerror=null; this.src='/stage-bg.jpg';" />
+                  <div style="position: absolute; bottom: 0; left: 0; right: 0; padding: 4px 8px; background: linear-gradient(0deg, rgba(0,0,0,0.92) 0%, transparent 100%); font-size: 0.7rem; color: #4ade80; font-weight: 600; text-align: center;">
+                    Card Contrabaixo
+                  </div>
+                </div>
+
+                <div style="flex: 1; display: flex; flex-direction: column; gap: 10px; justify-content: center;">
+                  <div style="display: flex; gap: 8px; flex-wrap: wrap;">
+                    <label class="admin-upload-trigger" style="display: inline-flex; align-items: center; gap: 8px; cursor: pointer; margin: 0; padding: 9px 14px; background: rgba(34, 197, 94, 0.15); color: #86efac; border: 1px solid rgba(34, 197, 94, 0.4); font-weight: 700; border-radius: 8px; font-size: 0.82rem;">
+                      <i class="fa-solid fa-cloud-arrow-up"></i> Trocar Foto Contrabaixo
+                      <input type="file" accept="image/*" class="admin-file-hidden" onchange="handleClassBgUpload(event, 'baixo')" />
+                    </label>
+
+                    <button type="button" class="btn-secondary" onclick="resetClassBgToDefault('baixo')" style="padding: 9px 12px; font-size: 0.8rem; border-radius: 8px; border: 1px solid rgba(255,255,255,0.2); background: rgba(255,255,255,0.06); color: #e2e8f0;" title="Restaurar imagem padrão">
+                      <i class="fa-solid fa-rotate-left"></i> Restaurar Padrão
+                    </button>
+                  </div>
+
+                  <div>
+                    <label style="font-size: 0.76rem; color: #cbd5e1; display: block; margin-bottom: 4px; font-weight: 600;">Link / URL direta da foto:</label>
+                    <input type="url" id="adminClassBgUrl_baixo" class="admin-input" placeholder="https://exemplo.com/foto-aula-baixo.jpg" oninput="handleClassBgUrlInput(this.value, 'baixo')" style="width: 100%; padding: 7px 10px; font-size: 0.82rem;" />
+                  </div>
+
+                  <div style="font-size: 0.74rem; color: #a1a1aa; line-height: 1.4; background: rgba(255, 255, 255, 0.03); border-left: 3px solid #22c55e; padding: 6px 10px; border-radius: 0 6px 6px 0;">
+                    Aplica imagem ao fundo do card <strong>Contrabaixo</strong> no bloco Quer Aprender a Tocar ou Cantar.
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+
+          <!-- SEÇÃO 7: Galeria do Instagram (@gilmartorrez07) -->
           <div class="admin-media-category-card" style="border: 1px solid rgba(225, 48, 108, 0.35); background: linear-gradient(135deg, rgba(225, 48, 108, 0.05) 0%, rgba(18, 20, 28, 0.95) 100%); margin-bottom: 24px; box-shadow: 0 4px 20px rgba(0, 0, 0, 0.35);">
             <div class="admin-media-category-header" style="border-bottom: 1px solid rgba(225, 48, 108, 0.25); padding-bottom: 10px;">
               <h5>
-                <i class="fa-brands fa-instagram" style="color: #f43f5e;"></i> Galeria do Instagram (@gilmartorrez07)
+                <i class="fa-brands fa-instagram" style="color: #f43f5e;"></i> 7. Galeria do Instagram (@gilmartorrez07)
               </h5>
-              <span style="background: rgba(225, 48, 108, 0.15); color: #fda4af; border: 1px solid rgba(225, 48, 108, 0.3); font-weight: 700;">6 Fotos Recentes</span>
+              <span style="background: rgba(225, 48, 108, 0.15); color: #fda4af; border: 1px solid rgba(225, 48, 108, 0.3); font-weight: 700;">Seção Instagram (#instagram) • 6 Fotos</span>
             </div>
 
             <div style="font-size: 0.8rem; color: #cbd5e1; margin: 10px 0 16px 0; line-height: 1.45;">
@@ -8076,6 +8734,24 @@
         url: 'https://images.unsplash.com/photo-1511671782779-c97d3d27a1d4?auto=format&fit=crop&w=1400&q=80',
         titulo: 'Fundo Quer Aprender a Tocar ou Cantar?'
       },
+      aulasCardsFundos: {
+        canto: {
+          url: 'https://images.unsplash.com/photo-1516280440614-37939bbacd81?auto=format&fit=crop&w=800&q=80',
+          titulo: 'Aulas de Canto'
+        },
+        guitarra: {
+          url: 'https://images.unsplash.com/photo-1511671782779-c97d3d27a1d4?auto=format&fit=crop&w=800&q=80',
+          titulo: 'Aulas de Guitarra'
+        },
+        violao: {
+          url: 'https://images.unsplash.com/photo-1525201548942-d8732f6617a0?auto=format&fit=crop&w=800&q=80',
+          titulo: 'Aulas de Violão'
+        },
+        baixo: {
+          url: 'https://images.unsplash.com/photo-1460036521480-ff49c08c2781?auto=format&fit=crop&w=800&q=80',
+          titulo: 'Aulas de Contrabaixo'
+        }
+      },
       'shows-ao-vivo': {
         titulo: 'Shows ao Vivo',
         fotos: [
@@ -8173,7 +8849,14 @@
           comments: '24',
           link: 'https://www.instagram.com/gilmartorrez07/'
         }
-      ]
+      ],
+      opacidades: {
+        master: 35,
+        banda: 35,
+        aulas: 35,
+        aulasCards: 35,
+        siteFundo: 40
+      }
     };
 
     let adminGalleryState = null;
@@ -8229,6 +8912,28 @@
         } else {
           result.aulasFundo = JSON.parse(JSON.stringify(defaultGalleryData.aulasFundo));
         }
+        if (sourceData.aulasCardsFundos) {
+          result.aulasCardsFundos = {
+            canto: {
+              url: (sourceData.aulasCardsFundos.canto && sourceData.aulasCardsFundos.canto.url) ? sourceData.aulasCardsFundos.canto.url : defaultGalleryData.aulasCardsFundos.canto.url,
+              titulo: 'Aulas de Canto'
+            },
+            guitarra: {
+              url: (sourceData.aulasCardsFundos.guitarra && sourceData.aulasCardsFundos.guitarra.url) ? sourceData.aulasCardsFundos.guitarra.url : defaultGalleryData.aulasCardsFundos.guitarra.url,
+              titulo: 'Aulas de Guitarra'
+            },
+            violao: {
+              url: (sourceData.aulasCardsFundos.violao && sourceData.aulasCardsFundos.violao.url) ? sourceData.aulasCardsFundos.violao.url : defaultGalleryData.aulasCardsFundos.violao.url,
+              titulo: 'Aulas de Violão'
+            },
+            baixo: {
+              url: (sourceData.aulasCardsFundos.baixo && sourceData.aulasCardsFundos.baixo.url) ? sourceData.aulasCardsFundos.baixo.url : defaultGalleryData.aulasCardsFundos.baixo.url,
+              titulo: 'Aulas de Contrabaixo'
+            }
+          };
+        } else {
+          result.aulasCardsFundos = JSON.parse(JSON.stringify(defaultGalleryData.aulasCardsFundos));
+        }
         ['shows-ao-vivo', 'acustico', 'guitarra-solo', 'celebracoes'].forEach(cat => {
           if (sourceData[cat]) {
             if (Array.isArray(sourceData[cat].fotos)) {
@@ -8259,6 +8964,18 @@
           }));
         } else {
           result.instagram = JSON.parse(JSON.stringify(defaultGalleryData.instagram));
+        }
+
+        if (sourceData.opacidades) {
+          result.opacidades = {
+            master: typeof sourceData.opacidades.master === 'number' ? sourceData.opacidades.master : 35,
+            banda: typeof sourceData.opacidades.banda === 'number' ? sourceData.opacidades.banda : 35,
+            aulas: typeof sourceData.opacidades.aulas === 'number' ? sourceData.opacidades.aulas : 35,
+            aulasCards: typeof sourceData.opacidades.aulasCards === 'number' ? sourceData.opacidades.aulasCards : 35,
+            siteFundo: typeof sourceData.opacidades.siteFundo === 'number' ? sourceData.opacidades.siteFundo : 40
+          };
+        } else {
+          result.opacidades = { master: 35, banda: 35, aulas: 35, aulasCards: 35, siteFundo: 40 };
         }
       } catch (e) {
         console.error('Erro ao processar dados de galeria do servidor:', e);
@@ -8671,6 +9388,292 @@
       }
     }
 
+    async function handleClassBgUpload(event, key) {
+      const file = event.target.files && event.target.files[0];
+      if (!file) return;
+
+      try {
+        const base64 = await compressImage(file, 1400, 1400, 0.85);
+        if (!adminGalleryState) {
+          adminGalleryState = getStoredGalleryData();
+        }
+        if (!adminGalleryState.aulasCardsFundos) {
+          adminGalleryState.aulasCardsFundos = JSON.parse(JSON.stringify(defaultGalleryData.aulasCardsFundos));
+        }
+        if (!adminGalleryState.aulasCardsFundos[key]) {
+          adminGalleryState.aulasCardsFundos[key] = { url: base64, titulo: '' };
+        } else {
+          adminGalleryState.aulasCardsFundos[key].url = base64;
+        }
+
+        const previewEl = document.getElementById(`preview-fundo-class-${key}`);
+        if (previewEl) previewEl.src = base64;
+
+        const urlInput = document.getElementById(`adminClassBgUrl_${key}`);
+        if (urlInput) urlInput.value = '';
+
+        const cardIdMap = {
+          canto: 'classCardCanto',
+          guitarra: 'classCardGuitarra',
+          violao: 'classCardViolao',
+          baixo: 'classCardBaixo'
+        };
+        const card = document.getElementById(cardIdMap[key]);
+        if (card) {
+          card.style.backgroundImage = `linear-gradient(180deg, rgba(14, 17, 24, 0.88) 0%, rgba(14, 17, 24, 0.94) 100%), url('${base64}')`;
+          card.classList.add('has-custom-bg');
+        }
+      } catch (err) {
+        console.error('Erro ao processar imagem de fundo do bloco de aulas:', err);
+        alert('Não foi possível carregar a imagem. Tente outro arquivo.');
+      }
+    }
+
+    function handleClassBgUrlInput(url, key) {
+      const trimmed = (url || '').trim();
+      if (!trimmed) return;
+      if (!adminGalleryState) adminGalleryState = getStoredGalleryData();
+      if (!adminGalleryState.aulasCardsFundos) {
+        adminGalleryState.aulasCardsFundos = JSON.parse(JSON.stringify(defaultGalleryData.aulasCardsFundos));
+      }
+      if (!adminGalleryState.aulasCardsFundos[key]) {
+        adminGalleryState.aulasCardsFundos[key] = { url: trimmed, titulo: '' };
+      } else {
+        adminGalleryState.aulasCardsFundos[key].url = trimmed;
+      }
+
+      const previewEl = document.getElementById(`preview-fundo-class-${key}`);
+      if (previewEl) previewEl.src = trimmed;
+
+      const cardIdMap = {
+        canto: 'classCardCanto',
+        guitarra: 'classCardGuitarra',
+        violao: 'classCardViolao',
+        baixo: 'classCardBaixo'
+      };
+      const card = document.getElementById(cardIdMap[key]);
+      if (card) {
+        card.style.backgroundImage = `linear-gradient(180deg, rgba(14, 17, 24, 0.88) 0%, rgba(14, 17, 24, 0.94) 100%), url('${trimmed}')`;
+        card.classList.add('has-custom-bg');
+      }
+    }
+
+    function resetClassBgToDefault(key) {
+      if (!adminGalleryState) adminGalleryState = getStoredGalleryData();
+      if (!adminGalleryState.aulasCardsFundos) {
+        adminGalleryState.aulasCardsFundos = JSON.parse(JSON.stringify(defaultGalleryData.aulasCardsFundos));
+      }
+      const defaultUrl = (defaultGalleryData.aulasCardsFundos && defaultGalleryData.aulasCardsFundos[key]) ? defaultGalleryData.aulasCardsFundos[key].url : '';
+      if (!adminGalleryState.aulasCardsFundos[key]) {
+        adminGalleryState.aulasCardsFundos[key] = { url: defaultUrl, titulo: '' };
+      } else {
+        adminGalleryState.aulasCardsFundos[key].url = defaultUrl;
+      }
+
+      const previewEl = document.getElementById(`preview-fundo-class-${key}`);
+      if (previewEl) previewEl.src = defaultUrl;
+
+      const urlInput = document.getElementById(`adminClassBgUrl_${key}`);
+      if (urlInput) urlInput.value = '';
+
+      const cardIdMap = {
+        canto: 'classCardCanto',
+        guitarra: 'classCardGuitarra',
+        violao: 'classCardViolao',
+        baixo: 'classCardBaixo'
+      };
+      const card = document.getElementById(cardIdMap[key]);
+      if (card) {
+        if (defaultUrl) {
+          card.style.backgroundImage = `linear-gradient(180deg, rgba(14, 17, 24, 0.88) 0%, rgba(14, 17, 24, 0.94) 100%), url('${defaultUrl}')`;
+          card.classList.add('has-custom-bg');
+        } else {
+          card.style.backgroundImage = '';
+          card.classList.remove('has-custom-bg');
+        }
+      }
+    }
+
+    /* ===================================================
+       CONTROLADOR DE TRANSPARÊNCIA & OPACIDADE DOS FUNDOS
+       =================================================== */
+    function calcBgDarkness(vis) {
+      const v = Math.min(100, Math.max(0, Number(vis) !== undefined ? Number(vis) : 35));
+      return (0.98 - (v / 100) * 0.72).toFixed(3);
+    }
+
+    function applyOpacityVariables(opacidades) {
+      if (!opacidades) {
+        opacidades = (adminGalleryState && adminGalleryState.opacidades) ? adminGalleryState.opacidades : { master: 35, banda: 35, aulas: 35, aulasCards: 35, siteFundo: 40 };
+      }
+      const root = document.documentElement;
+      
+      const bandaDark = calcBgDarkness(opacidades.banda !== undefined ? opacidades.banda : opacidades.master);
+      const aulasDark = calcBgDarkness(opacidades.aulas !== undefined ? opacidades.aulas : opacidades.master);
+      const classDark = calcBgDarkness(opacidades.aulasCards !== undefined ? opacidades.aulasCards : opacidades.master);
+      const bodyDark = calcBgDarkness(opacidades.siteFundo !== undefined ? opacidades.siteFundo : opacidades.master);
+      const testDark = calcBgDarkness(opacidades.master !== undefined ? opacidades.master : 35);
+
+      root.style.setProperty('--banda-bg-darkness', bandaDark);
+      root.style.setProperty('--aulas-bg-darkness', aulasDark);
+      root.style.setProperty('--class-bg-darkness', classDark);
+      root.style.setProperty('--body-bg-darkness', bodyDark);
+      root.style.setProperty('--test-bg-darkness', testDark);
+
+      // Atualiza gradiente do overlay do Body
+      root.style.setProperty('--bg-overlay-top', `rgba(9, 10, 14, ${(parseFloat(bodyDark) * 0.95).toFixed(3)})`);
+      root.style.setProperty('--bg-overlay-mid', `rgba(9, 10, 14, ${bodyDark})`);
+      root.style.setProperty('--bg-overlay-bot', `rgba(9, 10, 14, ${Math.min(0.99, parseFloat(bodyDark) * 1.05).toFixed(3)})`);
+
+      // Atualiza o overlay do Card de Demonstração / Foto Teste
+      const testCardOverlay = document.getElementById('testCardOverlay');
+      if (testCardOverlay) {
+        testCardOverlay.style.background = `linear-gradient(180deg, rgba(13, 15, 23, ${testDark}) 0%, rgba(9, 10, 16, ${Math.min(0.99, parseFloat(testDark) * 1.06).toFixed(3)}) 50%, rgba(6, 7, 10, ${Math.min(0.99, parseFloat(testDark) * 1.12).toFixed(3)}) 100%)`;
+      }
+
+      // Atualiza o badge indicador de contraste no Card Teste
+      const contrastBadge = document.getElementById('testCardContrastBadge');
+      if (contrastBadge) {
+        const v = opacidades.master !== undefined ? opacidades.master : 35;
+        if (v <= 25) {
+          contrastBadge.innerHTML = '<i class="fa-solid fa-circle-check"></i> Contraste Alto • Foco no Texto';
+          contrastBadge.style.color = '#4ade80';
+          contrastBadge.style.borderColor = 'rgba(74, 222, 128, 0.4)';
+          contrastBadge.style.background = 'rgba(74, 222, 128, 0.12)';
+        } else if (v <= 55) {
+          contrastBadge.innerHTML = '<i class="fa-solid fa-star"></i> Contraste Equilibrado • Recomendado';
+          contrastBadge.style.color = 'var(--gold-light)';
+          contrastBadge.style.borderColor = 'rgba(245, 158, 11, 0.4)';
+          contrastBadge.style.background = 'rgba(245, 158, 11, 0.12)';
+        } else {
+          contrastBadge.innerHTML = '<i class="fa-solid fa-eye"></i> Foto Vibrante • Destaque na Imagem';
+          contrastBadge.style.color = '#38bdf8';
+          contrastBadge.style.borderColor = 'rgba(56, 189, 248, 0.4)';
+          contrastBadge.style.background = 'rgba(56, 189, 248, 0.12)';
+        }
+      }
+
+      // Atualiza dinamicamente se a seção aulas ou cards de aulas tiverem estilos inline
+      const sectionAulas = document.getElementById('aulas');
+      if (sectionAulas && sectionAulas.style.backgroundImage && sectionAulas.style.backgroundImage !== 'none') {
+        const aulasUrl = (adminGalleryState && adminGalleryState.aulasFundo && adminGalleryState.aulasFundo.url) ? adminGalleryState.aulasFundo.url : (defaultGalleryData.aulasFundo ? defaultGalleryData.aulasFundo.url : '');
+        if (aulasUrl) {
+          sectionAulas.style.backgroundImage = `linear-gradient(180deg, rgba(9, 10, 14, ${aulasDark}) 0%, rgba(14, 18, 25, ${Math.min(0.99, parseFloat(aulasDark) * 1.02).toFixed(3)}) 50%, rgba(9, 10, 14, ${aulasDark}) 100%), url('${aulasUrl}')`;
+        }
+      }
+
+      const classCardsMap = [
+        { key: 'canto', id: 'classCardCanto' },
+        { key: 'guitarra', id: 'classCardGuitarra' },
+        { key: 'violao', id: 'classCardViolao' },
+        { key: 'baixo', id: 'classCardBaixo' }
+      ];
+      classCardsMap.forEach(item => {
+        const card = document.getElementById(item.id);
+        if (card && card.classList.contains('has-custom-bg')) {
+          const bgUrl = (adminGalleryState && adminGalleryState.aulasCardsFundos && adminGalleryState.aulasCardsFundos[item.key] && adminGalleryState.aulasCardsFundos[item.key].url) 
+            ? adminGalleryState.aulasCardsFundos[item.key].url 
+            : (defaultGalleryData.aulasCardsFundos ? defaultGalleryData.aulasCardsFundos[item.key].url : '');
+          if (bgUrl) {
+            card.style.backgroundImage = `linear-gradient(180deg, rgba(14, 18, 26, ${classDark}) 0%, rgba(14, 18, 26, ${Math.min(0.99, parseFloat(classDark) * 1.08).toFixed(3)}) 100%), url('${bgUrl}')`;
+          }
+        }
+      });
+    }
+
+    function updateSliderUI(type, value) {
+      const val = parseInt(value, 10);
+      const labelMap = {
+        master: { sliderId: 'sliderOpacityMaster', valId: 'valOpacityMaster' },
+        banda: { sliderId: 'sliderOpacityBanda', valId: 'valOpacityBanda', labelId: 'labelOpacityBanda' },
+        aulas: { sliderId: 'sliderOpacityAulas', valId: 'valOpacityAulas', labelId: 'labelOpacityAulas' },
+        aulasCards: { sliderId: 'sliderOpacityClass', valId: 'valOpacityClass', labelId: 'labelOpacityClass' },
+        siteFundo: { sliderId: 'sliderOpacitySiteFundo', valId: 'valOpacitySiteFundo', labelId: 'labelOpacitySiteFundo' }
+      };
+
+      const cfg = labelMap[type];
+      if (!cfg) return;
+
+      const sliderEl = document.getElementById(cfg.sliderId);
+      if (sliderEl) sliderEl.value = val;
+
+      const valEl = document.getElementById(cfg.valId);
+      if (valEl) valEl.textContent = val + '%';
+
+      if (cfg.labelId) {
+        const labelEl = document.getElementById(cfg.labelId);
+        if (labelEl) {
+          if (val <= 25) labelEl.textContent = 'Mais Escuro / Leitura Alta';
+          else if (val <= 50) labelEl.textContent = 'Contraste Equilibrado';
+          else if (val <= 75) labelEl.textContent = 'Foto em Destaque';
+          else labelEl.textContent = 'Foto Mais Clara';
+        }
+      }
+    }
+
+    function handleOpacityChange(type, value) {
+      const val = parseInt(value, 10);
+      if (!adminGalleryState) adminGalleryState = getStoredGalleryData();
+      if (!adminGalleryState.opacidades) {
+        adminGalleryState.opacidades = { master: 35, banda: 35, aulas: 35, aulasCards: 35, siteFundo: 40 };
+      }
+
+      if (type === 'master') {
+        adminGalleryState.opacidades.master = val;
+        adminGalleryState.opacidades.banda = val;
+        adminGalleryState.opacidades.aulas = val;
+        adminGalleryState.opacidades.aulasCards = val;
+        adminGalleryState.opacidades.siteFundo = Math.min(95, Math.max(5, val + 5));
+
+        ['master', 'banda', 'aulas', 'aulasCards', 'siteFundo'].forEach(k => {
+          updateSliderUI(k, adminGalleryState.opacidades[k]);
+        });
+      } else {
+        adminGalleryState.opacidades[type] = val;
+        updateSliderUI(type, val);
+      }
+
+      applyOpacityVariables(adminGalleryState.opacidades);
+    }
+
+    function setOpacityPreset(type, value) {
+      handleOpacityChange(type, value);
+    }
+
+    function resetOpacityToFactory() {
+      if (!adminGalleryState) adminGalleryState = getStoredGalleryData();
+      adminGalleryState.opacidades = { master: 35, banda: 35, aulas: 35, aulasCards: 35, siteFundo: 40 };
+      ['master', 'banda', 'aulas', 'aulasCards', 'siteFundo'].forEach(k => {
+        updateSliderUI(k, adminGalleryState.opacidades[k]);
+      });
+      applyOpacityVariables(adminGalleryState.opacidades);
+    }
+
+    function setTestPhoto(url, btnElement) {
+      const testCard = document.getElementById('testCardElement');
+      if (testCard && url) {
+        testCard.style.backgroundImage = `url('${url}')`;
+      }
+      document.querySelectorAll('.test-photo-picker-btn').forEach(b => b.classList.remove('active'));
+      if (btnElement) btnElement.classList.add('active');
+    }
+
+    function setTestPhotoFromHero(btnElement) {
+      const heroUrl = (adminGalleryState && adminGalleryState.fotoPrincipal && adminGalleryState.fotoPrincipal.url)
+        ? adminGalleryState.fotoPrincipal.url
+        : defaultGalleryData.fotoPrincipal.url;
+      setTestPhoto(heroUrl, btnElement);
+    }
+
+    window.calcBgDarkness = calcBgDarkness;
+    window.applyOpacityVariables = applyOpacityVariables;
+    window.updateSliderUI = updateSliderUI;
+    window.handleOpacityChange = handleOpacityChange;
+    window.setOpacityPreset = setOpacityPreset;
+    window.resetOpacityToFactory = resetOpacityToFactory;
+    window.setTestPhoto = setTestPhoto;
+    window.setTestPhotoFromHero = setTestPhotoFromHero;
+
     async function handleInstagramImageUpload(event, index) {
       const file = event.target.files && event.target.files[0];
       if (!file) return;
@@ -8820,6 +9823,16 @@
     function populateAdminMediaInputs() {
       adminGalleryState = getStoredGalleryData();
 
+      // Sliders de Transparência / Opacidade dos Fundos
+      if (!adminGalleryState.opacidades) {
+        adminGalleryState.opacidades = { master: 35, banda: 35, aulas: 35, aulasCards: 35, siteFundo: 40 };
+      }
+      ['master', 'banda', 'aulas', 'aulasCards', 'siteFundo'].forEach(key => {
+        const val = adminGalleryState.opacidades[key] !== undefined ? adminGalleryState.opacidades[key] : 35;
+        updateSliderUI(key, val);
+      });
+      applyOpacityVariables(adminGalleryState.opacidades);
+
       // Foto Principal
       if (adminGalleryState.fotoPrincipal) {
         const previewEl = document.getElementById('preview-foto-principal');
@@ -8880,6 +9893,22 @@
       if (urlAulasInput && adminGalleryState.aulasFundo) {
         urlAulasInput.value = (adminGalleryState.aulasFundo.url && !adminGalleryState.aulasFundo.url.startsWith('data:')) ? adminGalleryState.aulasFundo.url : '';
       }
+
+      // Fundos dos Blocos de Aulas (Canto, Guitarra, Violão, Baixo)
+      if (!adminGalleryState.aulasCardsFundos) {
+        adminGalleryState.aulasCardsFundos = JSON.parse(JSON.stringify(defaultGalleryData.aulasCardsFundos));
+      }
+      ['canto', 'guitarra', 'violao', 'baixo'].forEach(key => {
+        const item = adminGalleryState.aulasCardsFundos[key];
+        const previewEl = document.getElementById(`preview-fundo-class-${key}`);
+        if (previewEl && item && item.url) {
+          previewEl.src = item.url;
+        }
+        const urlInput = document.getElementById(`adminClassBgUrl_${key}`);
+        if (urlInput && item) {
+          urlInput.value = (item.url && !item.url.startsWith('data:')) ? item.url : '';
+        }
+      });
 
       const categories = ['shows-ao-vivo', 'acustico', 'guitarra-solo', 'celebracoes'];
 
@@ -8992,6 +10021,23 @@
         adminGalleryState.aulasFundo.url = inputAulasUrl;
       }
 
+      // Fundos dos Blocos de Aulas (Canto, Guitarra, Violão, Baixo)
+      if (!adminGalleryState.aulasCardsFundos) {
+        adminGalleryState.aulasCardsFundos = JSON.parse(JSON.stringify(defaultGalleryData.aulasCardsFundos));
+      }
+      ['canto', 'guitarra', 'violao', 'baixo'].forEach(key => {
+        if (!adminGalleryState.aulasCardsFundos[key]) {
+          adminGalleryState.aulasCardsFundos[key] = {
+            url: (defaultGalleryData.aulasCardsFundos && defaultGalleryData.aulasCardsFundos[key]) ? defaultGalleryData.aulasCardsFundos[key].url : '',
+            titulo: ''
+          };
+        }
+        const inputUrl = document.getElementById(`adminClassBgUrl_${key}`)?.value.trim();
+        if (inputUrl) {
+          adminGalleryState.aulasCardsFundos[key].url = inputUrl;
+        }
+      });
+
       const categories = ['shows-ao-vivo', 'acustico', 'guitarra-solo', 'celebracoes'];
       categories.forEach(cat => {
         if (!adminGalleryState[cat]) {
@@ -9049,6 +10095,21 @@
         }
       }
 
+      // Opacidades e Transparências dos Fundos
+      if (!adminGalleryState.opacidades) {
+        adminGalleryState.opacidades = { master: 35, banda: 35, aulas: 35, aulasCards: 35, siteFundo: 40 };
+      }
+      const sliderMaster = document.getElementById('sliderOpacityMaster');
+      if (sliderMaster) adminGalleryState.opacidades.master = parseInt(sliderMaster.value, 10) || 35;
+      const sliderBanda = document.getElementById('sliderOpacityBanda');
+      if (sliderBanda) adminGalleryState.opacidades.banda = parseInt(sliderBanda.value, 10) || 35;
+      const sliderClass = document.getElementById('sliderOpacityClass');
+      if (sliderClass) adminGalleryState.opacidades.aulasCards = parseInt(sliderClass.value, 10) || 35;
+      const sliderAulas = document.getElementById('sliderOpacityAulas');
+      if (sliderAulas) adminGalleryState.opacidades.aulas = parseInt(sliderAulas.value, 10) || 35;
+      const sliderSiteFundo = document.getElementById('sliderOpacitySiteFundo');
+      if (sliderSiteFundo) adminGalleryState.opacidades.siteFundo = parseInt(sliderSiteFundo.value, 10) || 40;
+
       try {
         await persistSectionToServer('midias', adminGalleryState);
         renderSiteGallery();
@@ -9069,6 +10130,11 @@
 
     function renderSiteGallery() {
       const data = getStoredGalleryData();
+
+      // Aplica as variáveis CSS de opacidade e transparência
+      if (data && data.opacidades) {
+        applyOpacityVariables(data.opacidades);
+      }
 
       // Aplica Foto Principal e Fundo do Site
       if (data.fotoPrincipal && data.fotoPrincipal.url) {
@@ -9145,7 +10211,7 @@
       const sectionAulas = document.getElementById('aulas');
       if (sectionAulas) {
         if (aulasBgUrl && aulasBgUrl.trim()) {
-          sectionAulas.style.backgroundImage = `linear-gradient(180deg, rgba(9, 10, 14, 0.88) 0%, rgba(14, 18, 25, 0.90) 50%, rgba(9, 10, 14, 0.92) 100%), url('${aulasBgUrl}')`;
+          sectionAulas.style.backgroundImage = `linear-gradient(180deg, rgba(9, 10, 14, var(--aulas-bg-darkness, 0.88)) 0%, rgba(14, 18, 25, calc(var(--aulas-bg-darkness, 0.88) * 1.02)) 50%, rgba(9, 10, 14, var(--aulas-bg-darkness, 0.88)) 100%), url('${aulasBgUrl}')`;
           sectionAulas.style.backgroundSize = 'cover';
           sectionAulas.style.backgroundPosition = 'center center';
           sectionAulas.style.backgroundRepeat = 'no-repeat';
@@ -9153,6 +10219,27 @@
           sectionAulas.style.backgroundImage = '';
         }
       }
+
+      // Aplica Fundos dos 4 Blocos de Instrumentos de Aulas (Canto, Guitarra, Violão, Contrabaixo)
+      const classCardsMap = [
+        { key: 'canto', id: 'classCardCanto', fallback: defaultGalleryData.aulasCardsFundos.canto.url },
+        { key: 'guitarra', id: 'classCardGuitarra', fallback: defaultGalleryData.aulasCardsFundos.guitarra.url },
+        { key: 'violao', id: 'classCardViolao', fallback: defaultGalleryData.aulasCardsFundos.violao.url },
+        { key: 'baixo', id: 'classCardBaixo', fallback: defaultGalleryData.aulasCardsFundos.baixo.url }
+      ];
+      const classFundos = data.aulasCardsFundos || defaultGalleryData.aulasCardsFundos;
+      classCardsMap.forEach(item => {
+        const card = document.getElementById(item.id);
+        if (!card) return;
+        const bgUrl = (classFundos && classFundos[item.key] && classFundos[item.key].url) ? classFundos[item.key].url : item.fallback;
+        if (bgUrl && bgUrl.trim()) {
+          card.style.backgroundImage = `linear-gradient(180deg, rgba(14, 18, 26, var(--class-bg-darkness, 0.86)) 0%, rgba(14, 18, 26, calc(var(--class-bg-darkness, 0.86) * 1.08)) 100%), url('${bgUrl}')`;
+          card.classList.add('has-custom-bg');
+        } else {
+          card.style.backgroundImage = '';
+          card.classList.remove('has-custom-bg');
+        }
+      });
 
       const categories = ['shows-ao-vivo', 'acustico', 'guitarra-solo', 'celebracoes'];
 
@@ -9773,6 +10860,12 @@
     window.handleLogoUpload = handleLogoUpload;
     window.handleLogoUrlInput = handleLogoUrlInput;
     window.resetLogoToDefault = resetLogoToDefault;
+    window.handleAulasBgUpload = handleAulasBgUpload;
+    window.handleAulasBgUrlInput = handleAulasBgUrlInput;
+    window.resetAulasBgToDefault = resetAulasBgToDefault;
+    window.handleClassBgUpload = handleClassBgUpload;
+    window.handleClassBgUrlInput = handleClassBgUrlInput;
+    window.resetClassBgToDefault = resetClassBgToDefault;
     window.saveMediaGallery = saveMediaGallery;
     window.renderSiteGallery = renderSiteGallery;
     window.selectColorPalette = selectColorPalette;
