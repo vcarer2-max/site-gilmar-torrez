@@ -793,42 +793,69 @@
         --header-height: 84px;
       }
       .header .nav-container {
-        padding: 0 16px;
-        gap: 12px;
+        position: relative;
+        justify-content: center;
+        align-items: center;
+        padding: 0 54px;
+      }
+      .menu-toggle {
+        position: absolute;
+        right: 14px;
+        top: 50%;
+        transform: translateY(-50%);
+        margin-left: 0;
       }
       .logo-link {
-        margin-right: 0;
-        min-width: 0;
-        flex: 1 1 auto;
+        margin: 0 auto;
+        justify-content: center;
+        align-items: center;
+        text-align: center;
+        gap: 12px;
+        flex: 0 1 auto;
       }
       .logo-container {
-        height: 64px;
+        height: 60px;
         flex-shrink: 0;
       }
       .logo-img {
-        height: 64px;
-        max-width: 82px;
+        height: 60px;
+        max-width: 78px;
       }
       .logo-text-group {
+        align-items: center;
+        text-align: center;
+        justify-content: center;
         min-width: 0;
-        overflow: hidden;
       }
       .logo-name-signature {
-        font-size: 1.95rem;
+        font-size: 2.6rem;
+        font-weight: 700;
         white-space: nowrap;
-        overflow: hidden;
-        text-overflow: ellipsis;
+        text-align: center;
+        line-height: 0.95;
+      }
+      .logo-badge {
+        font-size: 0.72rem;
+        letter-spacing: 2px;
+        text-align: center;
+        display: block;
       }
     }
 
     @media (max-width: 640px) {
       :root {
         --topbar-height: 38px;
-        --header-height: 72px;
+        --header-height: 76px;
       }
       .header .nav-container {
-        padding: 0 12px;
-        gap: 8px;
+        padding: 0 50px;
+        justify-content: center;
+      }
+      .menu-toggle {
+        right: 12px;
+        width: 40px;
+        height: 40px;
+        padding: 8px 7px;
       }
       .top-audio-btn {
         font-size: 0.74rem;
@@ -855,32 +882,50 @@
         height: 25px;
         font-size: 0.68rem;
       }
+      .logo-link {
+        gap: 10px;
+        justify-content: center;
+      }
       .logo-container {
         height: 52px;
         overflow: visible;
       }
       .logo-img {
         height: 52px;
-        max-width: 68px;
+        max-width: 66px;
         overflow: visible;
       }
+      .logo-text-group {
+        align-items: center;
+        text-align: center;
+      }
       .logo-name-signature {
-        font-size: 1.7rem;
+        font-size: 2.35rem;
+        font-weight: 700;
+        line-height: 0.95;
+        text-align: center;
       }
       .logo-badge {
-        font-size: 0.64rem;
-        letter-spacing: 1px;
+        font-size: 0.65rem;
+        letter-spacing: 1.5px;
+        text-align: center;
+        display: block;
       }
     }
 
     @media (max-width: 440px) {
       :root {
         --topbar-height: 36px;
-        --header-height: 68px;
+        --header-height: 74px;
       }
       .header .nav-container {
-        padding: 0 10px;
+        padding: 0 46px;
         gap: 6px;
+      }
+      .menu-toggle {
+        right: 8px;
+        width: 38px;
+        height: 38px;
       }
       .top-audio-label {
         font-size: 0.71rem;
@@ -888,27 +933,64 @@
       .top-audio-ticker-window {
         max-width: 100px;
       }
+      .logo-link {
+        gap: 8px;
+        justify-content: center;
+      }
       .logo-container {
-        height: 48px;
+        height: 46px;
       }
       .logo-img {
-        height: 48px;
-        max-width: 58px;
+        height: 46px;
+        max-width: 56px;
+      }
+      .logo-text-group {
+        align-items: center;
+        text-align: center;
       }
       .logo-name-signature {
-        font-size: 1.48rem;
+        font-size: 2.15rem;
+        font-weight: 700;
+        line-height: 0.95;
+        text-align: center;
       }
       .logo-badge {
-        display: none;
+        font-size: 0.6rem;
+        letter-spacing: 1.2px;
+        text-align: center;
+        display: block;
       }
     }
 
     @media (max-width: 360px) {
+      .header .nav-container {
+        padding: 0 42px;
+      }
+      .menu-toggle {
+        right: 6px;
+        width: 36px;
+        height: 36px;
+      }
       .top-audio-label {
         display: none;
       }
+      .logo-link {
+        gap: 6px;
+      }
+      .logo-container {
+        height: 40px;
+      }
+      .logo-img {
+        height: 40px;
+        max-width: 48px;
+      }
       .logo-name-signature {
-        font-size: 1.35rem;
+        font-size: 1.95rem;
+        text-align: center;
+      }
+      .logo-badge {
+        font-size: 0.56rem;
+        letter-spacing: 1px;
       }
     }
 
@@ -1100,7 +1182,7 @@
       background: rgba(9, 10, 15, 0.98);
       backdrop-filter: blur(24px);
       -webkit-backdrop-filter: blur(24px);
-      padding: 18px 18px 80px 18px;
+      padding: 14px 16px 110px 16px;
       display: flex;
       flex-direction: column;
       gap: 10px;
@@ -1125,6 +1207,7 @@
       padding-bottom: 12px;
       border-bottom: 1px solid rgba(255, 255, 255, 0.1);
       margin-bottom: 4px;
+      flex-shrink: 0;
     }
 
     .mobile-drawer-title {
@@ -1143,13 +1226,13 @@
       background: rgba(255, 255, 255, 0.08);
       border: 1px solid rgba(255, 255, 255, 0.15);
       color: var(--text-light);
-      width: 32px;
-      height: 32px;
+      width: 34px;
+      height: 34px;
       border-radius: 50%;
       display: flex;
       align-items: center;
       justify-content: center;
-      font-size: 0.85rem;
+      font-size: 0.9rem;
       cursor: pointer;
       transition: all 0.2s;
     }
@@ -1161,35 +1244,99 @@
     }
 
     .mobile-drawer .nav-link {
-      font-size: 0.98rem;
-      padding: 10px 14px;
-      border-radius: 8px;
-      background: rgba(255, 255, 255, 0.02);
-      border: 1px solid rgba(255, 255, 255, 0.05);
+      font-size: 0.94rem;
+      font-weight: 600;
+      padding: 11px 14px;
+      border-radius: 10px;
+      background: rgba(255, 255, 255, 0.03);
+      border: 1px solid rgba(255, 255, 255, 0.06);
       display: flex;
       align-items: center;
       justify-content: space-between;
-      color: var(--text-light);
-      transition: all 0.2s;
+      color: #e2e8f0;
+      transition: all 0.2s ease;
+      min-height: 46px;
+      box-sizing: border-box;
+      text-decoration: none;
+    }
+
+    .mobile-drawer .nav-link .mobile-nav-item-inner {
+      display: inline-flex;
+      align-items: center;
+      gap: 12px;
+    }
+
+    .mobile-drawer .nav-link .mobile-nav-item-inner i {
+      font-size: 1.05rem;
+      width: 20px;
+      text-align: center;
+      color: var(--gold-primary);
+    }
+
+    .mobile-drawer .nav-link .mobile-nav-chevron {
+      font-size: 0.8rem;
+      color: #64748b;
+      transition: transform 0.2s ease, color 0.2s ease;
     }
 
     .mobile-drawer .nav-link:hover,
     .mobile-drawer .nav-link.active {
-      background: rgba(245, 158, 11, 0.12);
-      border-color: rgba(245, 158, 11, 0.35);
-      color: var(--gold-light);
-      padding-left: 18px;
+      background: rgba(245, 158, 11, 0.14);
+      border-color: rgba(245, 158, 11, 0.4);
+      color: #ffffff;
+      padding-left: 16px;
     }
 
-    .mobile-drawer .btn-cta {
-      margin-top: 8px;
-      width: 100%;
-      padding: 14px 18px;
-      font-size: 0.92rem;
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      gap: 10px;
+    .mobile-drawer .nav-link:hover .mobile-nav-chevron,
+    .mobile-drawer .nav-link.active .mobile-nav-chevron {
+      color: var(--gold-light);
+      transform: translateX(3px);
+    }
+
+    .mobile-drawer .btn-cta,
+    .mobile-drawer-cta-btn {
+      margin-top: 10px;
+      width: 100% !important;
+      min-height: 50px !important;
+      height: 50px !important;
+      padding: 0 18px !important;
+      display: flex !important;
+      align-items: center !important;
+      justify-content: center !important;
+      gap: 10px !important;
+      background: linear-gradient(135deg, #22c55e 0%, #15803d 100%) !important;
+      color: #ffffff !important;
+      font-family: var(--font-title) !important;
+      font-size: 0.92rem !important;
+      font-weight: 700 !important;
+      letter-spacing: 0.5px !important;
+      text-transform: none !important;
+      line-height: 1 !important;
+      border-radius: var(--radius-pill) !important;
+      border: 1px solid rgba(255, 255, 255, 0.3) !important;
+      box-shadow: 0 4px 18px rgba(34, 197, 94, 0.45) !important;
+      white-space: nowrap !important;
+      overflow: visible !important;
+      box-sizing: border-box !important;
+      flex-shrink: 0 !important;
+      text-decoration: none !important;
+    }
+
+    .mobile-drawer .btn-cta i,
+    .mobile-drawer-cta-btn i {
+      font-size: 1.35rem !important;
+      color: #ffffff !important;
+      line-height: 1 !important;
+    }
+
+    .mobile-drawer .btn-cta span,
+    .mobile-drawer-cta-btn span {
+      font-size: 0.92rem !important;
+      font-weight: 700 !important;
+      letter-spacing: 0.5px !important;
+      color: #ffffff !important;
+      line-height: 1 !important;
+      display: inline-block !important;
     }
 
     /* Barra de Navegação Inferior Fixa Mobile (Mobile Bottom Navigation Bar) */
@@ -4572,6 +4719,271 @@
       background: var(--gold-primary);
       color: #120902;
     }
+
+    /* =======================================================
+       REVISÃO GERAL DOS BOTÕES NA VERSÃO CELULAR (MOBILE AUDIT)
+       - Tipografia calibrada, sem corte de texto ou quebras feias
+       - Touch targets confortáveis (min 44px a 50px de altura)
+       - Largura consistente e texto legível em telas pequenas
+       ======================================================= */
+    @media (max-width: 768px) {
+      .btn-cta {
+        padding: 13px 24px;
+        font-size: 0.92rem;
+        letter-spacing: 0.5px;
+        text-transform: none;
+        line-height: 1.2;
+      }
+
+      .btn-secondary {
+        padding: 12px 22px;
+        font-size: 0.9rem;
+        letter-spacing: 0.5px;
+        text-transform: none;
+        line-height: 1.2;
+      }
+
+      .gallery-filter-tabs {
+        gap: 8px;
+        margin-bottom: 24px;
+        justify-content: center;
+      }
+
+      .gallery-tab-btn {
+        padding: 7px 14px;
+        font-size: 0.78rem;
+        letter-spacing: 0.3px;
+        display: inline-flex;
+        align-items: center;
+        gap: 6px;
+      }
+    }
+
+    @media (max-width: 640px) {
+      .hero-actions {
+        width: 100%;
+        max-width: 360px;
+        margin: 0 auto 32px auto;
+        display: flex;
+        flex-direction: column;
+        gap: 12px;
+      }
+
+      .hero-actions .btn-cta,
+      .hero-actions .btn-secondary {
+        width: 100%;
+        min-height: 48px;
+        height: 48px;
+        padding: 0 16px;
+        font-size: 0.88rem;
+        font-weight: 700;
+        letter-spacing: 0.4px;
+        border-radius: var(--radius-pill);
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        text-align: center;
+        white-space: nowrap;
+        box-sizing: border-box;
+      }
+
+      .hero-stage-overlay {
+        flex-direction: column;
+        align-items: stretch;
+        gap: 12px;
+        padding: 16px;
+      }
+
+      .hero-stage-overlay .btn-secondary {
+        width: 100%;
+        justify-content: center;
+        min-height: 42px;
+      }
+
+      .band-card-btn,
+      .band-card .btn-cta,
+      .band-card .btn-secondary {
+        width: 100% !important;
+        min-height: 46px !important;
+        height: 46px !important;
+        padding: 0 16px !important;
+        font-size: 0.86rem !important;
+        font-weight: 700 !important;
+        letter-spacing: 0.4px !important;
+        border-radius: var(--radius-pill) !important;
+        display: flex !important;
+        align-items: center !important;
+        justify-content: center !important;
+        gap: 8px !important;
+        white-space: nowrap !important;
+        box-sizing: border-box !important;
+        text-transform: none !important;
+        margin-top: auto !important;
+      }
+
+      .agenda-item {
+        padding: 16px;
+        gap: 14px;
+      }
+
+      .agenda-cta-btn {
+        width: 100% !important;
+        min-height: 46px !important;
+        height: 46px !important;
+        padding: 0 16px !important;
+        display: flex !important;
+        align-items: center !important;
+        justify-content: center !important;
+        font-size: 0.88rem !important;
+        font-weight: 700 !important;
+        letter-spacing: 0.4px !important;
+        border-radius: var(--radius-pill) !important;
+        white-space: nowrap !important;
+        box-sizing: border-box !important;
+        text-decoration: none !important;
+      }
+
+      .agenda-status {
+        width: 100%;
+        justify-content: center;
+        text-align: center;
+        padding: 8px 14px;
+        box-sizing: border-box;
+      }
+
+      .classes-cta-box {
+        display: flex;
+        justify-content: center;
+        width: 100%;
+      }
+
+      #classesMainCta {
+        width: 100% !important;
+        max-width: 320px !important;
+        min-height: 48px !important;
+        height: 48px !important;
+        padding: 0 18px !important;
+        font-size: 0.88rem !important;
+        font-weight: 700 !important;
+        border-radius: var(--radius-pill) !important;
+        display: flex !important;
+        align-items: center !important;
+        justify-content: center !important;
+        gap: 8px !important;
+        white-space: nowrap !important;
+        text-transform: none !important;
+      }
+
+      .instagram-profile-header {
+        flex-direction: column;
+        align-items: stretch;
+        gap: 16px;
+        text-align: center;
+      }
+
+      .instagram-profile-info {
+        flex-direction: column;
+        align-items: center;
+        text-align: center;
+      }
+
+      .instagram-user-row {
+        justify-content: center;
+      }
+
+      #btnFollowInstagramTop {
+        width: 100% !important;
+        min-height: 44px !important;
+        height: 44px !important;
+        padding: 0 16px !important;
+        font-size: 0.86rem !important;
+        font-weight: 700 !important;
+        border-radius: var(--radius-pill) !important;
+        display: flex !important;
+        align-items: center !important;
+        justify-content: center !important;
+        gap: 8px !important;
+        white-space: nowrap !important;
+      }
+
+      .instagram-footer-cta {
+        display: flex;
+        justify-content: center;
+        width: 100%;
+      }
+
+      #btnInstagramProfileFull {
+        width: 100% !important;
+        max-width: 320px !important;
+        min-height: 48px !important;
+        height: 48px !important;
+        padding: 0 18px !important;
+        font-size: 0.88rem !important;
+        font-weight: 700 !important;
+        border-radius: var(--radius-pill) !important;
+        display: flex !important;
+        align-items: center !important;
+        justify-content: center !important;
+        gap: 8px !important;
+        white-space: nowrap !important;
+        text-transform: none !important;
+      }
+
+      .admin-tabs-nav {
+        overflow-x: auto;
+        -webkit-overflow-scrolling: touch;
+        flex-wrap: nowrap;
+        padding-bottom: 6px;
+        gap: 6px;
+      }
+
+      .admin-tab-btn {
+        padding: 8px 12px !important;
+        font-size: 0.8rem !important;
+        white-space: nowrap !important;
+        flex-shrink: 0;
+      }
+
+      .admin-actions-bar {
+        flex-direction: column;
+        gap: 10px;
+      }
+
+      .admin-actions-bar .admin-btn-save,
+      .admin-actions-bar .admin-btn-preview,
+      .admin-actions-bar .admin-btn-cancel {
+        width: 100%;
+        min-height: 44px;
+        justify-content: center;
+        font-size: 0.88rem;
+      }
+
+      .whatsapp-floating {
+        bottom: 74px !important;
+        right: 14px !important;
+        width: 52px !important;
+        height: 52px !important;
+        font-size: 1.7rem !important;
+      }
+    }
+
+    @media (max-width: 380px) {
+      .hero-actions .btn-cta,
+      .hero-actions .btn-secondary {
+        font-size: 0.82rem !important;
+        padding: 0 12px !important;
+      }
+
+      .mobile-drawer .btn-cta,
+      .mobile-drawer-cta-btn {
+        font-size: 0.86rem !important;
+      }
+
+      .gallery-tab-btn {
+        padding: 6px 10px !important;
+        font-size: 0.74rem !important;
+      }
+    }
   </style>
 </head>
 
@@ -4703,52 +5115,53 @@
     </div>
 
     <a href="#sobre-show" class="nav-link mobile-nav-link">
-      <span>Shows & Formatos</span>
-      <i class="fa-solid fa-chevron-right"></i>
+      <span class="mobile-nav-item-inner"><i class="fa-solid fa-guitar"></i> <span>Shows & Formatos</span></span>
+      <i class="fa-solid fa-chevron-right mobile-nav-chevron"></i>
     </a>
     <a href="#banda" class="nav-link mobile-nav-link">
-      <span>A Banda</span>
-      <i class="fa-solid fa-chevron-right"></i>
+      <span class="mobile-nav-item-inner"><i class="fa-solid fa-users"></i> <span>A Banda</span></span>
+      <i class="fa-solid fa-chevron-right mobile-nav-chevron"></i>
     </a>
     <a href="#repertorio" class="nav-link mobile-nav-link">
-      <span>Repertório & Estilo</span>
-      <i class="fa-solid fa-chevron-right"></i>
+      <span class="mobile-nav-item-inner"><i class="fa-solid fa-music"></i> <span>Repertório & Estilo</span></span>
+      <i class="fa-solid fa-chevron-right mobile-nav-chevron"></i>
     </a>
     <a href="#midia" class="nav-link mobile-nav-link">
-      <span>Fotos & Vídeos</span>
-      <i class="fa-solid fa-chevron-right"></i>
+      <span class="mobile-nav-item-inner"><i class="fa-solid fa-photo-film"></i> <span>Fotos & Vídeos</span></span>
+      <i class="fa-solid fa-chevron-right mobile-nav-chevron"></i>
     </a>
     <a href="#depoimentos" class="nav-link mobile-nav-link">
-      <span>Depoimentos</span>
-      <i class="fa-solid fa-chevron-right"></i>
+      <span class="mobile-nav-item-inner"><i class="fa-solid fa-star"></i> <span>Depoimentos</span></span>
+      <i class="fa-solid fa-chevron-right mobile-nav-chevron"></i>
     </a>
     <a href="#agenda" class="nav-link mobile-nav-link">
-      <span>Agenda de Shows</span>
-      <i class="fa-solid fa-chevron-right"></i>
+      <span class="mobile-nav-item-inner"><i class="fa-regular fa-calendar-days"></i> <span>Agenda de Shows</span></span>
+      <i class="fa-solid fa-chevron-right mobile-nav-chevron"></i>
     </a>
     <a href="#aulas" class="nav-link mobile-nav-link">
-      <span>Aulas de Música</span>
-      <i class="fa-solid fa-chevron-right"></i>
+      <span class="mobile-nav-item-inner"><i class="fa-solid fa-graduation-cap"></i> <span>Aulas de Música</span></span>
+      <i class="fa-solid fa-chevron-right mobile-nav-chevron"></i>
     </a>
     <a href="#contato" class="nav-link mobile-nav-link" onclick="if(typeof toggleMenu==='function')toggleMenu();">
-      <span>Contato</span>
-      <i class="fa-solid fa-chevron-right"></i>
+      <span class="mobile-nav-item-inner"><i class="fa-solid fa-envelope"></i> <span>Contato</span></span>
+      <i class="fa-solid fa-chevron-right mobile-nav-chevron"></i>
     </a>
-    <a href="javascript:void(0)" onclick="openAdminModal(); if(typeof toggleMenu==='function')toggleMenu();" class="nav-link mobile-nav-link admin-mobile-nav-link" id="mobileDrawerAdminLink" title="Acesso Administrativo" aria-label="Acesso Administrativo" style="justify-content: space-between;">
-      <span style="color: var(--gold-primary); font-size: 1.05rem; display: inline-flex; align-items: center; gap: 8px;">
-        <i class="fa-solid fa-lock"></i>
-        <span style="font-size: 0.9rem;">Painel Administrativo</span>
+    <a href="javascript:void(0)" onclick="openAdminModal(); if(typeof toggleMenu==='function')toggleMenu();" class="nav-link mobile-nav-link admin-mobile-nav-link" id="mobileDrawerAdminLink" title="Acesso Administrativo" aria-label="Acesso Administrativo">
+      <span class="mobile-nav-item-inner">
+        <i class="fa-solid fa-lock" style="color: var(--gold-primary);"></i>
+        <span style="color: var(--gold-light); font-weight: 700;">Painel Administrativo</span>
       </span>
-      <i class="fa-solid fa-chevron-right"></i>
+      <i class="fa-solid fa-chevron-right mobile-nav-chevron" style="color: var(--gold-primary);"></i>
     </a>
     
     <a href="https://wa.me/5519988034268?text=Ola%2C%20gostaria%20de%20entrar%20em%20contato!" 
        target="_blank" 
        rel="noopener noreferrer" 
-       class="btn-cta" 
-       id="mobileDrawerCta">
+       class="btn-cta mobile-drawer-cta-btn" 
+       id="mobileDrawerCta"
+       aria-label="Falar no WhatsApp com Gilmar Torrez">
       <i class="fa-brands fa-whatsapp"></i>
-      <span>Fale Conosco no WhatsApp</span>
+      <span>Fale no WhatsApp</span>
     </a>
   </div>
 
@@ -4785,18 +5198,18 @@
 
       <!-- Botão CTA Principal -->
       <div class="hero-actions">
-        <a href="https://wa.me/5519988034268?text=Ola%2C%20gostaria%20de%20entrar%20em%20contato!" 
+        <a href="https://wa.me/5519988034268?text=Ola%2C%20gostaria%20de%20solicitar%20um%20orcamento%20de%20show%20com%20Gilmar%20Torrez!" 
            target="_blank" 
            rel="noopener noreferrer" 
            class="btn-cta"
            id="heroMainCta"
-           aria-label="Entre em Contato">
+           aria-label="Solicitar Orçamento no WhatsApp">
           <i class="fa-brands fa-whatsapp"></i>
-          <span>Contato</span>
+          <span>Pedir Orçamento no WhatsApp</span>
         </a>
-        <a href="#agenda" class="btn-secondary" id="heroLearnMore" aria-label="Ver Agenda">
+        <a href="#agenda" class="btn-secondary" id="heroLearnMore" aria-label="Ver Agenda Completa de Shows">
           <i class="fa-regular fa-calendar-check"></i>
-          <span>Agenda</span>
+          <span>Ver Agenda de Shows</span>
         </a>
       </div>
 
@@ -4966,8 +5379,9 @@
           <a href="https://wa.me/5519988034268?text=Ola%2C%20tenho%20interesse%20no%20Formato%20Solo%20(Voz%20e%20Violao)!" 
              target="_blank" 
              rel="noopener noreferrer" 
-             class="btn-secondary">
-            <span>Orçamento Solo</span>
+             class="btn-secondary band-card-btn">
+            <i class="fa-brands fa-whatsapp"></i>
+            <span>Pedir Orçamento Solo</span>
           </a>
         </div>
 
@@ -4982,8 +5396,9 @@
           <a href="https://wa.me/5519988034268?text=Ola%2C%20tenho%20interesse%20no%20Duo%20Acustico%20(Voz%2C%20Violao%20e%20Percussao)!" 
              target="_blank" 
              rel="noopener noreferrer" 
-             class="btn-secondary">
-            <span>Orçamento Duo</span>
+             class="btn-secondary band-card-btn">
+            <i class="fa-brands fa-whatsapp"></i>
+            <span>Pedir Orçamento Duo</span>
           </a>
         </div>
 
@@ -4999,9 +5414,10 @@
           <a href="https://wa.me/5519988034268?text=Ola%2C%20tenho%20interesse%20no%20Power%20Trio%20Rock!" 
              target="_blank" 
              rel="noopener noreferrer" 
-             class="btn-cta" 
+             class="btn-cta band-card-btn" 
              style="padding: 12px 24px; font-size: 0.9rem;">
-            <span>Orçamento Power Trio</span>
+            <i class="fa-brands fa-whatsapp"></i>
+            <span>Pedir Orçamento Trio</span>
           </a>
         </div>
 
@@ -5016,8 +5432,9 @@
           <a href="https://wa.me/5519988034268?text=Ola%2C%20tenho%20interesse%20na%20Banda%20Completa!" 
              target="_blank" 
              rel="noopener noreferrer" 
-             class="btn-secondary">
-            <span>Orçamento Banda Completa</span>
+             class="btn-secondary band-card-btn">
+            <i class="fa-brands fa-whatsapp"></i>
+            <span>Pedir Orçamento Banda</span>
           </a>
         </div>
       </div>
@@ -5105,19 +5522,19 @@
       <!-- Filtros Rápidos de Categoria da Galeria -->
       <div class="gallery-filter-tabs" role="tablist" aria-label="Filtro de Categorias da Galeria">
         <button type="button" class="gallery-tab-btn active" onclick="filterGalleryCategory('all', this)">
-          <i class="fa-solid fa-layer-group"></i> Ver Todas (4)
+          <i class="fa-solid fa-layer-group"></i> <span>Todas (4)</span>
         </button>
         <button type="button" class="gallery-tab-btn" onclick="filterGalleryCategory('show-ao-vivo', this)">
-          <i class="fa-solid fa-microphone-lines"></i> Show ao Vivo
+          <i class="fa-solid fa-microphone-lines"></i> <span>Ao Vivo</span>
         </button>
         <button type="button" class="gallery-tab-btn" onclick="filterGalleryCategory('acustico', this)">
-          <i class="fa-solid fa-guitar"></i> Acústico
+          <i class="fa-solid fa-guitar"></i> <span>Acústico</span>
         </button>
         <button type="button" class="gallery-tab-btn" onclick="filterGalleryCategory('guitarra-solo', this)">
-          <i class="fa-solid fa-bolt"></i> Guitarra Solo
+          <i class="fa-solid fa-bolt"></i> <span>Guitarra</span>
         </button>
         <button type="button" class="gallery-tab-btn" onclick="filterGalleryCategory('celebracao', this)">
-          <i class="fa-solid fa-champagne-glasses"></i> Celebração
+          <i class="fa-solid fa-champagne-glasses"></i> <span>Eventos</span>
         </button>
       </div>
 
@@ -5656,7 +6073,7 @@
         </div>
         <a href="https://www.instagram.com/gilmartorrez07/" target="_blank" rel="noopener noreferrer" class="btn-instagram-follow" id="btnFollowInstagramTop">
           <i class="fa-brands fa-instagram"></i>
-          <span>Seguir Perfil</span>
+          <span>Seguir no Instagram</span>
         </a>
       </div>
 
@@ -5668,7 +6085,7 @@
       <div class="instagram-footer-cta">
         <a href="https://www.instagram.com/gilmartorrez07/" target="_blank" rel="noopener noreferrer" class="btn-cta instagram-main-cta" id="btnInstagramProfileFull">
           <i class="fa-brands fa-instagram"></i>
-          <span>Ver Mais Fotos e Vídeos no Instagram</span>
+          <span>Ver Fotos no Instagram</span>
         </a>
       </div>
     </div>
@@ -8847,7 +9264,7 @@
                  rel="noopener noreferrer" 
                  class="agenda-cta-btn">
                 <i class="fa-brands fa-whatsapp"></i>
-                <span>Reservar Esta Data</span>
+                <span>Reservar Data</span>
               </a>
             </div>
           `;
