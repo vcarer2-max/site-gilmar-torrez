@@ -1,0 +1,58 @@
+<!DOCTYPE html>
+<html lang="pt-PT">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Administração - Gilmar Torrez</title>
+    <style>
+        body { font-family: Arial, sans-serif; padding: 20px; background: #f4f4f4; }
+        .container { max-width: 800px; margin: auto; background: white; padding: 20px; border-radius: 8px; box-shadow: 0 0 10px rgba(0,0,0,0.1); }
+        .hidden { display: none; }
+        input, button, textarea { width: 100%; margin-bottom: 15px; padding: 10px; box-sizing: border-box; }
+        button { background: #333; color: white; border: none; cursor: pointer; }
+        button:hover { background: #555; }
+        .show-item { border-bottom: 1px solid #eee; padding: 10px 0; display: flex; justify-content: space-between; }
+        .btn-delete { background: #d9534f; width: auto; padding: 5px 10px; }
+    </style>
+</head>
+<body>
+
+<div class="container">
+    <h2>Painel de Administração</h2>
+
+    <!-- Secção de Login -->
+    <div id="login-section">
+        <h3>Iniciar Sessão</h3>
+        <input type="email" id="email" placeholder="O seu e-mail" required>
+        <input type="password" id="password" placeholder="A sua palavra-passe" required>
+        <button onclick="fazerLogin()">Entrar</button>
+        <p id="login-msg" style="color: red;"></p>
+    </div>
+
+    <!-- Secção do Painel (Escondida por defeito) -->
+    <div id="dashboard-section" class="hidden">
+        <div style="display: flex; justify-content: space-between; align-items: center;">
+            <h3>Adicionar Novo Espetáculo</h3>
+            <button onclick="fazerLogout()" style="width: auto; background: #888;">Sair</button>
+        </div>
+        
+        <input type="date" id="data_evento" required>
+        <input type="text" id="local_evento" placeholder="Local do Evento (ex: Bar do Rock)" required>
+        <input type="text" id="cidade" placeholder="Cidade (ex: São Paulo - SP)" required>
+        <textarea id="descricao" placeholder="Descrição ou observações (opcional)"></textarea>
+        <button onclick="adicionarShow()">Guardar Espetáculo</button>
+        <p id="form-msg" style="color: green;"></p>
+
+        <hr>
+        <h3>Agenda Atual</h3>
+        <div id="lista-shows">A carregar...</div>
+    </div>
+</div>
+
+<!-- Biblioteca do Supabase -->
+<script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+<!-- O nosso código de ligação -->
+<script src="admin.js"></script>
+
+</body>
+</html>
