@@ -4003,6 +4003,434 @@
     }
 
     /* ==========================================
+       PAINEL ADMINISTRATIVO - RESPONSIVIDADE COMPLETA PARA CELULAR & TABLET
+       (Garante acesso, enquadramento e usabilidade de todas as 5 abas em telas pequenas)
+       ========================================== */
+    @media (max-width: 768px) {
+      /* 1. Modal Overlay & Card no Celular */
+      .admin-modal-overlay {
+        padding: 6px 4px !important;
+        align-items: flex-start !important;
+        overflow-y: auto !important;
+        -webkit-overflow-scrolling: touch !important;
+      }
+
+      .admin-modal-card {
+        width: 100% !important;
+        max-width: 100% !important;
+        margin: 4px auto 16px auto !important;
+        max-height: calc(100dvh - 12px) !important;
+        padding: 16px 12px !important;
+        border-radius: 14px !important;
+        overflow-x: hidden !important;
+        overflow-y: auto !important;
+        -webkit-overflow-scrolling: touch !important;
+        box-sizing: border-box !important;
+      }
+
+      /* 2. Cabeçalho do Modal no Celular */
+      .admin-modal-header {
+        padding-bottom: 12px !important;
+        margin-bottom: 12px !important;
+        gap: 8px !important;
+      }
+
+      .admin-modal-header h3 {
+        font-size: 1.05rem !important;
+        gap: 6px !important;
+      }
+
+      .admin-modal-header .admin-btn-logout {
+        padding: 5px 10px !important;
+        font-size: 0.75rem !important;
+        gap: 4px !important;
+      }
+
+      .admin-modal-close {
+        width: 32px !important;
+        height: 32px !important;
+        font-size: 0.95rem !important;
+        flex-shrink: 0 !important;
+      }
+
+      /* 3. Banner de Conexão no Celular */
+      .admin-server-banner {
+        flex-direction: column !important;
+        align-items: flex-start !important;
+        gap: 8px !important;
+        padding: 8px 10px !important;
+        font-size: 0.74rem !important;
+      }
+
+      .admin-server-banner span#serverConnectionStatus {
+        align-self: flex-start !important;
+        font-size: 0.7rem !important;
+      }
+
+      /* 4. BARRA DE ABAS - Navegação Deslizante Horizontal no Celular (Acesso a TODAS as 5 abas sem corte) */
+      .admin-tabs-nav {
+        display: flex !important;
+        flex-wrap: nowrap !important;
+        overflow-x: auto !important;
+        overflow-y: hidden !important;
+        -webkit-overflow-scrolling: touch !important;
+        scroll-snap-type: x mandatory !important;
+        scrollbar-width: thin !important;
+        gap: 6px !important;
+        padding: 2px 2px 8px 2px !important;
+        margin-bottom: 14px !important;
+        border-bottom: 1px solid rgba(255, 255, 255, 0.12) !important;
+      }
+
+      .admin-tabs-nav::-webkit-scrollbar {
+        height: 4px !important;
+      }
+
+      .admin-tabs-nav::-webkit-scrollbar-thumb {
+        background: var(--gold-primary) !important;
+        border-radius: 4px !important;
+      }
+
+      .admin-tab-btn {
+        flex: 0 0 auto !important;
+        white-space: nowrap !important;
+        padding: 9px 13px !important;
+        font-size: 0.82rem !important;
+        border-radius: 8px !important;
+        scroll-snap-align: start !important;
+        gap: 6px !important;
+      }
+
+      .admin-tab-btn i {
+        font-size: 0.88rem !important;
+      }
+
+      /* 5. Inputs e Formulários Gerais no Celular */
+      .admin-form-group {
+        margin-bottom: 12px !important;
+      }
+
+      .admin-input,
+      select.admin-input,
+      textarea.admin-input {
+        padding: 10px 12px !important;
+        font-size: 0.86rem !important;
+        width: 100% !important;
+        box-sizing: border-box !important;
+      }
+
+      /* 6. Aba 1: Agenda de Shows no Celular */
+      .admin-grid-2 {
+        grid-template-columns: 1fr 1fr !important;
+        gap: 8px !important;
+      }
+
+      .admin-radio-group {
+        gap: 6px !important;
+      }
+
+      .admin-radio-btn {
+        padding: 9px 8px !important;
+        font-size: 0.8rem !important;
+        gap: 6px !important;
+      }
+
+      .admin-form-actions {
+        flex-direction: column !important;
+        gap: 8px !important;
+      }
+
+      .admin-btn-primary {
+        padding: 11px 16px !important;
+        font-size: 0.9rem !important;
+        width: 100% !important;
+        justify-content: center !important;
+      }
+
+      .admin-btn-cancel {
+        padding: 10px 16px !important;
+        font-size: 0.85rem !important;
+        width: 100% !important;
+        justify-content: center !important;
+      }
+
+      .admin-event-row {
+        flex-direction: column !important;
+        align-items: stretch !important;
+        gap: 10px !important;
+        padding: 12px 10px !important;
+      }
+
+      .admin-event-info {
+        gap: 10px !important;
+      }
+
+      .admin-event-actions {
+        width: 100% !important;
+        justify-content: flex-end !important;
+        border-top: 1px solid rgba(255, 255, 255, 0.08) !important;
+        padding-top: 8px !important;
+        gap: 8px !important;
+      }
+
+      .admin-action-btn {
+        padding: 6px 12px !important;
+        font-size: 0.78rem !important;
+      }
+
+      /* 7. Aba 2: Fotos & Vídeos no Celular */
+      .admin-media-header-desc {
+        padding: 10px 12px !important;
+        font-size: 0.78rem !important;
+        gap: 8px !important;
+        margin-bottom: 14px !important;
+      }
+
+      .admin-opacity-ctrl-card {
+        padding: 12px 10px !important;
+        margin-bottom: 16px !important;
+      }
+
+      .admin-opacity-grid {
+        gap: 14px !important;
+      }
+
+      .test-preview-card {
+        min-height: 200px !important;
+      }
+
+      .admin-slider-box {
+        padding: 10px !important;
+      }
+
+      .admin-slider-header {
+        flex-wrap: wrap !important;
+        gap: 4px !important;
+      }
+
+      .admin-slider-title {
+        font-size: 0.8rem !important;
+      }
+
+      .admin-slider-footer {
+        font-size: 0.68rem !important;
+      }
+
+      .opacity-presets-row {
+        gap: 4px !important;
+      }
+
+      .opacity-preset-btn {
+        padding: 4px 6px !important;
+        font-size: 0.68rem !important;
+      }
+
+      .admin-media-category-card {
+        padding: 12px 10px !important;
+        margin-bottom: 16px !important;
+      }
+
+      .admin-media-category-header {
+        flex-wrap: wrap !important;
+        gap: 6px !important;
+        margin-bottom: 10px !important;
+      }
+
+      .admin-media-category-header h5 {
+        font-size: 0.88rem !important;
+      }
+
+      /* Adaptação dos contêineres de imagem e botões de upload das formações e aulas */
+      .admin-media-category-card [style*="md:flex-row"],
+      .admin-media-category-card div[style*="display: flex; flex-direction: column; md:flex-row"] {
+        flex-direction: column !important;
+        align-items: stretch !important;
+      }
+
+      .admin-media-category-card [style*="min-width: 160px"],
+      .admin-media-category-card [style*="min-width: 170px"],
+      .admin-media-category-card [style*="min-width: 180px"] {
+        min-width: 0 !important;
+        width: 100% !important;
+      }
+
+      /* Grids de Fotos (4 Carrosséis & Instagram) no Celular */
+      .admin-photo-grid {
+        grid-template-columns: repeat(2, 1fr) !important;
+        gap: 8px !important;
+      }
+
+      .admin-photo-slot {
+        padding: 8px 6px !important;
+      }
+
+      .admin-photo-preview-wrap {
+        height: 95px !important;
+      }
+
+      .admin-upload-trigger {
+        padding: 7px 6px !important;
+        font-size: 0.72rem !important;
+        gap: 4px !important;
+        white-space: nowrap !important;
+        width: 100% !important;
+        box-sizing: border-box !important;
+        justify-content: center !important;
+      }
+
+      .admin-photo-desc-input {
+        padding: 6px 8px !important;
+        font-size: 0.72rem !important;
+      }
+
+      .admin-video-mgmt-card {
+        padding: 12px 10px !important;
+      }
+
+      .admin-video-slot-box {
+        padding: 10px !important;
+        margin-bottom: 12px !important;
+      }
+
+      /* 8. Aba 3: Personalização de Cores & Fontes no Celular */
+      .admin-theme-badges-row {
+        flex-direction: column !important;
+        gap: 6px !important;
+        margin-bottom: 12px !important;
+      }
+
+      .admin-current-badge {
+        width: 100% !important;
+        font-size: 0.78rem !important;
+        padding: 6px 10px !important;
+        box-sizing: border-box !important;
+      }
+
+      .admin-theme-grid {
+        grid-template-columns: repeat(auto-fill, minmax(135px, 1fr)) !important;
+        gap: 8px !important;
+        margin-bottom: 16px !important;
+      }
+
+      .admin-palette-card {
+        padding: 10px 8px !important;
+      }
+
+      .admin-palette-name {
+        font-size: 0.8rem !important;
+      }
+
+      .admin-palette-badge {
+        font-size: 0.62rem !important;
+        padding: 2px 5px !important;
+      }
+
+      .admin-palette-swatches {
+        gap: 4px !important;
+        padding: 4px !important;
+      }
+
+      .admin-swatch {
+        height: 18px !important;
+      }
+
+      .admin-palette-btn {
+        padding: 5px 8px !important;
+        font-size: 0.72rem !important;
+      }
+
+      /* FIX CRÍTICO: .admin-font-grid tinha minmax(320px, 1fr) que estourava a tela em celulares */
+      .admin-font-grid {
+        grid-template-columns: 1fr !important;
+        gap: 10px !important;
+        margin-bottom: 18px !important;
+      }
+
+      .admin-font-card {
+        padding: 12px 10px !important;
+      }
+
+      .admin-font-preview-box {
+        padding: 10px !important;
+      }
+
+      .admin-font-preview-title {
+        font-size: 0.95rem !important;
+      }
+
+      .admin-font-preview-body {
+        font-size: 0.78rem !important;
+      }
+
+      /* 9. Aba 4: Música do Topo & Letreiro no Celular */
+      .admin-audio-preview-container {
+        padding: 12px 10px !important;
+        margin: 12px 0 16px 0 !important;
+      }
+
+      .admin-audio-preview-stage {
+        padding: 12px 6px !important;
+        overflow-x: hidden !important;
+      }
+
+      .admin-audio-preview-stage .top-audio-container {
+        transform: none !important;
+        max-width: 100% !important;
+      }
+
+      .admin-audio-presets-wrap {
+        gap: 6px !important;
+        margin: 8px 0 16px 0 !important;
+      }
+
+      .admin-audio-chip {
+        padding: 4px 10px !important;
+        font-size: 0.7rem !important;
+      }
+
+      /* 10. Aba 5: Links Oficiais & Redes no Celular */
+      #adminTabLinks .admin-input {
+        padding: 10px 12px !important;
+        font-size: 0.85rem !important;
+      }
+
+      /* 11. Barra de Ações Fixas / Salvar */
+      .admin-sticky-actions {
+        padding: 12px 0 6px 0 !important;
+      }
+    }
+
+    @media (max-width: 440px) {
+      .admin-modal-overlay {
+        padding: 4px 2px !important;
+      }
+
+      .admin-modal-card {
+        padding: 14px 8px !important;
+        border-radius: 12px !important;
+      }
+
+      .admin-grid-2 {
+        grid-template-columns: 1fr !important;
+        gap: 8px !important;
+      }
+
+      .admin-theme-grid {
+        grid-template-columns: 1fr 1fr !important;
+        gap: 6px !important;
+      }
+
+      .admin-photo-grid {
+        grid-template-columns: repeat(2, 1fr) !important;
+        gap: 6px !important;
+      }
+
+      .admin-photo-preview-wrap {
+        height: 80px !important;
+      }
+    }
+
+    /* ==========================================
        5. SEÇÃO DE AULAS DE MÚSICA
        ========================================== */
     .classes-section {
@@ -6335,7 +6763,7 @@
         </div>
 
         <!-- Banner de Persistência Direta no Servidor -->
-        <div style="margin: 0 0 14px 0; padding: 9px 14px; background: rgba(59, 130, 246, 0.08); border: 1px solid rgba(59, 130, 246, 0.25); border-radius: 8px; display: flex; align-items: center; justify-content: space-between; font-size: 0.78rem; flex-wrap: wrap; gap: 8px;">
+        <div class="admin-server-banner" style="margin: 0 0 14px 0; padding: 9px 14px; background: rgba(59, 130, 246, 0.08); border: 1px solid rgba(59, 130, 246, 0.25); border-radius: 8px; display: flex; align-items: center; justify-content: space-between; font-size: 0.78rem; flex-wrap: wrap; gap: 8px;">
           <div style="display: flex; align-items: center; gap: 8px; color: #93c5fd;">
             <i class="fa-solid fa-server" style="color: #60a5fa; font-size: 0.95rem;"></i>
             <span><strong>Servidor / Hospedagem Ativo:</strong> Gravação direta no servidor via API REST (Zero armazenamento local).</span>
@@ -10851,25 +11279,35 @@
       [btnAgenda, btnMidias, btnTemas, btnAudioTopo, btnLinks].forEach(btn => btn && btn.classList.remove('active'));
       [tabAgenda, tabMidias, tabTemas, tabAudioTopo, tabLinks].forEach(tab => tab && (tab.style.display = 'none'));
 
+      let activeBtn = null;
       if (tabName === 'midias') {
-        if (btnMidias) btnMidias.classList.add('active');
+        if (btnMidias) { btnMidias.classList.add('active'); activeBtn = btnMidias; }
         if (tabMidias) tabMidias.style.display = 'block';
         populateAdminMediaInputs();
       } else if (tabName === 'temas') {
-        if (btnTemas) btnTemas.classList.add('active');
+        if (btnTemas) { btnTemas.classList.add('active'); activeBtn = btnTemas; }
         if (tabTemas) tabTemas.style.display = 'block';
         renderThemeOptions();
       } else if (tabName === 'audiotopo') {
-        if (btnAudioTopo) btnAudioTopo.classList.add('active');
+        if (btnAudioTopo) { btnAudioTopo.classList.add('active'); activeBtn = btnAudioTopo; }
         if (tabAudioTopo) tabAudioTopo.style.display = 'block';
         populateAdminAudioInputs();
       } else if (tabName === 'links') {
-        if (btnLinks) btnLinks.classList.add('active');
+        if (btnLinks) { btnLinks.classList.add('active'); activeBtn = btnLinks; }
         if (tabLinks) tabLinks.style.display = 'block';
         populateAdminLinksInputs();
       } else {
-        if (btnAgenda) btnAgenda.classList.add('active');
+        if (btnAgenda) { btnAgenda.classList.add('active'); activeBtn = btnAgenda; }
         if (tabAgenda) tabAgenda.style.display = 'block';
+      }
+
+      // Garante visibilidade da aba ativa na rolagem horizontal em celulares
+      if (activeBtn && typeof activeBtn.scrollIntoView === 'function') {
+        activeBtn.scrollIntoView({ behavior: 'smooth', block: 'nearest', inline: 'center' });
+      }
+      const modalCard = document.getElementById('adminModalCard');
+      if (modalCard) {
+        modalCard.scrollTop = 0;
       }
     }
 
