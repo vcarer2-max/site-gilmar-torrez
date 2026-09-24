@@ -666,11 +666,11 @@
     /* Player YouTube invisível */
     .yt-hidden-audio {
       position: fixed;
-      bottom: -100px;
-      right: -100px;
-      width: 1px;
-      height: 1px;
-      opacity: 0.001;
+      bottom: 0;
+      right: 0;
+      width: 200px;
+      height: 200px;
+      opacity: 0.0001;
       pointer-events: none;
       z-index: -9999;
       overflow: hidden;
@@ -788,10 +788,47 @@
       margin-top: 3px;
     }
 
+    @media (max-width: 1039px) {
+      :root {
+        --header-height: 84px;
+      }
+      .header .nav-container {
+        padding: 0 16px;
+        gap: 12px;
+      }
+      .logo-link {
+        margin-right: 0;
+        min-width: 0;
+        flex: 1 1 auto;
+      }
+      .logo-container {
+        height: 64px;
+        flex-shrink: 0;
+      }
+      .logo-img {
+        height: 64px;
+        max-width: 82px;
+      }
+      .logo-text-group {
+        min-width: 0;
+        overflow: hidden;
+      }
+      .logo-name-signature {
+        font-size: 1.95rem;
+        white-space: nowrap;
+        overflow: hidden;
+        text-overflow: ellipsis;
+      }
+    }
+
     @media (max-width: 640px) {
       :root {
         --topbar-height: 38px;
-        --header-height: 108px;
+        --header-height: 72px;
+      }
+      .header .nav-container {
+        padding: 0 12px;
+        gap: 8px;
       }
       .top-audio-btn {
         font-size: 0.74rem;
@@ -802,7 +839,7 @@
         font-size: 0.74rem;
       }
       .top-audio-ticker-window {
-        max-width: 140px;
+        max-width: 130px;
       }
       .top-audio-ticker-item {
         font-size: 0.67rem;
@@ -819,41 +856,59 @@
         font-size: 0.68rem;
       }
       .logo-container {
-        height: 86px;
+        height: 52px;
         overflow: visible;
       }
       .logo-img {
-        height: 86px;
-        max-width: 108px;
+        height: 52px;
+        max-width: 68px;
         overflow: visible;
       }
       .logo-name-signature {
-        font-size: 2.2rem;
+        font-size: 1.7rem;
+      }
+      .logo-badge {
+        font-size: 0.64rem;
+        letter-spacing: 1px;
       }
     }
 
     @media (max-width: 440px) {
+      :root {
+        --topbar-height: 36px;
+        --header-height: 68px;
+      }
+      .header .nav-container {
+        padding: 0 10px;
+        gap: 6px;
+      }
       .top-audio-label {
         font-size: 0.71rem;
       }
       .top-audio-ticker-window {
-        max-width: 110px;
+        max-width: 100px;
       }
       .logo-container {
-        height: 78px;
+        height: 48px;
       }
       .logo-img {
-        height: 78px;
-        max-width: 98px;
+        height: 48px;
+        max-width: 58px;
       }
       .logo-name-signature {
-        font-size: 1.95rem;
+        font-size: 1.48rem;
+      }
+      .logo-badge {
+        display: none;
       }
     }
 
     @media (max-width: 360px) {
       .top-audio-label {
         display: none;
+      }
+      .logo-name-signature {
+        font-size: 1.35rem;
       }
     }
 
@@ -966,88 +1021,274 @@
       display: flex;
       flex-direction: column;
       justify-content: space-around;
-      width: 42px;
-      height: 42px;
-      padding: 8px;
+      width: 44px;
+      height: 44px;
+      padding: 9px 8px;
       border-radius: var(--radius-sm);
-      background: rgba(255, 255, 255, 0.05);
-      border: 1px solid var(--border-subtle);
+      background: rgba(245, 158, 11, 0.12);
+      border: 1.5px solid var(--gold-primary);
+      box-shadow: 0 0 12px rgba(245, 158, 11, 0.22);
       cursor: pointer;
-      z-index: 1001;
+      z-index: 1002;
       transition: var(--transition);
+      flex-shrink: 0;
+      margin-left: auto;
     }
 
     .menu-toggle span {
       width: 100%;
       height: 2.5px;
-      background: var(--text-white);
+      background: var(--gold-light);
       border-radius: 2px;
       transition: var(--transition);
     }
 
     .menu-toggle.active {
-      background: rgba(245, 158, 11, 0.15);
-      border-color: var(--border-gold);
+      background: rgba(245, 158, 11, 0.25);
+      border-color: var(--gold-light);
+      box-shadow: 0 0 16px rgba(245, 158, 11, 0.4);
     }
 
     .menu-toggle.active span:nth-child(1) {
-      transform: translateY(8px) rotate(45deg);
-      background: var(--gold-primary);
+      transform: translateY(8.5px) rotate(45deg);
+      background: #ffffff;
     }
     .menu-toggle.active span:nth-child(2) {
       opacity: 0;
       transform: translateX(-10px);
     }
     .menu-toggle.active span:nth-child(3) {
-      transform: translateY(-8px) rotate(-45deg);
-      background: var(--gold-primary);
+      transform: translateY(-8.5px) rotate(-45deg);
+      background: #ffffff;
     }
 
     @media (min-width: 1040px) {
       .menu-toggle {
-        display: none;
+        display: none !important;
       }
+    }
+
+    /* Backdrop Overlay do Menu Mobile */
+    .mobile-drawer-backdrop {
+      display: none;
+      position: fixed;
+      inset: 0;
+      background: rgba(0, 0, 0, 0.75);
+      backdrop-filter: blur(4px);
+      -webkit-backdrop-filter: blur(4px);
+      z-index: 1003;
+      opacity: 0;
+      transition: opacity 0.3s ease;
+      pointer-events: none;
+    }
+
+    .mobile-drawer-backdrop.active {
+      display: block;
+      opacity: 1;
+      pointer-events: auto;
     }
 
     /* Mobile Menu Drawer */
     .mobile-drawer {
       position: fixed;
       top: calc(var(--topbar-height) + var(--header-height));
-      left: 0;
-      width: 100%;
+      right: 0;
+      width: 86%;
+      max-width: 360px;
       height: calc(100vh - var(--topbar-height) - var(--header-height));
-      background: rgba(9, 10, 14, 0.98);
-      backdrop-filter: blur(20px);
-      -webkit-backdrop-filter: blur(20px);
-      padding: 24px;
+      height: calc(100dvh - var(--topbar-height) - var(--header-height));
+      background: rgba(9, 10, 15, 0.98);
+      backdrop-filter: blur(24px);
+      -webkit-backdrop-filter: blur(24px);
+      padding: 18px 18px 80px 18px;
       display: flex;
       flex-direction: column;
-      gap: 16px;
+      gap: 10px;
       transform: translateX(100%);
-      transition: transform 0.35s ease-in-out;
+      transition: transform 0.35s cubic-bezier(0.16, 1, 0.3, 1);
+      border-left: 1px solid rgba(245, 158, 11, 0.25);
       border-top: 1px solid var(--border-subtle);
       overflow-y: auto;
-      z-index: 999;
+      -webkit-overflow-scrolling: touch;
+      z-index: 1004;
+      box-shadow: -10px 0 35px rgba(0, 0, 0, 0.85);
     }
 
     .mobile-drawer.open {
       transform: translateX(0);
     }
 
-    .mobile-drawer .nav-link {
-      font-size: 1.15rem;
-      padding: 10px 0;
-      border-bottom: 1px solid var(--border-subtle);
+    .mobile-drawer-header {
       display: flex;
       align-items: center;
       justify-content: space-between;
+      padding-bottom: 12px;
+      border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+      margin-bottom: 4px;
+    }
+
+    .mobile-drawer-title {
+      font-family: var(--font-title);
+      font-size: 0.88rem;
+      font-weight: 700;
+      text-transform: uppercase;
+      letter-spacing: 1.5px;
+      color: var(--gold-light);
+      display: flex;
+      align-items: center;
+      gap: 8px;
+    }
+
+    .mobile-drawer-close {
+      background: rgba(255, 255, 255, 0.08);
+      border: 1px solid rgba(255, 255, 255, 0.15);
+      color: var(--text-light);
+      width: 32px;
+      height: 32px;
+      border-radius: 50%;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 0.85rem;
+      cursor: pointer;
+      transition: all 0.2s;
+    }
+
+    .mobile-drawer-close:hover {
+      background: rgba(245, 158, 11, 0.2);
+      color: #ffffff;
+      border-color: var(--gold-primary);
+    }
+
+    .mobile-drawer .nav-link {
+      font-size: 0.98rem;
+      padding: 10px 14px;
+      border-radius: 8px;
+      background: rgba(255, 255, 255, 0.02);
+      border: 1px solid rgba(255, 255, 255, 0.05);
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      color: var(--text-light);
+      transition: all 0.2s;
+    }
+
+    .mobile-drawer .nav-link:hover,
+    .mobile-drawer .nav-link.active {
+      background: rgba(245, 158, 11, 0.12);
+      border-color: rgba(245, 158, 11, 0.35);
+      color: var(--gold-light);
+      padding-left: 18px;
     }
 
     .mobile-drawer .btn-cta {
-      margin-top: 15px;
+      margin-top: 8px;
       width: 100%;
-      padding: 16px 20px;
-      font-size: 0.95rem;
+      padding: 14px 18px;
+      font-size: 0.92rem;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      gap: 10px;
+    }
+
+    /* Barra de Navegação Inferior Fixa Mobile (Mobile Bottom Navigation Bar) */
+    .mobile-bottom-nav {
+      display: none;
+    }
+
+    @media (max-width: 1039px) {
+      .mobile-bottom-nav {
+        display: flex;
+        align-items: center;
+        justify-content: space-around;
+        position: fixed;
+        bottom: 0;
+        left: 0;
+        width: 100%;
+        height: 62px;
+        background: rgba(9, 10, 15, 0.96);
+        backdrop-filter: blur(20px);
+        -webkit-backdrop-filter: blur(20px);
+        border-top: 1px solid rgba(245, 158, 11, 0.28);
+        box-shadow: 0 -4px 24px rgba(0, 0, 0, 0.8);
+        z-index: 1002;
+        padding: 0 4px calc(env(safe-area-inset-bottom, 0px));
+      }
+
+      .mobile-bottom-item {
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        justify-content: center;
+        flex: 1;
+        height: 100%;
+        padding: 6px 2px;
+        color: #94a3b8;
+        text-decoration: none;
+        background: transparent;
+        border: none;
+        cursor: pointer;
+        transition: all 0.2s ease;
+        -webkit-tap-highlight-color: transparent;
+        position: relative;
+      }
+
+      .mobile-bottom-item i {
+        font-size: 1.15rem;
+        margin-bottom: 3px;
+        transition: transform 0.2s ease, color 0.2s ease;
+      }
+
+      .mobile-bottom-item span {
+        font-family: var(--font-title);
+        font-size: 0.67rem;
+        font-weight: 600;
+        letter-spacing: 0.2px;
+        transition: color 0.2s ease;
+      }
+
+      .mobile-bottom-item:hover,
+      .mobile-bottom-item.active {
+        color: var(--gold-light);
+      }
+
+      .mobile-bottom-item:hover i,
+      .mobile-bottom-item.active i {
+        color: var(--gold-primary);
+        transform: scale(1.15);
+        filter: drop-shadow(0 0 6px rgba(245, 158, 11, 0.6));
+      }
+
+      .mobile-bottom-item.active span {
+        color: #ffffff;
+        font-weight: 700;
+      }
+
+      .mobile-bottom-item.active::after {
+        content: '';
+        position: absolute;
+        top: 0;
+        left: 50%;
+        transform: translateX(-50%);
+        width: 24px;
+        height: 2px;
+        background: var(--gold-primary);
+        box-shadow: 0 0 8px var(--gold-primary);
+        border-radius: 2px;
+      }
+
+      body {
+        padding-bottom: 68px;
+      }
+
+      .whatsapp-floating {
+        bottom: 74px !important;
+        right: 14px !important;
+        width: 52px !important;
+        height: 52px !important;
+        font-size: 1.75rem !important;
+      }
     }
 
     /* ==========================================
@@ -4445,8 +4686,22 @@
     </div>
   </header>
 
+  <!-- Backdrop Overlay do Menu Mobile -->
+  <div class="mobile-drawer-backdrop" id="mobileDrawerBackdrop" onclick="if(typeof toggleMenu==='function')toggleMenu();"></div>
+
   <!-- Menu Gaveta Mobile Atualizado -->
   <div class="mobile-drawer" id="mobileDrawer">
+    <!-- Cabeçalho do Drawer com Botão Fechar -->
+    <div class="mobile-drawer-header">
+      <div class="mobile-drawer-title">
+        <i class="fa-solid fa-compass" style="color: var(--gold-primary);"></i>
+        <span>Navegação</span>
+      </div>
+      <button type="button" class="mobile-drawer-close" onclick="if(typeof toggleMenu==='function')toggleMenu();" aria-label="Fechar Menu">
+        <i class="fa-solid fa-xmark"></i>
+      </button>
+    </div>
+
     <a href="#sobre-show" class="nav-link mobile-nav-link">
       <span>Shows & Formatos</span>
       <i class="fa-solid fa-chevron-right"></i>
@@ -4480,7 +4735,10 @@
       <i class="fa-solid fa-chevron-right"></i>
     </a>
     <a href="javascript:void(0)" onclick="openAdminModal(); if(typeof toggleMenu==='function')toggleMenu();" class="nav-link mobile-nav-link admin-mobile-nav-link" id="mobileDrawerAdminLink" title="Acesso Administrativo" aria-label="Acesso Administrativo" style="justify-content: space-between;">
-      <span style="color: var(--gold-primary); font-size: 1.15rem; display: inline-flex; align-items: center;"><i class="fa-solid fa-lock"></i></span>
+      <span style="color: var(--gold-primary); font-size: 1.05rem; display: inline-flex; align-items: center; gap: 8px;">
+        <i class="fa-solid fa-lock"></i>
+        <span style="font-size: 0.9rem;">Painel Administrativo</span>
+      </span>
       <i class="fa-solid fa-chevron-right"></i>
     </a>
     
@@ -5518,6 +5776,36 @@
     </div>
   </footer>
 
+  <!-- ==========================================
+       BARRA DE NAVEGAÇÃO INFERIOR FIXA (MOBILE)
+       ========================================== -->
+  <nav class="mobile-bottom-nav" id="mobileBottomNav" aria-label="Barra de Navegação Mobile">
+    <a href="#hero" class="mobile-bottom-item active" data-section="hero" aria-label="Início">
+      <i class="fa-solid fa-house"></i>
+      <span>Início</span>
+    </a>
+    <a href="#sobre-show" class="mobile-bottom-item" data-section="sobre-show" aria-label="Shows">
+      <i class="fa-solid fa-guitar"></i>
+      <span>Shows</span>
+    </a>
+    <a href="#agenda" class="mobile-bottom-item" data-section="agenda" aria-label="Agenda">
+      <i class="fa-solid fa-calendar-days"></i>
+      <span>Agenda</span>
+    </a>
+    <a href="#midia" class="mobile-bottom-item" data-section="midia" aria-label="Mídia">
+      <i class="fa-solid fa-photo-film"></i>
+      <span>Mídia</span>
+    </a>
+    <a href="#aulas" class="mobile-bottom-item" data-section="aulas" aria-label="Aulas">
+      <i class="fa-solid fa-graduation-cap"></i>
+      <span>Aulas</span>
+    </a>
+    <button type="button" class="mobile-bottom-item" onclick="toggleMenu()" aria-label="Abrir Menu Completo">
+      <i class="fa-solid fa-bars-staggered"></i>
+      <span>Menu</span>
+    </button>
+  </nav>
+
   <!-- Botão Flutuante do WhatsApp -->
   <a href="https://wa.me/5519988034268?text=Ola%2C%20gostaria%20de%20falar%20com%20o%20Gilmar%20Torrez!" 
      target="_blank" 
@@ -6544,7 +6832,7 @@
               </div>
               <div class="admin-form-group" style="margin-bottom: 0;">
                 <label for="adminVideoUrl0">URL do Vídeo no YouTube (ou Link de Compartilhamento)</label>
-                <input type="url" id="adminVideoUrl0" class="admin-input" placeholder="https://www.youtube.com/watch?v=... ou https://youtu.be/..." />
+                <input type="url" id="adminVideoUrl0" class="admin-input" placeholder="https://www.youtube.com/watch?v=... ou https://youtu.be/..." oninput="handleGalleryVideoUrlChange(0)" onchange="handleGalleryVideoUrlChange(0)" />
               </div>
             </div>
 
@@ -6564,7 +6852,7 @@
               </div>
               <div class="admin-form-group" style="margin-bottom: 0;">
                 <label for="adminVideoUrl1">URL do Vídeo no YouTube (ou Link de Compartilhamento)</label>
-                <input type="url" id="adminVideoUrl1" class="admin-input" placeholder="https://www.youtube.com/watch?v=... ou https://youtu.be/..." />
+                <input type="url" id="adminVideoUrl1" class="admin-input" placeholder="https://www.youtube.com/watch?v=... ou https://youtu.be/..." oninput="handleGalleryVideoUrlChange(1)" onchange="handleGalleryVideoUrlChange(1)" />
               </div>
             </div>
           </div>
@@ -7020,13 +7308,18 @@
             </div>
             <div class="admin-audio-preview-stage">
               <div class="top-audio-container" style="transform: scale(1.05);">
-                <div class="top-audio-btn" id="adminPreviewAudioBtn" style="pointer-events: auto;">
+                <div class="top-audio-btn" id="adminPreviewAudioBtn" style="pointer-events: auto; cursor: pointer;" onclick="toggleAudio()" title="Clique para testar o som ao vivo">
                   <span class="top-audio-action">
-                    <span class="top-audio-icon"><i class="fa-solid fa-play"></i></span>
-                    <span class="top-audio-label">Ouvir o Artista</span>
+                    <span class="top-audio-icon" id="adminPreviewPlayIcon"><i class="fa-solid fa-play"></i></span>
+                    <span class="top-audio-equalizer" id="adminPreviewEqualizer" style="display: none;">
+                      <span class="eq-bar eq-bar-1"></span>
+                      <span class="eq-bar eq-bar-2"></span>
+                      <span class="eq-bar eq-bar-3"></span>
+                    </span>
+                    <span class="top-audio-label" id="adminPreviewLabel">Ouvir o Artista</span>
                   </span>
                   <span class="top-audio-marquee-capsule">
-                    <span class="top-audio-led"></span>
+                    <span class="top-audio-led" id="adminPreviewLedDot"></span>
                     <span class="top-audio-ticker-window" style="max-width: 220px;">
                       <span class="top-audio-ticker-track" id="adminPreviewTickerTrack">
                         <span class="top-audio-ticker-item" id="adminPreviewTickerText1">Gilmar Torrez • Sweet Child O' Mine (Solo de Guitarra) •</span>
@@ -7044,34 +7337,45 @@
 
           <!-- Campos de Configuração -->
           <div style="background: rgba(255, 255, 255, 0.02); border: 1px solid rgba(255, 255, 255, 0.08); border-radius: 12px; padding: 18px; margin-bottom: 20px;">
-            <!-- Campo 1: Nome da Música (Letreiro Digital) -->
+            <!-- Campo 1: Link Personalizável do Áudio/Vídeo -->
+            <div style="margin-bottom: 18px;">
+              <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 6px; flex-wrap: wrap; gap: 8px;">
+                <label for="adminAudioUrl" style="font-size: 0.85rem; font-weight: 700; color: #f1f5f9; margin-bottom: 0;">
+                  <i class="fa-brands fa-youtube" style="color: #ef4444; margin-right: 6px;"></i> Link do Áudio / Música (YouTube ou Link Externo):
+                </label>
+                <button type="button" 
+                        onclick="autoDetectAudioTitleFromLink(true)" 
+                        id="btnFetchAudioTitle"
+                        style="background: rgba(245, 158, 11, 0.15); border: 1px solid var(--gold-primary); color: var(--gold-light); font-size: 0.74rem; font-weight: 600; padding: 4px 10px; border-radius: 6px; cursor: pointer; display: inline-flex; align-items: center; gap: 6px;">
+                  <i class="fa-solid fa-wand-magic-sparkles"></i> <span>Buscar Descrição pelo Link</span>
+                </button>
+              </div>
+              <input type="url" 
+                     id="adminAudioUrl" 
+                     class="admin-input" 
+                     placeholder="Ex: https://www.youtube.com/watch?v=BYvXgXSXtfU" 
+                     oninput="handleAudioUrlInput(event)"
+                     onchange="handleAudioUrlChange(event)"
+                     onpaste="handleAudioUrlPaste(event)">
+              <span style="display: block; font-size: 0.76rem; color: #94a3b8; margin-top: 4px;">
+                Cole o link do YouTube (vídeo, shorts, live ou link encurtado) para preencher automaticamente a descrição e tocar no player.
+              </span>
+            </div>
+
+            <!-- Campo 2: Nome da Música & Artista (Descrição no Letreiro Digital) -->
             <div style="margin-bottom: 18px;">
               <label for="adminAudioSongTitle" style="display: block; font-size: 0.85rem; font-weight: 700; color: #f1f5f9; margin-bottom: 6px;">
-                <i class="fa-solid fa-bullhorn" style="color: var(--gold-primary); margin-right: 6px;"></i> Nome da Música & Artista (Letreiro Digital na Cápsula):
+                <i class="fa-solid fa-bullhorn" style="color: var(--gold-primary); margin-right: 6px;"></i> Nome da Música & Artista (Descrição no Letreiro Digital da Cápsula):
               </label>
               <input type="text" 
                      id="adminAudioSongTitle" 
                      class="admin-input" 
                      placeholder="Ex: Gilmar Torrez • Sweet Child O' Mine (Solo de Guitarra)" 
-                     oninput="updateAudioLivePreview()" 
+                     oninput="handleAudioTitleManualInput()" 
                      style="font-family: 'Space Grotesk', monospace; letter-spacing: 0.5px;">
+              <div id="adminAudioAutoTitleNotice" style="display: none; font-size: 0.78rem; margin-top: 6px; line-height: 1.4;"></div>
               <span style="display: block; font-size: 0.76rem; color: #94a3b8; margin-top: 4px;">
-                Este texto deslizará continuamente no visor LED dentro da cápsula do botão do topo.
-              </span>
-            </div>
-
-            <!-- Campo 2: Link Personalizável do Áudio/Vídeo -->
-            <div style="margin-bottom: 18px;">
-              <label for="adminAudioUrl" style="display: block; font-size: 0.85rem; font-weight: 700; color: #f1f5f9; margin-bottom: 6px;">
-                <i class="fa-brands fa-youtube" style="color: #ef4444; margin-right: 6px;"></i> Link do Áudio / Música (YouTube ou Link Externo):
-              </label>
-              <input type="url" 
-                     id="adminAudioUrl" 
-                     class="admin-input" 
-                     placeholder="Ex: https://www.youtube.com/watch?v=BYvXgXSXtfU" 
-                     oninput="updateAudioLivePreview()">
-              <span style="display: block; font-size: 0.76rem; color: #94a3b8; margin-top: 4px;">
-                Cole o link do YouTube (vídeo, shorts ou youtu.be) para tocar com o player transparente integrado ao site, ou link do Spotify / Soundcloud / plataforma do artista.
+                Preenchido automaticamente ao alterar o link. Você pode editar, personalizar ou alterar qualquer detalhe do texto livremente acima.
               </span>
             </div>
 
@@ -7227,30 +7531,37 @@
 
     const menuToggle = document.getElementById('menuToggle');
     const mobileDrawer = document.getElementById('mobileDrawer');
+    const mobileDrawerBackdrop = document.getElementById('mobileDrawerBackdrop');
     const mobileNavLinks = document.querySelectorAll('.mobile-nav-link');
 
     function toggleMenu() {
-      const isOpen = mobileDrawer.classList.contains('open');
+      const isOpen = mobileDrawer?.classList.contains('open');
       if (isOpen) {
-        mobileDrawer.classList.remove('open');
-        menuToggle.classList.remove('active');
-        menuToggle.setAttribute('aria-expanded', 'false');
+        mobileDrawer?.classList.remove('open');
+        mobileDrawerBackdrop?.classList.remove('active');
+        menuToggle?.classList.remove('active');
+        menuToggle?.setAttribute('aria-expanded', 'false');
         document.body.style.overflow = '';
       } else {
-        mobileDrawer.classList.add('open');
-        menuToggle.classList.add('active');
-        menuToggle.setAttribute('aria-expanded', 'true');
+        mobileDrawer?.classList.add('open');
+        mobileDrawerBackdrop?.classList.add('active');
+        menuToggle?.classList.add('active');
+        menuToggle?.setAttribute('aria-expanded', 'true');
         document.body.style.overflow = 'hidden';
       }
     }
 
-    menuToggle.addEventListener('click', toggleMenu);
+    if (menuToggle) {
+      menuToggle.addEventListener('click', toggleMenu);
+    }
+    window.toggleMenu = toggleMenu;
 
     mobileNavLinks.forEach(link => {
       link.addEventListener('click', () => {
-        mobileDrawer.classList.remove('open');
-        menuToggle.classList.remove('active');
-        menuToggle.setAttribute('aria-expanded', 'false');
+        mobileDrawer?.classList.remove('open');
+        mobileDrawerBackdrop?.classList.remove('active');
+        menuToggle?.classList.remove('active');
+        menuToggle?.setAttribute('aria-expanded', 'false');
         document.body.style.overflow = '';
       });
     });
@@ -7263,7 +7574,7 @@
         const targetElement = document.querySelector(targetId);
         if (targetElement) {
           e.preventDefault();
-          const headerOffset = (document.getElementById('topAudioBar')?.offsetHeight || 0) + (document.getElementById('mainHeader')?.offsetHeight || 112);
+          const headerOffset = (document.getElementById('topAudioBar')?.offsetHeight || 0) + (document.getElementById('mainHeader')?.offsetHeight || 74);
           const elementPosition = targetElement.getBoundingClientRect().top;
           const offsetPosition = elementPosition + window.pageYOffset - headerOffset;
 
@@ -7276,11 +7587,11 @@
     });
 
     const sections = document.querySelectorAll('section[id]');
-    const navLinks = document.querySelectorAll('.nav-menu .nav-link');
+    const allNavLinks = document.querySelectorAll('.nav-menu .nav-link, .mobile-bottom-item[href^="#"]');
 
     window.addEventListener('scroll', () => {
       let currentSection = '';
-      const scrollPos = window.pageYOffset + 140;
+      const scrollPos = window.pageYOffset + 160;
 
       sections.forEach(section => {
         const sectionTop = section.offsetTop;
@@ -7290,7 +7601,11 @@
         }
       });
 
-      navLinks.forEach(link => {
+      if (!currentSection && window.pageYOffset < 300) {
+        currentSection = 'hero';
+      }
+
+      allNavLinks.forEach(link => {
         link.classList.remove('active');
         if (link.getAttribute('href') === `#${currentSection}`) {
           link.classList.add('active');
@@ -7699,14 +8014,183 @@
     var isPlayerReady = false;
     var pendingPlay = false;
     var currentAudioVideoId = 'BYvXgXSXtfU';
+    var lastPlayClickTime = 0;
+    var lastAutoDetectedAudioUrl = '';
+    var audioUrlDebounceTimer = null;
+    var videoUrlDebounceTimers = [null, null];
 
     function extractYouTubeVideoId(url) {
       if (!url) return '';
-      url = String(url).trim();
+      url = String(url).trim().replace(/^["']|["']$/g, '');
       if (/^[a-zA-Z0-9_-]{11}$/.test(url)) return url;
-      const regExp = /(?:youtu\.be\/|youtube\.com\/(?:embed\/|v\/|watch\?v=|watch\?.+&v=|shorts\/))([a-zA-Z0-9_-]{11})/;
+      const regExp = /(?:youtu\.be\/|youtube(?:-nocookie)?\.com\/(?:embed\/|v\/|watch\?v=|watch\?.+&v=|shorts\/|live\/))([a-zA-Z0-9_-]{11})/;
       const match = url.match(regExp);
       return match ? match[1] : '';
+    }
+
+    async function fetchYouTubeTitle(url) {
+      if (!url) return null;
+      const cleanUrl = String(url).trim().replace(/^["']|["']$/g, '');
+      const videoId = extractYouTubeVideoId(cleanUrl);
+      if (!videoId) return null;
+
+      // 1. Tenta API oEmbed oficial do YouTube via navegador (suporta CORS nativamente)
+      try {
+        const oembedUrl = `https://www.youtube.com/oembed?url=${encodeURIComponent('https://www.youtube.com/watch?v=' + videoId)}&format=json`;
+        const resp = await fetch(oembedUrl, { method: 'GET', mode: 'cors' });
+        if (resp.ok) {
+          const data = await resp.json();
+          if (data && data.title) {
+            return data.title.trim();
+          }
+        }
+      } catch (err) {
+        console.warn('[YouTube oEmbed] Falha na requisição direta do browser:', err);
+      }
+
+      // 2. Se falhar (ex: adblocker no cliente), consulta o backend proxy Express (/api/youtube-meta)
+      if (!isStaticHosting) {
+        try {
+          const resp = await fetch(`${SERVER_API_BASE}/youtube-meta?url=${encodeURIComponent(cleanUrl)}`);
+          if (resp.ok) {
+            const data = await resp.json();
+            if (data && data.title) {
+              return data.title.trim();
+            }
+          }
+        } catch (err) {
+          console.warn('[YouTube Meta Server] Falha na rota do servidor:', err);
+        }
+      }
+
+      // 3. Fallback noembed.com
+      try {
+        const resp = await fetch(`https://noembed.com/embed?url=${encodeURIComponent('https://www.youtube.com/watch?v=' + videoId)}`);
+        if (resp.ok) {
+          const data = await resp.json();
+          if (data && data.title) {
+            return data.title.trim();
+          }
+        }
+      } catch (err) {
+        console.warn('[noembed Fallback] Falha:', err);
+      }
+
+      return null;
+    }
+
+    function handleAudioUrlInput(e) {
+      updateAudioLivePreview();
+      clearTimeout(audioUrlDebounceTimer);
+      audioUrlDebounceTimer = setTimeout(() => {
+        autoDetectAudioTitleFromLink(false);
+      }, 350);
+    }
+
+    function handleAudioUrlChange(e) {
+      updateAudioLivePreview();
+      clearTimeout(audioUrlDebounceTimer);
+      autoDetectAudioTitleFromLink(false);
+    }
+
+    function handleAudioUrlPaste(e) {
+      setTimeout(() => {
+        updateAudioLivePreview();
+        autoDetectAudioTitleFromLink(false);
+      }, 50);
+    }
+
+    function handleAudioTitleManualInput() {
+      // O usuário pode alterar e personalizar a descrição livremente a qualquer momento
+      updateAudioLivePreview();
+      const notice = document.getElementById('adminAudioAutoTitleNotice');
+      if (notice && notice.style.display !== 'none') {
+        notice.innerHTML = '<span style="color: #cbd5e1;"><i class="fa-solid fa-pen-to-square"></i> Descrição editada manualmente. Suas alterações serão salvas ao gravar.</span>';
+      }
+    }
+
+    async function autoDetectAudioTitleFromLink(force = false) {
+      const urlInput = document.getElementById('adminAudioUrl');
+      const titleInput = document.getElementById('adminAudioSongTitle');
+      const notice = document.getElementById('adminAudioAutoTitleNotice');
+      if (!urlInput || !titleInput) return;
+
+      const rawUrl = urlInput.value.trim();
+      if (!rawUrl) {
+        if (notice) notice.style.display = 'none';
+        return;
+      }
+
+      if (!force && rawUrl === lastAutoDetectedAudioUrl) {
+        return;
+      }
+
+      const videoId = extractYouTubeVideoId(rawUrl);
+      if (!videoId) {
+        if (notice) {
+          notice.innerHTML = '<span style="color: #94a3b8;"><i class="fa-solid fa-circle-info"></i> Link externo inserido. Você pode digitar e personalizar a descrição no campo abaixo livremente.</span>';
+          notice.style.display = 'block';
+        }
+        return;
+      }
+
+      lastAutoDetectedAudioUrl = rawUrl;
+
+      if (notice) {
+        notice.innerHTML = '<span style="color: var(--gold-light);"><i class="fa-solid fa-spinner fa-spin"></i> Identificando título e música no YouTube...</span>';
+        notice.style.display = 'block';
+      }
+
+      const detected = await fetchYouTubeTitle(rawUrl);
+      if (detected) {
+        let finalTitle = detected;
+        // Se o título não mencionar Gilmar, prefixa de forma elegante para o letreiro
+        if (!finalTitle.toLowerCase().includes('gilmar')) {
+          finalTitle = `Gilmar Torrez • ${finalTitle}`;
+        }
+
+        // Preenche automaticamente o campo da descrição!
+        titleInput.value = finalTitle;
+        updateAudioLivePreview();
+
+        if (notice) {
+          notice.innerHTML = `<span style="color: #4ade80;"><i class="fa-solid fa-wand-magic-sparkles"></i> <strong>Descrição preenchida automaticamente:</strong> "${detected}". Você pode alterá-la livremente abaixo.</span>`;
+          notice.style.display = 'block';
+        }
+      } else {
+        if (notice) {
+          notice.innerHTML = '<span style="color: #fbbf24;"><i class="fa-solid fa-triangle-exclamation"></i> Título não detectado automaticamente. Você pode digitar e personalizar a descrição abaixo.</span>';
+          notice.style.display = 'block';
+        }
+      }
+    }
+
+    // Auto-preenchimento também para os cards de vídeos da galeria
+    function handleGalleryVideoUrlChange(index) {
+      clearTimeout(videoUrlDebounceTimers[index]);
+      videoUrlDebounceTimers[index] = setTimeout(async () => {
+        const urlInput = document.getElementById(`adminVideoUrl${index}`);
+        const titleInput = document.getElementById(`adminVideoTitle${index}`);
+        const descInput = document.getElementById(`adminVideoDesc${index}`);
+        if (!urlInput || !titleInput) return;
+
+        const url = urlInput.value.trim();
+        if (!url) return;
+
+        const videoId = extractYouTubeVideoId(url);
+        if (!videoId) return;
+
+        // Se o título estiver vazio ou se for a sugestão padrão, busca automaticamente no YouTube
+        const detected = await fetchYouTubeTitle(url);
+        if (detected) {
+          if (!titleInput.value || titleInput.value.trim().startsWith('Ex:')) {
+            titleInput.value = detected;
+          }
+          if (descInput && (!descInput.value || descInput.value.trim().startsWith('Ex:'))) {
+            descInput.value = detected;
+          }
+        }
+      }, 400);
     }
 
     function getStoredTopAudioSettings() {
@@ -7734,7 +8218,7 @@
     function applyTopAudioSettingsToUI(settings) {
       if (!settings) settings = getStoredTopAudioSettings();
 
-      // Atualiza letreiro digital (ambos os spans para loop infinito perfeito)
+      // Atualiza letreiro digital (ambos os spans para loop infinito contínuo)
       const ticker1 = document.getElementById('topAudioTickerText1');
       const ticker2 = document.getElementById('topAudioTickerText2');
       const titleText = (settings.songTitle || DEFAULT_TOP_AUDIO_SETTINGS.songTitle).trim();
@@ -7757,45 +8241,63 @@
         if (ytAudioPlayer && isPlayerReady && typeof ytAudioPlayer.cueVideoById === 'function') {
           try {
             if (isAudioPlaying) {
-              ytAudioPlayer.loadVideoById({ videoId: newVideoId });
+              if (typeof ytAudioPlayer.loadVideoById === 'function') {
+                ytAudioPlayer.loadVideoById(newVideoId);
+              }
             } else {
-              ytAudioPlayer.cueVideoById({ videoId: newVideoId });
+              ytAudioPlayer.cueVideoById(newVideoId);
             }
           } catch (err) {
-            console.warn('Erro ao atualizar vídeo no player:', err);
+            try {
+              ytAudioPlayer.cueVideoById({ videoId: newVideoId });
+            } catch (e2) {
+              console.warn('Erro ao atualizar vídeo no player:', err);
+            }
           }
         }
       }
     }
 
     function updateTopAudioButtonUI(state) {
+      // Botão principal no topo do site
       const audioBtn = document.getElementById('topAudioToggleBtn');
       const label = document.getElementById('topAudioLabel');
       const playIcon = document.getElementById('topAudioPlayIcon');
       const eq = document.getElementById('topAudioEqualizer');
       const led = document.getElementById('topAudioLedDot');
-      if (!audioBtn) return;
 
-      if (state === 'playing') {
-        audioBtn.classList.add('playing');
-        if (label) label.textContent = 'Pausar Som';
-        if (playIcon) playIcon.style.display = 'none';
-        if (eq) eq.style.display = 'inline-flex';
-        if (led) led.classList.add('active');
-      } else if (state === 'loading') {
-        audioBtn.classList.remove('playing');
-        if (label) label.textContent = 'Iniciando...';
-        if (playIcon) playIcon.style.display = 'inline-flex';
-        if (eq) eq.style.display = 'none';
-        if (led) led.classList.remove('active');
-      } else {
-        // Pausado ou estado inicial
-        audioBtn.classList.remove('playing');
-        if (label) label.textContent = 'Ouvir o Artista';
-        if (playIcon) playIcon.style.display = 'inline-flex';
-        if (eq) eq.style.display = 'none';
-        if (led) led.classList.remove('active');
-      }
+      // Botão de preview dentro do modal administrativo
+      const previewBtn = document.getElementById('adminPreviewAudioBtn');
+      const previewLabel = document.getElementById('adminPreviewLabel');
+      const previewPlayIcon = document.getElementById('adminPreviewPlayIcon');
+      const previewEq = document.getElementById('adminPreviewEqualizer');
+      const previewLed = document.getElementById('adminPreviewLedDot');
+
+      const applyStateToElements = (btn, lbl, icon, equalizer, ledDot) => {
+        if (!btn) return;
+        if (state === 'playing') {
+          btn.classList.add('playing');
+          if (lbl) lbl.textContent = 'Pausar Som';
+          if (icon) icon.style.display = 'none';
+          if (equalizer) equalizer.style.display = 'inline-flex';
+          if (ledDot) ledDot.classList.add('active');
+        } else if (state === 'loading') {
+          btn.classList.remove('playing');
+          if (lbl) lbl.textContent = 'Iniciando...';
+          if (icon) icon.style.display = 'inline-flex';
+          if (equalizer) equalizer.style.display = 'none';
+          if (ledDot) ledDot.classList.remove('active');
+        } else {
+          btn.classList.remove('playing');
+          if (lbl) lbl.textContent = 'Ouvir o Artista';
+          if (icon) icon.style.display = 'inline-flex';
+          if (equalizer) equalizer.style.display = 'none';
+          if (ledDot) ledDot.classList.remove('active');
+        }
+      };
+
+      applyStateToElements(audioBtn, label, playIcon, eq, led);
+      applyStateToElements(previewBtn, previewLabel, previewPlayIcon, previewEq, previewLed);
     }
 
     function handleTopAudioButtonClick() {
@@ -7829,8 +8331,8 @@
         currentAudioVideoId = extractYouTubeVideoId(initialSettings.url) || 'BYvXgXSXtfU';
 
         ytAudioPlayer = new YT.Player('yt-audio-player', {
-          height: '1',
-          width: '1',
+          height: '200',
+          width: '200',
           videoId: currentAudioVideoId,
           playerVars: {
             autoplay: 0,
@@ -7878,21 +8380,40 @@
     }
 
     function onYtAudioError(event) {
-      console.warn('Aviso no player do YouTube:', event.data);
+      console.warn('Aviso no player do YouTube (Código):', event.data);
       isAudioPlaying = false;
       updateTopAudioButtonUI('paused');
+
+      // Se o vídeo não permite reprodução incorporada em sites externos (101 ou 150) ou não foi encontrado (100)
+      if (event.data === 150 || event.data === 101 || event.data === 100) {
+        const settings = getStoredTopAudioSettings();
+        const targetUrl = settings.url || DEFAULT_TOP_AUDIO_SETTINGS.url;
+        if (pendingPlay || (Date.now() - lastPlayClickTime < 3500)) {
+          pendingPlay = false;
+          window.open(targetUrl, '_blank');
+        }
+      }
     }
 
     function playAudio() {
+      lastPlayClickTime = Date.now();
+      const settings = getStoredTopAudioSettings();
+      const videoId = extractYouTubeVideoId(settings.url) || 'BYvXgXSXtfU';
+
       if (ytAudioPlayer && typeof ytAudioPlayer.playVideo === 'function') {
         try {
           ytAudioPlayer.unMute();
           ytAudioPlayer.setVolume(100);
-          ytAudioPlayer.playVideo();
+          if (videoId !== currentAudioVideoId && typeof ytAudioPlayer.loadVideoById === 'function') {
+            currentAudioVideoId = videoId;
+            ytAudioPlayer.loadVideoById(videoId);
+          } else {
+            ytAudioPlayer.playVideo();
+          }
           isAudioPlaying = true;
           updateTopAudioButtonUI('playing');
         } catch (e) {
-          console.error(e);
+          console.error('Erro ao tocar áudio:', e);
         }
       }
     }
@@ -7910,9 +8431,23 @@
     }
 
     function toggleAudio() {
+      const settings = getStoredTopAudioSettings();
+      if (settings.clickAction === 'open') {
+        window.open(settings.url || DEFAULT_TOP_AUDIO_SETTINGS.url, '_blank');
+        return;
+      }
+
       if (!isPlayerReady || !ytAudioPlayer) {
-        pendingPlay = !pendingPlay;
-        updateTopAudioButtonUI(pendingPlay ? 'loading' : 'paused');
+        pendingPlay = true;
+        updateTopAudioButtonUI('loading');
+        // Se a API do YouTube falhar ou for bloqueada por extensão do browser, abre externamente
+        setTimeout(() => {
+          if (!isAudioPlaying && pendingPlay) {
+            pendingPlay = false;
+            updateTopAudioButtonUI('paused');
+            window.open(settings.url || DEFAULT_TOP_AUDIO_SETTINGS.url, '_blank');
+          }
+        }, 2200);
         return;
       }
 
@@ -7931,9 +8466,14 @@
       const actionPlay = document.getElementById('audioActionPlay');
       const actionOpen = document.getElementById('audioActionOpen');
       const showExtLink = document.getElementById('adminAudioShowExtLink');
+      const notice = document.getElementById('adminAudioAutoTitleNotice');
 
       if (titleInput) titleInput.value = settings.songTitle || '';
       if (urlInput) urlInput.value = settings.url || '';
+      if (notice) notice.style.display = 'none';
+
+      lastAutoDetectedAudioUrl = settings.url || '';
+
       if (settings.clickAction === 'open') {
         if (actionOpen) actionOpen.checked = true;
       } else {
@@ -7969,8 +8509,14 @@
     function applyAudioPreset(presetTitle, presetUrl) {
       const titleInput = document.getElementById('adminAudioSongTitle');
       const urlInput = document.getElementById('adminAudioUrl');
+      const notice = document.getElementById('adminAudioAutoTitleNotice');
       if (titleInput) titleInput.value = presetTitle;
       if (urlInput) urlInput.value = presetUrl;
+      lastAutoDetectedAudioUrl = presetUrl;
+      if (notice) {
+        notice.innerHTML = '<span style="color: #4ade80;"><i class="fa-solid fa-check"></i> Sugestão oficial aplicada! Você pode personalizar o texto e o link livremente.</span>';
+        notice.style.display = 'block';
+      }
       updateAudioLivePreview();
     }
 
@@ -8041,6 +8587,12 @@
     window.applyAudioPreset = applyAudioPreset;
     window.saveTopAudioSettings = saveTopAudioSettings;
     window.resetDefaultTopAudioSettings = resetDefaultTopAudioSettings;
+    window.handleAudioUrlInput = handleAudioUrlInput;
+    window.handleAudioUrlChange = handleAudioUrlChange;
+    window.handleAudioUrlPaste = handleAudioUrlPaste;
+    window.handleAudioTitleManualInput = handleAudioTitleManualInput;
+    window.autoDetectAudioTitleFromLink = autoDetectAudioTitleFromLink;
+    window.handleGalleryVideoUrlChange = handleGalleryVideoUrlChange;
 
     /* =======================================================
        LINKS OFICIAIS & REDES SOCIAIS (PERSISTÊNCIA SUPABASE)

@@ -141,6 +141,56 @@ app.post('/api/admin/content', requireAdminAuth, (req, res) => {
   });
 });
 
+// 4. GET /api/youtube-meta - Consulta título e metadados de vídeo/áudio do YouTube via oEmbed
+app.get('/api/youtube-meta', async (req, res) => {
+  const videoUrl = req.query.url as string;
+  if (!videoUrl) {
+    return res.status(400).json({ success: false, error: 'URL do vídeo é obrigatória.' });
+  }
+
+  try {
+    const cleanUrl = videoUrl.trim();
+    const oembedUrl = `https://www.youtube.com/oembed?url=${encodeURIComponent(cleanUrl)}&format=json`;
+    const ytResp = await fetch(oembedUrl);
+
+    if (ytResp.ok) {
+      const data: any = await ytResp.json();
+      return res.json({
+        success: true,
+        title: data.title || '',
+        author_name: data.author_name || '',
+        thumbnail_url: data.thumbnail_url || ''
+      });
+    }
+
+    // Fallback: noembed
+    const noembedUrl = `https://noembed.com/embed?url=${encodeURIComponent(cleanUrl)}`;
+    const noembedResp = await fetch(noembedUrl);
+    if (noembedResp.ok) {
+      const data: any = await noembedResp.json();
+      if (data && data.title) {
+        return res.json({
+          success: true,
+          title: data.title,
+          author_name: data.author_name || '',
+          thumbnail_url: data.thumbnail_url || ''
+        });
+      }
+    }
+
+    return res.status(ytResp.status || 404).json({
+      success: false,
+      error: 'Vídeo do YouTube não encontrado ou não acessível.'
+    });
+  } catch (err: any) {
+    console.error('Erro ao consultar metadados do YouTube:', err);
+    return res.status(500).json({
+      success: false,
+      error: err.message || 'Erro ao consultar metadados do YouTube no servidor.'
+    });
+  }
+});
+
 // ==========================================
 // INICIALIZAÇÃO DO SERVIDOR (DEV / PROD)
 // ==========================================
