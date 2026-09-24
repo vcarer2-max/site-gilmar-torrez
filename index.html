@@ -8457,49 +8457,78 @@
           </div>
 
           <!-- SEÇÃO 5: Vídeos do YouTube (Seção Mídia) -->
+          <!-- SEÇÃO 5: Vídeos em Destaque (YouTube ou Instagram) -->
           <div class="admin-video-mgmt-card">
             <div class="admin-media-category-header">
-              <h5><i class="fa-brands fa-youtube" style="color: #ef4444;"></i> 5. Vídeos em Destaque no YouTube (Seção Mídia)</h5>
-              <span>Até 2 Vídeos</span>
+              <h5><i class="fa-solid fa-photo-film" style="color: var(--gold-primary);"></i> 5. Vídeos em Destaque (YouTube ou Instagram)</h5>
+              <span style="background: rgba(245, 158, 11, 0.15); color: var(--gold-light); font-weight: 700; border: 1px solid rgba(245, 158, 11, 0.3);">
+                <i class="fa-brands fa-youtube" style="color: #ef4444; margin-right: 3px;"></i> YouTube &amp; <i class="fa-brands fa-instagram" style="color: #f43f5e; margin: 0 3px;"></i> Instagram
+              </span>
+            </div>
+
+            <div style="font-size: 0.8rem; color: #cbd5e1; margin: 0 0 14px 0; line-height: 1.45;">
+              Cole o link do seu vídeo do <strong>YouTube</strong> (ao vivo, clipes, shorts) ou do <strong>Instagram</strong> (Reels ou posts). O <strong>título e a descrição são preenchidos automaticamente</strong> a partir do link, e você pode editá-los livremente conforme desejar.
             </div>
 
             <!-- Vídeo 1 -->
             <div class="admin-video-slot-box">
-              <div class="admin-video-slot-header">
-                <i class="fa-solid fa-film" style="color: var(--gold-primary);"></i>
-                <span>Vídeo 01 (Principal)</span>
+              <div class="admin-video-slot-header" style="justify-content: space-between;">
+                <span style="display: flex; align-items: center; gap: 8px;">
+                  <i class="fa-solid fa-film" style="color: var(--gold-primary);"></i>
+                  <span>Vídeo 01 (Principal)</span>
+                </span>
+                <span style="font-size: 0.72rem; color: #94a3b8; font-weight: 600;">YouTube ou Instagram</span>
+              </div>
+              <div class="admin-form-group" style="margin-bottom: 8px;">
+                <label for="adminVideoUrl0" style="display: flex; justify-content: space-between; align-items: center;">
+                  <span><i class="fa-solid fa-link" style="color: var(--gold-primary); margin-right: 6px;"></i> Link do Vídeo (YouTube ou Instagram Reel/Post)</span>
+                </label>
+                <div style="display: flex; gap: 8px; align-items: center;">
+                  <input type="url" id="adminVideoUrl0" class="admin-input" placeholder="https://www.youtube.com/watch?v=... ou https://www.instagram.com/reel/..." oninput="handleGalleryVideoUrlChange(0)" onchange="handleGalleryVideoUrlChange(0)" style="flex: 1;" />
+                  <button type="button" class="btn-secondary" onclick="autoDetectGalleryVideoDetails(0)" style="padding: 7px 12px; font-size: 0.75rem; border-radius: 8px; white-space: nowrap; border: 1px solid rgba(255,255,255,0.18);" title="Buscar e preencher título e descrição automaticamente">
+                    <i class="fa-solid fa-wand-magic-sparkles" style="color: var(--gold-primary);"></i> Auto Preencher
+                  </button>
+                </div>
+                <div id="adminVideoAutoNotice0" style="display: none; margin-top: 6px; font-size: 0.75rem; line-height: 1.4;"></div>
               </div>
               <div class="admin-form-group" style="margin-bottom: 8px;">
                 <label for="adminVideoTitle0">Título do Vídeo 01</label>
                 <input type="text" id="adminVideoTitle0" class="admin-input" placeholder="Ex: Show Pop Rock ao Vivo no Pub" />
               </div>
-              <div class="admin-form-group" style="margin-bottom: 8px;">
-                <label for="adminVideoDesc0">Descrição do Vídeo 01</label>
-                <input type="text" id="adminVideoDesc0" class="admin-input" placeholder="Ex: Medley de clássicos do rock que colocam a galera para cantar..." />
-              </div>
               <div class="admin-form-group" style="margin-bottom: 0;">
-                <label for="adminVideoUrl0">URL do Vídeo no YouTube (ou Link de Compartilhamento)</label>
-                <input type="url" id="adminVideoUrl0" class="admin-input" placeholder="https://www.youtube.com/watch?v=... ou https://youtu.be/..." oninput="handleGalleryVideoUrlChange(0)" onchange="handleGalleryVideoUrlChange(0)" />
+                <label for="adminVideoDesc0">Descrição do Vídeo 01 (Preenchida automaticamente, você pode alterar)</label>
+                <input type="text" id="adminVideoDesc0" class="admin-input" placeholder="Ex: Medley de clássicos do rock que colocam a galera para cantar..." />
               </div>
             </div>
 
             <!-- Vídeo 2 -->
             <div class="admin-video-slot-box">
-              <div class="admin-video-slot-header">
-                <i class="fa-solid fa-film" style="color: var(--gold-primary);"></i>
-                <span>Vídeo 02 (Secundário)</span>
+              <div class="admin-video-slot-header" style="justify-content: space-between;">
+                <span style="display: flex; align-items: center; gap: 8px;">
+                  <i class="fa-solid fa-film" style="color: var(--gold-primary);"></i>
+                  <span>Vídeo 02 (Secundário)</span>
+                </span>
+                <span style="font-size: 0.72rem; color: #94a3b8; font-weight: 600;">YouTube ou Instagram</span>
+              </div>
+              <div class="admin-form-group" style="margin-bottom: 8px;">
+                <label for="adminVideoUrl1" style="display: flex; justify-content: space-between; align-items: center;">
+                  <span><i class="fa-solid fa-link" style="color: var(--gold-primary); margin-right: 6px;"></i> Link do Vídeo (YouTube ou Instagram Reel/Post)</span>
+                </label>
+                <div style="display: flex; gap: 8px; align-items: center;">
+                  <input type="url" id="adminVideoUrl1" class="admin-input" placeholder="https://www.youtube.com/watch?v=... ou https://www.instagram.com/reel/..." oninput="handleGalleryVideoUrlChange(1)" onchange="handleGalleryVideoUrlChange(1)" style="flex: 1;" />
+                  <button type="button" class="btn-secondary" onclick="autoDetectGalleryVideoDetails(1)" style="padding: 7px 12px; font-size: 0.75rem; border-radius: 8px; white-space: nowrap; border: 1px solid rgba(255,255,255,0.18);" title="Buscar e preencher título e descrição automaticamente">
+                    <i class="fa-solid fa-wand-magic-sparkles" style="color: var(--gold-primary);"></i> Auto Preencher
+                  </button>
+                </div>
+                <div id="adminVideoAutoNotice1" style="display: none; margin-top: 6px; font-size: 0.75rem; line-height: 1.4;"></div>
               </div>
               <div class="admin-form-group" style="margin-bottom: 8px;">
                 <label for="adminVideoTitle1">Título do Vídeo 02</label>
                 <input type="text" id="adminVideoTitle1" class="admin-input" placeholder="Ex: Pocket Show Voz & Violão" />
               </div>
-              <div class="admin-form-group" style="margin-bottom: 8px;">
-                <label for="adminVideoDesc1">Descrição do Vídeo 02</label>
-                <input type="text" id="adminVideoDesc1" class="admin-input" placeholder="Ex: Arranjos sofisticados e intimistas para eventos..." />
-              </div>
               <div class="admin-form-group" style="margin-bottom: 0;">
-                <label for="adminVideoUrl1">URL do Vídeo no YouTube (ou Link de Compartilhamento)</label>
-                <input type="url" id="adminVideoUrl1" class="admin-input" placeholder="https://www.youtube.com/watch?v=... ou https://youtu.be/..." oninput="handleGalleryVideoUrlChange(1)" onchange="handleGalleryVideoUrlChange(1)" />
+                <label for="adminVideoDesc1">Descrição do Vídeo 02 (Preenchida automaticamente, você pode alterar)</label>
+                <input type="text" id="adminVideoDesc1" class="admin-input" placeholder="Ex: Arranjos sofisticados e intimistas para eventos..." />
               </div>
             </div>
           </div>
@@ -9265,16 +9294,44 @@
       if (!container) return;
       
       const iframe = document.createElement('iframe');
-      iframe.setAttribute('src', videoUrl);
-      iframe.setAttribute('title', 'Apresentação de Gilmar Torrez');
+      const isInstagram = typeof isInstagramVideoUrl === 'function' ? isInstagramVideoUrl(videoUrl) : String(videoUrl).includes('instagram.com');
+      
+      let finalSrc = videoUrl;
+      if (isInstagram) {
+        if (typeof formatVideoEmbedUrl === 'function') {
+          finalSrc = formatVideoEmbedUrl(videoUrl);
+        } else if (String(videoUrl).includes('instagram.com') && !String(videoUrl).includes('/embed')) {
+          const match = String(videoUrl).match(/instagram\.com\/(?:reel|p|tv)\/([a-zA-Z0-9_-]+)/i);
+          if (match && match[1]) {
+            finalSrc = `https://www.instagram.com/p/${match[1]}/embed/`;
+          }
+        }
+        iframe.setAttribute('scrolling', 'no');
+        iframe.setAttribute('allowtransparency', 'true');
+        iframe.style.position = 'absolute';
+        iframe.style.top = '0';
+        iframe.style.left = '0';
+        iframe.style.width = '100%';
+        iframe.style.height = '100%';
+        iframe.style.border = 'none';
+        iframe.style.background = '#090a10';
+      } else {
+        if (finalSrc.includes('youtube.com/embed') && !finalSrc.includes('autoplay=')) {
+          finalSrc += (finalSrc.includes('?') ? '&' : '?') + 'autoplay=1';
+        }
+        iframe.style.position = 'absolute';
+        iframe.style.top = '0';
+        iframe.style.left = '0';
+        iframe.style.width = '100%';
+        iframe.style.height = '100%';
+        iframe.style.border = 'none';
+      }
+
+      iframe.setAttribute('src', finalSrc);
+      iframe.setAttribute('title', isInstagram ? 'Vídeo do Instagram de Gilmar Torrez' : 'Vídeo do YouTube de Gilmar Torrez');
       iframe.setAttribute('frameborder', '0');
       iframe.setAttribute('allow', 'accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share');
       iframe.setAttribute('allowfullscreen', 'true');
-      iframe.style.position = 'absolute';
-      iframe.style.top = '0';
-      iframe.style.left = '0';
-      iframe.style.width = '100%';
-      iframe.style.height = '100%';
 
       container.innerHTML = '';
       container.appendChild(iframe);
@@ -9684,6 +9741,50 @@
       return match ? match[1] : '';
     }
 
+    function extractInstagramCode(url) {
+      if (!url) return '';
+      const clean = String(url).trim().replace(/^["']|["']$/g, '');
+      const match = clean.match(/instagram\.com\/(?:reel|reels|p|tv)\/([a-zA-Z0-9_-]+)/i);
+      return match ? match[1] : '';
+    }
+
+    function isInstagramVideoUrl(url) {
+      if (!url) return false;
+      const clean = String(url).trim().toLowerCase();
+      return clean.includes('instagram.com/reel/') || 
+             clean.includes('instagram.com/reels/') || 
+             clean.includes('instagram.com/p/') || 
+             clean.includes('instagram.com/tv/') ||
+             clean.includes('instagr.am/');
+    }
+
+    function formatVideoEmbedUrl(url) {
+      if (!url) return '';
+      const trimmed = String(url).trim().replace(/^["']|["']$/g, '');
+      
+      // 1. Instagram Video / Reels
+      if (isInstagramVideoUrl(trimmed)) {
+        const code = extractInstagramCode(trimmed);
+        if (code) {
+          return `https://www.instagram.com/p/${code}/embed/`;
+        }
+        if (trimmed.includes('instagram.com') && trimmed.includes('/embed')) {
+          return trimmed.endsWith('/') ? trimmed : trimmed + '/';
+        }
+      }
+
+      // 2. YouTube
+      if (trimmed.includes('youtube.com/embed/')) {
+        return trimmed;
+      }
+      const match = trimmed.match(/^.*(youtu.be\/|v\/|u\/\w\/|embed\/|watch\?v=|&v=|shorts\/|live\/)([^#&?]*).*/);
+      if (match && match[2] && match[2].length === 11) {
+        return `https://www.youtube.com/embed/${match[2]}`;
+      }
+
+      return trimmed;
+    }
+
     async function fetchYouTubeTitle(url) {
       if (!url) return null;
       const cleanUrl = String(url).trim().replace(/^["']|["']$/g, '');
@@ -9821,32 +9922,103 @@
       }
     }
 
-    // Auto-preenchimento também para os cards de vídeos da galeria
-    function handleGalleryVideoUrlChange(index) {
-      clearTimeout(videoUrlDebounceTimers[index]);
-      videoUrlDebounceTimers[index] = setTimeout(async () => {
-        const urlInput = document.getElementById(`adminVideoUrl${index}`);
-        const titleInput = document.getElementById(`adminVideoTitle${index}`);
-        const descInput = document.getElementById(`adminVideoDesc${index}`);
-        if (!urlInput || !titleInput) return;
+    // Auto-preenchimento completo para os cards de vídeos da galeria (YouTube & Instagram)
+    async function autoDetectGalleryVideoDetails(index) {
+      const urlInput = document.getElementById(`adminVideoUrl${index}`);
+      const titleInput = document.getElementById(`adminVideoTitle${index}`);
+      const descInput = document.getElementById(`adminVideoDesc${index}`);
+      const notice = document.getElementById(`adminVideoAutoNotice${index}`);
+      if (!urlInput || !titleInput) return;
 
-        const url = urlInput.value.trim();
-        if (!url) return;
+      const url = urlInput.value.trim();
+      if (!url) {
+        if (notice) notice.style.display = 'none';
+        return;
+      }
 
-        const videoId = extractYouTubeVideoId(url);
-        if (!videoId) return;
+      if (notice) {
+        notice.innerHTML = '<span style="color: var(--gold-light);"><i class="fa-solid fa-spinner fa-spin"></i> Identificando vídeo e carregando informações...</span>';
+        notice.style.display = 'block';
+      }
 
-        // Se o título estiver vazio ou se for a sugestão padrão, busca automaticamente no YouTube
+      // 1. YouTube
+      const ytId = extractYouTubeVideoId(url);
+      if (ytId) {
         const detected = await fetchYouTubeTitle(url);
         if (detected) {
-          if (!titleInput.value || titleInput.value.trim().startsWith('Ex:')) {
+          // Preenche título se estiver vazio ou com texto de placeholder
+          if (!titleInput.value || titleInput.value.trim().startsWith('Ex:') || titleInput.value.trim() === 'Show Pop Rock ao Vivo no Pub' || titleInput.value.trim() === 'Pocket Show Voz & Violão') {
             titleInput.value = detected;
           }
-          if (descInput && (!descInput.value || descInput.value.trim().startsWith('Ex:'))) {
-            descInput.value = detected;
+          // Preenche descrição automaticamente (podendo o usuário alterar livremente)
+          if (descInput && (!descInput.value || descInput.value.trim().startsWith('Ex:') || descInput.value.trim() === '')) {
+            descInput.value = `${detected} • Gilmar Torrez Ao Vivo`;
+          }
+          if (notice) {
+            notice.innerHTML = `<span style="color: #4ade80;"><i class="fa-brands fa-youtube" style="color: #ef4444;"></i> <strong>Vídeo do YouTube identificado:</strong> "${detected}". Título e descrição preenchidos automaticamente. Você pode alterá-los livremente abaixo.</span>`;
+            notice.style.display = 'block';
+          }
+        } else {
+          if (notice) {
+            notice.innerHTML = '<span style="color: var(--gold-light);"><i class="fa-brands fa-youtube" style="color: #ef4444;"></i> Vídeo do YouTube reconhecido. Você pode digitar ou ajustar o título e a descrição livremente abaixo.</span>';
+            notice.style.display = 'block';
           }
         }
-      }, 400);
+        return;
+      }
+
+      // 2. Instagram (Reels ou Posts de Vídeo)
+      if (isInstagramVideoUrl(url)) {
+        const code = extractInstagramCode(url);
+        let detectedTitle = '';
+        let detectedDesc = '';
+
+        try {
+          const oembedResp = await fetch(`https://noembed.com/embed?url=${encodeURIComponent(url)}`, { method: 'GET' });
+          if (oembedResp.ok) {
+            const data = await oembedResp.json();
+            if (data && data.title) {
+              detectedTitle = data.title.trim();
+              detectedDesc = `Apresentação especial ao vivo compartilhada no Instagram oficial de Gilmar Torrez (@gilmartorrez07).`;
+            }
+          }
+        } catch (e) {
+          // Fallback silencioso
+        }
+
+        if (!detectedTitle) {
+          detectedTitle = (index === 0)
+            ? 'Gilmar Torrez • Show Pop Rock no Instagram'
+            : 'Gilmar Torrez • Pocket Show Acústico no Instagram';
+          detectedDesc = 'Registro especial de apresentação ao vivo publicado no perfil oficial @gilmartorrez07.';
+        }
+
+        if (!titleInput.value || titleInput.value.trim().startsWith('Ex:') || titleInput.value.trim() === 'Show Pop Rock ao Vivo no Pub' || titleInput.value.trim() === 'Pocket Show Voz & Violão') {
+          titleInput.value = detectedTitle;
+        }
+        if (descInput && (!descInput.value || descInput.value.trim().startsWith('Ex:') || descInput.value.trim() === '')) {
+          descInput.value = detectedDesc;
+        }
+
+        if (notice) {
+          notice.innerHTML = `<span style="color: #fda4af;"><i class="fa-brands fa-instagram" style="color: #f43f5e;"></i> <strong>Vídeo do Instagram (Reels/Post) identificado:</strong> Código <code>${code || 'post'}</code>. Título e descrição sugeridos automaticamente. Você pode alterá-los livremente abaixo.</span>`;
+          notice.style.display = 'block';
+        }
+        return;
+      }
+
+      // Link genérico / aviso
+      if (notice) {
+        notice.innerHTML = '<span style="color: #fbbf24;"><i class="fa-solid fa-circle-info"></i> Link recebido. Suporta links do YouTube ou Instagram (Reels/Post). Você pode preencher e ajustar o título e a descrição abaixo.</span>';
+        notice.style.display = 'block';
+      }
+    }
+
+    function handleGalleryVideoUrlChange(index) {
+      clearTimeout(videoUrlDebounceTimers[index]);
+      videoUrlDebounceTimers[index] = setTimeout(() => {
+        autoDetectGalleryVideoDetails(index);
+      }, 350);
     }
 
     function getStoredTopAudioSettings() {
@@ -10249,6 +10421,8 @@
     window.handleAudioTitleManualInput = handleAudioTitleManualInput;
     window.autoDetectAudioTitleFromLink = autoDetectAudioTitleFromLink;
     window.handleGalleryVideoUrlChange = handleGalleryVideoUrlChange;
+    window.autoDetectGalleryVideoDetails = autoDetectGalleryVideoDetails;
+    window.formatVideoEmbedUrl = formatVideoEmbedUrl;
 
     /* =======================================================
        LINKS OFICIAIS & REDES SOCIAIS (PERSISTÊNCIA SUPABASE)
@@ -11244,17 +11418,7 @@
     }
 
     function formatYouTubeEmbedUrl(url) {
-      if (!url) return '';
-      const trimmed = url.trim();
-      if (trimmed.includes('youtube.com/embed/')) {
-        return trimmed;
-      }
-      const regExp = /^.*(youtu.be\/|v\/|u\/\w\/|embed\/|watch\?v=|&v=|shorts\/)([^#&?]*).*/;
-      const match = trimmed.match(regExp);
-      if (match && match[2] && match[2].length === 11) {
-        return `https://www.youtube.com/embed/${match[2]}`;
-      }
-      return trimmed;
+      return (typeof formatVideoEmbedUrl === 'function') ? formatVideoEmbedUrl(url) : url;
     }
 
     // Compressão via canvas antes de converter para Base64 (otimização de tráfego HTTP e payload do servidor)
@@ -12562,18 +12726,33 @@
 
           const defV = defaultGalleryData.videos[idx] || {};
           const rawEmbed = (typeof video.embedUrl === 'string' && video.embedUrl.trim()) ? video.embedUrl.trim() : defV.embedUrl;
-          const embedUrl = formatYouTubeEmbedUrl(rawEmbed);
+          const embedUrl = (typeof formatVideoEmbedUrl === 'function') ? formatVideoEmbedUrl(rawEmbed) : formatYouTubeEmbedUrl(rawEmbed);
           const tit = (typeof video.titulo === 'string' && video.titulo.trim()) ? video.titulo.trim() : defV.titulo;
           const desc = (typeof video.descricao === 'string') ? video.descricao.trim() : (defV.descricao || '');
 
+          const isInsta = (typeof isInstagramVideoUrl === 'function') ? isInstagramVideoUrl(rawEmbed) : String(rawEmbed).includes('instagram.com');
+
           const cover = box.querySelector('.video-placeholder-cover');
           if (cover && embedUrl) {
-            cover.setAttribute('onclick', `loadVideo('${boxId}', '${embedUrl}${embedUrl.includes('?') ? '&' : '?'}autoplay=1')`);
+            cover.setAttribute('onclick', `loadVideo('${boxId}', '${embedUrl.replace(/'/g, "\\'")}')`);
+            
+            const badge = cover.querySelector('.video-portrait-badge');
+            if (badge) {
+              if (isInsta) {
+                badge.innerHTML = '<i class="fa-brands fa-instagram" style="color: #f43f5e;"></i> Instagram • Vídeo / Reel';
+                badge.style.color = '#fda4af';
+                badge.style.borderColor = 'rgba(225, 48, 108, 0.45)';
+              } else {
+                badge.innerHTML = '<i class="fa-brands fa-youtube" style="color: #ef4444;"></i> YouTube • Vídeo ao Vivo';
+                badge.style.color = '#fecaca';
+                badge.style.borderColor = 'rgba(239, 68, 68, 0.45)';
+              }
+            }
           }
 
           const iframe = box.querySelector('iframe');
           if (iframe && embedUrl) {
-            iframe.src = `${embedUrl}${embedUrl.includes('?') ? '&' : '?'}autoplay=1`;
+            iframe.src = isInsta ? embedUrl : `${embedUrl}${embedUrl.includes('?') ? '&' : '?'}autoplay=1`;
           }
 
           const card = box.closest('.video-card');
