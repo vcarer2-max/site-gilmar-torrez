@@ -7517,7 +7517,32 @@
     let supabaseUserSession = null;
 
     async function fetchServerContent() {
-      // 1. Tenta carregar do Supabase primeiro (Ideal para GitHub Pages e produção)
+      const mergedData = {};
+      let hasCloudData = false;
+
+      // 1. Tenta carregar do backend local/Express (se disponível na hospedagem)
+      if (!isStaticHosting) {
+        try {
+          const response = await fetch(`${SERVER_API_BASE}/content`, {
+            method: 'GET',
+            headers: {
+              'Accept': 'application/json',
+              'Cache-Control': 'no-cache, no-store'
+            }
+          });
+          if (response.ok) {
+            const json = await response.json();
+            if (json && json.success && json.data && typeof json.data === 'object') {
+              Object.assign(mergedData, json.data);
+              hasCloudData = true;
+            }
+          }
+        } catch (err) {
+          console.warn('[Servidor Local] API não disponível:', err);
+        }
+      }
+
+      // 2. Tenta carregar do Supabase (Nuvem Oficial) e mescla de forma soberana
       if (supabaseClient) {
         try {
           const configPromise = supabaseClient.from('site_config').select('id, data');
@@ -7525,14 +7550,11 @@
 
           const [configRes, showsRes] = await Promise.allSettled([configPromise, showsPromise]);
 
-          let hasSupabaseData = false;
-          const mergedData = {};
-
           if (configRes.status === 'fulfilled' && configRes.value && !configRes.value.error && Array.isArray(configRes.value.data)) {
             configRes.value.data.forEach(row => {
               if (row.id && row.data) {
                 mergedData[row.id] = row.data;
-                hasSupabaseData = true;
+                hasCloudData = true;
               }
             });
           }
@@ -7548,44 +7570,33 @@
               confirmed: item.confirmed,
               timestamp: Number(item.timestamp) || 0
             }));
-            hasSupabaseData = true;
-          }
-
-          if (hasSupabaseData) {
-            liveServerData = Object.assign(liveServerData || {}, mergedData);
-            return liveServerData;
+            hasCloudData = true;
           }
         } catch (sbErr) {
           console.warn('[Supabase] Leitura da nuvem inicial:', sbErr);
         }
       }
 
-      // 2. Se não estiver no GitHub Pages, tenta o backend Node/Express local
-      if (!isStaticHosting) {
-        try {
-          const response = await fetch(`${SERVER_API_BASE}/content`, {
-            method: 'GET',
-            headers: {
-              'Accept': 'application/json',
-              'Cache-Control': 'no-cache, no-store'
-            }
-          });
-          if (response.ok) {
-            const json = await response.json();
-            if (json && json.success && json.data) {
-              liveServerData = json.data;
-              return liveServerData;
-            }
-          }
-        } catch (err) {
-          console.warn('[Servidor Local] API não disponível:', err);
-        }
+      if (hasCloudData) {
+        liveServerData = mergedData;
+        adminGalleryState = null; // Invalida qualquer rascunho para adotar a nuvem
+        return liveServerData;
       }
       return null;
     }
 
     async function persistSectionToServer(section, data) {
-      // 1. Persistência no Supabase (Nuvem Oficial - Funciona no GitHub Pages sem erro 405)
+      if (!liveServerData) liveServerData = {};
+      liveServerData[section] = data;
+      if (section === 'midias') {
+        adminGalleryState = null;
+      }
+
+      let supabaseSuccess = false;
+      let localSuccess = false;
+      let lastError = null;
+
+      // 1. Persistência no Supabase (Nuvem Oficial - Funciona no GitHub Pages e servidores)
       if (supabaseClient) {
         try {
           // Gravação na tabela site_config
@@ -7600,7 +7611,6 @@
           // Se for a agenda de shows, também espelha na tabela relacional agenda_shows
           if (section === 'shows' && Array.isArray(data)) {
             try {
-              // Limpa e reinsere a agenda ordenada
               await supabaseClient.from('agenda_shows').delete().neq('id', '00000000-0000-0000-0000-000000000000');
               const rows = data.map(s => ({
                 day: String(s.day || '01').padStart(2, '0'),
@@ -7621,50 +7631,56 @@
 
           if (cfgError) {
             if (cfgError.code === 'PGRST205' || (cfgError.message && cfgError.message.includes('Could not find the table'))) {
-              throw new Error('A tabela do Supabase ainda não foi criada. Por favor, execute o script SQL fornecido no "SQL Editor" do painel do Supabase para criar as tabelas.');
+              lastError = new Error('A tabela do Supabase ainda não foi criada. Por favor, execute o script SQL fornecido no SQL Editor do painel do Supabase.');
+            } else if (cfgError.code === '42501' || (cfgError.message && cfgError.message.includes('policy'))) {
+              lastError = new Error('Permissão negada pelo Supabase (RLS). Faça login ou revise as Políticas (Policies) no Supabase.');
+            } else {
+              lastError = new Error(cfgError.message || 'Falha ao salvar no Supabase.');
             }
-            if (cfgError.code === '42501' || (cfgError.message && cfgError.message.includes('policy'))) {
-              throw new Error('Permissão negada pelo Supabase (RLS). Faça login com e-mail e senha no painel ou revise as Políticas (Policies) no Supabase.');
-            }
-            throw new Error(cfgError.message || 'Falha ao salvar no Supabase.');
+          } else {
+            supabaseSuccess = true;
           }
-
-          if (!liveServerData) liveServerData = {};
-          liveServerData[section] = data;
-          return { success: true, message: 'Dados gravados com sucesso na nuvem do Supabase!' };
         } catch (sbErr) {
           console.error('[Supabase Save Error]', sbErr);
-          // Se estiver hospedado no GitHub Pages, NUNCA tenta POST /api/admin/content (causaria HTTP 405)
-          if (isStaticHosting) {
-            throw sbErr;
-          }
-          // Caso contrário, tenta o fallback local do Express abaixo
+          lastError = sbErr;
         }
       }
 
-      // 2. Fallback para servidor dedicado Node/Express/PHP (quando NÃO for GitHub Pages)
+      // 2. Persistência simultânea no backend Node/Express/PHP (quando NÃO for GitHub Pages)
       if (!isStaticHosting) {
-        const response = await fetch(`${SERVER_API_BASE}/admin/content`, {
-          method: 'POST',
-          headers: {
-            'Content-Type': 'application/json',
-            'Authorization': `Bearer ${adminAuthToken}`
-          },
-          body: JSON.stringify({ section, data })
-        });
+        try {
+          const response = await fetch(`${SERVER_API_BASE}/admin/content`, {
+            method: 'POST',
+            headers: {
+              'Content-Type': 'application/json',
+              'Authorization': `Bearer ${adminAuthToken}`
+            },
+            body: JSON.stringify({ section, data })
+          });
 
-        if (!response.ok) {
-          const errJson = await response.json().catch(() => ({}));
-          throw new Error(errJson.error || `Erro HTTP ${response.status} ao salvar no servidor.`);
+          if (response.ok) {
+            localSuccess = true;
+          } else {
+            const errJson = await response.json().catch(() => ({}));
+            if (!supabaseSuccess) {
+              lastError = new Error(errJson.error || `Erro HTTP ${response.status} ao salvar no servidor.`);
+            }
+          }
+        } catch (err) {
+          if (!supabaseSuccess) lastError = err;
         }
-
-        const result = await response.json();
-        if (!liveServerData) liveServerData = {};
-        liveServerData[section] = data;
-        return result;
-      } else {
-        throw new Error('Ambiente GitHub Pages: Por ser hospedagem estática, não aceita POST local. Crie as tabelas no seu painel do Supabase com o script SQL.');
       }
+
+      if (supabaseSuccess || localSuccess) {
+        return { success: true, message: `Seção "${section}" gravada com sucesso!` };
+      }
+
+      if (isStaticHosting && !supabaseSuccess) {
+        throw (lastError || new Error('Ambiente GitHub Pages: Por ser hospedagem estática, não aceita POST local. Crie as tabelas no seu painel do Supabase com o script SQL.'));
+      }
+
+      if (lastError) throw lastError;
+      return { success: true };
     }
 
     /* =======================================================
@@ -7694,13 +7710,22 @@
     }
 
     function getStoredTopAudioSettings() {
-      if (liveServerData && liveServerData.audioTopo) {
+      if (liveServerData && liveServerData.audioTopo && typeof liveServerData.audioTopo === 'object') {
         const parsed = liveServerData.audioTopo;
+        const songTitle = (parsed.songTitle || parsed.title || '').toString().trim();
+        const url = (parsed.url || parsed.customUrl || '').toString().trim();
+        const clickAction = (parsed.clickAction === 'open' || parsed.clickAction === 'play')
+          ? parsed.clickAction
+          : DEFAULT_TOP_AUDIO_SETTINGS.clickAction;
+        const showDirectLink = parsed.showDirectLink !== undefined
+          ? Boolean(parsed.showDirectLink)
+          : DEFAULT_TOP_AUDIO_SETTINGS.showDirectLink;
+
         return {
-          songTitle: parsed.songTitle || DEFAULT_TOP_AUDIO_SETTINGS.songTitle,
-          url: parsed.url || DEFAULT_TOP_AUDIO_SETTINGS.url,
-          clickAction: parsed.clickAction || DEFAULT_TOP_AUDIO_SETTINGS.clickAction,
-          showDirectLink: parsed.showDirectLink !== undefined ? !!parsed.showDirectLink : true
+          songTitle: songTitle || DEFAULT_TOP_AUDIO_SETTINGS.songTitle,
+          url: url || DEFAULT_TOP_AUDIO_SETTINGS.url,
+          clickAction: clickAction,
+          showDirectLink: showDirectLink
         };
       }
       return { ...DEFAULT_TOP_AUDIO_SETTINGS };
@@ -8028,12 +8053,16 @@
     };
 
     function getStoredLinksData() {
-      if (liveServerData && liveServerData.links) {
+      if (liveServerData && liveServerData.links && typeof liveServerData.links === 'object') {
+        const waNum = (liveServerData.links.whatsappNumber || '').toString().trim();
+        const waMsg = (liveServerData.links.whatsappMessage || '').toString().trim();
+        const insta = (liveServerData.links.instagramUrl || '').toString().trim();
+        const yt = (liveServerData.links.youtubeUrl || '').toString().trim();
         return {
-          whatsappNumber: liveServerData.links.whatsappNumber || DEFAULT_SITE_LINKS.whatsappNumber,
-          whatsappMessage: liveServerData.links.whatsappMessage || DEFAULT_SITE_LINKS.whatsappMessage,
-          instagramUrl: liveServerData.links.instagramUrl || DEFAULT_SITE_LINKS.instagramUrl,
-          youtubeUrl: liveServerData.links.youtubeUrl || DEFAULT_SITE_LINKS.youtubeUrl
+          whatsappNumber: waNum || DEFAULT_SITE_LINKS.whatsappNumber,
+          whatsappMessage: waMsg || DEFAULT_SITE_LINKS.whatsappMessage,
+          instagramUrl: insta || DEFAULT_SITE_LINKS.instagramUrl,
+          youtubeUrl: yt || DEFAULT_SITE_LINKS.youtubeUrl
         };
       }
       return { ...DEFAULT_SITE_LINKS };
@@ -8861,127 +8890,149 @@
 
     let adminGalleryState = null;
 
-    function getStoredGalleryData() {
-      if (adminGalleryState) return adminGalleryState;
+    function getStoredGalleryData(useDraft = false) {
+      if (useDraft && adminGalleryState) return adminGalleryState;
 
-      const sourceData = (liveServerData && liveServerData.midias) ? liveServerData.midias : defaultGalleryData;
+      const sourceData = (liveServerData && liveServerData.midias && typeof liveServerData.midias === 'object') ? liveServerData.midias : {};
       const result = JSON.parse(JSON.stringify(defaultGalleryData));
 
       try {
-        if (sourceData.fotoPrincipal) {
+        // 1. Foto Principal e Fundo do Palco / Header
+        if (sourceData.fotoPrincipal && typeof sourceData.fotoPrincipal === 'object') {
+          const rawUrl = typeof sourceData.fotoPrincipal.url === 'string' ? sourceData.fotoPrincipal.url.trim() : '';
+          const rawTit = typeof sourceData.fotoPrincipal.titulo === 'string' ? sourceData.fotoPrincipal.titulo.trim() : '';
+          const rawSub = typeof sourceData.fotoPrincipal.subtitulo === 'string' ? sourceData.fotoPrincipal.subtitulo.trim() : '';
           result.fotoPrincipal = {
-            url: sourceData.fotoPrincipal.url || defaultGalleryData.fotoPrincipal.url,
-            titulo: sourceData.fotoPrincipal.titulo || defaultGalleryData.fotoPrincipal.titulo,
-            subtitulo: sourceData.fotoPrincipal.subtitulo || defaultGalleryData.fotoPrincipal.subtitulo
+            url: rawUrl || defaultGalleryData.fotoPrincipal.url,
+            titulo: rawTit || defaultGalleryData.fotoPrincipal.titulo,
+            subtitulo: rawSub || defaultGalleryData.fotoPrincipal.subtitulo
           };
+        } else {
+          result.fotoPrincipal = JSON.parse(JSON.stringify(defaultGalleryData.fotoPrincipal));
         }
-        if (sourceData.logoOficial) {
-          let logoUrl = sourceData.logoOficial.url || defaultGalleryData.logoOficial.url;
+
+        // 2. Logotipo Oficial da Marca
+        if (sourceData.logoOficial && typeof sourceData.logoOficial === 'object') {
+          let logoUrl = typeof sourceData.logoOficial.url === 'string' ? sourceData.logoOficial.url.trim() : '';
           if (!logoUrl || logoUrl === '/logo.svg' || logoUrl === '/logo-clean.svg' || logoUrl.includes('undefined') || logoUrl.includes('null')) {
-            logoUrl = '/logo.png';
+            logoUrl = defaultGalleryData.logoOficial.url;
           }
           result.logoOficial = { url: logoUrl };
+        } else {
+          result.logoOficial = JSON.parse(JSON.stringify(defaultGalleryData.logoOficial));
         }
-        if (sourceData.bandaFundos) {
-          result.bandaFundos = {
-            solo: {
-              url: (sourceData.bandaFundos.solo && sourceData.bandaFundos.solo.url) ? sourceData.bandaFundos.solo.url : defaultGalleryData.bandaFundos.solo.url,
-              titulo: 'Formato Solo'
-            },
-            duo: {
-              url: (sourceData.bandaFundos.duo && sourceData.bandaFundos.duo.url) ? sourceData.bandaFundos.duo.url : defaultGalleryData.bandaFundos.duo.url,
-              titulo: 'Duo Acústico'
-            },
-            trio: {
-              url: (sourceData.bandaFundos.trio && sourceData.bandaFundos.trio.url) ? sourceData.bandaFundos.trio.url : defaultGalleryData.bandaFundos.trio.url,
-              titulo: 'Power Trio Rock'
-            },
-            banda: {
-              url: (sourceData.bandaFundos.banda && sourceData.bandaFundos.banda.url) ? sourceData.bandaFundos.banda.url : defaultGalleryData.bandaFundos.banda.url,
-              titulo: 'Banda Completa'
-            }
-          };
+
+        // 3. Fundos dos 4 Blocos de Formações da Banda (Solo, Duo, Trio, Banda Completa)
+        if (sourceData.bandaFundos && typeof sourceData.bandaFundos === 'object') {
+          ['solo', 'duo', 'trio', 'banda'].forEach(k => {
+            const rawUrl = (sourceData.bandaFundos[k] && typeof sourceData.bandaFundos[k].url === 'string') ? sourceData.bandaFundos[k].url.trim() : '';
+            result.bandaFundos[k] = {
+              url: rawUrl || defaultGalleryData.bandaFundos[k].url,
+              titulo: defaultGalleryData.bandaFundos[k].titulo
+            };
+          });
         } else {
           result.bandaFundos = JSON.parse(JSON.stringify(defaultGalleryData.bandaFundos));
         }
-        if (sourceData.aulasFundo) {
+
+        // 4. Fundo do Bloco de Aulas (#aulas)
+        if (sourceData.aulasFundo && typeof sourceData.aulasFundo === 'object') {
+          const rawUrl = typeof sourceData.aulasFundo.url === 'string' ? sourceData.aulasFundo.url.trim() : '';
           result.aulasFundo = {
-            url: sourceData.aulasFundo.url || defaultGalleryData.aulasFundo.url,
+            url: rawUrl || defaultGalleryData.aulasFundo.url,
             titulo: sourceData.aulasFundo.titulo || defaultGalleryData.aulasFundo.titulo
           };
         } else {
           result.aulasFundo = JSON.parse(JSON.stringify(defaultGalleryData.aulasFundo));
         }
-        if (sourceData.aulasCardsFundos) {
-          result.aulasCardsFundos = {
-            canto: {
-              url: (sourceData.aulasCardsFundos.canto && sourceData.aulasCardsFundos.canto.url) ? sourceData.aulasCardsFundos.canto.url : defaultGalleryData.aulasCardsFundos.canto.url,
-              titulo: 'Aulas de Canto'
-            },
-            guitarra: {
-              url: (sourceData.aulasCardsFundos.guitarra && sourceData.aulasCardsFundos.guitarra.url) ? sourceData.aulasCardsFundos.guitarra.url : defaultGalleryData.aulasCardsFundos.guitarra.url,
-              titulo: 'Aulas de Guitarra'
-            },
-            violao: {
-              url: (sourceData.aulasCardsFundos.violao && sourceData.aulasCardsFundos.violao.url) ? sourceData.aulasCardsFundos.violao.url : defaultGalleryData.aulasCardsFundos.violao.url,
-              titulo: 'Aulas de Violão'
-            },
-            baixo: {
-              url: (sourceData.aulasCardsFundos.baixo && sourceData.aulasCardsFundos.baixo.url) ? sourceData.aulasCardsFundos.baixo.url : defaultGalleryData.aulasCardsFundos.baixo.url,
-              titulo: 'Aulas de Contrabaixo'
-            }
-          };
+
+        // 5. Fundos dos 4 Cards de Aulas (Canto, Guitarra, Violão, Contrabaixo)
+        if (sourceData.aulasCardsFundos && typeof sourceData.aulasCardsFundos === 'object') {
+          ['canto', 'guitarra', 'violao', 'baixo'].forEach(k => {
+            const rawUrl = (sourceData.aulasCardsFundos[k] && typeof sourceData.aulasCardsFundos[k].url === 'string') ? sourceData.aulasCardsFundos[k].url.trim() : '';
+            result.aulasCardsFundos[k] = {
+              url: rawUrl || defaultGalleryData.aulasCardsFundos[k].url,
+              titulo: defaultGalleryData.aulasCardsFundos[k].titulo
+            };
+          });
         } else {
           result.aulasCardsFundos = JSON.parse(JSON.stringify(defaultGalleryData.aulasCardsFundos));
         }
+
+        // 6. 4 Carrosséis da Galeria (Shows ao Vivo, Acústico, Guitarra Solo, Celebrações)
         ['shows-ao-vivo', 'acustico', 'guitarra-solo', 'celebracoes'].forEach(cat => {
-          if (sourceData[cat]) {
-            if (Array.isArray(sourceData[cat].fotos)) {
-              result[cat].fotos = sourceData[cat].fotos.slice(0, 4);
-            }
-            if (Array.isArray(sourceData[cat].descricoes)) {
-              result[cat].descricoes = sourceData[cat].descricoes.slice(0, 4);
-            } else {
-              result[cat].descricoes = ['', '', '', ''];
-            }
-          }
+          const defCat = defaultGalleryData[cat];
+          const srcCat = (sourceData[cat] && typeof sourceData[cat] === 'object') ? sourceData[cat] : null;
+          result[cat] = {
+            titulo: (srcCat && srcCat.titulo) ? srcCat.titulo : defCat.titulo,
+            fotos: [0, 1, 2, 3].map(i => {
+              const rawUrl = (srcCat && Array.isArray(srcCat.fotos) && typeof srcCat.fotos[i] === 'string') ? srcCat.fotos[i].trim() : '';
+              return rawUrl || defCat.fotos[i] || '';
+            }),
+            descricoes: [0, 1, 2, 3].map(i => {
+              const rawDesc = (srcCat && Array.isArray(srcCat.descricoes) && typeof srcCat.descricoes[i] === 'string') ? srcCat.descricoes[i].trim() : '';
+              return rawDesc || defCat.descricoes[i] || '';
+            })
+          };
         });
+
+        // 7. Vídeos ao Vivo (Vídeo 01 e Vídeo 02)
         if (Array.isArray(sourceData.videos) && sourceData.videos.length > 0) {
-          result.videos = sourceData.videos.slice(0, 2).map((v, i) => ({
-            id: v.id || `video-${i + 1}`,
-            titulo: v.titulo || (result.videos[i] ? result.videos[i].titulo : ''),
-            descricao: typeof v.descricao === 'string' ? v.descricao : '',
-            embedUrl: v.embedUrl || (result.videos[i] ? result.videos[i].embedUrl : '')
-          }));
+          result.videos = [0, 1].map(i => {
+            const srcV = sourceData.videos[i] || {};
+            const defV = defaultGalleryData.videos[i] || {};
+            const rawEmbed = typeof srcV.embedUrl === 'string' ? srcV.embedUrl.trim() : '';
+            const embed = rawEmbed ? formatYouTubeEmbedUrl(rawEmbed) : defV.embedUrl;
+            const tit = (typeof srcV.titulo === 'string' && srcV.titulo.trim()) ? srcV.titulo.trim() : defV.titulo;
+            const desc = (typeof srcV.descricao === 'string') ? srcV.descricao.trim() : (defV.descricao || '');
+            return {
+              id: srcV.id || `video-${i + 1}`,
+              titulo: tit || defV.titulo,
+              descricao: desc,
+              embedUrl: embed || defV.embedUrl
+            };
+          });
+        } else {
+          result.videos = JSON.parse(JSON.stringify(defaultGalleryData.videos));
         }
+
+        // 8. Feed do Instagram (@gilmartorrez07 - 6 fotos)
         if (Array.isArray(sourceData.instagram) && sourceData.instagram.length > 0) {
-          result.instagram = sourceData.instagram.slice(0, 6).map((item, idx) => ({
-            url: item.url || (defaultGalleryData.instagram[idx] ? defaultGalleryData.instagram[idx].url : '/stage-bg.jpg'),
-            caption: typeof item.caption === 'string' ? item.caption : (defaultGalleryData.instagram[idx] ? defaultGalleryData.instagram[idx].caption : ''),
-            likes: item.likes || (defaultGalleryData.instagram[idx] ? defaultGalleryData.instagram[idx].likes : '180'),
-            comments: item.comments || (defaultGalleryData.instagram[idx] ? defaultGalleryData.instagram[idx].comments : '25'),
-            link: item.link || 'https://www.instagram.com/gilmartorrez07/'
-          }));
+          result.instagram = [0, 1, 2, 3, 4, 5].map(i => {
+            const srcItem = sourceData.instagram[i] || {};
+            const defItem = defaultGalleryData.instagram[i] || {};
+            const rawUrl = typeof srcItem.url === 'string' ? srcItem.url.trim() : '';
+            return {
+              url: rawUrl || defItem.url || '/stage-bg.jpg',
+              caption: (typeof srcItem.caption === 'string' && srcItem.caption.trim()) ? srcItem.caption.trim() : (defItem.caption || ''),
+              likes: srcItem.likes || defItem.likes || '180',
+              comments: srcItem.comments || defItem.comments || '25',
+              link: srcItem.link || defItem.link || 'https://www.instagram.com/gilmartorrez07/'
+            };
+          });
         } else {
           result.instagram = JSON.parse(JSON.stringify(defaultGalleryData.instagram));
         }
 
-        if (sourceData.opacidades) {
+        // 9. Opacidades e Transparências dos Fundos
+        if (sourceData.opacidades && typeof sourceData.opacidades === 'object') {
+          const defOp = defaultGalleryData.opacidades;
+          const srcOp = sourceData.opacidades;
           result.opacidades = {
-            master: typeof sourceData.opacidades.master === 'number' ? sourceData.opacidades.master : 35,
-            banda: typeof sourceData.opacidades.banda === 'number' ? sourceData.opacidades.banda : 35,
-            aulas: typeof sourceData.opacidades.aulas === 'number' ? sourceData.opacidades.aulas : 35,
-            aulasCards: typeof sourceData.opacidades.aulasCards === 'number' ? sourceData.opacidades.aulasCards : 35,
-            siteFundo: typeof sourceData.opacidades.siteFundo === 'number' ? sourceData.opacidades.siteFundo : 40
+            master: typeof srcOp.master === 'number' ? srcOp.master : defOp.master,
+            banda: typeof srcOp.banda === 'number' ? srcOp.banda : defOp.banda,
+            aulas: typeof srcOp.aulas === 'number' ? srcOp.aulas : defOp.aulas,
+            aulasCards: typeof srcOp.aulasCards === 'number' ? srcOp.aulasCards : defOp.aulasCards,
+            siteFundo: typeof srcOp.siteFundo === 'number' ? srcOp.siteFundo : defOp.siteFundo
           };
         } else {
-          result.opacidades = { master: 35, banda: 35, aulas: 35, aulasCards: 35, siteFundo: 40 };
+          result.opacidades = JSON.parse(JSON.stringify(defaultGalleryData.opacidades));
         }
       } catch (e) {
         console.error('Erro ao processar dados de galeria do servidor:', e);
       }
-      adminGalleryState = result;
-      return adminGalleryState;
+
+      return result;
     }
 
     function formatYouTubeEmbedUrl(url) {
@@ -10129,29 +10180,33 @@
     }
 
     function renderSiteGallery() {
-      const data = getStoredGalleryData();
+      const data = getStoredGalleryData(false);
 
       // Aplica as variáveis CSS de opacidade e transparência
       if (data && data.opacidades) {
         applyOpacityVariables(data.opacidades);
       }
 
-      // Aplica Foto Principal e Fundo do Site
-      if (data.fotoPrincipal && data.fotoPrincipal.url) {
+      // Aplica Foto Principal e Fundo do Site (Nuvem ou Padrão)
+      if (data.fotoPrincipal) {
+        const photoUrl = (data.fotoPrincipal.url && data.fotoPrincipal.url.trim()) ? data.fotoPrincipal.url.trim() : defaultGalleryData.fotoPrincipal.url;
         const heroPhoto = document.getElementById('heroStagePhoto');
-        if (heroPhoto) {
-          heroPhoto.src = data.fotoPrincipal.url;
+        if (heroPhoto && photoUrl) {
+          heroPhoto.src = photoUrl;
         }
         const heroTitle = document.getElementById('heroStageTitle');
-        if (heroTitle && data.fotoPrincipal.titulo) {
-          heroTitle.textContent = data.fotoPrincipal.titulo;
+        if (heroTitle) {
+          heroTitle.textContent = (data.fotoPrincipal.titulo && data.fotoPrincipal.titulo.trim()) ? data.fotoPrincipal.titulo.trim() : defaultGalleryData.fotoPrincipal.titulo;
         }
         const heroSubtitle = document.getElementById('heroStageSubtitle');
-        if (heroSubtitle && data.fotoPrincipal.subtitulo) {
-          heroSubtitle.innerHTML = `<i class="fa-solid fa-location-dot"></i> ${data.fotoPrincipal.subtitulo}`;
+        if (heroSubtitle) {
+          const sub = (data.fotoPrincipal.subtitulo && data.fotoPrincipal.subtitulo.trim()) ? data.fotoPrincipal.subtitulo.trim() : defaultGalleryData.fotoPrincipal.subtitulo;
+          heroSubtitle.innerHTML = `<i class="fa-solid fa-location-dot"></i> ${sub}`;
         }
         // Aplica a foto principal como fundo do site (body)
-        document.body.style.backgroundImage = `linear-gradient(180deg, var(--bg-overlay-top) 0%, var(--bg-overlay-mid) 50%, var(--bg-overlay-bot) 100%), url('${data.fotoPrincipal.url}'), url('/stage-bg.jpg')`;
+        if (photoUrl) {
+          document.body.style.backgroundImage = `linear-gradient(180deg, var(--bg-overlay-top) 0%, var(--bg-overlay-mid) 50%, var(--bg-overlay-bot) 100%), url('${photoUrl}'), url('/stage-bg.jpg')`;
+        }
       }
 
       // Aplica Logotipo Oficial do Site
@@ -10287,7 +10342,12 @@
           const box = document.getElementById(boxId);
           if (!box || !video) return;
 
-          const embedUrl = formatYouTubeEmbedUrl(video.embedUrl);
+          const defV = defaultGalleryData.videos[idx] || {};
+          const rawEmbed = (typeof video.embedUrl === 'string' && video.embedUrl.trim()) ? video.embedUrl.trim() : defV.embedUrl;
+          const embedUrl = formatYouTubeEmbedUrl(rawEmbed);
+          const tit = (typeof video.titulo === 'string' && video.titulo.trim()) ? video.titulo.trim() : defV.titulo;
+          const desc = (typeof video.descricao === 'string') ? video.descricao.trim() : (defV.descricao || '');
+
           const cover = box.querySelector('.video-placeholder-cover');
           if (cover && embedUrl) {
             cover.setAttribute('onclick', `loadVideo('${boxId}', '${embedUrl}${embedUrl.includes('?') ? '&' : '?'}autoplay=1')`);
@@ -10300,13 +10360,11 @@
 
           const card = box.closest('.video-card');
           if (card) {
-            if (video.titulo) {
-              const h5 = card.querySelector('.video-card-info h5');
-              if (h5) h5.textContent = video.titulo;
-            }
+            const h5 = card.querySelector('.video-card-info h5');
+            if (h5 && tit) h5.textContent = tit;
             const p = card.querySelector('.video-card-info p');
             if (p) {
-              p.textContent = video.descricao ? video.descricao.trim() : '';
+              p.textContent = desc;
             }
           }
         });
@@ -10666,13 +10724,18 @@
     let pendingThemeState = { colorId: 'principal', fontId: 'principal' };
 
     function getStoredThemeSettings() {
-      if (liveServerData && liveServerData.theme) {
-        return {
-          colorId: liveServerData.theme.paletteId || liveServerData.theme.colorId || 'principal',
-          fontId: liveServerData.theme.fontId || 'principal'
-        };
+      const defaultTheme = { colorId: 'principal', fontId: 'principal' };
+      if (liveServerData && liveServerData.theme && typeof liveServerData.theme === 'object') {
+        const rawColor = (liveServerData.theme.paletteId || liveServerData.theme.colorId || '').toString().trim();
+        const rawFont = (liveServerData.theme.fontId || '').toString().trim();
+
+        // Se tem gravação válida na nuvem -> usa a nuvem; se não tiver nada gravado ou for inválido -> padrão oficial
+        const colorId = (rawColor && COLOR_PALETTES.some(p => p.id === rawColor)) ? rawColor : defaultTheme.colorId;
+        const fontId = (rawFont && FONT_PRESETS.some(f => f.id === rawFont)) ? rawFont : defaultTheme.fontId;
+
+        return { colorId, fontId };
       }
-      return { colorId: 'principal', fontId: 'principal' };
+      return defaultTheme;
     }
 
     function applyVariables(varsObj) {
@@ -10815,28 +10878,39 @@
     }
 
     async function initSiteContentFromServer() {
-      const serverData = await fetchServerContent();
-      if (serverData) {
+      try {
+        const serverData = await fetchServerContent();
+        // Invalida rascunhos para adotar estritamente o que foi gravado na nuvem
+        adminGalleryState = null;
         initThemeSystem();
         renderAgenda();
         renderSiteGallery();
         applyTopAudioSettingsToUI();
         applySiteLinks();
+
         const statusEl = document.getElementById('serverConnectionStatus');
         if (statusEl) {
-          statusEl.innerHTML = '<i class="fa-solid fa-circle-check"></i> Conectado ao Banco Supabase';
-          statusEl.style.color = '#4ade80';
+          if (serverData) {
+            statusEl.innerHTML = '<i class="fa-solid fa-cloud-arrow-down" style="color: #4ade80;"></i> Configurações da Nuvem Sincronizadas';
+            statusEl.style.color = '#4ade80';
+          } else {
+            statusEl.innerHTML = '<i class="fa-solid fa-circle-check"></i> Configurações Padrão Oficiais';
+            statusEl.style.color = '#94a3b8';
+          }
         }
-      } else {
-        applySiteLinks();
+      } catch (err) {
+        console.error('Erro na sincronização de conteúdo da nuvem:', err);
       }
     }
 
-    // Inicialização inicial e sincronização em tempo real com o banco Supabase / hospedagem
+    // Inicialização imediata (carrega padrão oficial enquanto consulta a nuvem)
     initThemeSystem();
     renderAgenda();
     renderSiteGallery();
     applySiteLinks();
+    applyTopAudioSettingsToUI();
+
+    // Sincronização prioritária da nuvem (Supabase & Servidor)
     initSiteContentFromServer();
 
     // Expõe funções para chamadas inline do HTML

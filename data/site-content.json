@@ -192,12 +192,10 @@
     ]
   },
   "audioTopo": {
-    "mode": "off",
-    "selectedTrackId": "track1",
-    "customUrl": "",
-    "title": "Gilmar Torrez - Som Ao Vivo",
-    "artist": "Gilmar Torrez",
-    "autoplay": false
+    "songTitle": "Gilmar Torrez • Sweet Child O' Mine (Solo de Guitarra)",
+    "url": "https://www.youtube.com/watch?v=BYvXgXSXtfU",
+    "clickAction": "play",
+    "showDirectLink": true
   },
   "theme": {
     "colorId": "principal",

@@ -115,6 +115,8 @@ app.post('/api/admin/content', requireAdminAuth, (req, res) => {
     currentContent.audioTopo = data;
   } else if (section === 'theme') {
     currentContent.theme = data;
+  } else if (section === 'links') {
+    currentContent.links = data;
   } else {
     return res.status(400).json({
       success: false,

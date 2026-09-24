@@ -123,7 +123,7 @@ if ($section === 'all') {
     if (is_array($data)) {
         $currentData = array_merge($currentData, $data);
     }
-} elseif (in_array($section, ['shows', 'midias', 'audioTopo', 'theme'])) {
+} elseif (in_array($section, ['shows', 'midias', 'audioTopo', 'theme', 'links'])) {
     $currentData[$section] = $data;
 } else {
     http_response_code(400);
