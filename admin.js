@@ -1,7 +1,7 @@
-// 1. Inicializar o Supabase (Substitua as chaves abaixo!)
+// 1. Inicializar o Supabase (Cole as suas chaves novamente)
 const supabaseUrl = 'https://ykcfzpxvonnpgrveqqla.supabase.co';
 const supabaseKey = 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6InlrY2Z6cHh2b25ucGdydmVxcWxhIiwicm9sZSI6ImFub24iLCJpYXQiOjE3OTAxMDY1NjYsImV4cCI6MjEwNTY4MjU2Nn0.M3MFkx2FVZbjPBVOyu-i3wjO6fYEIyZERTlyGuJhuMk';
-const supabase = supabase.createClient(supabaseUrl, supabaseKey);
+const cliente = supabase.createClient(supabaseUrl, supabaseKey);
 
 // Elementos da Interface
 const loginSection = document.getElementById('login-section');
@@ -11,14 +11,12 @@ const formMsg = document.getElementById('form-msg');
 const listaShows = document.getElementById('lista-shows');
 
 // 2. Verificar se o utilizador já tem sessão iniciada
-supabase.auth.onAuthStateChange((event, session) => {
+cliente.auth.onAuthStateChange((event, session) => {
     if (session) {
-        // Se estiver logado, esconde o login e mostra o painel
         loginSection.classList.add('hidden');
         dashboardSection.classList.remove('hidden');
         carregarShows();
     } else {
-        // Se não estiver, mostra o login
         loginSection.classList.remove('hidden');
         dashboardSection.classList.add('hidden');
     }
@@ -30,7 +28,7 @@ async function fazerLogin() {
     const password = document.getElementById('password').value;
     loginMsg.textContent = "A iniciar sessão...";
 
-    const { data, error } = await supabase.auth.signInWithPassword({
+    const { data, error } = await cliente.auth.signInWithPassword({
         email: email,
         password: password,
     });
@@ -44,10 +42,10 @@ async function fazerLogin() {
 
 // 4. Função de Logout
 async function fazerLogout() {
-    await supabase.auth.signOut();
+    await cliente.auth.signOut();
 }
 
-// 5. Adicionar Espetáculo (Apenas permitido porque estamos logados)
+// 5. Adicionar Espetáculo
 async function adicionarShow() {
     const data_evento = document.getElementById('data_evento').value;
     const local_evento = document.getElementById('local_evento').value;
@@ -63,7 +61,7 @@ async function adicionarShow() {
     formMsg.style.color = 'blue';
     formMsg.textContent = "A guardar...";
 
-    const { data, error } = await supabase
+    const { data, error } = await cliente
         .from('agenda_shows')
         .insert([{ data_evento, local_evento, cidade, descricao }]);
 
@@ -73,12 +71,10 @@ async function adicionarShow() {
     } else {
         formMsg.style.color = 'green';
         formMsg.textContent = "Espetáculo adicionado com sucesso!";
-        // Limpar os campos
         document.getElementById('data_evento').value = '';
         document.getElementById('local_evento').value = '';
         document.getElementById('cidade').value = '';
         document.getElementById('descricao').value = '';
-        // Recarregar a lista
         carregarShows();
     }
 }
@@ -87,8 +83,7 @@ async function adicionarShow() {
 async function carregarShows() {
     listaShows.innerHTML = "A carregar agenda...";
     
-    // Puxa os dados ordenados por data
-    const { data, error } = await supabase
+    const { data, error } = await cliente
         .from('agenda_shows')
         .select('*')
         .order('data_evento', { ascending: true });
@@ -105,7 +100,6 @@ async function carregarShows() {
         return;
     }
 
-    // Cria a lista visualmente
     data.forEach(show => {
         const div = document.createElement('div');
         div.className = 'show-item';
@@ -122,7 +116,7 @@ async function carregarShows() {
 // 7. Apagar Espetáculo
 async function apagarShow(id) {
     if(confirm("Tem a certeza que deseja apagar este espetáculo?")) {
-        const { error } = await supabase
+        const { error } = await cliente
             .from('agenda_shows')
             .delete()
             .eq('id', id);
