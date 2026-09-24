@@ -5445,10 +5445,679 @@
         font-size: 0.74rem !important;
       }
     }
+
+    /* ==========================================
+       SPLASH SCREEN DE CARREGAMENTO (4 SEGUNDOS & NUVEM)
+       GUITARRA, BATERIA E MICROFONE ANIMADOS
+       ========================================== */
+    body.splash-active {
+      overflow: hidden !important;
+    }
+
+    .site-splash-screen {
+      position: fixed;
+      inset: 0;
+      width: 100vw;
+      height: 100vh;
+      height: 100dvh;
+      background: radial-gradient(circle at center, #131724 0%, #090b12 60%, #030407 100%);
+      z-index: 9999999;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      padding: 20px;
+      box-sizing: border-box;
+      opacity: 1;
+      visibility: visible;
+      transition: opacity 0.8s cubic-bezier(0.16, 1, 0.3, 1), visibility 0.8s ease, transform 0.8s ease;
+      overflow: hidden;
+      user-select: none;
+    }
+
+    .site-splash-screen.hidden {
+      opacity: 0 !important;
+      visibility: hidden !important;
+      transform: scale(1.03) !important;
+      pointer-events: none !important;
+    }
+
+    .splash-bg-glow {
+      position: absolute;
+      width: 600px;
+      height: 600px;
+      border-radius: 50%;
+      background: radial-gradient(circle, rgba(245, 158, 11, 0.15) 0%, rgba(217, 119, 6, 0.05) 50%, transparent 70%);
+      filter: blur(50px);
+      pointer-events: none;
+      animation: splashPulseGlow 3s ease-in-out infinite;
+    }
+
+    .splash-stage-lights {
+      position: absolute;
+      inset: 0;
+      pointer-events: none;
+      overflow: hidden;
+    }
+
+    .light-beam {
+      position: absolute;
+      top: -30%;
+      width: 160px;
+      height: 150%;
+      background: linear-gradient(180deg, rgba(245, 158, 11, 0.16) 0%, rgba(245, 158, 11, 0) 80%);
+      transform-origin: top center;
+      filter: blur(25px);
+    }
+
+    .beam-left {
+      left: 10%;
+      transform: rotate(25deg);
+      animation: beamSweepLeft 4s ease-in-out infinite alternate;
+    }
+
+    .beam-center {
+      left: 50%;
+      transform: translateX(-50%);
+      opacity: 0.7;
+    }
+
+    .beam-right {
+      right: 10%;
+      transform: rotate(-25deg);
+      animation: beamSweepRight 4s ease-in-out infinite alternate;
+    }
+
+    @keyframes splashPulseGlow {
+      0%, 100% { transform: scale(1); opacity: 0.7; }
+      50% { transform: scale(1.15); opacity: 1; }
+    }
+
+    @keyframes beamSweepLeft {
+      0% { transform: rotate(18deg); }
+      100% { transform: rotate(32deg); }
+    }
+
+    @keyframes beamSweepRight {
+      0% { transform: rotate(-18deg); }
+      100% { transform: rotate(-32deg); }
+    }
+
+    .splash-card-content {
+      position: relative;
+      z-index: 2;
+      max-width: 640px;
+      width: 100%;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      text-align: center;
+    }
+
+    .splash-brand-badge {
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+      background: rgba(245, 158, 11, 0.1);
+      border: 1px solid rgba(245, 158, 11, 0.3);
+      padding: 6px 14px;
+      border-radius: 999px;
+      font-size: 0.74rem;
+      font-weight: 700;
+      color: var(--gold-light);
+      letter-spacing: 1px;
+      text-transform: uppercase;
+      margin-bottom: 12px;
+      box-shadow: 0 4px 16px rgba(0, 0, 0, 0.4);
+    }
+
+    .spin-icon {
+      animation: spinCd 3s linear infinite;
+      color: var(--gold-primary);
+    }
+
+    @keyframes spinCd {
+      100% { transform: rotate(360deg); }
+    }
+
+    .splash-brand-title {
+      font-family: var(--font-title);
+      font-size: 2.5rem;
+      font-weight: 900;
+      letter-spacing: 2px;
+      margin: 0 0 6px 0;
+      line-height: 1.1;
+      text-transform: uppercase;
+    }
+
+    .gold-shimmer {
+      background: linear-gradient(90deg, #fef08a 0%, #f59e0b 25%, #ffffff 50%, #f59e0b 75%, #fef08a 100%);
+      background-size: 200% auto;
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+      animation: shimmerGold 2.8s linear infinite;
+      filter: drop-shadow(0 0 20px rgba(245, 158, 11, 0.5));
+    }
+
+    @keyframes shimmerGold {
+      0% { background-position: 0% center; }
+      100% { background-position: 200% center; }
+    }
+
+    .splash-brand-subtitle {
+      font-size: 0.85rem;
+      font-weight: 600;
+      color: #94a3b8;
+      letter-spacing: 1.5px;
+      margin: 0 0 26px 0;
+      text-transform: uppercase;
+    }
+
+    /* O PALCO DOS 3 INSTRUMENTOS */
+    .splash-instruments-stage {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      gap: 20px;
+      width: 100%;
+      margin-bottom: 24px;
+    }
+
+    .splash-instrument-item {
+      position: relative;
+      background: rgba(18, 22, 34, 0.75);
+      border: 1.5px solid rgba(245, 158, 11, 0.3);
+      border-radius: 18px;
+      padding: 16px 14px;
+      width: 125px;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      box-shadow: 0 10px 30px rgba(0, 0, 0, 0.6), inset 0 1px 1px rgba(255, 255, 255, 0.1);
+      transition: all 0.3s ease;
+    }
+
+    .instrument-pulse-aura {
+      position: absolute;
+      inset: -6px;
+      border-radius: 22px;
+      background: radial-gradient(circle, rgba(245, 158, 11, 0.4) 0%, transparent 70%);
+      opacity: 0;
+      pointer-events: none;
+      animation: auraBeat 2s ease-in-out infinite;
+    }
+
+    .instrument-icon-box {
+      position: relative;
+      width: 80px;
+      height: 80px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+    }
+
+    .splash-instrument-svg {
+      width: 100%;
+      height: 100%;
+      filter: drop-shadow(0 4px 12px rgba(0, 0, 0, 0.6));
+      transform-origin: center center;
+    }
+
+    .instrument-tag {
+      margin-top: 10px;
+      font-size: 0.78rem;
+      font-weight: 800;
+      color: var(--gold-light);
+      letter-spacing: 0.5px;
+      text-transform: uppercase;
+      display: flex;
+      align-items: center;
+      gap: 5px;
+    }
+
+    .instrument-floating-note {
+      position: absolute;
+      top: -6px;
+      right: -6px;
+      color: var(--gold-primary);
+      font-size: 0.82rem;
+      opacity: 0;
+      transform: translateY(0);
+      animation: floatNote 2s ease-in-out infinite;
+    }
+
+    .note-1 { animation-delay: 0.2s; }
+    .note-2 { animation-delay: 0.6s; }
+    .note-3 { animation-delay: 1.0s; }
+
+    @keyframes floatNote {
+      0% { opacity: 0; transform: translateY(4px) scale(0.8); }
+      40% { opacity: 1; transform: translateY(-8px) scale(1.1); }
+      100% { opacity: 0; transform: translateY(-20px) scale(0.9); }
+    }
+
+    /* 1. Animação da Guitarra (Strumming Rock) */
+    .guitar-item .guitar-svg {
+      animation: guitarRockBeat 1.4s ease-in-out infinite;
+    }
+
+    .guitar-string {
+      animation: stringVibrate 0.25s linear infinite;
+    }
+
+    @keyframes guitarRockBeat {
+      0%, 100% { transform: rotate(-4deg) translateY(0); }
+      25% { transform: rotate(5deg) translateY(-5px) scale(1.06); filter: drop-shadow(0 0 16px rgba(245, 158, 11, 0.8)); }
+      50% { transform: rotate(-2deg) translateY(0); }
+      75% { transform: rotate(4deg) translateY(-3px) scale(1.03); }
+    }
+
+    @keyframes stringVibrate {
+      0%, 100% { opacity: 0.85; stroke-width: 0.8; }
+      50% { opacity: 1; stroke-width: 1.4; stroke: #fef08a; }
+    }
+
+    /* 2. Animação da Bateria (Kick Beat & Pratos) */
+    .drum-item .drum-svg {
+      animation: drumKickBeat 1.2s ease-in-out infinite;
+    }
+
+    .drum-item .cymbal-left {
+      animation: cymbalHitLeft 0.6s ease-in-out infinite alternate;
+      transform-origin: 27px 26px;
+    }
+
+    .drum-item .cymbal-right {
+      animation: cymbalHitRight 0.6s ease-in-out infinite alternate 0.3s;
+      transform-origin: 73px 26px;
+    }
+
+    .drumstick.left-stick {
+      animation: stickHitLeft 0.6s ease-in-out infinite alternate;
+      transform-origin: 48px 34px;
+    }
+
+    .drumstick.right-stick {
+      animation: stickHitRight 0.6s ease-in-out infinite alternate 0.3s;
+      transform-origin: 52px 34px;
+    }
+
+    @keyframes drumKickBeat {
+      0%, 100% { transform: scale(1); }
+      15% { transform: scale(1.1); filter: drop-shadow(0 0 20px rgba(245, 158, 11, 0.85)); }
+      30% { transform: scale(1); }
+      45% { transform: scale(1.06); }
+      60% { transform: scale(1); }
+    }
+
+    @keyframes cymbalHitLeft {
+      0% { transform: rotate(-18deg); }
+      100% { transform: rotate(-10deg); }
+    }
+
+    @keyframes cymbalHitRight {
+      0% { transform: rotate(18deg); }
+      100% { transform: rotate(10deg); }
+    }
+
+    @keyframes stickHitLeft {
+      0% { transform: rotate(0deg); }
+      100% { transform: rotate(-16deg); }
+    }
+
+    @keyframes stickHitRight {
+      0% { transform: rotate(0deg); }
+      100% { transform: rotate(16deg); }
+    }
+
+    /* 3. Animação do Microfone (Vocal Wave & Pulse) */
+    .mic-item .mic-svg {
+      animation: micSingBeat 1.6s ease-in-out infinite;
+    }
+
+    .mic-wave-1 {
+      animation: micWavePulse 1.2s ease-in-out infinite;
+    }
+
+    .mic-wave-2 {
+      animation: micWavePulse 1.2s ease-in-out infinite 0.4s;
+    }
+
+    @keyframes micSingBeat {
+      0%, 100% { transform: translateY(0) scale(1); }
+      50% { transform: translateY(-6px) scale(1.08); filter: drop-shadow(0 0 18px rgba(245, 158, 11, 0.85)); }
+    }
+
+    @keyframes micWavePulse {
+      0%, 100% { opacity: 0.3; transform: scale(0.9); }
+      50% { opacity: 1; transform: scale(1.15); stroke: #ffffff; }
+    }
+
+    @keyframes auraBeat {
+      0%, 100% { opacity: 0; transform: scale(0.95); }
+      50% { opacity: 0.8; transform: scale(1.08); }
+    }
+
+    /* Equalizador de Áudio Rítmico */
+    .splash-equalizer-bars {
+      display: flex;
+      align-items: flex-end;
+      justify-content: center;
+      gap: 4px;
+      height: 28px;
+      margin-bottom: 20px;
+    }
+
+    .eq-b {
+      width: 4px;
+      background: linear-gradient(180deg, var(--gold-light), var(--gold-primary));
+      border-radius: 2px;
+      height: 6px;
+      animation: eqBounce 1s ease-in-out infinite alternate;
+    }
+
+    .eq-1 { animation-delay: 0.1s; animation-duration: 0.7s; }
+    .eq-2 { animation-delay: 0.3s; animation-duration: 1.1s; }
+    .eq-3 { animation-delay: 0.2s; animation-duration: 0.8s; }
+    .eq-4 { animation-delay: 0.5s; animation-duration: 1.3s; }
+    .eq-5 { animation-delay: 0.15s; animation-duration: 0.9s; }
+    .eq-6 { animation-delay: 0.4s; animation-duration: 1.2s; }
+    .eq-7 { animation-delay: 0.25s; animation-duration: 0.85s; }
+    .eq-8 { animation-delay: 0.35s; animation-duration: 1.05s; }
+    .eq-9 { animation-delay: 0.1s; animation-duration: 0.95s; }
+    .eq-10 { animation-delay: 0.45s; animation-duration: 1.15s; }
+    .eq-11 { animation-delay: 0.2s; animation-duration: 0.75s; }
+    .eq-12 { animation-delay: 0.3s; animation-duration: 1.25s; }
+    .eq-13 { animation-delay: 0.5s; animation-duration: 0.8s; }
+    .eq-14 { animation-delay: 0.15s; animation-duration: 1.1s; }
+    .eq-15 { animation-delay: 0.35s; animation-duration: 0.9s; }
+    .eq-16 { animation-delay: 0.25s; animation-duration: 1.3s; }
+
+    @keyframes eqBounce {
+      0% { height: 4px; }
+      100% { height: 26px; }
+    }
+
+    /* Barra de Progresso e Metadados */
+    .splash-progress-wrapper {
+      width: 100%;
+      max-width: 440px;
+    }
+
+    .splash-progress-track {
+      width: 100%;
+      height: 6px;
+      background: rgba(255, 255, 255, 0.08);
+      border-radius: 999px;
+      overflow: hidden;
+      border: 1px solid rgba(255, 255, 255, 0.12);
+      box-shadow: inset 0 1px 3px rgba(0, 0, 0, 0.5);
+    }
+
+    .splash-progress-fill {
+      height: 100%;
+      background: linear-gradient(90deg, #d97706, #f59e0b, #fef08a);
+      border-radius: 999px;
+      transition: width 0.08s linear;
+      box-shadow: 0 0 12px rgba(245, 158, 11, 0.8);
+    }
+
+    .splash-progress-meta {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      margin-top: 10px;
+      font-size: 0.8rem;
+    }
+
+    .splash-status-text {
+      color: #cbd5e1;
+      display: flex;
+      align-items: center;
+      gap: 7px;
+      font-weight: 500;
+    }
+
+    .splash-percent-text {
+      color: var(--gold-light);
+      font-weight: 800;
+      font-family: 'Space Grotesk', monospace;
+    }
+
+    /* Adaptação Mobile da Splash Screen */
+    @media (max-width: 600px) {
+      .splash-brand-title {
+        font-size: 1.85rem;
+      }
+      .splash-brand-subtitle {
+        font-size: 0.75rem;
+        margin-bottom: 20px;
+      }
+      .splash-instruments-stage {
+        gap: 10px;
+      }
+      .splash-instrument-item {
+        width: 96px;
+        padding: 12px 6px;
+        border-radius: 14px;
+      }
+      .instrument-icon-box {
+        width: 60px;
+        height: 60px;
+      }
+      .instrument-tag {
+        font-size: 0.68rem;
+        margin-top: 6px;
+      }
+      .splash-equalizer-bars {
+        height: 22px;
+        margin-bottom: 16px;
+      }
+      .splash-status-text {
+        font-size: 0.72rem;
+      }
+    }
+
+    @media (max-width: 360px) {
+      .splash-instrument-item {
+        width: 86px;
+        padding: 10px 4px;
+      }
+      .instrument-icon-box {
+        width: 52px;
+        height: 52px;
+      }
+    }
   </style>
 </head>
 
-<body>
+<body class="splash-active">
+
+  <!-- ==========================================
+       SPLASH SCREEN DE CARREGAMENTO (4 SEGUNDOS & NUVEM)
+       Animação com Guitarra, Bateria e Microfone
+       ========================================== -->
+  <div id="siteSplashScreen" class="site-splash-screen" role="dialog" aria-modal="true" aria-label="Carregando Gilmar Torrez">
+    <div class="splash-bg-glow"></div>
+    <div class="splash-stage-lights">
+      <div class="light-beam beam-left"></div>
+      <div class="light-beam beam-center"></div>
+      <div class="light-beam beam-right"></div>
+    </div>
+
+    <!-- Definições Globais SVG dos Degradês e Filtros Dourados -->
+    <svg width="0" height="0" style="position: absolute;">
+      <defs>
+        <linearGradient id="goldGrad" x1="0%" y1="0%" x2="100%" y2="100%">
+          <stop offset="0%" stop-color="#fef08a"/>
+          <stop offset="35%" stop-color="#f59e0b"/>
+          <stop offset="70%" stop-color="#d97706"/>
+          <stop offset="100%" stop-color="#b45309"/>
+        </linearGradient>
+        <linearGradient id="guitarBodyGrad" x1="0%" y1="0%" x2="100%" y2="100%">
+          <stop offset="0%" stop-color="#2a1205"/>
+          <stop offset="40%" stop-color="#78350f"/>
+          <stop offset="80%" stop-color="#b45309"/>
+          <stop offset="100%" stop-color="#f59e0b"/>
+        </linearGradient>
+        <linearGradient id="micMetalGrad" x1="0%" y1="0%" x2="100%" y2="0%">
+          <stop offset="0%" stop-color="#1e293b"/>
+          <stop offset="50%" stop-color="#475569"/>
+          <stop offset="100%" stop-color="#0f172a"/>
+        </linearGradient>
+      </defs>
+    </svg>
+
+    <div class="splash-card-content">
+      <!-- Marca / Logo no Topo da Splash -->
+      <div class="splash-brand-badge">
+        <i class="fa-solid fa-compact-disc spin-icon"></i>
+        <span>SHOW AO VIVO • EXPERIÊNCIA COMPLETA</span>
+      </div>
+
+      <h1 class="splash-brand-title">
+        <span class="gold-shimmer">GILMAR TORREZ</span>
+      </h1>
+      <p class="splash-brand-subtitle">
+        ROCK • POP ROCK • ACÚSTICO • EVENTOS & AULAS
+      </p>
+
+      <!-- OS 3 INSTRUMENTOS ANIMADOS: GUITARRA, BATERIA E MICROFONE -->
+      <div class="splash-instruments-stage">
+        
+        <!-- 1. GUITARRA ELÉTRICA ANIMADA -->
+        <div class="splash-instrument-item guitar-item">
+          <div class="instrument-pulse-aura"></div>
+          <div class="instrument-icon-box">
+            <svg class="splash-instrument-svg guitar-svg" viewBox="0 0 100 100" fill="none">
+              <!-- Braço & Headstock -->
+              <line x1="50" y1="10" x2="50" y2="48" stroke="url(#goldGrad)" stroke-width="4.5" stroke-linecap="round"/>
+              <line x1="47" y1="14" x2="53" y2="14" stroke="#fef08a" stroke-width="1.8"/>
+              <line x1="47" y1="20" x2="53" y2="20" stroke="#fef08a" stroke-width="1.8"/>
+              <line x1="47" y1="26" x2="53" y2="26" stroke="#fef08a" stroke-width="1.8"/>
+              <line x1="47" y1="32" x2="53" y2="32" stroke="#fef08a" stroke-width="1.8"/>
+              <line x1="47" y1="38" x2="53" y2="38" stroke="#fef08a" stroke-width="1.8"/>
+              <path d="M47 10L50 4L53 10Z" fill="url(#goldGrad)"/>
+              <circle cx="44" cy="7" r="1.8" fill="#fbbf24"/>
+              <circle cx="44" cy="11" r="1.8" fill="#fbbf24"/>
+              <circle cx="56" cy="7" r="1.8" fill="#fbbf24"/>
+              <circle cx="56" cy="11" r="1.8" fill="#fbbf24"/>
+              <!-- Corpo Rock Curvado -->
+              <path d="M50 46 C37 46, 30 54, 33 65 C35 71, 29 80, 36 90 C42 96, 58 96, 64 90 C71 80, 65 71, 67 65 C70 54, 63 46, 50 46 Z" fill="url(#guitarBodyGrad)" stroke="url(#goldGrad)" stroke-width="2.2"/>
+              <!-- Escudo Negro -->
+              <path d="M45 52 C40 54, 37 60, 39 68 C41 74, 45 77, 49 77 C53 77, 56 69, 56 61 C56 54, 51 52, 45 52 Z" fill="#0c0e17" stroke="rgba(245,158,11,0.6)" stroke-width="1.2"/>
+              <!-- Captadores Triplos (Single/Humbucker) -->
+              <rect x="44" y="55" width="12" height="3" rx="1.5" fill="#f59e0b"/>
+              <rect x="44" y="61" width="12" height="3" rx="1.5" fill="#f59e0b"/>
+              <rect x="44" y="67" width="12" height="3" rx="1.5" fill="#f59e0b"/>
+              <rect x="45" y="74" width="10" height="4" rx="1" fill="#fbbf24"/>
+              <!-- Cordas Douradas Vibrantes -->
+              <line x1="48" y1="10" x2="48" y2="74" stroke="#ffffff" stroke-width="0.9" opacity="0.95" class="guitar-string"/>
+              <line x1="50" y1="10" x2="50" y2="74" stroke="#ffffff" stroke-width="0.9" opacity="0.95" class="guitar-string"/>
+              <line x1="52" y1="10" x2="52" y2="74" stroke="#ffffff" stroke-width="0.9" opacity="0.95" class="guitar-string"/>
+            </svg>
+            <div class="instrument-floating-note note-1"><i class="fa-solid fa-music"></i></div>
+          </div>
+          <span class="instrument-tag"><i class="fa-solid fa-bolt"></i> Guitarra</span>
+        </div>
+
+        <!-- 2. BATERIA ROCK ANIMADA -->
+        <div class="splash-instrument-item drum-item">
+          <div class="instrument-pulse-aura"></div>
+          <div class="instrument-icon-box">
+            <svg class="splash-instrument-svg drum-svg" viewBox="0 0 100 100" fill="none">
+              <!-- Pratos Dourados Crash e Ride -->
+              <ellipse cx="27" cy="26" rx="17" ry="5" fill="url(#goldGrad)" stroke="#fef08a" stroke-width="1.5" transform="rotate(-15 27 26)" class="cymbal-left"/>
+              <line x1="27" y1="26" x2="35" y2="56" stroke="rgba(255,255,255,0.4)" stroke-width="2"/>
+              <ellipse cx="73" cy="26" rx="17" ry="5" fill="url(#goldGrad)" stroke="#fef08a" stroke-width="1.5" transform="rotate(15 73 26)" class="cymbal-right"/>
+              <line x1="73" y1="26" x2="65" y2="56" stroke="rgba(255,255,255,0.4)" stroke-width="2"/>
+              <!-- Tons / Tambores Superiores -->
+              <rect x="33" y="38" width="15" height="16" rx="3" fill="#141724" stroke="url(#goldGrad)" stroke-width="2"/>
+              <rect x="52" y="38" width="15" height="16" rx="3" fill="#141724" stroke="url(#goldGrad)" stroke-width="2"/>
+              <ellipse cx="40.5" cy="38" rx="7.5" ry="2.8" fill="#f59e0b" opacity="0.75"/>
+              <ellipse cx="59.5" cy="38" rx="7.5" ry="2.8" fill="#f59e0b" opacity="0.75"/>
+              <!-- Bumbo Central Pesado com Monograma GT -->
+              <circle cx="50" cy="69" r="23" fill="#080a10" stroke="url(#goldGrad)" stroke-width="3.2" class="bass-drum-rim"/>
+              <circle cx="50" cy="69" r="19" fill="#141824" stroke="rgba(245,158,11,0.5)" stroke-width="1.5"/>
+              <text x="50" y="74" font-family="'Cinzel', serif" font-size="14" font-weight="900" fill="url(#goldGrad)" text-anchor="middle" letter-spacing="1">GT</text>
+              <!-- Pés de Apoio -->
+              <line x1="30" y1="85" x2="22" y2="95" stroke="#fbbf24" stroke-width="2.5" stroke-linecap="round"/>
+              <line x1="70" y1="85" x2="78" y2="95" stroke="#fbbf24" stroke-width="2.5" stroke-linecap="round"/>
+              <!-- Baquetas em Ação -->
+              <line x1="30" y1="18" x2="48" y2="34" stroke="#ffffff" stroke-width="2" stroke-linecap="round" class="drumstick left-stick"/>
+              <line x1="70" y1="18" x2="52" y2="34" stroke="#ffffff" stroke-width="2" stroke-linecap="round" class="drumstick right-stick"/>
+            </svg>
+            <div class="instrument-floating-note note-2"><i class="fa-solid fa-drum"></i></div>
+          </div>
+          <span class="instrument-tag"><i class="fa-solid fa-drum"></i> Bateria</span>
+        </div>
+
+        <!-- 3. MICROFONE VOCAL ANIMADO -->
+        <div class="splash-instrument-item mic-item">
+          <div class="instrument-pulse-aura"></div>
+          <div class="instrument-icon-box">
+            <svg class="splash-instrument-svg mic-svg" viewBox="0 0 100 100" fill="none">
+              <!-- Grade Vintage Estilo Retrô Rock -->
+              <rect x="36" y="16" width="28" height="35" rx="14" fill="url(#micMetalGrad)" stroke="url(#goldGrad)" stroke-width="2.2" class="mic-capsule"/>
+              <line x1="39" y1="24" x2="61" y2="24" stroke="#fbbf24" stroke-width="1.2"/>
+              <line x1="37" y1="30" x2="63" y2="30" stroke="#fbbf24" stroke-width="1.2"/>
+              <line x1="37" y1="36" x2="63" y2="36" stroke="#fbbf24" stroke-width="1.2"/>
+              <line x1="39" y1="42" x2="61" y2="42" stroke="#fbbf24" stroke-width="1.2"/>
+              <line x1="50" y1="16" x2="50" y2="51" stroke="#fbbf24" stroke-width="1.8"/>
+              <!-- Suporte em U e Pedestal -->
+              <path d="M31 35 C31 55, 69 55, 69 35" stroke="url(#goldGrad)" stroke-width="2.8" stroke-linecap="round"/>
+              <circle cx="31" cy="35" r="2.8" fill="#f59e0b"/>
+              <circle cx="69" cy="35" r="2.8" fill="#f59e0b"/>
+              <line x1="50" y1="53" x2="50" y2="67" stroke="url(#goldGrad)" stroke-width="3"/>
+              <rect x="45" y="67" width="10" height="12" rx="2" fill="#1e2433" stroke="rgba(245,158,11,0.5)" stroke-width="1.5"/>
+              <line x1="50" y1="79" x2="50" y2="94" stroke="url(#goldGrad)" stroke-width="3" stroke-linecap="round"/>
+              <!-- Ondas de Som Emitidas -->
+              <path d="M25 24 C20 30, 20 38, 25 44" stroke="#fef08a" stroke-width="2" stroke-linecap="round" class="mic-wave-1"/>
+              <path d="M19 18 C12 26, 12 46, 19 54" stroke="#fbbf24" stroke-width="1.8" stroke-linecap="round" class="mic-wave-2"/>
+              <path d="M75 24 C80 30, 80 38, 75 44" stroke="#fef08a" stroke-width="2" stroke-linecap="round" class="mic-wave-1"/>
+              <path d="M81 18 C88 26, 88 46, 81 54" stroke="#fbbf24" stroke-width="1.8" stroke-linecap="round" class="mic-wave-2"/>
+            </svg>
+            <div class="instrument-floating-note note-3"><i class="fa-solid fa-microphone-lines"></i></div>
+          </div>
+          <span class="instrument-tag"><i class="fa-solid fa-microphone-lines"></i> Microfone</span>
+        </div>
+
+      </div>
+
+      <!-- Equalizador de Áudio Rítmico -->
+      <div class="splash-equalizer-bars" aria-hidden="true">
+        <span class="eq-b eq-1"></span>
+        <span class="eq-b eq-2"></span>
+        <span class="eq-b eq-3"></span>
+        <span class="eq-b eq-4"></span>
+        <span class="eq-b eq-5"></span>
+        <span class="eq-b eq-6"></span>
+        <span class="eq-b eq-7"></span>
+        <span class="eq-b eq-8"></span>
+        <span class="eq-b eq-9"></span>
+        <span class="eq-b eq-10"></span>
+        <span class="eq-b eq-11"></span>
+        <span class="eq-b eq-12"></span>
+        <span class="eq-b eq-13"></span>
+        <span class="eq-b eq-14"></span>
+        <span class="eq-b eq-15"></span>
+        <span class="eq-b eq-16"></span>
+      </div>
+
+      <!-- Barra de Progresso de 4 Segundos e Status Dinâmico -->
+      <div class="splash-progress-wrapper">
+        <div class="splash-progress-track">
+          <div id="splashProgressBar" class="splash-progress-fill" style="width: 0%;"></div>
+        </div>
+        <div class="splash-progress-meta">
+          <span id="splashStatusText" class="splash-status-text">
+            <i class="fa-solid fa-cloud-arrow-down" style="color: var(--gold-primary);"></i> Conectando à nuvem e sincronizando dados...
+          </span>
+          <span id="splashPercentText" class="splash-percent-text">0%</span>
+        </div>
+      </div>
+    </div>
+  </div>
 
   <!-- ==========================================
        BARRA SUPERIOR FIXA (TOP BAR) - ÁUDIO DO ARTISTA & LETREIRO DIGITAL
@@ -12338,20 +13007,89 @@
             statusEl.style.color = '#94a3b8';
           }
         }
+        return serverData;
       } catch (err) {
         console.error('Erro na sincronização de conteúdo da nuvem:', err);
+        return null;
       }
     }
 
-    // Inicialização imediata (carrega padrão oficial enquanto consulta a nuvem)
+    async function runSiteSplashScreen() {
+      const splashScreen = document.getElementById('siteSplashScreen');
+      const splashStatusText = document.getElementById('splashStatusText');
+      const splashProgressBar = document.getElementById('splashProgressBar');
+      const splashPercentText = document.getElementById('splashPercentText');
+
+      const SPLASH_DURATION = 4000; // Duração exata de 4 segundos solicitada pelo usuário
+      const startTime = Date.now();
+
+      // Dispara a sincronização de nuvem paralelamente enquanto anima
+      const cloudSyncPromise = initSiteContentFromServer().catch(e => {
+        console.warn('Aviso no carregamento da nuvem durante splash:', e);
+        return null;
+      });
+
+      // Animação de progresso e textos sincronizados aos 4 segundos
+      const progressInterval = setInterval(() => {
+        const elapsed = Date.now() - startTime;
+        const progress = Math.min(100, Math.floor((elapsed / SPLASH_DURATION) * 100));
+
+        if (splashProgressBar) {
+          splashProgressBar.style.width = `${progress}%`;
+        }
+        if (splashPercentText) {
+          splashPercentText.textContent = `${progress}%`;
+        }
+
+        if (splashStatusText) {
+          if (elapsed < 1100) {
+            splashStatusText.innerHTML = '<i class="fa-solid fa-cloud-arrow-down" style="color: var(--gold-primary);"></i> Conectando à nuvem e sincronizando dados...';
+          } else if (elapsed < 2300) {
+            splashStatusText.innerHTML = '<i class="fa-solid fa-guitar" style="color: #f59e0b;"></i> Carregando fotos de palco, repertório & vídeos...';
+          } else if (elapsed < 3400) {
+            splashStatusText.innerHTML = '<i class="fa-solid fa-sliders" style="color: #22c55e;"></i> Calibrando timbres, cores e identidade visual...';
+          } else {
+            splashStatusText.innerHTML = '<i class="fa-solid fa-circle-check" style="color: #4ade80;"></i> Show 100% pronto! Entrando no site...';
+          }
+        }
+
+        if (elapsed >= SPLASH_DURATION) {
+          clearInterval(progressInterval);
+        }
+      }, 40);
+
+      // Aguarda os 4 segundos e a resposta de dados da nuvem
+      await Promise.all([
+        new Promise(resolve => setTimeout(resolve, SPLASH_DURATION)),
+        Promise.race([
+          cloudSyncPromise,
+          new Promise(resolve => setTimeout(resolve, 4500))
+        ])
+      ]);
+
+      clearInterval(progressInterval);
+      if (splashProgressBar) splashProgressBar.style.width = '100%';
+      if (splashPercentText) splashPercentText.textContent = '100%';
+
+      // Transição de saída elegante da Splash Screen
+      if (splashScreen) {
+        splashScreen.classList.add('hidden');
+        document.body.classList.remove('splash-active');
+        setTimeout(() => {
+          splashScreen.remove();
+        }, 900);
+      }
+    }
+
+    // Inicialização da Splash Screen & Dados da Nuvem
     initThemeSystem();
     renderAgenda();
     renderSiteGallery();
     applySiteLinks();
     applyTopAudioSettingsToUI();
 
-    // Sincronização prioritária da nuvem (Supabase & Servidor)
-    initSiteContentFromServer();
+    // Roda a splash screen animada de 4 segundos que exibe guitarra, bateria e microfone
+    runSiteSplashScreen();
 
     // Expõe funções para chamadas inline do HTML
     window.openAdminModal = openAdminModal;
