@@ -13020,7 +13020,7 @@
       const splashProgressBar = document.getElementById('splashProgressBar');
       const splashPercentText = document.getElementById('splashPercentText');
 
-      const SPLASH_DURATION = 4000; // Duração exata de 4 segundos solicitada pelo usuário
+      const SPLASH_DURATION = 5000; // Duração exata de 5 segundos solicitada pelo usuário
       const startTime = Date.now();
 
       // Dispara a sincronização de nuvem paralelamente enquanto anima
@@ -13029,7 +13029,7 @@
         return null;
       });
 
-      // Animação de progresso e textos sincronizados aos 4 segundos
+      // Animação de progresso e textos sincronizados aos 5 segundos
       const progressInterval = setInterval(() => {
         const elapsed = Date.now() - startTime;
         const progress = Math.min(100, Math.floor((elapsed / SPLASH_DURATION) * 100));
@@ -13042,11 +13042,11 @@
         }
 
         if (splashStatusText) {
-          if (elapsed < 1100) {
+          if (elapsed < 1400) {
             splashStatusText.innerHTML = '<i class="fa-solid fa-cloud-arrow-down" style="color: var(--gold-primary);"></i> Conectando à nuvem e sincronizando dados...';
-          } else if (elapsed < 2300) {
+          } else if (elapsed < 2800) {
             splashStatusText.innerHTML = '<i class="fa-solid fa-guitar" style="color: #f59e0b;"></i> Carregando fotos de palco, repertório & vídeos...';
-          } else if (elapsed < 3400) {
+          } else if (elapsed < 4200) {
             splashStatusText.innerHTML = '<i class="fa-solid fa-sliders" style="color: #22c55e;"></i> Calibrando timbres, cores e identidade visual...';
           } else {
             splashStatusText.innerHTML = '<i class="fa-solid fa-circle-check" style="color: #4ade80;"></i> Show 100% pronto! Entrando no site...';
@@ -13058,12 +13058,12 @@
         }
       }, 40);
 
-      // Aguarda os 4 segundos e a resposta de dados da nuvem
+      // Aguarda os 5 segundos e a resposta de dados da nuvem
       await Promise.all([
         new Promise(resolve => setTimeout(resolve, SPLASH_DURATION)),
         Promise.race([
           cloudSyncPromise,
-          new Promise(resolve => setTimeout(resolve, 4500))
+          new Promise(resolve => setTimeout(resolve, 5500))
         ])
       ]);
 
@@ -13088,7 +13088,7 @@
     applySiteLinks();
     applyTopAudioSettingsToUI();
 
-    // Roda a splash screen animada de 4 segundos que exibe guitarra, bateria e microfone
+    // Roda a splash screen animada de 5 segundos que exibe guitarra, bateria e microfone
     runSiteSplashScreen();
 
     // Expõe funções para chamadas inline do HTML
