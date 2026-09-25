@@ -2537,17 +2537,56 @@
       left: 0;
       width: 100%;
       height: 100%;
-      background: linear-gradient(180deg, rgba(9, 10, 14, 0.25) 0%, rgba(9, 10, 14, 0.5) 50%, rgba(9, 10, 14, 0.92) 100%), center/cover no-repeat;
+      background: #090a10;
       display: flex;
       flex-direction: column;
       align-items: center;
       justify-content: center;
       cursor: pointer;
       z-index: 2;
+      overflow: hidden;
       transition: var(--transition);
     }
 
+    .video-thumbnail-img {
+      position: absolute;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+      object-position: center center;
+      transition: transform 0.6s cubic-bezier(0.16, 1, 0.3, 1), filter 0.4s ease;
+      z-index: 1;
+      display: block;
+    }
+
+    .video-thumbnail-overlay {
+      position: absolute;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      background: linear-gradient(180deg, rgba(9, 10, 14, 0.3) 0%, rgba(9, 10, 14, 0.5) 50%, rgba(9, 10, 14, 0.92) 100%);
+      z-index: 2;
+      transition: background 0.35s ease;
+      pointer-events: none;
+    }
+
+    .video-card:hover .video-thumbnail-img,
+    .video-placeholder-cover:hover .video-thumbnail-img {
+      transform: scale(1.06);
+      filter: brightness(1.08) contrast(1.04);
+    }
+
+    .video-card:hover .video-thumbnail-overlay,
+    .video-placeholder-cover:hover .video-thumbnail-overlay {
+      background: linear-gradient(180deg, rgba(9, 10, 14, 0.18) 0%, rgba(9, 10, 14, 0.38) 50%, rgba(9, 10, 14, 0.85) 100%);
+    }
+
     .play-btn-circle {
+      position: relative;
+      z-index: 3;
       width: 68px;
       height: 68px;
       border-radius: 50%;
@@ -2569,6 +2608,8 @@
     }
 
     .play-hint {
+      position: relative;
+      z-index: 3;
       margin-top: 14px;
       font-family: var(--font-title);
       font-size: 0.88rem;
@@ -2576,10 +2617,52 @@
       color: var(--text-white);
       text-transform: uppercase;
       letter-spacing: 1px;
-      background: rgba(0, 0, 0, 0.65);
+      background: rgba(0, 0, 0, 0.72);
+      backdrop-filter: blur(6px);
+      -webkit-backdrop-filter: blur(6px);
       padding: 4px 14px;
       border-radius: var(--radius-pill);
-      border: 1px solid rgba(255, 255, 255, 0.15);
+      border: 1px solid rgba(255, 255, 255, 0.18);
+      box-shadow: 0 4px 12px rgba(0, 0, 0, 0.4);
+    }
+
+    /* Thumbnails de Vídeos no Painel Administrativo */
+    .admin-video-thumbnail-row {
+      display: flex;
+      gap: 14px;
+      align-items: center;
+      background: rgba(0, 0, 0, 0.4);
+      border: 1px solid rgba(255, 255, 255, 0.08);
+      padding: 10px;
+      border-radius: 10px;
+      margin-bottom: 12px;
+    }
+    .admin-video-thumb-preview-wrap {
+      position: relative;
+      width: 90px;
+      height: 112px;
+      border-radius: 8px;
+      overflow: hidden;
+      background: #000;
+      flex-shrink: 0;
+      border: 1px solid rgba(245, 158, 11, 0.35);
+      box-shadow: 0 4px 12px rgba(0, 0, 0, 0.5);
+    }
+    .admin-video-thumb-preview-wrap img {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+      display: block;
+    }
+    @media (max-width: 639px) {
+      .admin-video-thumbnail-row {
+        flex-direction: column;
+        align-items: flex-start;
+      }
+      .admin-video-thumb-preview-wrap {
+        width: 100%;
+        height: 160px;
+      }
     }
 
     .video-card-info {
@@ -7049,32 +7132,36 @@
         <div class="video-card">
           <div class="video-embed-container" id="videoBox1">
             <div class="video-placeholder-cover" 
-                 style="background-image: url('/stage-bg.jpg');" 
-                 onclick="loadVideo('videoBox1', 'https://www.youtube.com/embed/dQw4w9WgXcQ?autoplay=1')">
-              <span class="video-portrait-badge"><i class="fa-brands fa-instagram"></i> Vídeo • Formato Retrato</span>
+                 id="videoCover1"
+                 onclick="loadVideo('videoBox1', 'https://www.youtube.com/embed/BYvXgXSXtfU?autoplay=1')">
+              <img class="video-thumbnail-img" id="videoThumbImg1" src="https://img.youtube.com/vi/BYvXgXSXtfU/hqdefault.jpg" alt="Thumbnail do Vídeo 01 - Show Pop Rock ao Vivo" loading="lazy" onerror="this.onerror=null; this.src='/stage-bg.jpg';" />
+              <div class="video-thumbnail-overlay"></div>
+              <span class="video-portrait-badge" style="color: #fecaca; border-color: rgba(239, 68, 68, 0.45);"><i class="fa-brands fa-youtube" style="color: #ef4444;"></i> YouTube • Vídeo ao Vivo</span>
               <div class="play-btn-circle"><i class="fa-solid fa-play"></i></div>
-              <span class="play-hint">Assistir Prévia ao Vivo</span>
+              <span class="play-hint">Assistir Vídeo ao Vivo</span>
             </div>
           </div>
           <div class="video-card-info">
             <h5>Show Pop Rock ao Vivo no Pub</h5>
-            <p></p>
+            <p>Clássicos do pop rock nacional e internacional ao vivo com energia contagiante.</p>
           </div>
         </div>
 
         <div class="video-card">
           <div class="video-embed-container" id="videoBox2">
             <div class="video-placeholder-cover" 
-                 style="background-image: url('https://images.unsplash.com/photo-1470225620780-dba8ba36b745?auto=format&fit=crop&w=800&q=80');" 
+                 id="videoCover2"
                  onclick="loadVideo('videoBox2', 'https://www.youtube.com/embed/dQw4w9WgXcQ?autoplay=1')">
-              <span class="video-portrait-badge"><i class="fa-brands fa-instagram"></i> Vídeo • Formato Retrato</span>
+              <img class="video-thumbnail-img" id="videoThumbImg2" src="https://img.youtube.com/vi/dQw4w9WgXcQ/hqdefault.jpg" alt="Thumbnail do Vídeo 02 - Pocket Show Acústico" loading="lazy" onerror="this.onerror=null; this.src='/stage-bg.jpg';" />
+              <div class="video-thumbnail-overlay"></div>
+              <span class="video-portrait-badge" style="color: #fecaca; border-color: rgba(239, 68, 68, 0.45);"><i class="fa-brands fa-youtube" style="color: #ef4444;"></i> YouTube • Vídeo ao Vivo</span>
               <div class="play-btn-circle"><i class="fa-solid fa-play"></i></div>
               <span class="play-hint">Assistir Versão Acústica</span>
             </div>
           </div>
           <div class="video-card-info">
             <h5>Pocket Show Voz & Violão</h5>
-            <p></p>
+            <p>Versões acústicas intimistas e sofisticadas para recepções e eventos especiais.</p>
           </div>
         </div>
       </div>
@@ -8479,6 +8566,35 @@
                 </span>
                 <span style="font-size: 0.72rem; color: #94a3b8; font-weight: 600;">YouTube ou Instagram</span>
               </div>
+
+              <!-- Thumbnail do Vídeo 01 -->
+              <div class="admin-video-thumbnail-row" id="adminVideoThumbCard0">
+                <div class="admin-video-thumb-preview-wrap">
+                  <img id="adminVideoThumbImg0" src="https://img.youtube.com/vi/BYvXgXSXtfU/hqdefault.jpg" alt="Thumbnail do Vídeo 01" onerror="this.onerror=null; this.src='/stage-bg.jpg';" />
+                  <div style="position: absolute; inset: 0; background: linear-gradient(180deg, rgba(0,0,0,0.1) 0%, rgba(0,0,0,0.7) 100%); pointer-events: none;"></div>
+                  <span id="adminVideoThumbBadge0" style="position: absolute; top: 6px; left: 6px; font-size: 0.65rem; font-weight: 700; padding: 2px 6px; border-radius: 4px; background: rgba(0,0,0,0.8); color: #fecaca; border: 1px solid rgba(239, 68, 68, 0.4); display: flex; align-items: center; gap: 4px;">
+                    <i class="fa-brands fa-youtube" style="color: #ef4444;"></i> YouTube
+                  </span>
+                  <div style="position: absolute; top: 50%; left: 50%; transform: translate(-50%, -50%); width: 28px; height: 28px; border-radius: 50%; background: var(--gold-primary); color: #000; display: flex; align-items: center; justify-content: center; font-size: 0.75rem; padding-left: 2px; box-shadow: 0 0 10px rgba(245, 158, 11, 0.6);">
+                    <i class="fa-solid fa-play"></i>
+                  </div>
+                </div>
+                <div style="flex: 1; min-width: 0;">
+                  <div style="font-size: 0.82rem; font-weight: 700; color: #ffffff; margin-bottom: 2px; display: flex; align-items: center; gap: 6px;">
+                    <i class="fa-solid fa-image" style="color: var(--gold-primary);"></i> <span>Thumbnail do Vídeo 01</span>
+                  </div>
+                  <div style="font-size: 0.74rem; color: #94a3b8; line-height: 1.35; margin-bottom: 6px;">
+                    Imagem de capa / thumbnail exibida antes do play. Gerada automaticamente do link ou personalizada:
+                  </div>
+                  <div style="display: flex; gap: 6px;">
+                    <input type="text" id="adminVideoThumbInput0" class="admin-input" placeholder="URL da Thumbnail (vazio = automático)" style="font-size: 0.75rem; padding: 5px 8px; height: 32px;" oninput="updateAdminVideoThumbPreview(0)" onchange="updateAdminVideoThumbPreview(0)" />
+                    <button type="button" class="btn-secondary" onclick="resetAdminVideoThumb(0)" style="padding: 4px 8px; font-size: 0.72rem; border-radius: 6px; white-space: nowrap;" title="Restaurar thumbnail automática do link">
+                      <i class="fa-solid fa-rotate-left"></i> Auto
+                    </button>
+                  </div>
+                </div>
+              </div>
+
               <div class="admin-form-group" style="margin-bottom: 8px;">
                 <label for="adminVideoUrl0" style="display: flex; justify-content: space-between; align-items: center;">
                   <span><i class="fa-solid fa-link" style="color: var(--gold-primary); margin-right: 6px;"></i> Link do Vídeo (YouTube ou Instagram Reel/Post)</span>
@@ -8510,6 +8626,35 @@
                 </span>
                 <span style="font-size: 0.72rem; color: #94a3b8; font-weight: 600;">YouTube ou Instagram</span>
               </div>
+
+              <!-- Thumbnail do Vídeo 02 -->
+              <div class="admin-video-thumbnail-row" id="adminVideoThumbCard1">
+                <div class="admin-video-thumb-preview-wrap">
+                  <img id="adminVideoThumbImg1" src="https://img.youtube.com/vi/dQw4w9WgXcQ/hqdefault.jpg" alt="Thumbnail do Vídeo 02" onerror="this.onerror=null; this.src='/stage-bg.jpg';" />
+                  <div style="position: absolute; inset: 0; background: linear-gradient(180deg, rgba(0,0,0,0.1) 0%, rgba(0,0,0,0.7) 100%); pointer-events: none;"></div>
+                  <span id="adminVideoThumbBadge1" style="position: absolute; top: 6px; left: 6px; font-size: 0.65rem; font-weight: 700; padding: 2px 6px; border-radius: 4px; background: rgba(0,0,0,0.8); color: #fecaca; border: 1px solid rgba(239, 68, 68, 0.4); display: flex; align-items: center; gap: 4px;">
+                    <i class="fa-brands fa-youtube" style="color: #ef4444;"></i> YouTube
+                  </span>
+                  <div style="position: absolute; top: 50%; left: 50%; transform: translate(-50%, -50%); width: 28px; height: 28px; border-radius: 50%; background: var(--gold-primary); color: #000; display: flex; align-items: center; justify-content: center; font-size: 0.75rem; padding-left: 2px; box-shadow: 0 0 10px rgba(245, 158, 11, 0.6);">
+                    <i class="fa-solid fa-play"></i>
+                  </div>
+                </div>
+                <div style="flex: 1; min-width: 0;">
+                  <div style="font-size: 0.82rem; font-weight: 700; color: #ffffff; margin-bottom: 2px; display: flex; align-items: center; gap: 6px;">
+                    <i class="fa-solid fa-image" style="color: var(--gold-primary);"></i> <span>Thumbnail do Vídeo 02</span>
+                  </div>
+                  <div style="font-size: 0.74rem; color: #94a3b8; line-height: 1.35; margin-bottom: 6px;">
+                    Imagem de capa / thumbnail exibida antes do play. Gerada automaticamente do link ou personalizada:
+                  </div>
+                  <div style="display: flex; gap: 6px;">
+                    <input type="text" id="adminVideoThumbInput1" class="admin-input" placeholder="URL da Thumbnail (vazio = automático)" style="font-size: 0.75rem; padding: 5px 8px; height: 32px;" oninput="updateAdminVideoThumbPreview(1)" onchange="updateAdminVideoThumbPreview(1)" />
+                    <button type="button" class="btn-secondary" onclick="resetAdminVideoThumb(1)" style="padding: 4px 8px; font-size: 0.72rem; border-radius: 6px; white-space: nowrap;" title="Restaurar thumbnail automática do link">
+                      <i class="fa-solid fa-rotate-left"></i> Auto
+                    </button>
+                  </div>
+                </div>
+              </div>
+
               <div class="admin-form-group" style="margin-bottom: 8px;">
                 <label for="adminVideoUrl1" style="display: flex; justify-content: space-between; align-items: center;">
                   <span><i class="fa-solid fa-link" style="color: var(--gold-primary); margin-right: 6px;"></i> Link do Vídeo (YouTube ou Instagram Reel/Post)</span>
@@ -9036,6 +9181,18 @@
               <span style="display: block; font-size: 0.76rem; color: #94a3b8; margin-top: 4px;">
                 Cole o link do YouTube (vídeo, shorts, live ou link encurtado) para preencher automaticamente a descrição e tocar no player.
               </span>
+              <div id="adminAudioThumbPreviewRow" style="display: flex; gap: 10px; align-items: center; margin-top: 8px; background: rgba(0,0,0,0.35); border: 1px solid rgba(255,255,255,0.08); padding: 8px 12px; border-radius: 8px;">
+                <div style="width: 72px; height: 50px; border-radius: 6px; overflow: hidden; background: #000; flex-shrink: 0; position: relative; border: 1px solid rgba(245, 158, 11, 0.3);">
+                  <img id="adminAudioThumbImg" src="https://img.youtube.com/vi/BYvXgXSXtfU/hqdefault.jpg" alt="Thumbnail Vídeo YouTube" style="width: 100%; height: 100%; object-fit: cover;" onerror="this.onerror=null; this.src='/stage-bg.jpg';" />
+                  <div style="position: absolute; inset: 0; background: rgba(0,0,0,0.25); display: flex; align-items: center; justify-content: center; color: #fff; font-size: 0.75rem;">
+                    <i class="fa-brands fa-youtube" style="color: #ef4444;"></i>
+                  </div>
+                </div>
+                <div style="font-size: 0.76rem; color: #cbd5e1; line-height: 1.35;">
+                  <span style="color: #4ade80; font-weight: 700;"><i class="fa-solid fa-circle-check"></i> Thumbnail do Vídeo Sincronizada:</span>
+                  <span style="display: block; color: #94a3b8; font-size: 0.72rem;">Imagem oficial do vídeo do YouTube carregada para o player.</span>
+                </div>
+              </div>
             </div>
 
             <!-- Campo 2: Nome da Música & Artista (Descrição no Letreiro Digital) -->
@@ -9944,6 +10101,7 @@
       // 1. YouTube
       const ytId = extractYouTubeVideoId(url);
       if (ytId) {
+        updateAdminVideoThumbPreview(index);
         const detected = await fetchYouTubeTitle(url);
         if (detected) {
           // Preenche título se estiver vazio ou com texto de placeholder
@@ -9955,15 +10113,16 @@
             descInput.value = `${detected} • Gilmar Torrez Ao Vivo`;
           }
           if (notice) {
-            notice.innerHTML = `<span style="color: #4ade80;"><i class="fa-brands fa-youtube" style="color: #ef4444;"></i> <strong>Vídeo do YouTube identificado:</strong> "${detected}". Título e descrição preenchidos automaticamente. Você pode alterá-los livremente abaixo.</span>`;
+            notice.innerHTML = `<span style="color: #4ade80;"><i class="fa-brands fa-youtube" style="color: #ef4444;"></i> <strong>Vídeo do YouTube identificado:</strong> "${detected}". Thumbnail, título e descrição sincronizados automaticamente.</span>`;
             notice.style.display = 'block';
           }
         } else {
           if (notice) {
-            notice.innerHTML = '<span style="color: var(--gold-light);"><i class="fa-brands fa-youtube" style="color: #ef4444;"></i> Vídeo do YouTube reconhecido. Você pode digitar ou ajustar o título e a descrição livremente abaixo.</span>';
+            notice.innerHTML = '<span style="color: var(--gold-light);"><i class="fa-brands fa-youtube" style="color: #ef4444;"></i> Vídeo do YouTube reconhecido. Thumbnail carregada. Você pode digitar ou ajustar o título e a descrição livremente abaixo.</span>';
             notice.style.display = 'block';
           }
         }
+        updateAdminVideoThumbPreview(index);
         return;
       }
 
@@ -9980,6 +10139,12 @@
             if (data && data.title) {
               detectedTitle = data.title.trim();
               detectedDesc = `Apresentação especial ao vivo compartilhada no Instagram oficial de Gilmar Torrez (@gilmartorrez07).`;
+            }
+            if (data && data.thumbnail_url) {
+              const thumbInput = document.getElementById(`adminVideoThumbInput${index}`);
+              if (thumbInput && !thumbInput.value.trim()) {
+                thumbInput.value = data.thumbnail_url;
+              }
             }
           }
         } catch (e) {
@@ -10000,21 +10165,75 @@
           descInput.value = detectedDesc;
         }
 
+        updateAdminVideoThumbPreview(index);
+
         if (notice) {
-          notice.innerHTML = `<span style="color: #fda4af;"><i class="fa-brands fa-instagram" style="color: #f43f5e;"></i> <strong>Vídeo do Instagram (Reels/Post) identificado:</strong> Código <code>${code || 'post'}</code>. Título e descrição sugeridos automaticamente. Você pode alterá-los livremente abaixo.</span>`;
+          notice.innerHTML = `<span style="color: #fda4af;"><i class="fa-brands fa-instagram" style="color: #f43f5e;"></i> <strong>Vídeo do Instagram (Reels/Post) identificado:</strong> Código <code>${code || 'post'}</code>. Thumbnail de palco/capa, título e descrição preparados. Você pode alterá-los livremente abaixo.</span>`;
           notice.style.display = 'block';
         }
         return;
       }
 
       // Link genérico / aviso
+      updateAdminVideoThumbPreview(index);
       if (notice) {
-        notice.innerHTML = '<span style="color: #fbbf24;"><i class="fa-solid fa-circle-info"></i> Link recebido. Suporta links do YouTube ou Instagram (Reels/Post). Você pode preencher e ajustar o título e a descrição abaixo.</span>';
+        notice.innerHTML = '<span style="color: #fbbf24;"><i class="fa-solid fa-circle-info"></i> Link recebido. Suporta links do YouTube ou Instagram (Reels/Post). Você pode preencher e ajustar o título, descrição e thumbnail abaixo.</span>';
         notice.style.display = 'block';
       }
     }
 
+    function computeVideoThumbnail(url, customThumb, fallbackUrl) {
+      if (customThumb && typeof customThumb === 'string' && customThumb.trim().length > 5) {
+        return customThumb.trim();
+      }
+      if (!url) return fallbackUrl || '/stage-bg.jpg';
+      const clean = String(url).trim().replace(/^["']|["']$/g, '');
+      const ytId = extractYouTubeVideoId(clean);
+      if (ytId) {
+        return `https://img.youtube.com/vi/${ytId}/hqdefault.jpg`;
+      }
+      return fallbackUrl || '/stage-bg.jpg';
+    }
+
+    function updateAdminVideoThumbPreview(index) {
+      const urlInput = document.getElementById(`adminVideoUrl${index}`);
+      const thumbInput = document.getElementById(`adminVideoThumbInput${index}`);
+      const thumbImg = document.getElementById(`adminVideoThumbImg${index}`);
+      const badge = document.getElementById(`adminVideoThumbBadge${index}`);
+      if (!thumbImg) return;
+
+      const url = (urlInput && urlInput.value.trim()) || '';
+      const customThumb = (thumbInput && thumbInput.value.trim()) || '';
+      const isInsta = typeof isInstagramVideoUrl === 'function' ? isInstagramVideoUrl(url) : String(url).includes('instagram.com');
+
+      const defaultFallback = (index === 0) ? 'https://img.youtube.com/vi/BYvXgXSXtfU/hqdefault.jpg' : 'https://img.youtube.com/vi/dQw4w9WgXcQ/hqdefault.jpg';
+      const finalThumb = computeVideoThumbnail(url, customThumb, defaultFallback);
+
+      thumbImg.src = finalThumb;
+
+      if (badge) {
+        if (isInsta) {
+          badge.innerHTML = '<i class="fa-brands fa-instagram" style="color: #f43f5e;"></i> Instagram';
+          badge.style.color = '#fda4af';
+          badge.style.borderColor = 'rgba(225, 48, 108, 0.4)';
+        } else {
+          badge.innerHTML = '<i class="fa-brands fa-youtube" style="color: #ef4444;"></i> YouTube';
+          badge.style.color = '#fecaca';
+          badge.style.borderColor = 'rgba(239, 68, 68, 0.4)';
+        }
+      }
+    }
+
+    function resetAdminVideoThumb(index) {
+      const thumbInput = document.getElementById(`adminVideoThumbInput${index}`);
+      if (thumbInput) {
+        thumbInput.value = '';
+      }
+      updateAdminVideoThumbPreview(index);
+    }
+
     function handleGalleryVideoUrlChange(index) {
+      updateAdminVideoThumbPreview(index);
       clearTimeout(videoUrlDebounceTimers[index]);
       videoUrlDebounceTimers[index] = setTimeout(() => {
         autoDetectGalleryVideoDetails(index);
@@ -10331,6 +10550,12 @@
       if (previewExtLink) {
         previewExtLink.href = currentUrl;
         previewExtLink.style.display = (showExtLink && showExtLink.checked) ? 'inline-flex' : 'none';
+      }
+
+      const audioThumb = document.getElementById('adminAudioThumbImg');
+      if (audioThumb) {
+        const audioYtId = extractYouTubeVideoId(currentUrl);
+        audioThumb.src = audioYtId ? `https://img.youtube.com/vi/${audioYtId}/hqdefault.jpg` : '/stage-bg.jpg';
       }
     }
 
@@ -11207,14 +11432,16 @@
         {
           id: 'video-1',
           titulo: 'Show Pop Rock ao Vivo no Pub',
-          descricao: '',
-          embedUrl: 'https://www.youtube.com/embed/dQw4w9WgXcQ'
+          descricao: 'Clássicos do pop rock nacional e internacional ao vivo com energia contagiante.',
+          embedUrl: 'https://www.youtube.com/watch?v=BYvXgXSXtfU',
+          thumbnailUrl: 'https://img.youtube.com/vi/BYvXgXSXtfU/hqdefault.jpg'
         },
         {
           id: 'video-2',
           titulo: 'Pocket Show Voz & Violão',
-          descricao: '',
-          embedUrl: 'https://www.youtube.com/embed/dQw4w9WgXcQ'
+          descricao: 'Versões acústicas intimistas e sofisticadas para recepções e eventos especiais.',
+          embedUrl: 'https://www.youtube.com/watch?v=dQw4w9WgXcQ',
+          thumbnailUrl: 'https://img.youtube.com/vi/dQw4w9WgXcQ/hqdefault.jpg'
         }
       ],
       instagram: [
@@ -11364,14 +11591,16 @@
             const srcV = sourceData.videos[i] || {};
             const defV = defaultGalleryData.videos[i] || {};
             const rawEmbed = typeof srcV.embedUrl === 'string' ? srcV.embedUrl.trim() : '';
-            const embed = rawEmbed ? formatYouTubeEmbedUrl(rawEmbed) : defV.embedUrl;
+            const embed = rawEmbed ? ((typeof formatVideoEmbedUrl === 'function') ? formatVideoEmbedUrl(rawEmbed) : formatYouTubeEmbedUrl(rawEmbed)) : defV.embedUrl;
             const tit = (typeof srcV.titulo === 'string' && srcV.titulo.trim()) ? srcV.titulo.trim() : defV.titulo;
             const desc = (typeof srcV.descricao === 'string') ? srcV.descricao.trim() : (defV.descricao || '');
+            const thumb = (typeof srcV.thumbnailUrl === 'string' && srcV.thumbnailUrl.trim()) ? srcV.thumbnailUrl.trim() : (defV.thumbnailUrl || '');
             return {
               id: srcV.id || `video-${i + 1}`,
               titulo: tit || defV.titulo,
               descricao: desc,
-              embedUrl: embed || defV.embedUrl
+              embedUrl: embed || defV.embedUrl,
+              thumbnailUrl: thumb
             };
           });
         } else {
@@ -12365,17 +12594,23 @@
           const t0 = document.getElementById('adminVideoTitle0');
           const d0 = document.getElementById('adminVideoDesc0');
           const u0 = document.getElementById('adminVideoUrl0');
+          const th0 = document.getElementById('adminVideoThumbInput0');
           if (t0) t0.value = adminGalleryState.videos[0].titulo || '';
           if (d0) d0.value = adminGalleryState.videos[0].descricao || '';
           if (u0) u0.value = adminGalleryState.videos[0].embedUrl || '';
+          if (th0) th0.value = adminGalleryState.videos[0].thumbnailUrl || '';
+          updateAdminVideoThumbPreview(0);
         }
         if (adminGalleryState.videos[1]) {
           const t1 = document.getElementById('adminVideoTitle1');
           const d1 = document.getElementById('adminVideoDesc1');
           const u1 = document.getElementById('adminVideoUrl1');
+          const th1 = document.getElementById('adminVideoThumbInput1');
           if (t1) t1.value = adminGalleryState.videos[1].titulo || '';
           if (d1) d1.value = adminGalleryState.videos[1].descricao || '';
           if (u1) u1.value = adminGalleryState.videos[1].embedUrl || '';
+          if (th1) th1.value = adminGalleryState.videos[1].thumbnailUrl || '';
+          updateAdminVideoThumbPreview(1);
         }
       }
 
@@ -12490,23 +12725,27 @@
       const title0 = document.getElementById('adminVideoTitle0')?.value.trim() || '';
       const desc0 = document.getElementById('adminVideoDesc0')?.value.trim() || '';
       const url0 = document.getElementById('adminVideoUrl0')?.value.trim() || '';
+      const thumb0 = document.getElementById('adminVideoThumbInput0')?.value.trim() || '';
 
       const title1 = document.getElementById('adminVideoTitle1')?.value.trim() || '';
       const desc1 = document.getElementById('adminVideoDesc1')?.value.trim() || '';
       const url1 = document.getElementById('adminVideoUrl1')?.value.trim() || '';
+      const thumb1 = document.getElementById('adminVideoThumbInput1')?.value.trim() || '';
 
       adminGalleryState.videos = [
         {
           id: 'video-1',
           titulo: title0 || 'Show ao Vivo no Pub',
           descricao: desc0,
-          embedUrl: formatYouTubeEmbedUrl(url0) || 'https://www.youtube.com/embed/dQw4w9WgXcQ'
+          embedUrl: (typeof formatVideoEmbedUrl === 'function' ? formatVideoEmbedUrl(url0) : formatYouTubeEmbedUrl(url0)) || 'https://www.youtube.com/embed/BYvXgXSXtfU',
+          thumbnailUrl: thumb0
         },
         {
           id: 'video-2',
           titulo: title1 || 'Pocket Show Voz & Violão',
           descricao: desc1,
-          embedUrl: formatYouTubeEmbedUrl(url1) || 'https://www.youtube.com/embed/dQw4w9WgXcQ'
+          embedUrl: (typeof formatVideoEmbedUrl === 'function' ? formatVideoEmbedUrl(url1) : formatYouTubeEmbedUrl(url1)) || 'https://www.youtube.com/embed/dQw4w9WgXcQ',
+          thumbnailUrl: thumb1
         }
       ];
 
@@ -12732,27 +12971,24 @@
 
           const isInsta = (typeof isInstagramVideoUrl === 'function') ? isInstagramVideoUrl(rawEmbed) : String(rawEmbed).includes('instagram.com');
 
-          const cover = box.querySelector('.video-placeholder-cover');
-          if (cover && embedUrl) {
-            cover.setAttribute('onclick', `loadVideo('${boxId}', '${embedUrl.replace(/'/g, "\\'")}')`);
-            
-            const badge = cover.querySelector('.video-portrait-badge');
-            if (badge) {
-              if (isInsta) {
-                badge.innerHTML = '<i class="fa-brands fa-instagram" style="color: #f43f5e;"></i> Instagram • Vídeo / Reel';
-                badge.style.color = '#fda4af';
-                badge.style.borderColor = 'rgba(225, 48, 108, 0.45)';
-              } else {
-                badge.innerHTML = '<i class="fa-brands fa-youtube" style="color: #ef4444;"></i> YouTube • Vídeo ao Vivo';
-                badge.style.color = '#fecaca';
-                badge.style.borderColor = 'rgba(239, 68, 68, 0.45)';
-              }
-            }
-          }
+          const defaultFallback = (idx === 0) ? 'https://img.youtube.com/vi/BYvXgXSXtfU/hqdefault.jpg' : 'https://img.youtube.com/vi/dQw4w9WgXcQ/hqdefault.jpg';
+          const thumbUrl = computeVideoThumbnail(rawEmbed, video.thumbnailUrl, defaultFallback);
 
           const iframe = box.querySelector('iframe');
           if (iframe && embedUrl) {
             iframe.src = isInsta ? embedUrl : `${embedUrl}${embedUrl.includes('?') ? '&' : '?'}autoplay=1`;
+          } else {
+            box.innerHTML = `
+              <div class="video-placeholder-cover" id="videoCover${idx + 1}" onclick="loadVideo('${boxId}', '${embedUrl.replace(/'/g, "\\'")}')">
+                <img class="video-thumbnail-img" id="videoThumbImg${idx + 1}" src="${thumbUrl}" alt="Thumbnail de ${tit.replace(/"/g, '&quot;')}" loading="lazy" onerror="this.onerror=null; this.src='/stage-bg.jpg';" />
+                <div class="video-thumbnail-overlay"></div>
+                <span class="video-portrait-badge" style="${isInsta ? 'color: #fda4af; border-color: rgba(225, 48, 108, 0.45);' : 'color: #fecaca; border-color: rgba(239, 68, 68, 0.45);'}">
+                  <i class="${isInsta ? 'fa-brands fa-instagram' : 'fa-brands fa-youtube'}" style="${isInsta ? 'color: #f43f5e;' : 'color: #ef4444;'}"></i> ${isInsta ? 'Instagram • Vídeo / Reel' : 'YouTube • Vídeo ao Vivo'}
+                </span>
+                <div class="play-btn-circle"><i class="fa-solid fa-play"></i></div>
+                <span class="play-hint">${idx === 0 ? 'Assistir Vídeo ao Vivo' : 'Assistir Versão Acústica'}</span>
+              </div>
+            `;
           }
 
           const card = box.closest('.video-card');

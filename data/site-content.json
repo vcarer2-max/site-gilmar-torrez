@@ -136,14 +136,16 @@
       {
         "id": "video-1",
         "titulo": "Show Pop Rock ao Vivo no Pub",
-        "descricao": "",
-        "embedUrl": "https://www.youtube.com/embed/dQw4w9WgXcQ"
+        "descricao": "Clássicos do pop rock nacional e internacional ao vivo com energia contagiante.",
+        "embedUrl": "https://www.youtube.com/watch?v=BYvXgXSXtfU",
+        "thumbnailUrl": "https://img.youtube.com/vi/BYvXgXSXtfU/hqdefault.jpg"
       },
       {
         "id": "video-2",
         "titulo": "Pocket Show Voz & Violão",
-        "descricao": "",
-        "embedUrl": "https://www.youtube.com/embed/dQw4w9WgXcQ"
+        "descricao": "Versões acústicas intimistas e sofisticadas para recepções e eventos especiais.",
+        "embedUrl": "https://www.youtube.com/watch?v=dQw4w9WgXcQ",
+        "thumbnailUrl": "https://img.youtube.com/vi/dQw4w9WgXcQ/hqdefault.jpg"
       }
     ],
     "instagram": [
