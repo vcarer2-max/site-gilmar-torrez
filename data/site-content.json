@@ -41,6 +41,30 @@
       "timestamp": 1731196800000
     }
   ],
+  "videos": [
+    {
+      "id": "video-1",
+      "titulo": "CONHEÇA O GT DUO • Gilmar Torrez",
+      "descricao": "Apresentação especial ao vivo e formato Duo com clássicos do pop rock nacional e internacional.",
+      "url": "https://www.youtube.com/watch?v=uEsteUX88YY",
+      "originalUrl": "https://www.youtube.com/watch?v=uEsteUX88YY",
+      "embedUrl": "https://www.youtube.com/embed/uEsteUX88YY",
+      "thumbnailUrl": "https://img.youtube.com/vi/uEsteUX88YY/hqdefault.jpg",
+      "customThumbnailUrl": "",
+      "platform": "youtube"
+    },
+    {
+      "id": "video-2",
+      "titulo": "DEPOIS DE MUITO TRABALHO… • Gilmar Torrez",
+      "descricao": "Pocket show intimista e solo com arranjos sofisticados para eventos e celebrações.",
+      "url": "https://www.youtube.com/watch?v=WXMX44RxTOU",
+      "originalUrl": "https://www.youtube.com/watch?v=WXMX44RxTOU",
+      "embedUrl": "https://www.youtube.com/embed/WXMX44RxTOU",
+      "thumbnailUrl": "https://img.youtube.com/vi/WXMX44RxTOU/hqdefault.jpg",
+      "customThumbnailUrl": "",
+      "platform": "youtube"
+    }
+  ],
   "midias": {
     "fotoPrincipal": {
       "url": "/stage-bg.jpg",
@@ -135,17 +159,25 @@
     "videos": [
       {
         "id": "video-1",
-        "titulo": "Show Pop Rock ao Vivo no Pub",
-        "descricao": "Clássicos do pop rock nacional e internacional ao vivo com energia contagiante.",
-        "embedUrl": "https://www.youtube.com/watch?v=BYvXgXSXtfU",
-        "thumbnailUrl": "https://img.youtube.com/vi/BYvXgXSXtfU/hqdefault.jpg"
+        "titulo": "CONHEÇA O GT DUO • Gilmar Torrez",
+        "descricao": "Apresentação especial ao vivo e formato Duo com clássicos do pop rock nacional e internacional.",
+        "url": "https://www.youtube.com/watch?v=uEsteUX88YY",
+        "originalUrl": "https://www.youtube.com/watch?v=uEsteUX88YY",
+        "embedUrl": "https://www.youtube.com/embed/uEsteUX88YY",
+        "thumbnailUrl": "https://img.youtube.com/vi/uEsteUX88YY/hqdefault.jpg",
+        "customThumbnailUrl": "",
+        "platform": "youtube"
       },
       {
         "id": "video-2",
-        "titulo": "Pocket Show Voz & Violão",
-        "descricao": "Versões acústicas intimistas e sofisticadas para recepções e eventos especiais.",
-        "embedUrl": "https://www.youtube.com/watch?v=dQw4w9WgXcQ",
-        "thumbnailUrl": "https://img.youtube.com/vi/dQw4w9WgXcQ/hqdefault.jpg"
+        "titulo": "DEPOIS DE MUITO TRABALHO… • Gilmar Torrez",
+        "descricao": "Pocket show intimista e solo com arranjos sofisticados para eventos e celebrações.",
+        "url": "https://www.youtube.com/watch?v=WXMX44RxTOU",
+        "originalUrl": "https://www.youtube.com/watch?v=WXMX44RxTOU",
+        "embedUrl": "https://www.youtube.com/embed/WXMX44RxTOU",
+        "thumbnailUrl": "https://img.youtube.com/vi/WXMX44RxTOU/hqdefault.jpg",
+        "customThumbnailUrl": "",
+        "platform": "youtube"
       }
     ],
     "instagram": [
@@ -203,5 +235,5 @@
     "colorId": "principal",
     "fontId": "principal"
   },
-  "updatedAt": "2026-09-22T23:44:19.989Z"
+  "updatedAt": "2026-09-25T09:45:21.162Z"
 }
