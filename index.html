@@ -9699,7 +9699,7 @@
 
     /* =======================================================
        SUPABASE & API REST DE PERSISTÊNCIA DIRETA NA NUVEM / HOSPEDAGEM
-       Compatível 100% com GitHub Pages (vcarer2-max.github.io) e Servidores Dedicados
+       Compatível 100% com GitHub Pages (gilmartorrez.com.br / github.io) e Servidores Dedicados
        ======================================================= */
     const SUPABASE_URL = 'https://ykcfzpxvonnpgrveqqla.supabase.co';
     const SUPABASE_ANON_KEY = 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6InlrY2Z6cHh2b25ucGdydmVxcWxhIiwicm9sZSI6ImFub24iLCJpYXQiOjE3OTAxMDY1NjYsImV4cCI6MjEwNTY4MjU2Nn0.M3MFkx2FVZbjPBVOyu-i3wjO6fYEIyZERTlyGuJhuMk';
@@ -9710,20 +9710,125 @@
         supabaseClient = window.supabase.createClient(SUPABASE_URL, SUPABASE_ANON_KEY);
       }
     } catch (e) {
-      console.warn('Erro ao inicializar Supabase:', e);
+      console.warn('Erro ao inicializar Supabase SDK:', e);
     }
 
-    const isStaticHosting = window.location.hostname.includes('github.io') || window.location.hostname.includes('.pages.dev') || window.location.protocol === 'file:';
+    let isStaticHosting = 
+      window.location.hostname.includes('github.io') || 
+      window.location.hostname.includes('.pages.dev') || 
+      window.location.hostname.includes('gilmartorrez.com.br') || 
+      window.location.hostname.includes('github.dev') ||
+      window.location.protocol === 'file:';
+
     const SERVER_API_BASE = '/api';
     let adminAuthToken = 'gilmar_admin_secret_token_2026';
     let liveServerData = null;
     let supabaseUserSession = null;
 
+    // Gravação direta no Supabase via REST API nativo (100% independente de CDNs ou bibliotecas externas)
+    async function saveToSupabaseDirect(section, data) {
+      const payload = {
+        id: section,
+        data: data,
+        updated_at: new Date().toISOString()
+      };
+
+      const res = await fetch(`${SUPABASE_URL}/rest/v1/site_config`, {
+        method: 'POST',
+        headers: {
+          'apikey': SUPABASE_ANON_KEY,
+          'Authorization': `Bearer ${SUPABASE_ANON_KEY}`,
+          'Content-Type': 'application/json',
+          'Prefer': 'resolution=merge-duplicates'
+        },
+        body: JSON.stringify(payload)
+      });
+
+      if (!res.ok) {
+        const errText = await res.text().catch(() => '');
+        throw new Error(`Falha no Supabase HTTP ${res.status}: ${errText || 'Erro ao gravar dados'}`);
+      }
+
+      // Espelhamento automático para manter integridade entre 'midias' e 'videos'
+      if (section === 'midias' && data && Array.isArray(data.videos)) {
+        fetch(`${SUPABASE_URL}/rest/v1/site_config`, {
+          method: 'POST',
+          headers: {
+            'apikey': SUPABASE_ANON_KEY,
+            'Authorization': `Bearer ${SUPABASE_ANON_KEY}`,
+            'Content-Type': 'application/json',
+            'Prefer': 'resolution=merge-duplicates'
+          },
+          body: JSON.stringify({
+            id: 'videos',
+            data: data.videos,
+            updated_at: new Date().toISOString()
+          })
+        }).catch(err => console.warn('[Supabase Sync videos]', err));
+      }
+
+      if (section === 'videos' && Array.isArray(data)) {
+        const currentMidias = (liveServerData && liveServerData.midias && typeof liveServerData.midias === 'object') ? liveServerData.midias : {};
+        currentMidias.videos = data;
+        fetch(`${SUPABASE_URL}/rest/v1/site_config`, {
+          method: 'POST',
+          headers: {
+            'apikey': SUPABASE_ANON_KEY,
+            'Authorization': `Bearer ${SUPABASE_ANON_KEY}`,
+            'Content-Type': 'application/json',
+            'Prefer': 'resolution=merge-duplicates'
+          },
+          body: JSON.stringify({
+            id: 'midias',
+            data: currentMidias,
+            updated_at: new Date().toISOString()
+          })
+        }).catch(err => console.warn('[Supabase Sync midias.videos]', err));
+      }
+
+      // Se for a agenda de shows, sincroniza também a tabela relacional agenda_shows
+      if (section === 'shows' && Array.isArray(data)) {
+        try {
+          await fetch(`${SUPABASE_URL}/rest/v1/agenda_shows?id=neq.00000000-0000-0000-0000-000000000000`, {
+            method: 'DELETE',
+            headers: {
+              'apikey': SUPABASE_ANON_KEY,
+              'Authorization': `Bearer ${SUPABASE_ANON_KEY}`
+            }
+          });
+          const rows = data.map(s => ({
+            day: String(s.day || '01').padStart(2, '0'),
+            month: String(s.month || 'SET').toUpperCase(),
+            year: String(s.year || '2026'),
+            title: String(s.title || '').trim(),
+            address: String(s.address || '').trim(),
+            confirmed: s.confirmed !== undefined ? Boolean(s.confirmed) : true,
+            timestamp: Number(s.timestamp) || Date.now()
+          }));
+          if (rows.length > 0) {
+            await fetch(`${SUPABASE_URL}/rest/v1/agenda_shows`, {
+              method: 'POST',
+              headers: {
+                'apikey': SUPABASE_ANON_KEY,
+                'Authorization': `Bearer ${SUPABASE_ANON_KEY}`,
+                'Content-Type': 'application/json'
+              },
+              body: JSON.stringify(rows)
+            });
+          }
+        } catch (errShows) {
+          console.warn('[Supabase Sync Shows Error]', errShows);
+        }
+      }
+
+      return { success: true };
+    }
+
     async function fetchServerContent() {
       const mergedData = {};
       let hasCloudData = false;
 
-      // 1. Tenta carregar do backend local/Express (se disponível na hospedagem)
+      // 1. Tenta carregar do backend local/Express (quando NÃO for hospedagem estática)
       if (!isStaticHosting) {
         try {
           const response = await fetch(`${SERVER_API_BASE}/content`, {
@@ -9739,41 +9844,49 @@
               Object.assign(mergedData, json.data);
               hasCloudData = true;
             }
+          } else if (response.status === 404 || response.status === 405) {
+            isStaticHosting = true;
           }
         } catch (err) {
           console.warn('[Servidor Local] API não disponível:', err);
         }
       }
 
-      // 2. Tenta carregar do Supabase (Nuvem Oficial) e mescla de forma soberana
-      if (supabaseClient) {
-        try {
-          const configPromise = supabaseClient.from('site_config').select('id, data');
-          const showsPromise = supabaseClient.from('agenda_shows').select('*').order('timestamp', { ascending: true });
+      // 2. Leitura Direta no Supabase via REST API (100% resiliente e universal)
+      try {
+        const [configRes, showsRes] = await Promise.allSettled([
+          fetch(`${SUPABASE_URL}/rest/v1/site_config?select=id,data`, {
+            headers: {
+              'apikey': SUPABASE_ANON_KEY,
+              'Authorization': `Bearer ${SUPABASE_ANON_KEY}`,
+              'Cache-Control': 'no-cache, no-store'
+            }
+          }),
+          fetch(`${SUPABASE_URL}/rest/v1/agenda_shows?select=*&order=timestamp.asc`, {
+            headers: {
+              'apikey': SUPABASE_ANON_KEY,
+              'Authorization': `Bearer ${SUPABASE_ANON_KEY}`,
+              'Cache-Control': 'no-cache, no-store'
+            }
+          })
+        ]);
 
-          const [configRes, showsRes] = await Promise.allSettled([configPromise, showsPromise]);
-
-          if (configRes.status === 'fulfilled' && configRes.value && !configRes.value.error && Array.isArray(configRes.value.data)) {
-            configRes.value.data.forEach(row => {
+        if (configRes.status === 'fulfilled' && configRes.value && configRes.value.ok) {
+          const rows = await configRes.value.json().catch(() => []);
+          if (Array.isArray(rows)) {
+            rows.forEach(row => {
               if (row.id && row.data) {
                 mergedData[row.id] = row.data;
                 hasCloudData = true;
               }
             });
-
-            // Sincronização mútua e soberana entre o registro dedicado 'videos' e 'midias.videos'
-            if (mergedData.videos && Array.isArray(mergedData.videos) && mergedData.videos.length > 0) {
-              if (!mergedData.midias || typeof mergedData.midias !== 'object') {
-                mergedData.midias = {};
-              }
-              mergedData.midias.videos = mergedData.videos;
-            } else if (mergedData.midias && Array.isArray(mergedData.midias.videos) && mergedData.midias.videos.length > 0) {
-              mergedData.videos = mergedData.midias.videos;
-            }
           }
+        }
 
-          if (showsRes.status === 'fulfilled' && showsRes.value && !showsRes.value.error && Array.isArray(showsRes.value.data) && showsRes.value.data.length > 0) {
-            mergedData.shows = showsRes.value.data.map(item => ({
+        if (showsRes.status === 'fulfilled' && showsRes.value && showsRes.value.ok) {
+          const shows = await showsRes.value.json().catch(() => []);
+          if (Array.isArray(shows) && shows.length > 0) {
+            mergedData.shows = shows.map(item => ({
               id: item.id,
               day: item.day,
               month: item.month,
@@ -9785,14 +9898,24 @@
             }));
             hasCloudData = true;
           }
-        } catch (sbErr) {
-          console.warn('[Supabase] Leitura da nuvem inicial:', sbErr);
         }
+      } catch (sbDirectErr) {
+        console.warn('[Supabase REST Fetch Warning]', sbDirectErr);
+      }
+
+      // Sincronização mútua e soberana entre o registro dedicado 'videos' e 'midias.videos'
+      if (mergedData.videos && Array.isArray(mergedData.videos) && mergedData.videos.length > 0) {
+        if (!mergedData.midias || typeof mergedData.midias !== 'object') {
+          mergedData.midias = {};
+        }
+        mergedData.midias.videos = mergedData.videos;
+      } else if (mergedData.midias && Array.isArray(mergedData.midias.videos) && mergedData.midias.videos.length > 0) {
+        mergedData.videos = mergedData.midias.videos;
       }
 
       if (hasCloudData) {
         liveServerData = mergedData;
-        adminGalleryState = null; // Invalida qualquer rascunho para adotar a nuvem
+        adminGalleryState = null;
         return liveServerData;
       }
       return null;
@@ -9820,85 +9943,34 @@
       let localSuccess = false;
       let lastError = null;
 
-      // 1. Persistência no Supabase (Nuvem Oficial - Funciona no GitHub Pages e servidores)
-      if (supabaseClient) {
-        try {
-          // Gravação na tabela site_config com resolução de conflitos explícita
-          const { error: cfgError } = await supabaseClient
-            .from('site_config')
-            .upsert({
+      // 1. Gravação prioritária e direta no Supabase (Nuvem Soberana)
+      try {
+        await saveToSupabaseDirect(section, data);
+        supabaseSuccess = true;
+      } catch (sbErr) {
+        console.warn('[Supabase Direct Save Error]', sbErr);
+        lastError = sbErr;
+        // Fallback secundário com o SDK Supabase se disponível
+        if (supabaseClient) {
+          try {
+            const { error: cfgErr } = await supabaseClient.from('site_config').upsert({
               id: section,
               data: data,
               updated_at: new Date().toISOString()
             }, { onConflict: 'id' });
-
-          // Se gravou a seção 'videos', espelha também no registro 'midias' para consistência total
-          if (section === 'videos' && Array.isArray(data)) {
-            try {
-              const currentMidias = (liveServerData && liveServerData.midias && typeof liveServerData.midias === 'object') ? liveServerData.midias : {};
-              currentMidias.videos = data;
-              await supabaseClient.from('site_config').upsert({
-                id: 'midias',
-                data: currentMidias,
-                updated_at: new Date().toISOString()
-              }, { onConflict: 'id' });
-            } catch (syncMidiasErr) {
-              console.warn('[Supabase Sync midias.videos]', syncMidiasErr);
-            }
-          }
-
-          // Se gravou a seção 'midias', espelha também no registro individual 'videos'
-          if (section === 'midias' && data && Array.isArray(data.videos)) {
-            try {
-              await supabaseClient.from('site_config').upsert({
-                id: 'videos',
-                data: data.videos,
-                updated_at: new Date().toISOString()
-              }, { onConflict: 'id' });
-            } catch (syncVideosErr) {
-              console.warn('[Supabase Sync videos]', syncVideosErr);
-            }
-          }
-
-          // Se for a agenda de shows, também espelha na tabela relacional agenda_shows
-          if (section === 'shows' && Array.isArray(data)) {
-            try {
-              await supabaseClient.from('agenda_shows').delete().neq('id', '00000000-0000-0000-0000-000000000000');
-              const rows = data.map(s => ({
-                day: String(s.day || '01').padStart(2, '0'),
-                month: String(s.month || 'SET').toUpperCase(),
-                year: String(s.year || '2026'),
-                title: String(s.title || '').trim(),
-                address: String(s.address || '').trim(),
-                confirmed: s.confirmed !== undefined ? Boolean(s.confirmed) : true,
-                timestamp: Number(s.timestamp) || Date.now()
-              }));
-              if (rows.length > 0) {
-                await supabaseClient.from('agenda_shows').insert(rows);
-              }
-            } catch (showsSyncErr) {
-              console.warn('[Supabase] Aviso ao sincronizar agenda_shows:', showsSyncErr);
-            }
-          }
-
-          if (cfgError) {
-            if (cfgError.code === 'PGRST205' || (cfgError.message && cfgError.message.includes('Could not find the table'))) {
-              lastError = new Error('A tabela do Supabase ainda não foi criada. Por favor, execute o script SQL fornecido no SQL Editor do painel do Supabase.');
-            } else if (cfgError.code === '42501' || (cfgError.message && cfgError.message.includes('policy'))) {
-              lastError = new Error('Permissão negada pelo Supabase (RLS). Faça login ou revise as Políticas (Policies) no Supabase.');
+            if (!cfgErr) {
+              supabaseSuccess = true;
+              lastError = null;
             } else {
-              lastError = new Error(cfgError.message || 'Falha ao salvar no Supabase.');
+              lastError = new Error(cfgErr.message || 'Falha ao salvar no Supabase.');
             }
-          } else {
-            supabaseSuccess = true;
+          } catch (sdkErr) {
+            console.warn('[Supabase SDK Save Error]', sdkErr);
           }
-        } catch (sbErr) {
-          console.error('[Supabase Save Error]', sbErr);
-          lastError = sbErr;
         }
       }
 
-      // 2. Persistência simultânea no backend Node/Express/PHP (quando NÃO for GitHub Pages)
+      // 2. Persistência simultânea no backend Node/Express/PHP (quando NÃO for GitHub Pages / Hospedagem Estática)
       if (!isStaticHosting) {
         try {
           const response = await fetch(`${SERVER_API_BASE}/admin/content`, {
@@ -9912,6 +9984,9 @@
 
           if (response.ok) {
             localSuccess = true;
+          } else if (response.status === 404 || response.status === 405) {
+            // Servidor estático (como GitHub Pages no domínio próprio gilmartorrez.com.br)
+            isStaticHosting = true;
           } else {
             const errJson = await response.json().catch(() => ({}));
             if (!supabaseSuccess) {
@@ -9925,10 +10000,6 @@
 
       if (supabaseSuccess || localSuccess) {
         return { success: true, message: `Seção "${section}" gravada com sucesso!` };
-      }
-
-      if (isStaticHosting && !supabaseSuccess) {
-        throw (lastError || new Error('Ambiente GitHub Pages: Por ser hospedagem estática, não aceita POST local. Crie as tabelas no seu painel do Supabase com o script SQL.'));
       }
 
       if (lastError) throw lastError;
@@ -11739,7 +11810,7 @@
     }
 
     // Compressão via canvas antes de converter para Base64 (otimização de tráfego HTTP e payload do servidor)
-    function compressImage(file, maxWidth = 1200, maxHeight = 1200, quality = 0.82) {
+    function compressImage(file, maxWidth = 1200, maxHeight = 1200, quality = 0.80) {
       return new Promise((resolve, reject) => {
         const reader = new FileReader();
         reader.onerror = reject;
@@ -11779,7 +11850,7 @@
       if (!file) return;
 
       try {
-        const base64 = await compressImage(file);
+        const base64 = await compressImage(file, 1000, 1000, 0.78);
 
         if (!adminGalleryState) {
           adminGalleryState = getStoredGalleryData();
@@ -11804,7 +11875,7 @@
       if (!file) return;
 
       try {
-        const base64 = await compressImage(file, 1600, 1600, 0.85);
+        const base64 = await compressImage(file, 1300, 1300, 0.80);
         if (!adminGalleryState) {
           adminGalleryState = getStoredGalleryData();
         }
@@ -12884,23 +12955,34 @@
       const sliderSiteFundo = document.getElementById('sliderOpacitySiteFundo');
       if (sliderSiteFundo) adminGalleryState.opacidades.siteFundo = parseInt(sliderSiteFundo.value, 10) || 40;
 
+      const saveBtn = document.getElementById('adminSaveMediaBtn');
+      const originalBtnHtml = saveBtn ? saveBtn.innerHTML : '';
+      if (saveBtn) {
+        saveBtn.disabled = true;
+        saveBtn.innerHTML = '<i class="fa-solid fa-spinner fa-spin"></i> <span>Salvando Fotos e Vídeos no Supabase...</span>';
+      }
+
       try {
-        // Grava tanto o registro individual 'videos' quanto a galeria 'midias'
-        await persistSectionToServer('videos', adminGalleryState.videos);
+        // Grava a galeria completa de mídias diretamente no Supabase e servidor
         await persistSectionToServer('midias', adminGalleryState);
         renderSiteGallery();
 
         const successMsg = document.getElementById('adminMediaSuccessMsg');
         if (successMsg) {
-          successMsg.innerHTML = '<i class="fa-solid fa-cloud-arrow-up" style="margin-right: 6px;"></i> Mídias e vídeos gravados diretamente no Supabase e servidor com sucesso!';
+          successMsg.innerHTML = '<i class="fa-solid fa-circle-check" style="margin-right: 6px;"></i> Fotos e mídias gravadas diretamente no Supabase com sucesso!';
           successMsg.style.display = 'block';
           setTimeout(() => {
             successMsg.style.display = 'none';
-          }, 3500);
+          }, 4000);
         }
       } catch (e) {
         console.error('Erro ao salvar galeria no servidor:', e);
         alert('Erro ao gravar mídias no servidor: ' + (e.message || 'Tente fotos menores ou verifique a conexão.'));
+      } finally {
+        if (saveBtn) {
+          saveBtn.disabled = false;
+          saveBtn.innerHTML = originalBtnHtml;
+        }
       }
     }
 
